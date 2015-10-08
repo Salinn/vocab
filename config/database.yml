@@ -10,9 +10,11 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
+  encoding: utf8
   pool: 5
-  timeout: 5000
+  port: 3306
+  password: <%= ENV['VOCAB_DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
@@ -47,5 +49,4 @@ test:
 production:
   <<: *default
   database: vocab_production
-  username: vocab
-  password: <%= ENV['VOCAB_DATABASE_PASSWORD'] %>
+  username: root
