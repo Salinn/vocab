@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Associated word:</strong>
+  <%= @word_form.associated_word %>
+</p>
+
+<%= link_to 'Edit', edit_word_form_path(@word_form) %> |
+<%= link_to 'Back', word_forms_path %>
