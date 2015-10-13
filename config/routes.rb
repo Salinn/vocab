@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :definitions
   resources :word_forms
   resources :word_videos
   resources :words
