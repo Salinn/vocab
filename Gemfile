@@ -28,8 +28,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Web server
 gem 'puma'
 
-#RSpec
-gem 'rspec'
+group :development, :test do
+  #RSpec
+  gem 'rspec-rails', '~> 3.0'
+end
 
 gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'
