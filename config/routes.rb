@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :word_roots
   resources :words
   devise_for :users
   resources :users, :controller => 'users'

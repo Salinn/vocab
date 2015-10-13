@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Root name:</strong>
+  <%= @word_root.root_name %>
+</p>
+
+<p>
+  <strong>Root definition:</strong>
+  <%= @word_root.root_definition %>
+</p>
+
+<%= link_to 'Edit', edit_word_root_path(@word_root) %> |
+<%= link_to 'Back', word_roots_path %>
