@@ -29,7 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 
 #RSpec
-gem 'rspec'
+gem "rspec-rails", :group => [:development, :test]
 
 gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'
@@ -46,4 +46,3 @@ group :development do
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
 end
-
