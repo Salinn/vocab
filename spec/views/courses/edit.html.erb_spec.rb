@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe "courses/edit", type: :view do
   before(:each) do
     @course = assign(:course, Course.create!(
-      :class_name => "MyString"
+      class_name: "MyString",
+      start_date: Date.today,
+      end_date: Date.today + 3.months
     ))
   end
 

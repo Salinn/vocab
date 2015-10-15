@@ -4,10 +4,14 @@ RSpec.describe "courses/index", type: :view do
   before(:each) do
     assign(:courses, [
       Course.create!(
-        :class_name => "Class Name"
+        class_name: "Class Name",
+        start_date: Date.today,
+        end_date: Date.today + 3.months
       ),
       Course.create!(
-        :class_name => "Class Name"
+        class_name: "Class Name",
+        start_date: Date.today,
+        end_date: Date.today + 3.months
       )
     ])
   end
