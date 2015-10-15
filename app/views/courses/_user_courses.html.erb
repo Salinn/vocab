@@ -1,0 +1,10 @@
+<h3>
+  Current Classes
+</h3>
+<% if current_user.courses %>
+    <ul>
+      <% current_user.courses.each do |course| %>
+          <li><%= link_to course.class_name, course %></li>
+      <% end %>
+    </ul>
+<% end %>

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+ruby '2.2.3'
 gem 'rails', '4.2.4'
 # Use mysql as the database for Active Record
 gem 'mysql2'
@@ -28,8 +29,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Web server
 gem 'puma'
 
-#RSpec
-gem "rspec-rails", :group => [:development, :test]
+group :development, :test do
+  #RSpec
+  gem 'rspec-rails', '~> 3.0'
+end
 
 gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'

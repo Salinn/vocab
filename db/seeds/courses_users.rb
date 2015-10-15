@@ -1,0 +1,8 @@
+connection = ActiveRecord::Base.connection()
+connection.execute("INSERT INTO `vocab_development`.`courses_users` (`course_id`, `user_id`) VALUES ('1', '1');")
+connection.execute("INSERT INTO `vocab_development`.`courses_users` (`course_id`, `user_id`) VALUES ('2', '2');")
+connection.execute("INSERT INTO `vocab_development`.`courses_users` (`course_id`, `user_id`) VALUES ('3', '3');")
+connection.execute("INSERT INTO `vocab_development`.`courses_users` (`course_id`, `user_id`) VALUES ('4', '4');")
+connection.execute("INSERT INTO `vocab_development`.`courses_users` (`course_id`, `user_id`) VALUES ('5', '1');")
+connection.execute("INSERT INTO `vocab_development`.`courses_users` (`course_id`, `user_id`) VALUES ('6', '3');")
+connection.execute("INSERT INTO `vocab_development`.`courses_users` (`course_id`, `user_id`) VALUES ('7', '2');")
