@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 load 'db/seeds/users.rb'
 load 'db/seeds/words.rb'
+load 'db/seeds/word_roots.rb'
+load 'db/seeds/word_roots_words.rb'
