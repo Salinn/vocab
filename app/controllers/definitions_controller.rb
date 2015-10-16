@@ -15,10 +15,12 @@ class DefinitionsController < ApplicationController
   # GET /definitions/new
   def new
     @definition = Definition.new
+    @words = Word.all
   end
 
   # GET /definitions/1/edit
   def edit
+    @words = Word.all
   end
 
   # POST /definitions
@@ -69,6 +71,6 @@ class DefinitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def definition_params
-      params.require(:definition).permit(:word_definition, :word)
+      params.require(:definition).permit(:word_definition, :word_id)
     end
 end

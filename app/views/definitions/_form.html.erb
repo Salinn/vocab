@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :word %><br>
-    <%= f.text_field :word %>
+    <%= f.collection_select :word_id, @words, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit %>

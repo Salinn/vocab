@@ -15,7 +15,7 @@
     <% @definitions.each do |definition| %>
       <tr>
         <td><%= definition.word_definition %></td>
-        <td><%= definition.belongs_to %></td>
+        <td><%= definition.word.name %></td>
         <td><%= link_to 'Show', definition %></td>
         <td><%= link_to 'Edit', edit_definition_path(definition) %></td>
         <td><%= link_to 'Destroy', definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
