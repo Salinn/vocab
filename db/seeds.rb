@@ -13,4 +13,4 @@ load 'db/seeds/courses.rb'
 
 #Dependincies <-- Order matters
 load 'db/seeds/courses_users.rb' #Depends on Courses and Users
-load 'db/seeds/word_roots_words.rb' #Depends on words and word roots
+#load 'db/seeds/word_roots_words.rb' #Depends on words and word roots
