@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015202131) do
+ActiveRecord::Schema.define(version: 20151016033519) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
@@ -28,6 +28,19 @@ ActiveRecord::Schema.define(version: 20151015202131) do
 
   add_index "courses_users", ["course_id", "user_id"], name: "index_courses_users_on_course_id_and_user_id", using: :btree
   add_index "courses_users", ["user_id", "course_id"], name: "index_courses_users_on_user_id_and_course_id", using: :btree
+
+  create_table "lessons", force: :cascade do |t|
+    t.string   "lesson_name",       limit: 255
+    t.integer  "lesson_points",     limit: 4
+    t.datetime "lesson_start_time"
+    t.datetime "lesson_end_date"
+    t.integer  "course_id",         limit: 4
+    t.integer  "penalty",           limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -70,4 +83,5 @@ ActiveRecord::Schema.define(version: 20151015202131) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "lessons", "courses"
 end
