@@ -24,11 +24,17 @@ RSpec.describe WordRootsController, type: :controller do
   # WordRoot. As you add validations to WordRoot, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        root_name: 'cron',
+        root_definition: 'having to do with time'
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        root_name: 'abcdefghijk', #greater than 10
+        root_definition: 'ab' #less than 4
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +109,16 @@ RSpec.describe WordRootsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            root_definition: 'having to do with time travel'
+        }
       }
 
       it "updates the requested word_root" do
         word_root = WordRoot.create! valid_attributes
         put :update, {:id => word_root.to_param, :word_root => new_attributes}, valid_session
         word_root.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:word_root).attributes.symbolize_keys[:root_definition]).to eq(new_attributes[:root_definition])
       end
 
       it "assigns the requested word_root as @word_root" do
