@@ -3,10 +3,12 @@ require 'rails_helper'
 RSpec.describe "lessons/show", type: :view do
   before(:each) do
     @lesson = assign(:lesson, Lesson.create!(
-      :lesson_name => "Lesson Name",
-      :lesson_points => 1,
-      :course => nil,
-      :penalty => 2
+      lesson_name: "Lesson Name",
+      lesson_points: 15,
+      course: FactoryGirl.create(:course),
+      penalty: 3,
+      lesson_start_time: Date.today,
+      lesson_end_date: Date.today + 3.months
     ))
   end
 

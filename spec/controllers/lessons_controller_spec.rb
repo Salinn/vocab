@@ -24,11 +24,25 @@ RSpec.describe LessonsController, type: :controller do
   # Lesson. As you add validations to Lesson, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      lesson_name: 'Lesson 1',
+      lesson_points: 30,
+      lesson_start_time: DateTime.now,
+      lesson_end_date: DateTime.now + 1.week,
+      course: FactoryGirl.create(:course),
+      penalty: 10
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        lesson_name: nil,
+        lesson_points: nil,
+        lesson_start_time: nil,
+        lesson_end_date: nil,
+        course_id: nil,
+        penalty: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +117,16 @@ RSpec.describe LessonsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            lesson_name: 'Lesson 2'
+        }
       }
 
       it "updates the requested lesson" do
         lesson = Lesson.create! valid_attributes
         put :update, {:id => lesson.to_param, :lesson => new_attributes}, valid_session
         lesson.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:course).attributes.symbolize_keys[:lesson_name]).to eq(new_attributes[:lesson_name])
       end
 
       it "assigns the requested lesson as @lesson" do

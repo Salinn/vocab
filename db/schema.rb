@@ -62,13 +62,6 @@ ActiveRecord::Schema.define(version: 20151016033519) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "word_roots", force: :cascade do |t|
-    t.string   "root_name",       limit: 255
-    t.string   "root_definition", limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
   create_table "word_roots_words", id: false, force: :cascade do |t|
     t.integer "word_id",      limit: 4, null: false
     t.integer "word_root_id", limit: 4, null: false
