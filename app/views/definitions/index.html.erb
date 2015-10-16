@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Definitions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Word definition</th>
+      <th>Belongs to</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @definitions.each do |definition| %>
+      <tr>
+        <td><%= definition.word_definition %></td>
+        <td><%= definition.belongs_to %></td>
+        <td><%= link_to 'Show', definition %></td>
+        <td><%= link_to 'Edit', edit_definition_path(definition) %></td>
+        <td><%= link_to 'Destroy', definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Definition', new_definition_path %>
