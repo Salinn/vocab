@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :word_roots
+  resources :lessons
   resources :courses
   resources :words
   devise_for :users
