@@ -5,11 +5,11 @@ RSpec.describe "definitions/index", type: :view do
     assign(:definitions, [
       Definition.create!(
         :word_definition => "MyText",
-        :belongs_to => ""
+        :word => ""
       ),
       Definition.create!(
         :word_definition => "MyText",
-        :belongs_to => ""
+        :word => ""
       )
     ])
   end

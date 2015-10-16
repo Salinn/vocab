@@ -4,7 +4,7 @@ RSpec.describe "definitions/show", type: :view do
   before(:each) do
     @definition = assign(:definition, Definition.create!(
       :word_definition => "MyText",
-      :belongs_to => ""
+      :word => ""
     ))
   end
 
