@@ -126,7 +126,7 @@ RSpec.describe LessonsController, type: :controller do
         lesson = Lesson.create! valid_attributes
         put :update, {:id => lesson.to_param, :lesson => new_attributes}, valid_session
         lesson.reload
-        expect(assigns(:course).attributes.symbolize_keys[:lesson_name]).to eq(new_attributes[:lesson_name])
+        expect(assigns(:lesson).attributes.symbolize_keys[:lesson_name]).to eq(new_attributes[:lesson_name])
       end
 
       it "assigns the requested lesson as @lesson" do
