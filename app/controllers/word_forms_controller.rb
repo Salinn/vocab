@@ -15,10 +15,12 @@ class WordFormsController < ApplicationController
   # GET /word_forms/new
   def new
     @word_form = WordForm.new
+    @words = Word.all
   end
 
   # GET /word_forms/1/edit
   def edit
+    @words = Word.all
   end
 
   # POST /word_forms
@@ -69,6 +71,6 @@ class WordFormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_form_params
-      params.require(:word_form).permit(:associated_word, :word)
+      params.require(:word_form).permit(:associated_word, :word_id)
     end
 end
