@@ -24,11 +24,15 @@ RSpec.describe DefinitionsController, type: :controller do
   # Definition. As you add validations to Definition, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        word_definition: "Test"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        word_definition: "" #cannot be a blank string
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +107,16 @@ RSpec.describe DefinitionsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            word_definition: "Test1"
+        }
       }
 
       it "updates the requested definition" do
         definition = Definition.create! valid_attributes
         put :update, {:id => definition.to_param, :definition => new_attributes}, valid_session
         definition.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:definition).attributes.symbolize_keys[:word_definition]).to eq(new_attributes[:word_definition])
       end
 
       it "assigns the requested definition as @definition" do
