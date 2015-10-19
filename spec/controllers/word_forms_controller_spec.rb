@@ -24,11 +24,15 @@ RSpec.describe WordFormsController, type: :controller do
   # WordForm. As you add validations to WordForm, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        :associated_word => "Associated Word",
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        :associated_word => "" #must be greater than 1 characters
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,7 +107,9 @@ RSpec.describe WordFormsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            associated_word: "TEST"
+        }
       }
 
       it "updates the requested word_form" do
