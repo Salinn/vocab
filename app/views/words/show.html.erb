@@ -17,12 +17,16 @@
         </thead>
 
         <tbody>
-            <% @word.definitions.each do |definition| %>
-              <td><%=definition.word_definition %></td>
-              <td><%= link_to 'Show', definition %></td>
-              <td><%= link_to 'Edit', edit_definition_path(definition) %></td>
-              <td><%= link_to 'Destroy', definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
+
+                <% @word.definitions.each do |definition| %>
+                    <tr>
+                      <td><%=definition.word_definition %></td>
+                      <td><%= link_to 'Show', definition %></td>
+                      <td><%= link_to 'Edit', edit_definition_path(definition) %></td>
+                      <td><%= link_to 'Destroy', definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    </tr>
+                <% end %>
+
         </tbody>
     </table>
     <% end %>
