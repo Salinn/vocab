@@ -24,11 +24,17 @@ RSpec.describe WordVideosController, type: :controller do
   # WordVideo. As you add validations to WordVideo, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        video_link: "http://www.google.com",
+        video_description: "Check out that google ",
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        video_link: "", #must be longer than 8 characters
+        video_description: "" #must be longer than 4 characters
+    }
   }
 
   # This should return the minimal set of values that should be in the session

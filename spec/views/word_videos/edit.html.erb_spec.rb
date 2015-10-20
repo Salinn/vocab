@@ -5,8 +5,8 @@ RSpec.describe "word_videos/edit", type: :view do
     @word_video = assign(:word_video, WordVideo.create!(
       :video_link => "MyString",
       :video_description => "MyString",
-      :word => nil
     ))
+    @words = Word.all
   end
 
   it "renders the edit word_video form" do
@@ -18,7 +18,6 @@ RSpec.describe "word_videos/edit", type: :view do
 
       assert_select "input#word_video_video_description[name=?]", "word_video[video_description]"
 
-      assert_select "input#word_video_word_id[name=?]", "word_video[word_id]"
     end
   end
 end
