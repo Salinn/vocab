@@ -19,10 +19,10 @@
     <%= f.label :video_description %><br>
     <%= f.text_field :video_description %>
   </div>
-  <div class="field">
-    <%= f.label :word_id %><br>
-    <%= f.text_field :word_id %>
-  </div>
+    <div class="field">
+      <%= f.label :word %><br>
+      <%= f.collection_select :word_id, @words, :id, :name %>
+    </div>
   <div class="actions">
     <%= f.submit %>
   </div>

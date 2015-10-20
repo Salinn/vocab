@@ -15,10 +15,12 @@ class WordVideosController < ApplicationController
   # GET /word_videos/new
   def new
     @word_video = WordVideo.new
+    @words = Word.all
   end
 
   # GET /word_videos/1/edit
   def edit
+    @words = Word.all
   end
 
   # POST /word_videos

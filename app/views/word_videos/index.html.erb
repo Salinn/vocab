@@ -17,7 +17,7 @@
       <tr>
         <td><%= word_video.video_link %></td>
         <td><%= word_video.video_description %></td>
-        <td><%= word_video.word %></td>
+        <td><%= word_video.word.name %></td>
         <td><%= link_to 'Show', word_video %></td>
         <td><%= link_to 'Edit', edit_word_video_path(word_video) %></td>
         <td><%= link_to 'Destroy', word_video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
