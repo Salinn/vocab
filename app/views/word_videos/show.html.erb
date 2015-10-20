@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Video link:</strong>
+  <%= @word_video.video_link %>
+</p>
+
+<p>
+  <strong>Video description:</strong>
+  <%= @word_video.video_description %>
+</p>
+
+<p>
+  <strong>Word:</strong>
+  <%= @word_video.word %>
+</p>
+
+<%= link_to 'Edit', edit_word_video_path(@word_video) %> |
+<%= link_to 'Back', word_videos_path %>
