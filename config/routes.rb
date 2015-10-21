@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sentences
   resources :word_roots
   resources :lessons
   resources :courses
