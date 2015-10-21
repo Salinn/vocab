@@ -1,6 +1,8 @@
 class Lesson < ActiveRecord::Base
   belongs_to :course
   has_many :words, through: :lesson_words
+  has_many :lesson_words
+  accepts_nested_attributes_for :lesson_words
 
   validates :lesson_name, length: { in: 3..100 }
   validates :lesson_points, inclusion: 0..100

@@ -1,0 +1,22 @@
+<%= form_for(@lesson_word) do |f| %>
+    <% if @lesson_word.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@lesson_word.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+          <ul>
+            <% @lesson_word.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :class_name %><br>
+      <%= f.hidden_field :lesson, value: @lesson %>
+    </div>
+    <div class="field">
+      <%= f.label :word %><br>
+      <%= f.collection_select :word, @words, :id, :name %>
+    </div>
+<% end %>

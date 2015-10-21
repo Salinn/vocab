@@ -29,6 +29,14 @@
   <strong>Penalty:</strong>
   <%= @lesson.penalty %>
 </p>
+<hr>
+<p>Words In Lesson: </p>
+<% @lesson.words.each do |word| %>
+  <p><%= word.name %></p>
+<% end %>
+<hr><p>Add Word:</p>
+<%= render 'lessons/add_word' %>
 
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
 <%= link_to 'Back', lessons_path %>
+

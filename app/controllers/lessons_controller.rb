@@ -10,6 +10,8 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    @words = Word.all
+    @lesson.lesson_words.build
   end
 
   # GET /lessons/new
@@ -19,6 +21,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1/edit
   def edit
+    @lesson.lesson_words.build
   end
 
   # POST /lessons
@@ -69,6 +72,7 @@ class LessonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
-      params.require(:lesson).permit(:lesson_name, :lesson_points, :lesson_start_time, :lesson_end_date, :course_id, :penalty)
+      params.require(:lesson).permit(:lesson_name, :lesson_points, :lesson_start_time, :lesson_end_date, :course_id, :penalty,
+                                     lesson_words_attributes: [:word_id, :lesson_id])
     end
 end
