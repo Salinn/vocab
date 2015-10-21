@@ -33,6 +33,32 @@
     </table>
   <% end %>
 
+    <% if @word.definitions.length != 0 %>
+        <h3>Definitions</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Word definition</th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+                <% @word.definitions.each do |definition| %>
+                    <tr>
+                      <td><%=definition.word_definition %></td>
+                      <td><%= link_to 'Show', definition %></td>
+                      <td><%= link_to 'Edit', edit_definition_path(definition) %></td>
+                      <td><%= link_to 'Destroy', definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    </tr>
+                <% end %>
+
+        </tbody>
+    </table>
+    <% end %>
+
+
 </p>
 
 <%= link_to 'Edit', edit_word_path(@word) %> |
