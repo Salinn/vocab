@@ -24,11 +24,15 @@ RSpec.describe SentencesController, type: :controller do
   # Sentence. As you add validations to Sentence, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        word_sentence: "This is a sentence."
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        word_sentence: "" #must be longer than 4 characters
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,7 +107,9 @@ RSpec.describe SentencesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            word_sentence: "New sentence YAY."
+        }
       }
 
       it "updates the requested sentence" do
