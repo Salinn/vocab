@@ -29,6 +29,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Web server
 gem 'puma'
 
+#simple navigation
+gem 'simple-navigation'
+
 group :development, :test do
   #RSpec
   gem 'rspec-rails', '~> 3.0'
