@@ -3,6 +3,36 @@
 <p>
   <strong>Name:</strong>
   <%= @word.name %>
+
+
+  </br>
+
+  <% if @word.synonyms.length != 0 %>
+    <h3>Synonyms</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Word Synonym</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <% @word.synonyms.each do |synonym| %>
+          <tr>
+            <td><%=synonym.word_synonym %></td>
+            <td><%= link_to 'Show', synonym %></td>
+            <td><%= link_to 'Edit', edit_synonym_path(synonym) %></td>
+            <td><%= link_to 'Destroy', synonym, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+  <% end %>
+
+
 </p>
 
 <%= link_to 'Edit', edit_word_path(@word) %> |

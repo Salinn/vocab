@@ -15,7 +15,7 @@
     <% @synonyms.each do |synonym| %>
       <tr>
         <td><%= synonym.word_synonym %></td>
-        <td><%= synonym.word %></td>
+        <td><%= synonym.word.name %></td>
         <td><%= link_to 'Show', synonym %></td>
         <td><%= link_to 'Edit', edit_synonym_path(synonym) %></td>
         <td><%= link_to 'Destroy', synonym, method: :delete, data: { confirm: 'Are you sure?' } %></td>

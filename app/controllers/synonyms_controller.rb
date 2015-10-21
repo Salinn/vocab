@@ -15,10 +15,12 @@ class SynonymsController < ApplicationController
   # GET /synonyms/new
   def new
     @synonym = Synonym.new
+    @words = Word.all
   end
 
   # GET /synonyms/1/edit
   def edit
+    @words = Word.all
   end
 
   # POST /synonyms
