@@ -33,6 +33,7 @@ group :development, :test do
   #RSpec
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
+  gem 'simplecov', require: false
 end
 
 gem 'capistrano', '~> 3.1.0'
