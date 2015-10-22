@@ -1,0 +1,7 @@
+<h1>
+  <%= @lesson_word.word.name %>
+</h1>
+<% @lesson_word.definitions.each do |definition| %>
+    <p><%= definition.word_definition %></p>
+<% end %>
+<%= render 'lesson_words/add_definition' %>
