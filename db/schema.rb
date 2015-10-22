@@ -12,10 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20151021023218) do
-<<<<<<< HEAD
 
-=======
->>>>>>> lesson_words
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
     t.date     "start_date"
@@ -41,8 +38,6 @@ ActiveRecord::Schema.define(version: 20151021023218) do
 
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
 
-<<<<<<< HEAD
-=======
   create_table "lesson_words", force: :cascade do |t|
     t.integer  "lesson_id",  limit: 4
     t.integer  "word_id",    limit: 4
@@ -53,7 +48,6 @@ ActiveRecord::Schema.define(version: 20151021023218) do
   add_index "lesson_words", ["lesson_id"], name: "index_lesson_words_on_lesson_id", using: :btree
   add_index "lesson_words", ["word_id"], name: "index_lesson_words_on_word_id", using: :btree
 
->>>>>>> lesson_words
   create_table "lessons", force: :cascade do |t|
     t.string   "lesson_name",       limit: 255
     t.integer  "lesson_points",     limit: 4
@@ -127,12 +121,9 @@ ActiveRecord::Schema.define(version: 20151021023218) do
     t.datetime "updated_at",             null: false
   end
 
-<<<<<<< HEAD
-=======
+  add_foreign_key "definitions", "words"
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
->>>>>>> lesson_words
-  add_foreign_key "definitions", "words"
   add_foreign_key "lessons", "courses"
   add_foreign_key "sentences", "words"
   add_foreign_key "word_videos", "words"
