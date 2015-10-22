@@ -82,7 +82,7 @@ SimpleNavigation::Configuration.run do |navigation|
       class_list.item :update_list, 'Update List', ''
     end
     primary.item :manage_lesson, 'Manage Lessons', ''
-    primary.item :resources, 'Resources', course_path do |resources|
+    primary.item :resources, 'Resources', '' do |resources|
       resources.item :syllabus, 'Syllabus', ''
       resources.item :course_description, 'Course Description', ''
       resources.item :schedule, 'Schedule', ''
