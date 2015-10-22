@@ -1,0 +1,2 @@
+module WordVideosHelper
+end
