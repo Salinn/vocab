@@ -29,8 +29,8 @@
 </p>
 <hr>
 <p>Words In Lesson: </p>
-<% @lesson.words.each do |word| %>
-  <p><%= word.name %></p>
+    <% @lesson.lesson_words.each do |lesson_word| %>
+    <%= lesson_words_link(lesson_word) %>
 <% end %>
 <hr><p>Add Word:</p>
 <%= render 'lessons/add_word' %>
