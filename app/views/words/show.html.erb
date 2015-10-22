@@ -6,6 +6,32 @@
 
   </br>
 
+  <% if @word.sentences.length != 0 %>
+    <h3>Sentences</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Word sentence</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <% @word.sentences.each do |sentence| %>
+          <tr>
+            <td><%=sentence.word_sentence %></td>
+            <td><%= link_to 'Show', sentence %></td>
+            <td><%= link_to 'Edit', edit_sentence_path(sentence) %></td>
+            <td><%= link_to 'Destroy', sentence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+<% end %>
+</p>
+
   <!-- Word definitions -->
   <% if @word.definitions.length != 0 %>
         <h3>Definitions</h3>
