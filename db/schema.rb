@@ -131,15 +131,11 @@ ActiveRecord::Schema.define(version: 20151021023218) do
 
 
   add_foreign_key "lessons", "courses"
-<<<<<<< HEAD
   add_foreign_key "sentences", "words"
   add_foreign_key "synonyms", "words"
   add_foreign_key "word_forms", "words"
   add_foreign_key "word_videos", "words"
-=======
   add_foreign_key "word_forms", "words"
   add_foreign_key "word_videos", "words"
   add_foreign_key "definitions", "words"
-
->>>>>>> master
 end
