@@ -77,18 +77,18 @@ SimpleNavigation::Configuration.run do |navigation|
     # You can turn off auto highlighting for a specific level
     #primary.auto_highlight = false
 
-    primary.item :class_list, 'Class List', root_path, :highlights_on => /(^\/$|^\/class_list)/ do |class_list|
-      class_list.item :email_class, 'Email Class', root_path
-      class_list.item :update_list, 'Update List', root_path
+    primary.item :class_list, 'Class List', '', :highlights_on => /(^\/$|^\/class_list)/ do |class_list|
+      class_list.item :email_class, 'Email Class', ''
+      class_list.item :update_list, 'Update List', ''
     end
-    primary.item :manage_lesson, 'Manage Lessons', root_path
-    primary.item :resources, 'Resources', root_path do |resources|
-      resources.item :syllabus, 'Syllabus', root_path
-      resources.item :course_description, 'Course Description', root_path
-      resources.item :schedule, 'Schedule', root_path
+    primary.item :manage_lesson, 'Manage Lessons', ''
+    primary.item :resources, 'Resources', course_path do |resources|
+      resources.item :syllabus, 'Syllabus', ''
+      resources.item :course_description, 'Course Description', ''
+      resources.item :schedule, 'Schedule', ''
     end
-    primary.item :gradebook, 'Grade book', root_path
-    primary.item :reports, 'Reports', root_path
-    primary.item :disctionary, 'Dictionary', root_path
+    primary.item :gradebook, 'Grade book', ''
+    primary.item :reports, 'Reports', ''
+    primary.item :dictionary, 'Dictionary', ''
   end
 end
