@@ -20,8 +20,6 @@ RSpec.describe "lesson_modules/edit", type: :view do
 
       assert_select "input#lesson_module_attempts[name=?]", "lesson_module[attempts]"
 
-      assert_select "input#lesson_module_lesson_id[name=?]", "lesson_module[lesson_id]"
-
       assert_select "input#lesson_module_in_use[name=?]", "lesson_module[in_use]"
 
       assert_select "input#lesson_module_value_percentage[name=?]", "lesson_module[value_percentage]"
