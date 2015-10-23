@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Lesson Modules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Attempts</th>
+      <th>Lesson</th>
+      <th>In use</th>
+      <th>Value percentage</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lesson_modules.each do |lesson_module| %>
+      <tr>
+        <td><%= lesson_module.name %></td>
+        <td><%= lesson_module.attempts %></td>
+        <td><%= lesson_module.lesson %></td>
+        <td><%= lesson_module.in_use %></td>
+        <td><%= lesson_module.value_percentage %></td>
+        <td><%= link_to 'Show', lesson_module %></td>
+        <td><%= link_to 'Edit', edit_lesson_module_path(lesson_module) %></td>
+        <td><%= link_to 'Destroy', lesson_module, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lesson module', new_lesson_module_path %>

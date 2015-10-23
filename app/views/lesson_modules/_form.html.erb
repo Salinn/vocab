@@ -1,0 +1,37 @@
+<%= form_for(@lesson_module) do |f| %>
+  <% if @lesson_module.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lesson_module.errors.count, "error") %> prohibited this lesson_module from being saved:</h2>
+
+      <ul>
+      <% @lesson_module.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :attempts %><br>
+    <%= f.number_field :attempts %>
+  </div>
+  <div class="field">
+    <%= f.label :lesson_id %><br>
+    <%= f.collection_select(:lesson_id, Lesson.all, :id, :lesson_name ) %>
+  </div>
+  <div class="field">
+    <%= f.label :in_use %><br>
+    <%= f.check_box :in_use %>
+  </div>
+  <div class="field">
+    <%= f.label :value_percentage %><br>
+    <%= f.number_field :value_percentage %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @lesson_module.name %>
+</p>
+
+<p>
+  <strong>Attempts:</strong>
+  <%= @lesson_module.attempts %>
+</p>
+
+<p>
+  <strong>Lesson:</strong>
+  <%= @lesson_module.lesson %>
+</p>
+
+<p>
+  <strong>In use:</strong>
+  <%= @lesson_module.in_use %>
+</p>
+
+<p>
+  <strong>Value percentage:</strong>
+  <%= @lesson_module.value_percentage %>
+</p>
+
+<%= link_to 'Edit', edit_lesson_module_path(@lesson_module) %> |
+<%= link_to 'Back', lesson_modules_path %>

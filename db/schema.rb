@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20151021023218) do
-
+ActiveRecord::Schema.define(version: 20151023130620) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
@@ -39,6 +37,18 @@ ActiveRecord::Schema.define(version: 20151021023218) do
   end
 
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
+
+  create_table "lesson_modules", force: :cascade do |t|
+    t.string   "name",             limit: 255
+    t.integer  "attempts",         limit: 4
+    t.integer  "lesson_id",        limit: 4
+    t.boolean  "in_use"
+    t.integer  "value_percentage", limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "lesson_modules", ["lesson_id"], name: "index_lesson_modules_on_lesson_id", using: :btree
 
   create_table "lesson_words", force: :cascade do |t|
     t.integer  "lesson_id",  limit: 4
@@ -142,6 +152,7 @@ ActiveRecord::Schema.define(version: 20151021023218) do
   end
 
   add_foreign_key "definitions", "words"
+  add_foreign_key "lesson_modules", "lessons"
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
   add_foreign_key "lessons", "courses"
