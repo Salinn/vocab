@@ -1,0 +1,26 @@
+<%= form_for(@lesson_word) do |f| %>
+    <% if @lesson_word.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@lesson_word.errors.count, "error") %> prohibited this lesson word definition from being saved:</h2>
+
+          <ul>
+            <% @lesson_word.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <%= f.fields_for :lesson_word_definitions, @lesson_word.lesson_word_videos.last do |lesson_word_video| %>
+        <div class="field">
+          <%= lesson_word_video.label :lesson_word %><br>
+          <%= lesson_word_video.hidden_field :lesson_word, value: @lesson_word %>
+        </div>
+        <div class="field">
+          <%= lesson_word_video.label :definition %><br>
+          <%= lesson_word_video.collection_select :definition_id, @lesson_word.word.definitions, :id, :word_definition %>
+        </div>
+    <% end %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

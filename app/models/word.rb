@@ -4,4 +4,5 @@ class Word < ActiveRecord::Base
   has_many :sentences
   has_many :word_videos
   has_many :definitions
+  has_many :synonyms
 end
