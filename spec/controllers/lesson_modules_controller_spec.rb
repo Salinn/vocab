@@ -103,6 +103,7 @@ RSpec.describe LessonModulesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
+        expect(assigns(:lesson_module).attributes.symbolize_keys[:attribute_name]).to eq(new_attributes[:attribute_name])
         skip("Add a hash of attributes valid for your model")
       }
 
