@@ -5,4 +5,9 @@ class Word < ActiveRecord::Base
   has_many :word_videos
   has_many :definitions
   has_many :synonyms
+
+  accepts_nested_attributes_for :sentences
+  accepts_nested_attributes_for :word_videos
+  accepts_nested_attributes_for :definitions
+  accepts_nested_attributes_for :synonyms
 end

@@ -15,6 +15,46 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+    <%= f.fields_for :sentences, @word.sentences.last do |sentence| %>
+        <div class="field">
+          <%= sentence.hidden_field :word, value: @word %>
+        </div>
+        <div class="field">
+          <%= sentence.label :word_sentence %><br>
+          <%= sentence.text_field :word_sentence %>
+        </div>
+    <% end %>
+    <%= f.fields_for :word_videos, @word.word_videos.last do |word_video| %>
+        <div class="field">
+          <%= word_video.hidden_field :word, value: @word %>
+        </div>
+        <div class="field">
+          <%= word_video.label :video_link %><br>
+          <%= word_video.text_field :video_link %>
+        </div>
+        <div class="field">
+          <%= word_video.label :video_description %><br>
+          <%= word_video.text_field :video_description %>
+        </div>
+    <% end %>
+    <%= f.fields_for :definitions, @word.definitions.last do |definition| %>
+        <div class="field">
+          <%= definition.hidden_field :word, value: @word %>
+        </div>
+        <div class="field">
+          <%= definition.label :word_definition %><br>
+          <%= definition.text_area :word_definition %>
+        </div>
+    <% end %>
+    <%= f.fields_for :synonyms, @word.synonyms.last do |synonym| %>
+        <div class="field">
+          <%= synonym.hidden_field :word, value: @word %>
+        </div>
+        <div class="field">
+          <%= synonym.label :word_synonym %><br>
+          <%= synonym.text_field :word_synonym %>
+        </div>
+    <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

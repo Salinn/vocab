@@ -15,10 +15,18 @@ class WordsController < ApplicationController
   # GET /words/new
   def new
     @word = Word.new
+    @word.word_videos.build
+    @word.sentences.build
+    @word.definitions.build
+    @word.synonyms.build
   end
 
   # GET /words/1/edit
   def edit
+    @word.word_videos.build
+    @word.sentences.build
+    @word.definitions.build
+    @word.synonyms.build
   end
 
   # POST /words
@@ -69,6 +77,9 @@ class WordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_params
-      params.require(:word).permit(:name)
+      params.require(:word).permit(:name, word_videos_attributes: [:word_id, :video_link, :video_description],
+                                          sentences_attributes: [:word_id, :word_sentence],
+                                          definitions_attributes: [:word_id, :word_definition],
+                                          synonyms_attributes: [:word_id, :word_synonym])
     end
 end
