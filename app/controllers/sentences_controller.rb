@@ -30,7 +30,7 @@ class SentencesController < ApplicationController
 
     respond_to do |format|
       if @sentence.save
-        format.html { redirect_to @sentence, notice: 'Sentence was successfully created.' }
+        format.html { redirect_to @sentence.word, notice: 'Sentence was successfully created.' }
         format.json { render :show, status: :created, location: @sentence }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class SentencesController < ApplicationController
   def update
     respond_to do |format|
       if @sentence.update(sentence_params)
-        format.html { redirect_to @sentence, notice: 'Sentence was successfully updated.' }
+        format.html { redirect_to @sentence.word, notice: 'Sentence was successfully updated.' }
         format.json { render :show, status: :ok, location: @sentence }
       else
         format.html { render :edit }
