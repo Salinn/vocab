@@ -20,13 +20,21 @@
 
 <p>
   <strong>Course:</strong>
-  <%= @lesson.course %>
+  <%= @lesson.course.class_name %>
 </p>
 
 <p>
   <strong>Penalty:</strong>
   <%= @lesson.penalty %>
 </p>
+<hr>
+<p>Words In Lesson: </p>
+    <% @lesson.lesson_words.each do |lesson_word| %>
+    <%= lesson_words_link(lesson_word) %>
+<% end %>
+<hr><p>Add Word:</p>
+<%= render 'lessons/add_word' %>
 
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
 <%= link_to 'Back', lessons_path %>
+
