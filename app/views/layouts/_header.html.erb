@@ -22,6 +22,9 @@
         </li>
         <% if current_user %>
             <li>
+              <%= link_to 'Create Course', new_course_path %>
+            </li>
+            <li>
               <%= link_to 'Account', current_user %>
             </li>
             <li>
