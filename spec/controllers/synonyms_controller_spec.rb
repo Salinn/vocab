@@ -25,7 +25,8 @@ RSpec.describe SynonymsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
-        word_synonym:"The real deal"
+        word_synonym: "The real deal",
+        word_id: 1
     }
   }
 
@@ -85,7 +86,7 @@ RSpec.describe SynonymsController, type: :controller do
         expect(assigns(:synonym)).to be_persisted
       end
 
-      it "redirects to the created synonym" do
+      it "redirects to the associated word" do
         post :create, {:synonym => valid_attributes}, valid_session
         expect(response).to redirect_to(Synonym.last)
       end
