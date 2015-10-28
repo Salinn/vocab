@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20151024181029) do
+
 
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
@@ -158,6 +160,7 @@ ActiveRecord::Schema.define(version: 20151024181029) do
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
   add_foreign_key "lessons", "courses"
+  add_foreign_key "word_forms", "words"
   add_foreign_key "sentences", "words"
   add_foreign_key "synonyms", "words"
   add_foreign_key "word_videos", "words"

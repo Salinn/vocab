@@ -6,6 +6,33 @@
 
   </br>
 
+
+  <% if @word.word_forms.length != 0 %>
+    <h3>Word Forms</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Word form</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <% @word.word_forms.each do |word_form| %>
+          <tr>
+            <td><%= word_form.associated_word %></td>
+            <td><%= word_form.word.name %></td>
+            <td><%= link_to 'Show', word_form %></td>
+            <td><%= link_to 'Edit', edit_word_form_path(word_form) %></td>
+            <td><%= link_to 'Destroy', word_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+  <% end %>
+
   <!-- Word sentences -->
   <% if @word.sentences.length != 0 %>
     <h3>Sentences</h3>
@@ -109,6 +136,7 @@
 
 
 </div>
+
 
 <%= link_to 'Edit', edit_word_path(@word) %> |
 <%= link_to 'Back', words_path %>
