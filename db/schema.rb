@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20151024181029) do
-
 
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
@@ -121,6 +119,15 @@ ActiveRecord::Schema.define(version: 20151024181029) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "word_forms", force: :cascade do |t|
+    t.string   "associated_word", limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "word_id",         limit: 4
+  end
+
+  add_index "word_forms", ["word_id"], name: "index_word_forms_on_word_id", using: :btree
+
   create_table "word_roots", force: :cascade do |t|
     t.string   "root_name",       limit: 255
     t.text     "root_definition", limit: 65535
@@ -160,8 +167,8 @@ ActiveRecord::Schema.define(version: 20151024181029) do
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
   add_foreign_key "lessons", "courses"
-  add_foreign_key "word_forms", "words"
   add_foreign_key "sentences", "words"
   add_foreign_key "synonyms", "words"
+  add_foreign_key "word_forms", "words"
   add_foreign_key "word_videos", "words"
 end
