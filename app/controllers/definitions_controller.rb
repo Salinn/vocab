@@ -30,7 +30,7 @@ class DefinitionsController < ApplicationController
 
     respond_to do |format|
       if @definition.save
-        format.html { redirect_to @definitio.wordn, notice: 'Definition was successfully created.' }
+        format.html { redirect_to @definition.word, notice: 'Definition was successfully created.' }
         format.json { render :show, status: :created, location: @definition }
       else
         format.html { render :new }

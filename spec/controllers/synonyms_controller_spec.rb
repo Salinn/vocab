@@ -23,10 +23,11 @@ RSpec.describe SynonymsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Synonym. As you add validations to Synonym, be sure to
   # adjust the attributes here as well.
+  let(:word) { FactoryGirl.create(:word) }
   let(:valid_attributes) {
     {
         word_synonym: "The real deal",
-        word_id: 1
+        word_id: word.id
     }
   }
 
@@ -88,7 +89,7 @@ RSpec.describe SynonymsController, type: :controller do
 
       it "redirects to the associated word" do
         post :create, {:synonym => valid_attributes}, valid_session
-        expect(response).to redirect_to(Synonym.last)
+        expect(response).to redirect_to(word)
       end
     end
 
@@ -117,7 +118,7 @@ RSpec.describe SynonymsController, type: :controller do
         synonym = Synonym.create! valid_attributes
         put :update, {:id => synonym.to_param, :synonym => new_attributes}, valid_session
         synonym.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:synonym).attributes.symbolize_keys[:word_synonym]).to eq(new_attributes[:word_synonym])
       end
 
       it "assigns the requested synonym as @synonym" do
@@ -129,7 +130,7 @@ RSpec.describe SynonymsController, type: :controller do
       it "redirects to the synonym" do
         synonym = Synonym.create! valid_attributes
         put :update, {:id => synonym.to_param, :synonym => valid_attributes}, valid_session
-        expect(response).to redirect_to(synonym)
+        expect(response).to redirect_to(word)
       end
     end
 

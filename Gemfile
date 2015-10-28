@@ -30,7 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 
 #Used for many-to-many searches
-gem 'chosen-rails'
+#gem 'chosen-rails'
 
 group :development, :test do
   #RSpec
