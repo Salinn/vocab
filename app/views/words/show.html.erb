@@ -4,8 +4,7 @@
 
   </br>
 
-
-  <% if @word.word_forms.length != 0 %>
+  <!-- Word Forms -->
     <h3>Word Forms</h3>
     <table>
       <thead>
@@ -29,7 +28,6 @@
 
       </tbody>
     </table>
-  <% end %>
 
   <!-- Word sentences -->
   <h3>Sentences</h3>
@@ -113,6 +111,27 @@
           <td><%= link_to 'Show', word_video %></td>
           <td><%= link_to 'Edit', edit_word_video_path(word_video) %></td>
           <td><%= link_to 'Destroy', word_video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <!-- Woord Roots-->
+  <h3>Word roots</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Word root</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @word.word_roots.each do |word_root| %>
+        <tr>
+          <td><%= word_root.root_name %></td>
+          <td><%= link_to 'Show', word_root %></td>
+          <td><%= link_to 'Edit', edit_word_root_path(word_root) %></td>
+          <td><%= link_to 'Destroy', word_root, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
     <% end %>
     </tbody>

@@ -36,6 +36,7 @@ class WordsController < ApplicationController
 
     respond_to do |format|
       if @word.save
+        update_word_roots
         format.html { redirect_to @word, notice: 'Word was successfully created.' }
         format.json { render :show, status: :created, location: @word }
       else
@@ -50,6 +51,7 @@ class WordsController < ApplicationController
   def update
     respond_to do |format|
       if @word.update(word_params)
+        update_word_roots
         format.html { redirect_to @word, notice: 'Word was successfully updated.' }
         format.json { render :show, status: :ok, location: @word }
       else
@@ -70,6 +72,16 @@ class WordsController < ApplicationController
   end
 
   private
+    #Creates / Updates root relations
+    def update_word_roots
+      word_root_ids = params[:word][:word_root_ids]
+      @word.word_roots.each do |word_root|
+        @word.word_roots.delete(word_root) unless word_root_ids.include? word_root.id
+      end
+      word_root_ids.each do |word_root_id|
+        RootManager.find_or_create_by(word_id: @word.id, word_root_id: word_root_id)
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_word
       @word = Word.find(params[:id])
@@ -77,7 +89,7 @@ class WordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_params
-      params.require(:word).permit(:name, word_videos_attributes: [:word_id, :video_link, :video_description],
+      params.require(:word).permit(:name, :word_root_ids, word_videos_attributes: [:word_id, :video_link, :video_description],
                                           sentences_attributes: [:word_id, :word_sentence],
                                           definitions_attributes: [:word_id, :word_definition],
                                           synonyms_attributes: [:word_id, :word_synonym])

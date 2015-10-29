@@ -8,7 +8,7 @@
 #No Dependincies
 load 'db/seeds/users.rb'
 load 'db/seeds/words.rb'
-#load 'db/seeds/word_roots.rb'
+load 'db/seeds/word_roots.rb'
 load 'db/seeds/courses.rb'
 
 #Dependincies <-- Order matters
@@ -17,6 +17,7 @@ load 'db/seeds/lessons.rb' #Depends on course
 load 'db/seeds/lesson_words.rb' #Depends on lessons and on words
 load 'db/seeds/definitions.rb' #Depends on Words
 load 'db/seeds/lesson_word_definitions.rb' #Depends on lesson_words and definitions
+load 'db/seeds/word_roots_words.rb' #Depends on words and root words
 
 
 

@@ -55,6 +55,10 @@
           <%= synonym.text_field :word_synonym %>
         </div>
     <% end %>
+    <div class="field">
+      <%= f.label :word_root_ids %><br>
+      <%= f.collection_select :word_root_ids, WordRoot.order(:root_name), :id, :root_name, { include_blank: true }, {multiple: true} %>
+    </div>
   <div class="actions">
     <%= f.submit %>
   </div>

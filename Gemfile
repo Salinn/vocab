@@ -29,9 +29,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Web server
 gem 'puma'
 
-#Used for many-to-many searches
-#gem 'chosen-rails'
-
 group :development, :test do
   #RSpec
   gem 'rspec-rails', '~> 3.0'
