@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030170453) do
+ActiveRecord::Schema.define(version: 20151030214236) do
+
+  create_table "course_users", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "course_users", ["course_id"], name: "index_course_users_on_course_id", using: :btree
+  add_index "course_users", ["user_id"], name: "index_course_users_on_user_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
@@ -20,14 +30,6 @@ ActiveRecord::Schema.define(version: 20151030170453) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
-
-  create_table "courses_users", id: false, force: :cascade do |t|
-    t.integer "course_id", limit: 4, null: false
-    t.integer "user_id",   limit: 4, null: false
-  end
-
-  add_index "courses_users", ["course_id", "user_id"], name: "index_courses_users_on_course_id_and_user_id", using: :btree
-  add_index "courses_users", ["user_id", "course_id"], name: "index_courses_users_on_user_id_and_course_id", using: :btree
 
   create_table "definitions", force: :cascade do |t|
     t.text     "word_definition", limit: 65535
@@ -199,6 +201,8 @@ ActiveRecord::Schema.define(version: 20151030170453) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "course_users", "courses"
+  add_foreign_key "course_users", "users"
   add_foreign_key "definitions", "words"
   add_foreign_key "lesson_modules", "lessons"
   add_foreign_key "lesson_word_definitions", "definitions"
