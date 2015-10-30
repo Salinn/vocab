@@ -15,18 +15,12 @@ class WordsController < ApplicationController
   # GET /words/new
   def new
     @word = Word.new
-    @word.word_videos.build
-    @word.sentences.build
-    @word.definitions.build
-    @word.synonyms.build
+    association_build
   end
 
   # GET /words/1/edit
   def edit
-    @word.word_videos.build
-    @word.sentences.build
-    @word.definitions.build
-    @word.synonyms.build
+    association_build
   end
 
   # POST /words
@@ -72,6 +66,13 @@ class WordsController < ApplicationController
   end
 
   private
+    def association_build
+      @word.word_videos.build
+      @word.sentences.build
+      @word.definitions.build
+      @word.synonyms.build
+      @word.word_forms.build
+    end
     #Creates / Updates root relations
     def update_word_roots
       word_root_ids = params[:word][:word_root_ids]
@@ -92,6 +93,7 @@ class WordsController < ApplicationController
       params.require(:word).permit(:name, :word_root_ids, word_videos_attributes: [:word_id, :video_link, :video_description],
                                           sentences_attributes: [:word_id, :word_sentence],
                                           definitions_attributes: [:word_id, :word_definition],
-                                          synonyms_attributes: [:word_id, :word_synonym])
+                                          synonyms_attributes: [:word_id, :word_synonym],
+                                          word_forms_attributes: [:word_id, :associated_word])
     end
 end

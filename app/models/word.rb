@@ -13,4 +13,5 @@ class Word < ActiveRecord::Base
   accepts_nested_attributes_for :word_videos
   accepts_nested_attributes_for :definitions
   accepts_nested_attributes_for :synonyms
+  accepts_nested_attributes_for :word_forms
 end
