@@ -11,12 +11,14 @@ class LessonWordsController < ApplicationController
   # GET /lessons/1.json
   def show
     @lesson_word.lesson_word_definitions.build
+    @lesson_word.lesson_word_videos.build
   end
 
   # GET /lessons/new
   def new
     @lesson_word = LessonWord.new
     @lesson_word.lesson_word_definitions.build
+    @lesson_word.lesson_word_videos.build
   end
 
   # GET /lessons/1/edit
