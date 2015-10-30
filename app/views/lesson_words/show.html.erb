@@ -5,3 +5,17 @@
     <p><%= definition.word_definition %></p>
 <% end %>
 <%= render 'lesson_words/add_definition' %>
+
+<% @lesson_word.word_videos.each do |video| %>
+    <p>
+      <strong>Video link:</strong>
+      <%= @word_video.video_link %>
+    </p>
+
+    <p>
+      <strong>Video description:</strong>
+      <%= @word_video.video_description %>
+    </p>
+<% end %>
+
+<%= render 'lesson_words/add_video' %>
