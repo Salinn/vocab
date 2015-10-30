@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024181029) do
+ActiveRecord::Schema.define(version: 20151030170453) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
@@ -93,6 +93,27 @@ ActiveRecord::Schema.define(version: 20151024181029) do
 
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",          limit: 255
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "root_managers", force: :cascade do |t|
+    t.integer  "word_id",      limit: 4
+    t.integer  "word_root_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "root_managers", ["word_id"], name: "index_root_managers_on_word_id", using: :btree
+  add_index "root_managers", ["word_root_id"], name: "index_root_managers_on_word_root_id", using: :btree
+
   create_table "sentences", force: :cascade do |t|
     t.string   "word_sentence", limit: 255
     t.integer  "word_id",       limit: 4
@@ -130,6 +151,13 @@ ActiveRecord::Schema.define(version: 20151024181029) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id", limit: 4
+    t.integer "role_id", limit: 4
+  end
+
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "word_forms", force: :cascade do |t|
     t.string   "associated_word", limit: 255
@@ -180,6 +208,8 @@ ActiveRecord::Schema.define(version: 20151024181029) do
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
   add_foreign_key "lessons", "courses"
+  add_foreign_key "root_managers", "word_roots"
+  add_foreign_key "root_managers", "words"
   add_foreign_key "sentences", "words"
   add_foreign_key "synonyms", "words"
   add_foreign_key "word_forms", "words"

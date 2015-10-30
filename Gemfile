@@ -29,6 +29,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Web server
 gem 'puma'
 
+#Roles
+gem "rolify"
+
 group :development, :test do
   #RSpec
   gem 'rspec-rails', '~> 3.0'
