@@ -12,12 +12,13 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     generated_password = Devise.friendly_token.first(8)
     @user.password = generated_password
-    course_id = params[:user][:course_id].to_i
+    course = Course.find(params[:user][:course_id])
 
     respond_to do |format|
       if @user.save
-        CourseUser.create!(user_id: @user.id, course_id: course_id)
-        format.html { redirect_to course_path(course_id), notice: 'You have successfully registered.' }
+        CourseUser.create!(user_id: @user.id, course_id: course.id)
+        current_user.add_role :student, course
+        format.html { redirect_to course_path(course.id), notice: 'You have successfully registered.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { redirect_to :back }

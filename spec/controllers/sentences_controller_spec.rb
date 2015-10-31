@@ -116,7 +116,7 @@ RSpec.describe SentencesController, type: :controller do
         sentence = Sentence.create! valid_attributes
         put :update, {:id => sentence.to_param, :sentence => new_attributes}, valid_session
         sentence.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:sentence).attributes.symbolize_keys[:word_sentence]).to eq(new_attributes[:word_sentence])
       end
 
       it "assigns the requested sentence as @sentence" do

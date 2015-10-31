@@ -27,7 +27,7 @@
 
   <tbody>
   <% @course.users.each do |user| %>
-    <% next if user.id == nil %>
+    <% next if user.id == nil || user.has_role?(:teacher, @course) %>
       <tr>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
