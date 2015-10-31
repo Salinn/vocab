@@ -1,20 +1,57 @@
-connection = ActiveRecord::Base.connection()
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('1', '1');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('1', '2');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('2', '2');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('3', '2');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('4', '2');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('4', '3');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('5', '4');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('6', '4');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('7', '4');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('7', '5');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('8', '4');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('8', '5');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('9', '6');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('9', '4');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('10', '7');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('10', '4');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('11', '4');")
-connection.execute("INSERT INTO `vocab_development`.`word_roots_words` (`word_id`, `word_root_id`) VALUES ('11', '8');")
+word_roots = [
+    {
+        word_id: 1,
+        word_root_id: 1
+    },
+    {
+        word_id: 2,
+        word_root_id: 2
+    },
+    {
+        word_id: 2,
+        word_root_id: 1
+    },
+    {
+        word_id: 1,
+        word_root_id: 3
+    },
+    {
+        word_id: 1,
+        word_root_id: 4
+    },
+    {
+        word_id: 1,
+        word_root_id: 5
+    },
+    {
+        word_id: 3,
+        word_root_id: 6
+    },
+    {
+        word_id: 4,
+        word_root_id: 1
+    },
+    {
+        word_id: 5,
+        word_root_id: 3
+    },
+    {
+        word_id: 6,
+        word_root_id: 1
+    },
+    {
+        word_id: 6,
+        word_root_id: 6
+    },
+    {
+        word_id: 7,
+        word_root_id: 8
+    },
+    {
+        word_id: 7,
+        word_root_id: 9
+    },
+
+]
+RootManager.create!(word_roots)
 

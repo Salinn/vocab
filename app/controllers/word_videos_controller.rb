@@ -30,7 +30,7 @@ class WordVideosController < ApplicationController
 
     respond_to do |format|
       if @word_video.save
-        format.html { redirect_to @word_video, notice: 'Word video was successfully created.' }
+        format.html { redirect_to @word_video.word, notice: 'Word video was successfully created.' }
         format.json { render :show, status: :created, location: @word_video }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class WordVideosController < ApplicationController
   def update
     respond_to do |format|
       if @word_video.update(word_video_params)
-        format.html { redirect_to @word_video, notice: 'Word video was successfully updated.' }
+        format.html { redirect_to @word_video.word, notice: 'Word video was successfully updated.' }
         format.json { render :show, status: :ok, location: @word_video }
       else
         format.html { render :edit }
