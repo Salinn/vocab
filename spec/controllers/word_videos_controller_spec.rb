@@ -109,14 +109,16 @@ RSpec.describe WordVideosController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            video_link: "http://www.google.oi"
+        }
       }
 
       it "updates the requested word_video" do
         word_video = WordVideo.create! valid_attributes
         put :update, {:id => word_video.to_param, :word_video => new_attributes}, valid_session
         word_video.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:word_video).attributes.symbolize_keys[:video_link]).to eq(new_attributes[:video_link])
       end
 
       it "assigns the requested word_video as @word_video" do

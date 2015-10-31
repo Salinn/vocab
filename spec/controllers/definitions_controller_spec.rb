@@ -116,7 +116,7 @@ RSpec.describe DefinitionsController, type: :controller do
         definition = Definition.create! valid_attributes
         put :update, {:id => definition.to_param, :definition => new_attributes}, valid_session
         definition.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:definition).attributes.symbolize_keys[:word_definition]).to eq(new_attributes[:word_definition])
       end
 
       it "assigns the requested definition as @definition" do

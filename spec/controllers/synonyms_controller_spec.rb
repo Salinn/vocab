@@ -116,7 +116,7 @@ RSpec.describe SynonymsController, type: :controller do
         synonym = Synonym.create! valid_attributes
         put :update, {:id => synonym.to_param, :synonym => new_attributes}, valid_session
         synonym.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:synonym).attributes.symbolize_keys[:word_synonym]).to eq(new_attributes[:word_synonym])
       end
 
       it "assigns the requested synonym as @synonym" do
