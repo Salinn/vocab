@@ -49,6 +49,12 @@ class UsersController < ApplicationController
     redirect_to potentials_path, notice: "User deleted."
   end
 
+  def remove_from_course
+    course = Course.find(params[:course_id])
+    user = User.find(params[:user_id])
+    course.users.delete user
+    redirect_to course
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email)

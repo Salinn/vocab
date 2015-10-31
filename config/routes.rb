@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   resources :lessons
   resources :definitions
 
-  resources :courses
+  resources :courses do
+    resources :users do
+        delete :remove_from_course
+    end
+  end
+
   resources :words
   devise_for :users, :controllers => { :registrations => 'registration' }, :path_names => { :'sign_up.html.erb' => 'register'}
   resources :users, :controller => 'users'

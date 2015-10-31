@@ -15,6 +15,29 @@
 
 <%= render 'add_student' %>
 
+<table>
+  <thead>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Delete?</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @course.users.each do |user| %>
+    <% next if user.id == nil %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= button_to "Remove user", course_user_remove_from_course_path(@course, user), :method => :delete %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
 
