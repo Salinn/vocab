@@ -4,7 +4,11 @@
 <% @lesson_word.definitions.each do |definition| %>
     <p><%= definition.word_definition %></p>
 <% end %>
-<%= render 'lesson_words/add_definition' %>
+
+<%# Only render the ability to add definitions if the word has at least one definition %>
+<% if ! @lesson_word.word.definitions.first.nil? %>
+    <%= render 'lesson_words/add_definition' %>
+<% end %>
 
 <% @lesson_word.word_videos.each do |video| %>
     <p>
@@ -18,4 +22,7 @@
     </p>
 <% end %>
 
-<%= render 'lesson_words/add_video' %>
+<%# Only render the ability to add videos if the word has at least one video %>
+<% if ! @lesson_word.word.word_videos.first.nil?%>
+    <%= render 'lesson_words/add_video' %>
+<% end %>

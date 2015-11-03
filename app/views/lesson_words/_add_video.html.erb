@@ -10,6 +10,7 @@
           </ul>
         </div>
     <% end %>
+
     <%= f.fields_for :lesson_word_videos, @lesson_word.lesson_word_videos.last do |lesson_word_video| %>
         <div class="field">
           <%= lesson_word_video.label :lesson_word %><br>
@@ -17,7 +18,7 @@
         </div>
         <div class="field">
           <%= lesson_word_video.label :word_video %><br>
-          <%= lesson_word_video.collection_select :word_video_id, @lesson_word.word.word_videos, :id, :word_video %>
+          <%= lesson_word_video.collection_select :word_video_id, @lesson_word.word.word_videos, :id, :video_description %>
         </div>
     <% end %>
     <div class="actions">
