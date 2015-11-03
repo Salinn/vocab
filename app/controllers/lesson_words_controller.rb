@@ -12,7 +12,7 @@ class LessonWordsController < ApplicationController
   def show
     @lesson_word.lesson_word_definitions.build
     @lesson_word.lesson_word_videos.build
-    #@lesson_word.lesson_word_sentences.build
+    @lesson_word.lesson_word_sentences.build
   end
 
   # GET /lessons/new
