@@ -112,7 +112,7 @@ RSpec.describe WordVideosController, type: :controller do
     context "with valid params" do
       let(:new_attributes) {
         {
-          video_link: "http://www.googlessss.com"
+            video_link: "http://www.google.oi"
         }
       }
 

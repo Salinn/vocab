@@ -116,7 +116,7 @@ RSpec.describe WordFormsController, type: :controller do
         word_form = WordForm.create! valid_attributes
         put :update, {:id => word_form.to_param, :word_form => new_attributes}, valid_session
         word_form.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:word_form).attributes.symbolize_keys[:associated_word]).to eq(new_attributes[:associated_word])
       end
 
       it "assigns the requested word_form as @word_form" do

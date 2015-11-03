@@ -10,6 +10,7 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @course.users.build
   end
 
   # GET /courses/new
@@ -28,6 +29,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
+        create_relations
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
@@ -62,6 +64,11 @@ class CoursesController < ApplicationController
   end
 
   private
+    #creates relations for the teacher
+    def create_relations
+      current_user.add_role :teacher, @course
+      CourseUser.create!(user_id: current_user.id, course_id: @course.id)
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find(params[:id])
