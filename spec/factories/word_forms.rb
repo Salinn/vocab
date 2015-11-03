@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :word_form do
     associated_word "MyString"
-word ""
+    word ""
   end
-
 end

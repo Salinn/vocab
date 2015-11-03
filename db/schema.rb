@@ -106,6 +106,16 @@ ActiveRecord::Schema.define(version: 20151030214236) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
+  create_table "root_managers", force: :cascade do |t|
+    t.integer  "word_id",      limit: 4
+    t.integer  "word_root_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "root_managers", ["word_id"], name: "index_root_managers_on_word_id", using: :btree
+  add_index "root_managers", ["word_root_id"], name: "index_root_managers_on_word_root_id", using: :btree
+
   create_table "sentences", force: :cascade do |t|
     t.string   "word_sentence", limit: 255
     t.integer  "word_id",       limit: 4
@@ -202,6 +212,8 @@ ActiveRecord::Schema.define(version: 20151030214236) do
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
   add_foreign_key "lessons", "courses"
+  add_foreign_key "root_managers", "word_roots"
+  add_foreign_key "root_managers", "words"
   add_foreign_key "sentences", "words"
   add_foreign_key "synonyms", "words"
   add_foreign_key "word_forms", "words"

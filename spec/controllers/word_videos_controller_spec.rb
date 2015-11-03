@@ -23,10 +23,12 @@ RSpec.describe WordVideosController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # WordVideo. As you add validations to WordVideo, be sure to
   # adjust the attributes here as well.
+  let(:word) { FactoryGirl.create(:word) }
   let(:valid_attributes) {
     {
         video_link: "http://www.google.com",
         video_description: "Check out that google ",
+        word_id: word.id
     }
   }
 
@@ -89,7 +91,7 @@ RSpec.describe WordVideosController, type: :controller do
 
       it "redirects to the created word_video" do
         post :create, {:word_video => valid_attributes}, valid_session
-        expect(response).to redirect_to(WordVideo.last)
+        expect(response).to redirect_to(word)
       end
     end
 
@@ -130,7 +132,7 @@ RSpec.describe WordVideosController, type: :controller do
       it "redirects to the word_video" do
         word_video = WordVideo.create! valid_attributes
         put :update, {:id => word_video.to_param, :word_video => valid_attributes}, valid_session
-        expect(response).to redirect_to(word_video)
+        expect(response).to redirect_to(word)
       end
     end
 

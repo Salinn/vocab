@@ -15,10 +15,6 @@
     <%= f.label :word_sentence %><br>
     <%= f.text_field :word_sentence %>
   </div>
-    <div class="field">
-      <%= f.label :word %><br>
-      <%= f.collection_select :word_id, @words, :id, :name %>
-    </div>
   <div class="actions">
     <%= f.submit %>
   </div>

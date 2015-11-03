@@ -30,7 +30,7 @@ class SynonymsController < ApplicationController
 
     respond_to do |format|
       if @synonym.save
-        format.html { redirect_to @synonym, notice: 'Synonym was successfully created.' }
+        format.html { redirect_to @synonym.word, notice: 'Synonym was successfully created.' }
         format.json { render :show, status: :created, location: @synonym }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class SynonymsController < ApplicationController
   def update
     respond_to do |format|
       if @synonym.update(synonym_params)
-        format.html { redirect_to @synonym, notice: 'Synonym was successfully updated.' }
+        format.html { redirect_to @synonym.word, notice: 'Synonym was successfully updated.' }
         format.json { render :show, status: :ok, location: @synonym }
       else
         format.html { render :edit }

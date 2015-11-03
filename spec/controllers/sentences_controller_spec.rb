@@ -23,9 +23,11 @@ RSpec.describe SentencesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Sentence. As you add validations to Sentence, be sure to
   # adjust the attributes here as well.
+  let(:word) { FactoryGirl.create(:word) }
   let(:valid_attributes) {
     {
-        word_sentence: "This is a sentence."
+        word_sentence: "This is a sentence.",
+        word_id: word.id
     }
   }
 
@@ -87,7 +89,7 @@ RSpec.describe SentencesController, type: :controller do
 
       it "redirects to the created sentence" do
         post :create, {:sentence => valid_attributes}, valid_session
-        expect(response).to redirect_to(Sentence.last)
+        expect(response).to redirect_to(word)
       end
     end
 
@@ -128,7 +130,7 @@ RSpec.describe SentencesController, type: :controller do
       it "redirects to the sentence" do
         sentence = Sentence.create! valid_attributes
         put :update, {:id => sentence.to_param, :sentence => valid_attributes}, valid_session
-        expect(response).to redirect_to(sentence)
+        expect(response).to redirect_to(word)
       end
     end
 
