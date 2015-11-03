@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 20151024181029) do
   add_index "lesson_word_definitions", ["definition_id"], name: "index_lesson_word_definitions_on_definition_id", using: :btree
   add_index "lesson_word_definitions", ["lesson_word_id"], name: "index_lesson_word_definitions_on_lesson_word_id", using: :btree
 
+  create_table "lesson_word_sentences", force: :cascade do |t|
+    t.integer  "lesson_word_id", limit: 4
+    t.integer  "sentences_id",   limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "lesson_word_sentences", ["lesson_word_id"], name: "index_lesson_word_sentences_on_lesson_word_id", using: :btree
+  add_index "lesson_word_sentences", ["sentences_id"], name: "index_lesson_word_sentences_on_sentences_id", using: :btree
+
   create_table "lesson_word_videos", force: :cascade do |t|
     t.integer  "lesson_word_id", limit: 4
     t.integer  "word_video_id",  limit: 4
@@ -175,6 +185,7 @@ ActiveRecord::Schema.define(version: 20151024181029) do
   add_foreign_key "lesson_modules", "lessons"
   add_foreign_key "lesson_word_definitions", "definitions"
   add_foreign_key "lesson_word_definitions", "lesson_words"
+  add_foreign_key "lesson_word_sentences", "lesson_words"
   add_foreign_key "lesson_word_videos", "lesson_words"
   add_foreign_key "lesson_word_videos", "word_videos"
   add_foreign_key "lesson_words", "lessons"
