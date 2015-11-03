@@ -10,15 +10,29 @@
     <%= render 'lesson_words/add_definition' %>
 <% end %>
 
+
+<% @lesson_word.sentences.each do |sentence| %>
+    <p>
+      <strong>Word sentence:</strong>
+      <%= sentence.word_sentence %>
+    </p>
+<% end %>
+
+<%# Only render the ability to add sentences if the word has at least one sentence %>
+<% if ! @lesson_word.word.sentences.first.nil? %>
+    <%=# render 'lesson_words/add_sentence' %>
+<% end %>
+
+
 <% @lesson_word.word_videos.each do |video| %>
     <p>
       <strong>Video link:</strong>
-      <%= @word_video.video_link %>
+      <%= video.video_link %>
     </p>
 
     <p>
       <strong>Video description:</strong>
-      <%= @word_video.video_description %>
+      <%= video.video_description %>
     </p>
 <% end %>
 

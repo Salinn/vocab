@@ -12,6 +12,7 @@ class LessonWordsController < ApplicationController
   def show
     @lesson_word.lesson_word_definitions.build
     @lesson_word.lesson_word_videos.build
+    @lesson_word.lesson_word_sentences.build
   end
 
   # GET /lessons/new
@@ -19,6 +20,7 @@ class LessonWordsController < ApplicationController
     @lesson_word = LessonWord.new
     @lesson_word.lesson_word_definitions.build
     @lesson_word.lesson_word_videos.build
+    @lesson_word.lesson_word_sentences.build
   end
 
   # GET /lessons/1/edit
