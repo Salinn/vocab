@@ -76,5 +76,7 @@ class LessonWordsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def lesson_word_params
     params.require(:lesson_word).permit(lesson_word_definitions_attributes: [:lesson_word_id, :definition_id])
+    #params.require(:lesson_word).permit(lesson_word_videos_attributes: [:lesson_word_id, :word_video_id])
+    #params.require(:lesson_word).permit(lesson_word_sentences_attributes: [:lesson_word_id, :sentence_id])
   end
 end
