@@ -20,7 +20,7 @@
 
 <%# Only render the ability to add sentences if the word has at least one sentence %>
 <% if ! @lesson_word.word.sentences.first.nil? %>
-    <%=# render 'lesson_words/add_sentence' %>
+    <%= render 'lesson_words/add_sentence' %>
 <% end %>
 
 
