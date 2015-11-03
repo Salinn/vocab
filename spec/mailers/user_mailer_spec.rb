@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe UserMailer, type: :mailer do
   describe 'instructions' do
-    let(:user) {  FactoryGirl.create(:user, first_name: 'Lucas', email: 'lucas@email.com') }
+    let(:user) { FactoryGirl.create(:user, first_name: 'Lucas', email: 'lucas@email.com') }
     let(:mail) { UserMailer.add_to_class_email(user) }
 
     it 'renders the subject' do

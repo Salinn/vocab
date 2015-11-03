@@ -68,6 +68,21 @@ class CoursesController < ApplicationController
     redirect_to :back, notice: "Users imported."
   end
 
+  def add_to_course
+    course = Course.find(params[:course_id])
+    user = User.find(params[:user][:user_id])
+    user.add_role :student, course
+    CourseUser.create!(user_id: user.id, course_id: course.id)
+    redirect_to course
+  end
+
+  def remove_from_course()
+    course = Course.find(params[:course_id])
+    user = User.find(params[:user_id])
+    course.users.delete user
+    redirect_to course
+  end
+
   private
     #creates relations for the teacher
     def create_relations
@@ -81,6 +96,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:class_name, :start_date, :end_date)
+      params.require(:course).permit(:class_name, :start_date, :end_date, :user_id)
     end
 end

@@ -16,6 +16,11 @@
 <h3>Create A New Student</h3>
 <%= render 'add_student' %>
 
+<%= form_tag course_add_to_course_path(@course) do %>
+    <%= collection_select :user, :user_id, User.all, :id, :name %>
+    <%= submit_tag "Select User" %>
+<% end %>
+
 <h3>Import a CSV File with students</h3>
 <%= form_tag import_courses_path, multipart: true do %>
     <%= file_field_tag :file %>
@@ -41,7 +46,7 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= button_to "Remove user", course_user_remove_from_course_path(@course, user), :method => :delete %></td>
+        <td><%= button_to "Remove user", course_remove_from_course_path(@course, user_id: user.id), :method => :delete %></td>
       </tr>
   <% end %>
   </tbody>

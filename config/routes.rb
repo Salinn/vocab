@@ -11,9 +11,8 @@ Rails.application.routes.draw do
 
   resources :courses do
     collection { post :import }
-    resources :users do
-        delete :remove_from_course
-    end
+    delete :remove_from_course
+    post :add_to_course
   end
 
   resources :words
