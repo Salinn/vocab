@@ -7,6 +7,7 @@ RSpec.describe "courses/show", type: :view do
       start_date: Date.today,
       end_date: Date.today + 3.months
     ))
+    @course.users.build
   end
 
   it "renders attributes in <p>" do

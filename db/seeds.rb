@@ -12,7 +12,6 @@ load 'db/seeds/word_roots.rb'
 load 'db/seeds/courses.rb'
 
 #Dependincies <-- Order matters
-load 'db/seeds/courses_users.rb' #Depends on Courses and Users
 load 'db/seeds/lessons.rb' #Depends on course
 load 'db/seeds/lesson_words.rb' #Depends on lessons and on words
 load 'db/seeds/definitions.rb' #Depends on Words
