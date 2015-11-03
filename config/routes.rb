@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :definitions
 
   resources :courses do
+    collection { post :import }
     resources :users do
         delete :remove_from_course
     end

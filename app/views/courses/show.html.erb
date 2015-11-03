@@ -13,7 +13,16 @@
   <%= @course.end_date %>
 </p>
 
+<h3>Create A New Student</h3>
 <%= render 'add_student' %>
+
+<h3>Import a CSV File with students</h3>
+<%= form_tag import_courses_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= hidden_field_tag "course_id", @course.id %>
+    <%= submit_tag "Import CSV" %>
+<% end %>
+</div>
 
 <table>
   <thead>

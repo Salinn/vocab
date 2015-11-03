@@ -63,6 +63,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def import
+    Course.import(params[:file], params[:course_id])
+    redirect_to :back, notice: "Users imported."
+  end
+
   private
     #creates relations for the teacher
     def create_relations
