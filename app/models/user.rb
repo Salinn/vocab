@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
+
+  def name_and_email
+    "#{first_name} #{last_name} - #{email}"
+  end
 end

@@ -25,7 +25,6 @@ class CourseEmailsController < ApplicationController
   # POST /course_emails.json
   def create
     @course_email = CourseEmail.new(course_email_params)
-
     respond_to do |format|
       if @course_email.save
         format.html { redirect_to @course_email, notice: 'Course email was successfully created.' }
