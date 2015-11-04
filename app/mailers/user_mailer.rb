@@ -11,6 +11,11 @@ class UserMailer < ApplicationMailer
     email_template(body_template, email_title, to_address)
   end
 
+  def custom_email(user, message, title)
+
+    email_template(body_template, email_title, to_address)
+  end
+
   def email_template(body_template, email_title, to_address)
     @body_template = body_template
     subject = email_title

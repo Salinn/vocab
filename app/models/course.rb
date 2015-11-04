@@ -2,8 +2,10 @@ class Course < ActiveRecord::Base
   require 'csv'
   resourcify
 
+  has_many :course_emails
   has_many :course_users
   has_many :users, through: :course_users
+  accepts_nested_attributes_for :course_emails
   accepts_nested_attributes_for :users
   accepts_nested_attributes_for :course_users
 
@@ -29,6 +31,7 @@ class Course < ActiveRecord::Base
     user.password = generated_password
     user.save
     CourseUser.create!(user_id: user.id, course_id: course.id)
+    UserMailer.add_to_class_email(user).deliver_later
     user.add_role :student, course
   end
 end

@@ -21,6 +21,11 @@
     <%= submit_tag "Select User" %>
 <% end %>
 
+<%= form_tag course_mass_add_to_course_path(@course) do %>
+    <%= text_area :user, :user_emails %>
+    <%= submit_tag "Select User" %>
+<% end %>
+
 <h3>Import a CSV File with students</h3>
 <%= form_tag import_courses_path, multipart: true do %>
     <%= file_field_tag :file %>
@@ -55,3 +60,5 @@
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
 
+
+<%= render 'course_emails/course_form', course: @course %>

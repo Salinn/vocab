@@ -73,6 +73,21 @@ class CoursesController < ApplicationController
     user = User.find(params[:user][:user_id])
     user.add_role :student, course
     CourseUser.create!(user_id: user.id, course_id: course.id)
+    UserMailer.add_to_class_email(user).deliver_later
+    redirect_to course
+  end
+
+  def mass_add_to_course
+    course = Course.find(params[:course_id])
+    params[:user][:user_emails].split(',').each do |user_email|
+      generated_password = Devise.friendly_token.first(8)
+      user = User.find_or_create_by(email: user_email)
+      user.password = generated_password
+      user.save
+      user.add_role :student, course
+      CourseUser.create!(user_id: user.id, course_id: course.id)
+      UserMailer.add_to_class_email(user).deliver_later
+    end
     redirect_to course
   end
 

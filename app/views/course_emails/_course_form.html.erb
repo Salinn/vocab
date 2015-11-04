@@ -1,0 +1,28 @@
+<%= form_for(course.course_emails.build) do |f| %>
+    <% if course.course_emails.last.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(course.course_email.errors.count, "error") %> prohibited this course_email from being saved:</h2>
+
+          <ul>
+            <% course.course_emails.last.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.hidden_field :course_id, value: course.id %>
+    </div>
+    <div class="field">
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :content %><br>
+      <%= f.cktext_area :content %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
