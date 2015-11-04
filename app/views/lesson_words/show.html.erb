@@ -12,6 +12,7 @@
       </ul>
     </div>
 <% end %>
+
 <% @lesson_word.definitions.each do |definition| %>
     <p><%= definition.word_definition %></p>
 <% end %>
@@ -32,6 +33,18 @@
 <%# Only render the ability to add sentences if the word has at least one sentence %>
 <% if ! @lesson_word.word.sentences.first.nil? %>
     <%= render 'lesson_words/add_sentence' %>
+<% end %>
+
+<% @lesson_word.word_forms.each do |word_form| %>
+    <p>
+      <strong>Word Form:</strong>
+      <%= word_form.associated_word %>
+    </p>
+<% end %>
+
+<%# Only render the ability to add word_forms if the word has at least one word_form %>
+<% if ! @lesson_word.word.word_forms.first.nil? %>
+    <%= render 'lesson_words/add_word_form' %>
 <% end %>
 
 

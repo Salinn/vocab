@@ -13,6 +13,7 @@ class LessonWordsController < ApplicationController
     @lesson_word.lesson_word_definitions.build
     @lesson_word.lesson_word_videos.build
     @lesson_word.lesson_word_sentences.build
+    @lesson_word.lesson_word_forms.build
   end
 
   # GET /lessons/new
@@ -21,6 +22,7 @@ class LessonWordsController < ApplicationController
     @lesson_word.lesson_word_definitions.build
     @lesson_word.lesson_word_videos.build
     @lesson_word.lesson_word_sentences.build
+    @lesson_word.lesson_word_forms.build
   end
 
   # GET /lessons/1/edit
@@ -77,6 +79,7 @@ class LessonWordsController < ApplicationController
   def lesson_word_params
     params.require(:lesson_word).permit(lesson_word_definitions_attributes: [:lesson_word_id, :definition_id],
                                         lesson_word_videos_attributes: [:lesson_word_id, :word_video_id],
-                                        lesson_word_sentences_attributes: [:lesson_word_id, :sentence_id])
+                                        lesson_word_sentences_attributes: [:lesson_word_id, :sentence_id],
+                                        lesson_word_forms_attributes: [:lesson_word_id, :word_form_id])
   end
 end

@@ -1,4 +1,4 @@
-class LessonWordWordForm < ActiveRecord::Base
+class LessonWordForm < ActiveRecord::Base
   belongs_to :lesson_word
   belongs_to :word_form
 
