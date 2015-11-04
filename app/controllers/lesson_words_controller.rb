@@ -51,7 +51,7 @@ class LessonWordsController < ApplicationController
         format.html { redirect_to @lesson_word, notice: 'Lesson word was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson_word }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @lesson_word.errors, status: :unprocessable_entity }
       end
     end

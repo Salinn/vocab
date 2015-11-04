@@ -1,16 +1,4 @@
 <%= form_for(@lesson_word) do |f| %>
-    <% if @lesson_word.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@lesson_word.errors.count, "error") %> prohibited this lesson word sentence from being saved:</h2>
-
-          <ul>
-            <% @lesson_word.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
     <%= f.fields_for :lesson_word_sentences, @lesson_word.lesson_word_sentences.last do |lesson_word_sentence| %>
         <div class="field">
           <%= lesson_word_sentence.label :lesson_word %><br>
