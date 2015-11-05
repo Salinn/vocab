@@ -24,6 +24,7 @@ class LessonWord < ActiveRecord::Base
   accepts_nested_attributes_for :lesson_word_synonyms
 
 
+  #This method returns all non associated definitions in the lesson word
   def not_word_definitions
     definitions = []
     word.definitions.each do |definition|
@@ -35,6 +36,7 @@ class LessonWord < ActiveRecord::Base
     definitions
   end
 
+  #This method returns all non associated word_videos in the lesson word
   def not_word_videos
     word_videos = []
     word.word_videos.each do |word_video|
@@ -46,6 +48,7 @@ class LessonWord < ActiveRecord::Base
     word_videos
   end
 
+  #This method returns all non associated word_sentences in the lesson word
   def not_word_sentences
     sentences = []
     word.sentences.each do |sentence|
@@ -57,6 +60,7 @@ class LessonWord < ActiveRecord::Base
     sentences
   end
 
+  #This method returns all non associated word_forms in the lesson word
   def not_word_forms
     word_forms = []
     word.word_forms.each do |word_form|
@@ -68,6 +72,7 @@ class LessonWord < ActiveRecord::Base
     word_forms
   end
 
+  #This method returns all non associated synonyms in the lesson word
   def not_word_synonyms
     synonyms = []
     word.synonyms.each do |synonym|
