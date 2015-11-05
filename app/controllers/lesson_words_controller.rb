@@ -14,6 +14,7 @@ class LessonWordsController < ApplicationController
     @lesson_word.lesson_word_videos.build
     @lesson_word.lesson_word_sentences.build
     @lesson_word.lesson_word_forms.build
+    @lesson_Word.lesson_word_synonyms.build
   end
 
   # GET /lessons/new
@@ -23,6 +24,7 @@ class LessonWordsController < ApplicationController
     @lesson_word.lesson_word_videos.build
     @lesson_word.lesson_word_sentences.build
     @lesson_word.lesson_word_forms.build
+    @lesson_Word.lesson_word_synonyms.build
   end
 
   # GET /lessons/1/edit
@@ -80,6 +82,7 @@ class LessonWordsController < ApplicationController
     params.require(:lesson_word).permit(lesson_word_definitions_attributes: [:lesson_word_id, :definition_id],
                                         lesson_word_videos_attributes: [:lesson_word_id, :word_video_id],
                                         lesson_word_sentences_attributes: [:lesson_word_id, :sentence_id],
-                                        lesson_word_forms_attributes: [:lesson_word_id, :word_form_id])
+                                        lesson_word_forms_attributes: [:lesson_word_id, :word_form_id],
+                                        lesson_word_synonyms_attributes: [:lesson_word_id, :synonym_id])
   end
 end
