@@ -6,7 +6,7 @@
         </div>
         <div class="field">
           <%= synonym.label :synonym %><br>
-          <%= synonym.collection_select :synonym_id, @lesson_word.word.synonyms, :id, :word_synonym %>
+          <%= synonym.collection_select :synonym_id, @lesson_word.not_word_synonyms, :id, :word_synonym %>
         </div>
     <% end %>
     <div class="actions">

@@ -6,7 +6,7 @@
         </div>
         <div class="field">
           <%= lesson_word_video.label :word_video %><br>
-          <%= lesson_word_video.collection_select :word_video_id, @lesson_word.word.word_videos, :id, :video_description %>
+          <%= lesson_word_video.collection_select :word_video_id, @lesson_word.not_word_videos, :id, :video_description %>
         </div>
     <% end %>
     <div class="actions">
