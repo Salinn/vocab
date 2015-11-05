@@ -5,7 +5,7 @@
           <%= synonym.hidden_field :lesson_word, value: @lesson_word %>
         </div>
         <div class="field">
-          <%= synonym.label :definition %><br>
+          <%= synonym.label :synonym %><br>
           <%= synonym.collection_select :synonym_id, @lesson_word.word.synonyms, :id, :word_synonym %>
         </div>
     <% end %>

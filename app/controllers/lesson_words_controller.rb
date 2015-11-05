@@ -14,7 +14,7 @@ class LessonWordsController < ApplicationController
     @lesson_word.lesson_word_videos.build
     @lesson_word.lesson_word_sentences.build
     @lesson_word.lesson_word_forms.build
-    @lesson_Word.lesson_word_synonyms.build
+    @lesson_word.lesson_word_synonyms.build
   end
 
   # GET /lessons/new
@@ -24,7 +24,7 @@ class LessonWordsController < ApplicationController
     @lesson_word.lesson_word_videos.build
     @lesson_word.lesson_word_sentences.build
     @lesson_word.lesson_word_forms.build
-    @lesson_Word.lesson_word_synonyms.build
+    @lesson_word.lesson_word_synonyms.build
   end
 
   # GET /lessons/1/edit

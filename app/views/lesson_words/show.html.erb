@@ -47,6 +47,17 @@
     <%= render 'lesson_words/add_word_form' %>
 <% end %>
 
+<% @lesson_word.synonyms.each do |synonym| %>
+    <p>
+      <strong>Synonym:</strong>
+      <%= synonym.word_synonym %>
+    </p>
+<% end %>
+
+<%# Only render the ability to add synonyms if the word has at least one synonym %>
+<% if ! @lesson_word.word.synonyms.first.nil? %>
+    <%= render 'lesson_words/add_synonym' %>
+<% end %>
 
 <% @lesson_word.word_videos.each do |video| %>
     <p>
