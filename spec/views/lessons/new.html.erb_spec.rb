@@ -6,7 +6,8 @@ RSpec.describe "lessons/new", type: :view do
       :lesson_name => "MyString",
       :lesson_points => 1,
       :course => nil,
-      :penalty => 1
+      :penalty => 1,
+      :lesson_modules => LessonModule.all
     ))
   end
 

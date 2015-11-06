@@ -8,7 +8,8 @@ RSpec.describe "lessons/edit", type: :view do
                                 course: FactoryGirl.create(:course),
                                 penalty: 3,
                                 lesson_start_time: Date.today,
-                                lesson_end_date: Date.today + 3.months
+                                lesson_end_date: Date.today + 3.months,
+                                lesson_modules: LessonModule.all
     ))
   end
 

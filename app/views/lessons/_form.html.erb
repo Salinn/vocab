@@ -15,14 +15,17 @@
     <%= f.label :lesson_name %><br>
     <%= f.text_field :lesson_name %>
   </div>
-    <!-- > I DON'T KNOW HOW I'M SUPPOSED TO DISPLAY FOR LESSON MODULES FOR LESSON  <-->
-  <div class="field">
-    <%= f.label :lesson_modules %><br>
-    <%= @lesson_module.find_each do |lm| %>
-        <%= lm.name %>
-        <%= f.check_box :lesson_modules %><br>
+  <!-- I DON'T KNOW HOW I'M SUPPOSED TO DISPLAY FOR LESSON MODULES FOR LESSON  -->
+    <% if false %>
+        <div class="field">
+          <%= f.label :lesson_modules %><br>
+          <%= @lesson_module.find_each do |lm| %>
+              <%= lm.name %>
+              <%= f.check_box :lesson_modules %><br>
+          <% end %>
+        </div>
     <% end %>
-  </div>
+
   <div class="field">
     <%= f.label :lesson_points %><br>
     <%= f.number_field :lesson_points %>
