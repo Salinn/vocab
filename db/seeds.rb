@@ -16,6 +16,9 @@ load 'db/seeds/courses_users.rb' #Depends on Courses and Users
 load 'db/seeds/lessons.rb' #Depends on course
 load 'db/seeds/lesson_words.rb' #Depends on lessons and on words
 load 'db/seeds/definitions.rb' #Depends on Words
+load 'db/seeds/sentences.rb'   #Depends on Words
+load 'db/seeds/synonyms.rb'   #Depends on Words
+load 'db/seeds/word_videos.rb'   #Depends on Words
 load 'db/seeds/lesson_word_definitions.rb' #Depends on lesson_words and definitions
 
 
