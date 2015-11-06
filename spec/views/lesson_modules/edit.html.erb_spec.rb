@@ -5,7 +5,6 @@ RSpec.describe "lesson_modules/edit", type: :view do
     @lesson_module = assign(:lesson_module, LessonModule.create!(
       :name => "MyString",
       :attempts => 1,
-      :lesson => nil,
       :in_use => false,
       :value_percentage => 1
     ))

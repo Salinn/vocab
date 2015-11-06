@@ -6,14 +6,12 @@ RSpec.describe "lesson_modules/index", type: :view do
       LessonModule.create!(
         :name => "Name",
         :attempts => 1,
-        :lesson => nil,
         :in_use => false,
         :value_percentage => 2
       ),
       LessonModule.create!(
         :name => "Name",
         :attempts => 1,
-        :lesson => nil,
         :in_use => false,
         :value_percentage => 2
       )
@@ -24,7 +22,6 @@ RSpec.describe "lesson_modules/index", type: :view do
     render
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
-    assert_select "tr>td", :text => nil.to_s, :count => 2
     assert_select "tr>td", :text => false.to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2
   end

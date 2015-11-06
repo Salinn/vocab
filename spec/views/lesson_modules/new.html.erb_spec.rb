@@ -5,7 +5,6 @@ RSpec.describe "lesson_modules/new", type: :view do
     assign(:lesson_module, LessonModule.new(
       :name => "MyString",
       :attempts => 1,
-      :lesson => nil,
       :in_use => false,
       :value_percentage => 1
     ))
