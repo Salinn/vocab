@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :answers
+  resources :questions
   resources :lesson_words
   resources :sentences
   resources :word_videos
