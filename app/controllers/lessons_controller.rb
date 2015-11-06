@@ -19,13 +19,13 @@ class LessonsController < ApplicationController
   # GET /lessons/new
   def new
     @lesson = Lesson.new
-    @lesson_module = LessonModule.all
+    @lesson_module = LessonModule
   end
 
   # GET /lessons/1/edit
   def edit
     @lesson.lesson_words.build
-    @lesson_module = LessonModule.all
+    @lesson_module = LessonModule
   end
 
   # POST /lessons
