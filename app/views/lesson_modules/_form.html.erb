@@ -20,10 +20,6 @@
     <%= f.number_field :attempts %>
   </div>
   <div class="field">
-    <%= f.label :lesson_id %><br>
-    <%= f.collection_select(:lesson_id, Lesson.all, :id, :lesson_name ) %>
-  </div>
-  <div class="field">
     <%= f.label :in_use %><br>
     <%= f.check_box :in_use %>
   </div>

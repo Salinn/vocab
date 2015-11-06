@@ -3,7 +3,6 @@ class CreateLessonModules < ActiveRecord::Migration
     create_table :lesson_modules do |t|
       t.string :name
       t.integer :attempts
-      t.references :lesson, index: true, foreign_key: true
       t.boolean :in_use
       t.integer :value_percentage
 

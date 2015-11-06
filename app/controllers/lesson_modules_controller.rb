@@ -4,7 +4,7 @@ class LessonModulesController < ApplicationController
   # GET /lesson_modules
   # GET /lesson_modules.json
   def index
-    @lesson_modules = LessonModule.all
+    @lesson_module = LessonModule.all
   end
 
   # GET /lesson_modules/1

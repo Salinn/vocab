@@ -5,6 +5,7 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def index
     @lessons = Lesson.all
+    @lesson_module = LessonModule.all
   end
 
   # GET /lessons/1
@@ -12,23 +13,26 @@ class LessonsController < ApplicationController
   def show
     @words = Word.all
     @lesson.lesson_words.build
+    @lesson_module = LessonModule.all
   end
 
   # GET /lessons/new
   def new
     @lesson = Lesson.new
+    @lesson_module = LessonModule.all
   end
 
   # GET /lessons/1/edit
   def edit
     @lesson.lesson_words.build
+    @lesson_module = LessonModule.all
   end
 
   # POST /lessons
   # POST /lessons.json
   def create
     @lesson = Lesson.new(lesson_params)
-
+    @lesson_module = LessonModule.all
     respond_to do |format|
       if @lesson.save
         format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
@@ -43,6 +47,7 @@ class LessonsController < ApplicationController
   # PATCH/PUT /lessons/1
   # PATCH/PUT /lessons/1.json
   def update
+    @lesson_module = LessonModule.all
     respond_to do |format|
       if @lesson.update(lesson_params)
         format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
@@ -57,6 +62,7 @@ class LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
+    @lesson_module = LessonModule.all
     @lesson.destroy
     respond_to do |format|
       format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
