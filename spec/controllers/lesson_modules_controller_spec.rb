@@ -23,12 +23,25 @@ RSpec.describe LessonModulesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # LessonModule. As you add validations to LessonModule, be sure to
   # adjust the attributes here as well.
+  let(:lesson) { FactoryGirl.create(:lesson) }
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        name: 'Definition',
+        attempts: 3,
+        lesson_id: lesson.id,
+        in_use: true,
+        value_percentage: 30
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        name: 'Add',
+        attempts: -1,
+        lesson_id: lesson.id,
+        in_use: nil,
+        value_percentage: 300
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +116,16 @@ RSpec.describe LessonModulesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            value_percentage: 40
+        }
       }
 
       it "updates the requested lesson_module" do
         lesson_module = LessonModule.create! valid_attributes
         put :update, {:id => lesson_module.to_param, :lesson_module => new_attributes}, valid_session
         lesson_module.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:lesson_module).attributes.symbolize_keys[:value_percentage]).to eq(new_attributes[:value_percentage])
       end
 
       it "assigns the requested lesson_module as @lesson_module" do

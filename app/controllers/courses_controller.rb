@@ -63,6 +63,41 @@ class CoursesController < ApplicationController
     end
   end
 
+  def import
+    Course.import(params[:file], params[:course_id])
+    redirect_to :back, notice: "Users imported."
+  end
+
+  def add_to_course
+    course = Course.find(params[:course_id])
+    user = User.find(params[:user][:user_id])
+    user.add_role :student, course
+    CourseUser.create!(user_id: user.id, course_id: course.id)
+    UserMailer.add_to_class_email(user).deliver_later
+    redirect_to course
+  end
+
+  def mass_add_to_course
+    course = Course.find(params[:course_id])
+    params[:user][:user_emails].split(',').each do |user_email|
+      generated_password = Devise.friendly_token.first(8)
+      user = User.find_or_create_by(email: user_email)
+      user.password = generated_password
+      user.save
+      user.add_role :student, course
+      CourseUser.create!(user_id: user.id, course_id: course.id)
+      UserMailer.add_to_class_email(user).deliver_later
+    end
+    redirect_to course
+  end
+
+  def remove_from_course()
+    course = Course.find(params[:course_id])
+    user = User.find(params[:user_id])
+    course.users.delete user
+    redirect_to course
+  end
+
   private
     #creates relations for the teacher
     def create_relations
@@ -76,6 +111,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:class_name, :start_date, :end_date)
+      params.require(:course).permit(:class_name, :start_date, :end_date, :user_id)
     end
 end
