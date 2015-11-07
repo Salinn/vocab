@@ -12,7 +12,13 @@
   <strong>End date:</strong>
   <%= @course.end_date %>
 </p>
+<hr>
+<% @course.lessons.each do |lesson| %>
+    <p>Name: <%= lesson.lesson_name %>, Points: <%= lesson.lesson_points %>, <%= link_to 'Update Lesson', lesson %></p>
+<% end %>
+<%= link_to 'Create A Lesson', new_course_lesson_path(@course) %>
 
+<hr>
 <h3>Create A New Student</h3>
 <%= render 'add_student' %>
 
@@ -46,7 +52,7 @@
 
   <tbody>
   <% @course.users.each do |user| %>
-    <% next if user.id == nil || user.has_role?(:teacher, @course) %>
+      <% next if user.id == nil || user.has_role?(:teacher, @course) %>
       <tr>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>

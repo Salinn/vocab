@@ -16,18 +16,19 @@ class LessonsController < ApplicationController
 
   # GET /lessons/new
   def new
-    @lesson = Lesson.new
+    course = Course.find(params[:course_id])
+    @lesson = course.lessons.build
   end
 
   # GET /lessons/1/edit
   def edit
-    @lesson.lesson_words.build
   end
 
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson = Lesson.new(lesson_params)
+    course = Course.find(params[:course_id])
+    @lesson = course.lessons.create(lesson_params)
 
     respond_to do |format|
       if @lesson.save

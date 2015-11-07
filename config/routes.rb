@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :definitions
 
   resources :courses do
+    resources :lessons
     collection { post :import }
     delete :remove_from_course
     post :add_to_course
