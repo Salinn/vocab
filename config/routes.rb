@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :course_emails
   resources :lesson_words
   resources :sentences
   resources :word_videos
@@ -10,9 +11,11 @@ Rails.application.routes.draw do
   resources :definitions
 
   resources :courses do
-    resources :users do
-        delete :remove_from_course
-    end
+    resources :lessons
+    collection { post :import }
+    delete :remove_from_course
+    post :add_to_course
+    post :mass_add_to_course
   end
 
   resources :words

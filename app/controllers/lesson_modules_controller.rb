@@ -15,7 +15,6 @@ class LessonModulesController < ApplicationController
   # GET /lesson_modules/new
   def new
     @lesson_module = LessonModule.new
-    @lessons = Lesson.all
   end
 
   # GET /lesson_modules/1/edit

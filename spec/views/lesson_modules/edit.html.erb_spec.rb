@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "lesson_modules/edit", type: :view do
+  let(:lesson) { FactoryGirl.create(:lesson) }
   before(:each) do
     @lesson_module = assign(:lesson_module, LessonModule.create!(
-      :name => "MyString",
-      :attempts => 1,
-      :in_use => false,
-      :value_percentage => 1
+                                              name: 'Definition',
+                                              attempts: 3,
+                                              lesson_id: lesson.id,
+                                              in_use: true,
+                                              value_percentage: 30
     ))
   end
 
