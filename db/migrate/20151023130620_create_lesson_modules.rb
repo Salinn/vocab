@@ -5,7 +5,7 @@ class CreateLessonModules < ActiveRecord::Migration
       t.integer :attempts
       t.boolean :in_use
       t.integer :value_percentage
-
+      t.belongs_to :lesson, index: true, foreign_key: true
       t.timestamps null: false
     end
   end

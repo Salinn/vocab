@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 20151030214236) do
   create_table "lesson_modules", force: :cascade do |t|
     t.string   "name",             limit: 255
     t.integer  "attempts",         limit: 4
-    t.integer  "lesson_id",        limit: 4
     t.boolean  "in_use"
     t.integer  "value_percentage", limit: 4
+    t.integer  "lesson_id",        limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
