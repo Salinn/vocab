@@ -2,52 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "lesson_modules/index", type: :view do
   before(:each) do
-    lesson_modules = [
-        {
-            name: "Module 1 Test",
-            attempts: 2,
-            in_use: true,
-            value_percentage: 1
-        },
-        {
-            name: "Module 2 Test",
-            attempts: 2,
-            in_use: true,
-            value_percentage: 1
-        },
-        {
-            name: "Module 3 Test",
-            attempts: 2,
-            in_use: true,
-            value_percentage: 1
-        },
-        {
-            name: "Module 4 Test",
-            attempts: 2,
-            in_use: true,
-            value_percentage: 1
-        },
-        {
-            name: "Module 5 Test",
-            attempts: 2,
-            in_use: true,
-            value_percentage: 1
-        }
-    ]
-
     assign(:lesson_modules, [
-      LessonModule.create!(
-          name: 'Definition',
-          attempts: 3,
-          in_use: true,
-          value_percentage: 30
-      ),
-      LessonModule.create!(
-          name: 'Definition',
-          attempts: 3,
-          in_use: true,
-          value_percentage: 30
-      )
+      FactoryGirl.create(:lesson_module),FactoryGirl.create(:lesson_module)
     ])
   end
 
