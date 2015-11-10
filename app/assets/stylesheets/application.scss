@@ -22,4 +22,21 @@
   margin-left: 0px;
   margin-right: 0px;
   padding-bottom: 3rem;
+  float: right;
+  width: 80%;
+}
+
+.main {
+  width: 100%;
+}
+
+.sidebar {
+  float: left;
+  width: 20%;
+  padding: 1rem;
+}
+
+#footer {
+  text-align: center;
+  width: 100%;
 }
