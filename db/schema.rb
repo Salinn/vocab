@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106153109) do
+ActiveRecord::Schema.define(version: 20151111031626) do
+
+  create_table "answer_options", force: :cascade do |t|
+    t.integer  "question_id",    limit: 4
+    t.integer  "lesson_word_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "answer_options", ["lesson_word_id"], name: "index_answer_options_on_lesson_word_id", using: :btree
+  add_index "answer_options", ["question_id"], name: "index_answer_options_on_question_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id",      limit: 4
@@ -52,14 +62,31 @@ ActiveRecord::Schema.define(version: 20151106153109) do
 
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   limit: 4,     default: 0, null: false
+    t.integer  "attempts",   limit: 4,     default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "lesson_modules", force: :cascade do |t|
-    t.string   "name",             limit: 255
-    t.integer  "attempts",         limit: 4
-    t.integer  "lesson_id",        limit: 4
+    t.string   "name",              limit: 255
+    t.integer  "attempts",          limit: 4
+    t.integer  "lesson_id",         limit: 4
     t.boolean  "in_use"
-    t.integer  "value_percentage", limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "value_percentage",  limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "number_of_answers", limit: 4
   end
 
   add_index "lesson_modules", ["lesson_id"], name: "index_lesson_modules_on_lesson_id", using: :btree
@@ -108,7 +135,6 @@ ActiveRecord::Schema.define(version: 20151106153109) do
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
-    t.integer  "correct_choice",   limit: 4
     t.integer  "lesson_module_id", limit: 4
     t.integer  "lesson_word_id",   limit: 4
     t.datetime "created_at",                 null: false
@@ -224,6 +250,8 @@ ActiveRecord::Schema.define(version: 20151106153109) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "answer_options", "lesson_words"
+  add_foreign_key "answer_options", "questions"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "course_users", "courses"
