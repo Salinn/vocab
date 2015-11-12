@@ -98,6 +98,12 @@ class CoursesController < ApplicationController
     redirect_to course
   end
 
+  def duplicate_course
+    course = Course.find(params[:course_id])
+    new_course = course.duplicate_course
+    redirect_to new_course
+  end
+
   private
     #creates relations for the teacher
     def create_relations

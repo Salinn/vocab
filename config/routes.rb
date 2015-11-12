@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     delete :remove_from_course
     post :add_to_course
     post :mass_add_to_course
+    post :duplicate_course
   end
 
   resources :words

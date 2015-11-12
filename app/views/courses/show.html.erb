@@ -12,6 +12,10 @@
   <strong>End date:</strong>
   <%= @course.end_date %>
 </p>
+
+<%= form_tag course_duplicate_course_path(@course) do %>
+    <%= submit_tag "Duplicate Class" %>
+<% end %>
 <hr>
 <% @course.lessons.each do |lesson| %>
     <p>Name: <%= lesson.lesson_name %>, Points: <%= lesson.lesson_points %>, <%= link_to 'Update Lesson', lesson %></p>

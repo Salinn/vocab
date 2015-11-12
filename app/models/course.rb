@@ -35,4 +35,20 @@ class Course < ActiveRecord::Base
     UserMailer.add_to_class_email(user).deliver_later
     user.add_role :student, course
   end
+
+  def duplicate_course
+    course = self.dup
+    course.save
+    lessons.each do |lesson|
+      dup_lesson = lesson.dup
+      dup_lesson.course = course
+      dup_lesson.save
+      lesson.lesson_words.each do |lesson_word|
+        dup_lesson_word = lesson_word.dup
+        dup_lesson_word.lesson = dup_lesson
+        dup_lesson_word.save
+      end
+    end
+    course
+  end
 end
