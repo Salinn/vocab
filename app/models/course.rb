@@ -38,6 +38,8 @@ class Course < ActiveRecord::Base
 
   def duplicate_course
     course = self.dup
+    course.start_date = Date.today
+    course.end_date = Date.today + (end_date - start_date)
     course.save
     lessons.each do |lesson|
       dup_lesson = lesson.dup
@@ -49,6 +51,9 @@ class Course < ActiveRecord::Base
         dup_lesson_word.save
       end
     end
+    teacher = User.with_role(:teacher, self).first
+    teacher.add_role :teacher, course
+
     course
   end
 end

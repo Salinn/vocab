@@ -101,14 +101,13 @@ class CoursesController < ApplicationController
   def duplicate_course
     course = Course.find(params[:course_id])
     new_course = course.duplicate_course
-    redirect_to new_course
+    redirect_to new_course, notice: 'Course was successfully Copied, welcome to your new course.'
   end
 
   private
     #creates relations for the teacher
     def create_relations
       current_user.add_role :teacher, @course
-      CourseUser.create!(user_id: current_user.id, course_id: @course.id)
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_course
