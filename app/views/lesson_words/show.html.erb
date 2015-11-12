@@ -75,3 +75,5 @@
 <% if @lesson_word.word.word_videos.any? && @lesson_word.not_word_videos.any? %>
     <%= render 'lesson_words/add_video' %>
 <% end %>
+
+<%= link_to 'Back', @lesson_word.lesson %>

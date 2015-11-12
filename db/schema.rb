@@ -13,6 +13,26 @@
 
 ActiveRecord::Schema.define(version: 20151105014533) do
 
+  create_table "course_emails", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "course_emails", ["course_id"], name: "index_course_emails_on_course_id", using: :btree
+
+  create_table "course_users", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "course_users", ["course_id"], name: "index_course_users_on_course_id", using: :btree
+  add_index "course_users", ["user_id"], name: "index_course_users_on_user_id", using: :btree
+
   create_table "courses", force: :cascade do |t|
     t.string   "class_name", limit: 255
     t.date     "start_date"
@@ -20,14 +40,6 @@ ActiveRecord::Schema.define(version: 20151105014533) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
-
-  create_table "courses_users", id: false, force: :cascade do |t|
-    t.integer "course_id", limit: 4, null: false
-    t.integer "user_id",   limit: 4, null: false
-  end
-
-  add_index "courses_users", ["course_id", "user_id"], name: "index_courses_users_on_course_id_and_user_id", using: :btree
-  add_index "courses_users", ["user_id", "course_id"], name: "index_courses_users_on_user_id_and_course_id", using: :btree
 
   create_table "definitions", force: :cascade do |t|
     t.text     "word_definition", limit: 65535
@@ -123,6 +135,27 @@ ActiveRecord::Schema.define(version: 20151105014533) do
 
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",          limit: 255
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "root_managers", force: :cascade do |t|
+    t.integer  "word_id",      limit: 4
+    t.integer  "word_root_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "root_managers", ["word_id"], name: "index_root_managers_on_word_id", using: :btree
+  add_index "root_managers", ["word_root_id"], name: "index_root_managers_on_word_root_id", using: :btree
+
   create_table "sentences", force: :cascade do |t|
     t.string   "word_sentence", limit: 255
     t.integer  "word_id",       limit: 4
@@ -160,6 +193,13 @@ ActiveRecord::Schema.define(version: 20151105014533) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id", limit: 4
+    t.integer "role_id", limit: 4
+  end
+
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "word_forms", force: :cascade do |t|
     t.string   "associated_word", limit: 255
@@ -201,6 +241,9 @@ ActiveRecord::Schema.define(version: 20151105014533) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "course_emails", "courses"
+  add_foreign_key "course_users", "courses"
+  add_foreign_key "course_users", "users"
   add_foreign_key "definitions", "words"
   add_foreign_key "lesson_modules", "lessons"
   add_foreign_key "lesson_word_definitions", "definitions"
@@ -216,6 +259,8 @@ ActiveRecord::Schema.define(version: 20151105014533) do
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
   add_foreign_key "lessons", "courses"
+  add_foreign_key "root_managers", "word_roots"
+  add_foreign_key "root_managers", "words"
   add_foreign_key "sentences", "words"
   add_foreign_key "synonyms", "words"
   add_foreign_key "word_forms", "words"

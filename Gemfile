@@ -29,11 +29,20 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Web server
 gem 'puma'
 
+#Roles
+gem "rolify"
+
+#text editor
+gem 'ckeditor'
+
 group :development, :test do
   #RSpec
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'simplecov', require: false
+
+  #used for seeding
+  gem 'faker'
 end
 
 gem 'capistrano', '~> 3.1.0'
@@ -50,7 +59,4 @@ group :development do
 
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
-
-  #used for seeding
-  gem 'faker'
 end

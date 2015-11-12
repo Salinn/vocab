@@ -23,14 +23,15 @@ RSpec.describe LessonsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Lesson. As you add validations to Lesson, be sure to
   # adjust the attributes here as well.
+  let(:course) { FactoryGirl.create(:course)}
   let(:valid_attributes) {
     {
       lesson_name: 'Lesson 1',
       lesson_points: 30,
       lesson_start_time: DateTime.now,
       lesson_end_date: DateTime.now + 1.week,
-      course: FactoryGirl.create(:course),
-      penalty: 10
+      penalty: 10,
+      course_id: course.id
     }
   }
 
@@ -68,7 +69,7 @@ RSpec.describe LessonsController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new lesson as @lesson" do
-      get :new, {}, valid_session
+      get :new, { course_id: course.id}, valid_session
       expect(assigns(:lesson)).to be_a_new(Lesson)
     end
   end
@@ -76,7 +77,7 @@ RSpec.describe LessonsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested lesson as @lesson" do
       lesson = Lesson.create! valid_attributes
-      get :edit, {:id => lesson.to_param}, valid_session
+      get :edit, {id: lesson.to_param, course_id: course.id}, valid_session
       expect(assigns(:lesson)).to eq(lesson)
     end
   end
@@ -85,30 +86,30 @@ RSpec.describe LessonsController, type: :controller do
     context "with valid params" do
       it "creates a new Lesson" do
         expect {
-          post :create, {:lesson => valid_attributes}, valid_session
+          post :create, {:lesson => valid_attributes, course_id: course.id}, valid_session
         }.to change(Lesson, :count).by(1)
       end
 
       it "assigns a newly created lesson as @lesson" do
-        post :create, {:lesson => valid_attributes}, valid_session
+        post :create, {:lesson => valid_attributes, course_id: course.id}, valid_session
         expect(assigns(:lesson)).to be_a(Lesson)
         expect(assigns(:lesson)).to be_persisted
       end
 
       it "redirects to the created lesson" do
-        post :create, {:lesson => valid_attributes}, valid_session
+        post :create, {:lesson => valid_attributes, course_id: course.id}, valid_session
         expect(response).to redirect_to(Lesson.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved lesson as @lesson" do
-        post :create, {:lesson => invalid_attributes}, valid_session
+        post :create, {lesson: invalid_attributes, course_id: course.id}, valid_session
         expect(assigns(:lesson)).to be_a_new(Lesson)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:lesson => invalid_attributes}, valid_session
+        post :create, {lesson: invalid_attributes, course_id: course.id}, valid_session
         expect(response).to render_template("new")
       end
     end

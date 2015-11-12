@@ -23,9 +23,11 @@ RSpec.describe DefinitionsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Definition. As you add validations to Definition, be sure to
   # adjust the attributes here as well.
+  let(:word) { FactoryGirl.create(:word) }
   let(:valid_attributes) {
     {
-        word_definition: "This is a word definition"
+        word_definition: "This is a word definition",
+        word_id: word.id
     }
   }
 
@@ -87,7 +89,7 @@ RSpec.describe DefinitionsController, type: :controller do
 
       it "redirects to the created definition" do
         post :create, {:definition => valid_attributes}, valid_session
-        expect(response).to redirect_to(Definition.last)
+        expect(response).to redirect_to(word)
       end
     end
 
@@ -116,7 +118,7 @@ RSpec.describe DefinitionsController, type: :controller do
         definition = Definition.create! valid_attributes
         put :update, {:id => definition.to_param, :definition => new_attributes}, valid_session
         definition.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:definition).attributes.symbolize_keys[:word_definition]).to eq(new_attributes[:word_definition])
       end
 
       it "assigns the requested definition as @definition" do
@@ -128,7 +130,7 @@ RSpec.describe DefinitionsController, type: :controller do
       it "redirects to the definition" do
         definition = Definition.create! valid_attributes
         put :update, {:id => definition.to_param, :definition => valid_attributes}, valid_session
-        expect(response).to redirect_to(definition)
+        expect(response).to redirect_to(word)
       end
     end
 

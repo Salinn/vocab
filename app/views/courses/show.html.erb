@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Class name:</strong>
   <%= @course.class_name %>
@@ -14,6 +12,59 @@
   <strong>End date:</strong>
   <%= @course.end_date %>
 </p>
+<hr>
+<% @course.lessons.each do |lesson| %>
+    <p>Name: <%= lesson.lesson_name %>, Points: <%= lesson.lesson_points %>, <%= link_to 'Update Lesson', lesson %></p>
+<% end %>
+<%= link_to 'Create A Lesson', new_course_lesson_path(@course) %>
+
+<hr>
+<h3>Create A New Student</h3>
+<%= render 'add_student' %>
+
+<%= form_tag course_add_to_course_path(@course) do %>
+    <%= collection_select :user, :user_id, User.all, :id, :name_and_email %>
+    <%= submit_tag "Select User" %>
+<% end %>
+
+<%= form_tag course_mass_add_to_course_path(@course) do %>
+    <%= text_area :user, :user_emails %>
+    <%= submit_tag "Select User" %>
+<% end %>
+
+<h3>Import a CSV File with students</h3>
+<%= form_tag import_courses_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= hidden_field_tag "course_id", @course.id %>
+    <%= submit_tag "Import CSV" %>
+<% end %>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Delete?</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @course.users.each do |user| %>
+      <% next if user.id == nil || user.has_role?(:teacher, @course) %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= button_to "Remove user", course_remove_from_course_path(@course, user_id: user.id), :method => :delete %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
+
+
+<%= render 'course_emails/course_form', course: @course %>

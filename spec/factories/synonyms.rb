@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :synonym do
     word_synonym "MyString"
-word nil
+    word nil
   end
-
 end
