@@ -1,9 +1,9 @@
 <ul class="nav nav-list" id="accordion1">
   <li class="panel">
     <a data-toggle="collapse" data-parent="#accordion1" href="#class_list">Class List</a>
-    <ul id="class_list" class="collapse panel-collapse in">
-      <li>Email Class</li>
-      <li>Update List</li>
+    <ul id="class_list" class="collapse panel-collapse">
+      <li><%= link_to "Email Class", 'some_path'%></li>
+      <li><%= link_to "Update List", 'some_path'%></li>
     </ul>
   </li>
   <li class="panel">
@@ -11,20 +11,20 @@
   </li>
   <li class="panel">
     <a data-toggle="collapse" data-parent="#accordion1" href="#resources">Resources</a>
-    <ul id="resources" class="collapse panel-collapse in">
-      <li>Syllabus</li>
-      <li>Course Description</li>
-      <li>Schedule</li>
+    <ul id="resources" class="collapse panel-collapse">
+      <li><%= link_to "Syllabus", 'some path'%></li>
+      <li><%= link_to "Course Description", 'some path' %></li>
+      <li><%= link_to "Schedule", 'some path' %></li>
     </ul>
   </li>
   <li class="panel">
-    <a data-toggle="collapse" data-parent="#accordion1" href="#grade_book">Grade Book</a>
+    <%= link_to "Grade Book", 'some_path', data: {toggle: :collapse, parent: '#accordion1'} %>
   </li>
   <li class="panel">
-    <a data-toggle="collapse" data-parent="#accordion1" href="#reports">Reports</a>
+    <%= link_to "Reports", 'some_path', data: {toggle: :collapse, parent: '#accordion1'} %>
   </li>
   <li class="panel">
-    <a data-toggle="collapse" data-parent="#accordion1" href="#dictionary">Dictionary</a>
+    <%= link_to "Dictionary", 'some_path', data: {toggle: :collapse, parent: '#accordion1'} %>
   </li>
 
 </ul>
