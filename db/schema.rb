@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103212718) do
+ActiveRecord::Schema.define(version: 20151105014533) do
 
   create_table "course_emails", force: :cascade do |t|
     t.integer  "course_id",  limit: 4
@@ -71,6 +71,36 @@ ActiveRecord::Schema.define(version: 20151103212718) do
 
   add_index "lesson_word_definitions", ["definition_id"], name: "index_lesson_word_definitions_on_definition_id", using: :btree
   add_index "lesson_word_definitions", ["lesson_word_id"], name: "index_lesson_word_definitions_on_lesson_word_id", using: :btree
+
+  create_table "lesson_word_forms", force: :cascade do |t|
+    t.integer  "lesson_word_id", limit: 4
+    t.integer  "word_form_id",   limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "lesson_word_forms", ["lesson_word_id"], name: "index_lesson_word_forms_on_lesson_word_id", using: :btree
+  add_index "lesson_word_forms", ["word_form_id"], name: "index_lesson_word_forms_on_word_form_id", using: :btree
+
+  create_table "lesson_word_sentences", force: :cascade do |t|
+    t.integer  "lesson_word_id", limit: 4
+    t.integer  "sentence_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "lesson_word_sentences", ["lesson_word_id"], name: "index_lesson_word_sentences_on_lesson_word_id", using: :btree
+  add_index "lesson_word_sentences", ["sentence_id"], name: "index_lesson_word_sentences_on_sentence_id", using: :btree
+
+  create_table "lesson_word_synonyms", force: :cascade do |t|
+    t.integer  "lesson_word_id", limit: 4
+    t.integer  "synonym_id",     limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "lesson_word_synonyms", ["lesson_word_id"], name: "index_lesson_word_synonyms_on_lesson_word_id", using: :btree
+  add_index "lesson_word_synonyms", ["synonym_id"], name: "index_lesson_word_synonyms_on_synonym_id", using: :btree
 
   create_table "lesson_word_videos", force: :cascade do |t|
     t.integer  "lesson_word_id", limit: 4
@@ -218,6 +248,12 @@ ActiveRecord::Schema.define(version: 20151103212718) do
   add_foreign_key "lesson_modules", "lessons"
   add_foreign_key "lesson_word_definitions", "definitions"
   add_foreign_key "lesson_word_definitions", "lesson_words"
+  add_foreign_key "lesson_word_forms", "lesson_words"
+  add_foreign_key "lesson_word_forms", "word_forms"
+  add_foreign_key "lesson_word_sentences", "lesson_words"
+  add_foreign_key "lesson_word_sentences", "sentences"
+  add_foreign_key "lesson_word_synonyms", "lesson_words"
+  add_foreign_key "lesson_word_synonyms", "synonyms"
   add_foreign_key "lesson_word_videos", "lesson_words"
   add_foreign_key "lesson_word_videos", "word_videos"
   add_foreign_key "lesson_words", "lessons"

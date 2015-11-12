@@ -11,12 +11,20 @@ class LessonWordsController < ApplicationController
   # GET /lessons/1.json
   def show
     @lesson_word.lesson_word_definitions.build
+    @lesson_word.lesson_word_videos.build
+    @lesson_word.lesson_word_sentences.build
+    @lesson_word.lesson_word_forms.build
+    @lesson_word.lesson_word_synonyms.build
   end
 
   # GET /lessons/new
   def new
     @lesson_word = LessonWord.new
     @lesson_word.lesson_word_definitions.build
+    @lesson_word.lesson_word_videos.build
+    @lesson_word.lesson_word_sentences.build
+    @lesson_word.lesson_word_forms.build
+    @lesson_word.lesson_word_synonyms.build
   end
 
   # GET /lessons/1/edit
@@ -47,7 +55,7 @@ class LessonWordsController < ApplicationController
         format.html { redirect_to @lesson_word, notice: 'Lesson word was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson_word }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @lesson_word.errors, status: :unprocessable_entity }
       end
     end
@@ -71,6 +79,10 @@ class LessonWordsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def lesson_word_params
-    params.require(:lesson_word).permit(lesson_word_definitions_attributes: [:lesson_word_id, :definition_id])
+    params.require(:lesson_word).permit(lesson_word_definitions_attributes: [:lesson_word_id, :definition_id],
+                                        lesson_word_videos_attributes: [:lesson_word_id, :word_video_id],
+                                        lesson_word_sentences_attributes: [:lesson_word_id, :sentence_id],
+                                        lesson_word_forms_attributes: [:lesson_word_id, :word_form_id],
+                                        lesson_word_synonyms_attributes: [:lesson_word_id, :synonym_id])
   end
 end
