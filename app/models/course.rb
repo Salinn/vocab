@@ -44,6 +44,8 @@ class Course < ActiveRecord::Base
     lessons.each do |lesson|
       dup_lesson = lesson.dup
       dup_lesson.course = course
+      dup_lesson.lesson_start_time = dup_lesson_start_time(course, lesson)
+      dup_lesson.lesson_end_date = dup_lesson_end_time(course, lesson)
       dup_lesson.save
       lesson.lesson_words.each do |lesson_word|
         dup_lesson_word = lesson_word.dup
@@ -55,5 +57,17 @@ class Course < ActiveRecord::Base
     teacher.add_role :teacher, course
 
     course
+  end
+
+  def dup_lesson_start_time(course, lesson)
+    date = course.start_date + (lesson.lesson_start_time.to_date - self.start_date).to_i.days
+    time = lesson.lesson_start_time
+    DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec, time.zone)
+  end
+
+  def dup_lesson_end_time(course, lesson)
+    date = course.start_date + (lesson.lesson_end_date.to_date - self.start_date).to_i.days
+    time = lesson.lesson_end_date
+    DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec, time.zone)
   end
 end
