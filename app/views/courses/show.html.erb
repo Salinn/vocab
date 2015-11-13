@@ -15,7 +15,7 @@
 <hr>
 <% @course.lessons.each do |lesson| %>
     <p>Name: <%= lesson.lesson_name %>, Points: <%= lesson.lesson_points %>, <%= link_to 'Update Lesson', lesson %>
-      <%= button_to "Remove user", course_remove_from_course_path(@course, user_id: user.id), :method => :delete %>
+      <%= button_to "Remove Lesson", course_remove_lesson_from_course_path(course_id: @course.id, lesson_id: lesson.id), :method => :delete %>
     </p>
 <% end %>
 <%= link_to 'Create A Lesson', new_course_lesson_path(@course) %>

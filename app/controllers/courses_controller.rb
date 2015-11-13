@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :set_course, only: [:add_to_course ,:mass_add_to_course,:remove_user_from_course, :remove_lesson_from_course]
+  before_action :set_course_id, only: [:add_to_course ,:mass_add_to_course,:remove_user_from_course, :remove_lesson_from_course]
 
   # GET /courses
   # GET /courses.json
@@ -11,7 +11,6 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
-    @course.users.build
   end
 
   # GET /courses/new
@@ -73,7 +72,7 @@ class CoursesController < ApplicationController
     user = User.find(params[:user][:user_id])
     user.add_role :student, @course
     UserMailer.add_to_class_email(user).deliver_later
-    redirect_to course
+    redirect_to @course
   end
 
   def mass_add_to_course
@@ -85,19 +84,19 @@ class CoursesController < ApplicationController
       user.add_role :student, @course
       UserMailer.add_to_class_email(user).deliver_later
     end
-    redirect_to course
+    redirect_to @course
   end
 
   def remove_user_from_course()
     user = User.find(params[:user_id])
     @course.users.delete user
-    redirect_to course, notice: 'The student was successfully removed from the class.'
+    redirect_to @course, notice: 'The student was successfully removed from the class.'
   end
 
   def remove_lesson_from_course()
-    user = Lesson.find(params[:lesson_id])
+    lesson = Lesson.find(params[:lesson_id])
     @course.lessons.delete lesson
-    redirect_to course , notice: 'The lesson was successfully removed from the class.'
+    redirect_to @course , notice: 'The lesson was successfully removed from the class.'
   end
 
   private
