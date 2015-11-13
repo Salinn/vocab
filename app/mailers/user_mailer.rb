@@ -1,11 +1,13 @@
 class UserMailer < ApplicationMailer
   default from: "team.vocabulary@gmail.com"
 
-  def add_to_class_email(user)
+  def add_to_class_email(course, user, raw_token)
+    @course = course
     @user = user
+    @token = raw_token
 
     body_template = 'user_mailer/add_to_class'
-    email_title = "You have been signed up for a class!"
+    email_title = "You have been signed up for the following class: #{@course.class_name}!"
     to_address = @user.email
 
     email_template(body_template, email_title, to_address)
