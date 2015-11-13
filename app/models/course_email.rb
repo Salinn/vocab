@@ -8,18 +8,19 @@ class CourseEmail < ActiveRecord::Base
   after_create :send_email
 
   def send_email
+    teacher_email = User.with_role(:teacher, course).first.email
     if user_id.nil?
-      send_class_email
+      send_class_email(teacher_email)
     else
-      UserMailer.custom_email(user, title, content).deliver_later
+      UserMailer.custom_email(user, title, content, teacher_email).deliver_later
     end
   end
 
-  def send_class_email
+  def send_class_email(teacher_email)
     return if course.nil? || course.users.empty?
     course.users.each do |user|
       next if user.id == nil || user.has_role?(:teacher, course)
-      UserMailer.custom_email(user, title, content).deliver_later
+      UserMailer.custom_email(user, title, content, teacher_email).deliver_later
     end
   end
 end
