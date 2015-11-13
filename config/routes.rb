@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post :add_to_course
     post :mass_add_to_course
     post :duplicate_course
+    post :share_course
   end
 
   resources :words

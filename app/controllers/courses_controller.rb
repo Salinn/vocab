@@ -104,6 +104,13 @@ class CoursesController < ApplicationController
     redirect_to new_course, notice: 'Course was successfully Copied, welcome to your new course.'
   end
 
+  def share_course
+    course = Course.find(params[:course_id])
+    teacher = User.find(params[:user][:teacher_id])
+    course.share_course(teacher)
+    redirect_to course, notice: 'Course was successfully Shared.'
+  end
+
   private
     #creates relations for the teacher
     def create_relations
