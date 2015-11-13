@@ -28,8 +28,8 @@ RSpec.describe LessonModulesController, type: :controller do
     {
         name: 'Definition',
         attempts: 3,
-        lesson_id: lesson.id,
         in_use: true,
+        lesson_id: nil,
         value_percentage: 30
     }
   }
@@ -38,8 +38,8 @@ RSpec.describe LessonModulesController, type: :controller do
     {
         name: 'Add',
         attempts: -1,
-        lesson_id: lesson.id,
         in_use: nil,
+        lesson_id: nil,
         value_percentage: 300
     }
   }
@@ -53,7 +53,10 @@ RSpec.describe LessonModulesController, type: :controller do
     it "assigns all lesson_modules as @lesson_modules" do
       lesson_module = LessonModule.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:lesson_modules)).to eq([lesson_module])
+
+      #puts :lesson_modules
+      #puts lesson_module
+      expect(assigns(:lesson_module)).to eq([lesson_module])
     end
   end
 

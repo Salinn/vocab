@@ -1,0 +1,3 @@
+<% current_user.users_classes(role).each do |course| %>
+    <%= link_to course.class_name, course %>
+<% end %>
