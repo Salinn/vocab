@@ -68,6 +68,6 @@ class CourseEmailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_email_params
-      params.require(:course_email).permit(:course_id, :title, :content)
+      params.require(:course_email).permit(:course_id, :title, :content, :user_id)
     end
 end
