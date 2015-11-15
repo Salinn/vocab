@@ -2,10 +2,16 @@
   <div class="container">
     <hr>
     <div class="col-xl-4 col-md-4 col-xs-4">
-      Column 1
+      <ul>
+        <li><%= link_to 'Add Root Word', new_word_root_path %></li>
+        <li><%= link_to 'Search Word Roots', word_roots_path %></li>
+      </ul>
     </div>
     <div class="col-xl-4 col-md-4 col-xs-4">
-      Column 2
+      <ul>
+        <li><%= link_to 'Add Word', new_word_path %></li>
+        <li><%= link_to 'Search Words', words_path %></li>
+      </ul>
     </div>
     <div class="col-xl-4 col-md-4 col-xs-4">
       Column 3
