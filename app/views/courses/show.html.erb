@@ -1,3 +1,8 @@
+<div class="sidebar">
+  <%= render 'layouts/sidebar' %>
+</div>
+<div class="main">
+
 <p>
   <strong>Class name:</strong>
   <%= @course.class_name %>
@@ -41,3 +46,4 @@
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
 
+</div>
