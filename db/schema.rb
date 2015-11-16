@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105014533) do
+ActiveRecord::Schema.define(version: 20151113162947) do
 
   create_table "course_emails", force: :cascade do |t|
     t.integer  "course_id",  limit: 4
@@ -19,9 +19,11 @@ ActiveRecord::Schema.define(version: 20151105014533) do
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "user_id",    limit: 4
   end
 
   add_index "course_emails", ["course_id"], name: "index_course_emails_on_course_id", using: :btree
+  add_index "course_emails", ["user_id"], name: "index_course_emails_on_user_id", using: :btree
 
   create_table "course_users", force: :cascade do |t|
     t.integer  "course_id",  limit: 4

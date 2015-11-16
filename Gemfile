@@ -4,9 +4,6 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 gem 'rails', '4.2.4'
 
-# Use mysql as the database for Active Record
-gem 'mysql2'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -52,6 +49,9 @@ group :development, :test do
 end
 
 group :development do
+  # Use mysql as the database for Active Record
+  gem 'mysql2'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -62,4 +62,11 @@ group :development do
   #This occurs by stopping where the error occurs and giving you a terminial and info on what was going on
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
+end
+
+group :production do
+  gem 'rails_12factor', '0.0.3'
+
+  #The database used in production
+  gem 'pg', '0.18.3'
 end
