@@ -25,6 +25,8 @@ RSpec.describe AnswersController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
+        question_id: 1,
+        user_id: 1,
         time_to_complete: 10,
         correct: true
     }
@@ -32,6 +34,8 @@ RSpec.describe AnswersController, type: :controller do
 
   let(:invalid_attributes) {
     {
+        question_id: -1,
+        user_id: -1,
         time_to_complete: -10,
         correct: nil
     }
