@@ -13,15 +13,11 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, readonly: true %>
   </div>
   <div class="field">
     <%= f.label :attempts %><br>
     <%= f.number_field :attempts %>
-  </div>
-  <div class="field">
-    <%= f.label :lesson_id %><br>
-    <%= f.collection_select(:lesson_id, Lesson.all, :id, :lesson_name ) %>
   </div>
   <div class="field">
     <%= f.label :in_use %><br>

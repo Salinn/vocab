@@ -47,6 +47,8 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: vocab_production
-  username: root
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  port: 3306
+  timeout: 5000

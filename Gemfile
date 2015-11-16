@@ -4,8 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.2.3'
 gem 'rails', '4.2.4'
-# Use mysql as the database for Active Record
-gem 'mysql2'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -33,6 +32,9 @@ gem 'puma'
 #Roles
 gem "rolify"
 
+#text editor
+gem 'ckeditor'
+
 group :development, :test do
   #RSpec
   gem 'rspec-rails', '~> 3.0'
@@ -49,6 +51,9 @@ gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rvm', github: "capistrano/rvm"
 
 group :development do
+  # Use mysql as the database for Active Record
+  gem 'mysql2'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -57,4 +62,11 @@ group :development do
 
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
+end
+
+group :production do
+  gem 'rails_12factor', '0.0.3'
+
+  #The database used in production
+  gem 'pg', '0.18.3'
 end

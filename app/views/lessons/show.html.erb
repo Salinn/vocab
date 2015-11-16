@@ -34,7 +34,10 @@
 <% end %>
 <hr><p>Add Word:</p>
 <%= render 'lessons/add_word' %>
+<hr>
+<%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
+<hr>
 
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
-<%= link_to 'Back', lessons_path %>
+<%= link_to 'Back', @lesson.course %>
 

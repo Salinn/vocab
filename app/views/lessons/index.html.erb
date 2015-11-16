@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Lesson name</th>
+      <th>Lesson modules</th>
       <th>Lesson points</th>
       <th>Lesson start time</th>
       <th>Lesson end date</th>
@@ -19,10 +20,15 @@
     <% @lessons.each do |lesson| %>
       <tr>
         <td><%= lesson.lesson_name %></td>
+        <td>
+          <%= lesson.lesson_modules.find_each do |lm| %>
+            <%= lm.name %><br>
+          <% end %>
+        </td>
         <td><%= lesson.lesson_points %></td>
         <td><%= lesson.lesson_start_time %></td>
         <td><%= lesson.lesson_end_date %></td>
-        <td><%= lesson.course %></td>
+        <td><%= lesson.course.class_name %></td>
         <td><%= lesson.penalty %></td>
         <td><%= link_to 'Show', lesson %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>

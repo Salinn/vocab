@@ -4,7 +4,7 @@ class LessonModulesController < ApplicationController
   # GET /lesson_modules
   # GET /lesson_modules.json
   def index
-    @lesson_modules = LessonModule.all
+    @lesson_module = LessonModule.all
   end
 
   # GET /lesson_modules/1
@@ -15,7 +15,6 @@ class LessonModulesController < ApplicationController
   # GET /lesson_modules/new
   def new
     @lesson_module = LessonModule.new
-    @lessons = Lesson.all
   end
 
   # GET /lesson_modules/1/edit
@@ -70,6 +69,6 @@ class LessonModulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_module_params
-      params.require(:lesson_module).permit(:name, :attempts, :lesson_id, :in_use, :value_percentage)
+      params.require(:lesson_module).permit(:name, :attempts, :in_use, :value_percentage, :lesson_id)
     end
 end

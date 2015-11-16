@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         CourseUser.create!(user_id: @user.id, course_id: course.id)
+        UserMailer.add_to_class_email(@user).deliver_later
         current_user.add_role :student, course
         format.html { redirect_to course_path(course.id), notice: 'You have successfully registered.' }
         format.json { render action: 'show', status: :created, location: @user }
@@ -48,13 +49,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     redirect_to potentials_path, notice: "User deleted."
-  end
-
-  def remove_from_course
-    course = Course.find(params[:course_id])
-    user = User.find(params[:user_id])
-    course.users.delete user
-    redirect_to course
   end
 
   def user_params
