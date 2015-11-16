@@ -24,11 +24,17 @@ RSpec.describe AnswersController, type: :controller do
   # Answer. As you add validations to Answer, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        time_to_complete: 10,
+        correct: true
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        time_to_complete: -10,
+        correct: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session

@@ -24,11 +24,17 @@ RSpec.describe QuestionsController, type: :controller do
   # Question. As you add validations to Question, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        lesson_module_id: 1,
+        lesson_word_id: 1
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        lesson_module_id: -1,
+        lesson_word_id: -1
+    }
   }
 
   # This should return the minimal set of values that should be in the session
