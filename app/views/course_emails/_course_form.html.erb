@@ -14,6 +14,10 @@
     <div class="field">
       <%= f.hidden_field :course_id, value: course.id %>
     </div>
+    <div>
+      <%= f.label :user %><br>
+      <%= f.collection_select :user_id, User.with_role(:student, course), :id, :name_and_email, { include_blank: true } %>
+    </div>
     <div class="field">
       <%= f.label :title %><br>
       <%= f.text_field :title %>

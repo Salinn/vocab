@@ -4,7 +4,12 @@
   </td>
 </tr>  <tr>
   <td align="left" valign="top" style="padding-left: 0px; padding-bottom: 10px; padding-top: 0px; padding-right: 0px;">
-    We just wanted to let you know that you have been added to a class!
+    <p>We just wanted to let you know that you have been added to the following class: <%= @course.class_name %>!</p>
+    <p>This class is taught by Professor <%= User.with_role(:teacher, @course).first.last_name %>.</p>
+    <p>This class will begin on <%= @course.start_date.strftime('%A, %b %d') %>.</p>
+
+    <p>To login please <%= link_to 'click here', root_url %></p>
+    <p>If you forgot you password or don't have one yet please <%= link_to 'click here', edit_password_url(@user, reset_password_token: @token) %></p>
   </td>
 </tr>
 <tr>
