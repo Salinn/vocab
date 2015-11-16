@@ -12,6 +12,7 @@ RSpec.describe "word_roots/index", type: :view do
         :root_definition => "MyText"
       )
     ])
+    @search = WordRoot.ransack(params[:q])
   end
 
   it "renders a list of word_roots" do
