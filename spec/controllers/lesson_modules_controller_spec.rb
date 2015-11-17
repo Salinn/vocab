@@ -23,13 +23,11 @@ RSpec.describe LessonModulesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # LessonModule. As you add validations to LessonModule, be sure to
   # adjust the attributes here as well.
-  let(:lesson) { FactoryGirl.create(:lesson) }
   let(:valid_attributes) {
     {
         name: 'Definition',
         attempts: 3,
         in_use: false,
-        lesson_id: lesson.id,
         value_percentage: 30
     }
   }
