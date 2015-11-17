@@ -38,7 +38,7 @@ lesson_modules = [
         in_use: true,
         value_percentage: 20,
         number_of_answers: 4
-    },
+    }
 ]
 
 LessonModule.create!(lesson_modules)

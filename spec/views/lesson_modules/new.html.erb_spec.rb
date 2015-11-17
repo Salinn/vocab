@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe "lesson_modules/new", type: :view do
+  let(:lesson) { FactoryGirl.create(:lesson) }
   before(:each) do
     assign(:lesson_module, LessonModule.new(
-      :name => "MyString",
-      :attempts => 1,
-      :lesson => nil,
-      :in_use => false,
-      :value_percentage => 1
-    ))
+                             name: 'Definition',
+                             attempts: 3,
+                             lesson_id: lesson.id,
+                             in_use: true,
+                             value_percentage: 30
+                         ))
   end
 
   it "renders new lesson_module form" do

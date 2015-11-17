@@ -37,5 +37,5 @@ words = [
     }
 ]
 
-Word.delete_all
+#Word.delete_all
 Word.create!(words)

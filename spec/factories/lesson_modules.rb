@@ -1,10 +1,8 @@
 FactoryGirl.define do
   factory :lesson_module do
-    name "MyString"
-attempts 1
-lesson nil
-in_use false
-value_percentage 1
+    name 'Definition'
+    attempts 3
+    in_use true
+    value_percentage 30
   end
-
 end
