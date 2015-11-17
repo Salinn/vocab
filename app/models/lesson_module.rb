@@ -4,9 +4,8 @@ class LessonModule < ActiveRecord::Base
 
   validates :name, length: { minimum: 4 }
   validates :attempts, numericality: { greater_than_or_equal_to: 0 }
-  validates :in_use, presence: true
+  validates :in_use, inclusion: { in: [true, false] }
   validates :value_percentage, numericality: { greater_than_or_equal_to:0, less_than_or_equal_to: 100 }
-
   after_update :create_questions
 
   def create_questions

@@ -1,8 +1,6 @@
 FactoryGirl.define do
   factory :question do
-    correct_choice 1
-lesson_module nil
-lesson_word nil
+    association :lesson_module, factory: :lesson_module
+    association :lesson_word, factory: :lesson_word
   end
-
 end

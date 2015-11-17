@@ -75,13 +75,14 @@ ActiveRecord::Schema.define(version: 20151113162947) do
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
 
   create_table "lesson_modules", force: :cascade do |t|
-    t.string   "name",             limit: 255
-    t.integer  "attempts",         limit: 4
+    t.string   "name",              limit: 255
+    t.integer  "attempts",          limit: 4
     t.boolean  "in_use"
-    t.integer  "value_percentage", limit: 4
-    t.integer  "lesson_id",        limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "value_percentage",  limit: 4
+    t.integer  "lesson_id",         limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "number_of_answers", limit: 4
   end
 
   add_index "lesson_modules", ["lesson_id"], name: "index_lesson_modules_on_lesson_id", using: :btree
@@ -160,7 +161,6 @@ ActiveRecord::Schema.define(version: 20151113162947) do
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
-    t.integer  "correct_choice",   limit: 4
     t.integer  "lesson_module_id", limit: 4
     t.integer  "lesson_word_id",   limit: 4
     t.datetime "created_at",                 null: false

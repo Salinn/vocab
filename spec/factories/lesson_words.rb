@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :lesson_word do
-    lesson nil
-word nil
+    association :lesson, factory: :lesson
+    association :word, factory: :word
   end
-
 end

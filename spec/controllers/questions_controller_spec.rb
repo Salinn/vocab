@@ -23,10 +23,12 @@ RSpec.describe QuestionsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Question. As you add validations to Question, be sure to
   # adjust the attributes here as well.
+  let (:lesson_module){ FactoryGirl.create(:lesson_module) }
+  let (:lesson_word){ FactoryGirl.create(:lesson_word) }
   let(:valid_attributes) {
     {
-        lesson_module_id: 1,
-        lesson_word_id: 1
+        lesson_module_id: lesson_module.id,
+        lesson_word_id: lesson_word.id
     }
   }
 

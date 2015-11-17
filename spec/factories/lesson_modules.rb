@@ -4,5 +4,6 @@ FactoryGirl.define do
     attempts 3
     in_use true
     value_percentage 30
+    association :lesson, factory: :lesson
   end
 end

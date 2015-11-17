@@ -1,9 +1,8 @@
 FactoryGirl.define do
   factory :answer do
-    question nil
-user nil
-time_to_complete 1
-correct false
+    association :question, factory: :question
+    association :user, factory: :user
+    time_to_complete 3
+    correct false
   end
-
 end

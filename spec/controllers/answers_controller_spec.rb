@@ -23,13 +23,12 @@ RSpec.describe AnswersController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Answer. As you add validations to Answer, be sure to
   # adjust the attributes here as well.
-  let (:question){
-    FactoryGirl.create(:question, lesson_module_id: 1, lesson_word_id: 1)
-  }
+  let (:question){ FactoryGirl.create(:question) }
+  let (:user){ FactoryGirl.create(:user) }
   let(:valid_attributes) {
     {
         question_id: question.id,
-        user_id: 1,
+        user_id: user.id,
         time_to_complete: 10,
         correct: true
     }
