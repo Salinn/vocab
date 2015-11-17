@@ -34,6 +34,9 @@ gem "rolify"
 #text editor
 gem 'ckeditor'
 
+#helps with searching
+gem 'ransack'
+
 group :development, :test do
   #RSpec is used for unit testing
   gem 'rspec-rails', '~> 3.0'

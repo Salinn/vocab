@@ -4,7 +4,8 @@ class WordRootsController < ApplicationController
   # GET /word_roots
   # GET /word_roots.json
   def index
-    @word_roots = WordRoot.all
+     @search = WordRoot.ransack(params[:q])
+     @word_roots = @search.result
   end
 
   # GET /word_roots/1

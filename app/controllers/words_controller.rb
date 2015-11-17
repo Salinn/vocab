@@ -4,7 +4,8 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.all
+    @search = Word.ransack(params[:q])
+    @words = @search.result.includes(:word_roots, :word_videos, :sentences, :definitions, :synonyms, :word_forms)
   end
 
   # GET /words/1
