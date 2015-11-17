@@ -34,8 +34,8 @@ RSpec.describe QuestionsController, type: :controller do
 
   let(:invalid_attributes) {
     {
-        lesson_module_id: -1,
-        lesson_word_id: -1
+        lesson_module_id: nil,
+        lesson_word_id: nil
     }
   }
 
