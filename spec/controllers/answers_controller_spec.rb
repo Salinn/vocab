@@ -115,14 +115,16 @@ RSpec.describe AnswersController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            correct: false
+        }
       }
 
       it "updates the requested answer" do
         answer = Answer.create! valid_attributes
         put :update, {:id => answer.to_param, :answer => new_attributes}, valid_session
         answer.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:answer).attributes.symbolize_keys[:correct]).to eq(new_attributes[:correct])
       end
 
       it "assigns the requested answer as @answer" do

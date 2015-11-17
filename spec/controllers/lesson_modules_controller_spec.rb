@@ -28,8 +28,8 @@ RSpec.describe LessonModulesController, type: :controller do
     {
         name: 'Definition',
         attempts: 3,
-        in_use: true,
-        lesson_id: nil,
+        in_use: false,
+        lesson_id: lesson.id,
         value_percentage: 30
     }
   }

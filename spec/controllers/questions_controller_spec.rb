@@ -110,17 +110,6 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested question" do
-        question = Question.create! valid_attributes
-        put :update, {:id => question.to_param, :question => new_attributes}, valid_session
-        question.reload
-        skip("Add assertions for updated state")
-      end
-
       it "assigns the requested question as @question" do
         question = Question.create! valid_attributes
         put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
