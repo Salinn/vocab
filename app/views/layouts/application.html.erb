@@ -12,12 +12,14 @@
 <body>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-
-
-
-  <div class="row">
-    <%= yield %>
-  </div>
+<% if controller.controller_name == 'courses' && action_name != 'new' %>
+    <div class="sidebar">
+      <%= render 'layouts/sidebar' %>
+    </div>
+<% end %>
+<div class="row">
+  <%= yield %>
+</div>
 
 
 <div id="footer">
