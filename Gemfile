@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.2.3'
 gem 'rails', '4.2.4'
@@ -9,13 +8,14 @@ gem 'rails', '4.2.4'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'devise'
+
+#Javascript Stuff
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -35,20 +35,22 @@ gem "rolify"
 #text editor
 gem 'ckeditor'
 
+#helps with searching
+gem 'ransack'
+
 group :development, :test do
-  #RSpec
+  #RSpec is used for unit testing
   gem 'rspec-rails', '~> 3.0'
+
+  #Helps with creating objects for testing
   gem 'factory_girl_rails'
+
+  #Used for doing coverage testing on our application
   gem 'simplecov', require: false
 
-  #used for seeding
+  #used for creating seeds. It generates fake data
   gem 'faker'
 end
-
-gem 'capistrano', '~> 3.1.0'
-gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rails', '~> 1.1.1'
-gem 'capistrano-rvm', github: "capistrano/rvm"
 
 group :development do
   # Use mysql as the database for Active Record
@@ -60,6 +62,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  #These 2 gems makes it a bit easier to debug issues when they occur
+  #This occurs by stopping where the error occurs and giving you a terminial and info on what was going on
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
 end

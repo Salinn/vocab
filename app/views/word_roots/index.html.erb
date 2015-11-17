@@ -1,13 +1,22 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Word Roots</h1>
+<%= search_form_for @search, url: word_roots_path do |f| %>
+    <div class="field">
+      <%= f.text_field :root_name_cont, placeholder: 'Search by Root Name'  %>
+      <%= f.text_field :root_definition_cont, placeholder: 'Search by Root Definition'  %>
+    </div>
+    <div class="actions potentials-inline">
+      <%= f.submit "Search Roots" %>
+    </div>
+    <div class="potentials-inline">
+      <%= link_to 'Clear Search', word_roots_path %>
+    </div>
+<% end %>
 
 <table>
   <thead>
     <tr>
-      <th>Root name</th>
-      <th>Root definition</th>
-      <th colspan="3"></th>
+      <th><%= sort_link @search, :root_name,'Root name' %></th>
+      <th><%= sort_link @search, :root_definition,'Root definition' %></th>
     </tr>
   </thead>
 
@@ -16,9 +25,6 @@
       <tr>
         <td><%= word_root.root_name %></td>
         <td><%= word_root.root_definition %></td>
-        <td><%= link_to 'Show', word_root %></td>
-        <td><%= link_to 'Edit', edit_word_root_path(word_root) %></td>
-        <td><%= link_to 'Destroy', word_root, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

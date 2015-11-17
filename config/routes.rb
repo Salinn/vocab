@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   resources :courses do
     resources :lessons
     collection { post :import }
-    delete :remove_from_course
+    delete :remove_user_from_course
+    delete :remove_lesson_from_course
     post :add_to_course
     post :mass_add_to_course
+    post :duplicate_course
+    post :share_course
   end
 
   resources :words
