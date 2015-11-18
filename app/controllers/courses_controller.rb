@@ -75,10 +75,10 @@ class CoursesController < ApplicationController
     user.reset_password_token = hashed_token
     user.reset_password_sent_at = Time.now.utc
     user.save
-    user.add_role :student, course
-    CourseUser.create!(user_id: user.id, course_id: course.id)
-    UserMailer.add_to_class_email(course, user, raw_token).deliver_later
-    redirect_to course
+    user.add_role :student, @course
+    CourseUser.create!(user_id: user.id, course_id: @course.id)
+    UserMailer.add_to_class_email(@course, user, raw_token).deliver_later
+    redirect_to @course
   end
 
   def mass_add_to_course

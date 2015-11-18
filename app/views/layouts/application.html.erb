@@ -12,7 +12,7 @@
 <body>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-<% if controller.controller_name == 'courses' && action_name != 'new' %>
+<% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
     <div class="sidebar">
       <%= render 'layouts/sidebar' %>
     </div>
