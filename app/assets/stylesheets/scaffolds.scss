@@ -1,5 +1,9 @@
+$White: #FFFFFF;
+$Black: #000000;
+
 body {
-  background-color: #fff;
+  background:url('http://static1.squarespace.com/static/54c69104e4b09c0cdd8089fe/t/55d4d4d9e4b0793ba4220f73/1440011482486/') no-repeat;
+  background-size: 100%;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -70,4 +74,27 @@ div {
     font-size: 12px;
     list-style: square;
   }
+}
+
+//alerts
+.alert-info {
+  background-color: indianred;
+  border-color: $Black;
+  color: $White;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.notice-info {
+  background-color: #428f50;
+  border-color: $Black;
+  color: $White;
+}
+
+.home-page-card-opacity {
+  opacity: .9;
 }
