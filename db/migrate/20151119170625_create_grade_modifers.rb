@@ -5,7 +5,6 @@ class CreateGradeModifers < ActiveRecord::Migration
       t.belongs_to :lesson, index: true, foreign_key: true
       t.belongs_to :course, index: true, foreign_key: true
       t.belongs_to :lesson_module, index: true, foreign_key: true
-      t.belongs_to :question, index: true, foreign_key: true
       t.float :modified_grade_value
 
       t.timestamps null: false

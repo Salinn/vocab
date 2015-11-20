@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     post :mass_add_to_course
     post :duplicate_course
     post :share_course
+
+
+    get :gradebook, controller: "grade_book", action: "index"
   end
 
   resources :words
