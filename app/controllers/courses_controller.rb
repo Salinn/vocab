@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :set_course_id, only: [:add_to_course ,:mass_add_to_course,:remove_user_from_course, :remove_lesson_from_course]
+  before_action :set_course_id, only: [:add_to_course ,:mass_add_to_course,:remove_user_from_course,
+                                       :remove_lesson_from_course, :email_class, :manage_students, :manage_lessons]
 
   # GET /courses
   # GET /courses.json
@@ -74,10 +75,10 @@ class CoursesController < ApplicationController
     user.reset_password_token = hashed_token
     user.reset_password_sent_at = Time.now.utc
     user.save
-    user.add_role :student, course
-    CourseUser.create!(user_id: user.id, course_id: course.id)
-    UserMailer.add_to_class_email(course, user, raw_token).deliver_later
-    redirect_to course
+    user.add_role :student, @course
+    CourseUser.create!(user_id: user.id, course_id: @course.id)
+    UserMailer.add_to_class_email(@course, user, raw_token).deliver_later
+    redirect_to @course
   end
 
   def mass_add_to_course
@@ -119,6 +120,17 @@ class CoursesController < ApplicationController
     teacher = User.find(params[:user][:teacher_id])
     course.share_course(teacher)
     redirect_to course, notice: 'Course was successfully Shared.'
+  end
+
+  def email_class
+  end
+
+  def manage_students
+    #TODO fix this relation
+    @course.users.build
+  end
+
+  def manage_lessons
   end
 
   private
