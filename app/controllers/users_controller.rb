@@ -21,7 +21,8 @@ class UsersController < ApplicationController
       if @user.save
         @user.add_role(:student, course)
         UserMailer.add_to_class_email(course, @user, raw_token).deliver_later
-        respond_with(course, location: root_path)
+        format.html { redirect_to root_path, notice: 'You have successfully registered a student for your class.' }
+        format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { redirect_to :back }
         format.json { render json: @user.errors, status: :unprocessable_entity }

@@ -98,8 +98,8 @@ class CoursesController < ApplicationController
 
   def remove_user_from_course()
     user = User.find(params[:user_id])
-    @course.users.delete user
-    redirect_to @course, notice: 'The student was successfully removed from the class.'
+    user.remove_role(:student, @course)
+    redirect_to course_manage_students_path(@course), notice: 'The student was successfully removed from the class.'
   end
 
   def remove_lesson_from_course()
