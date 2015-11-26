@@ -133,6 +133,14 @@ class CoursesController < ApplicationController
   def manage_lessons
   end
 
+  def syllabus
+    @course = Course.find(params[:course_id])
+  end
+
+  def description
+    @course = Course.find(params[:course_id])
+  end
+
   private
     #creates relations for the teacher
     def create_relations

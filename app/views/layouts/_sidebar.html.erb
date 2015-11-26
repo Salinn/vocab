@@ -12,8 +12,8 @@
   <li class="panel">
     <a data-toggle="collapse" data-parent="#accordion1" href="#resources">Resources</a>
     <ul id="resources" class="collapse panel-collapse">
-      <li><%= link_to "Syllabus", '#'%></li>
-      <li><%= link_to "Course Description", '#' %></li>
+      <li><%= link_to "Syllabus", course_syllabus_path(@course) %></li>
+      <li><%= link_to "Course Description", course_description_path(@course) %></li>
       <li><%= link_to "Schedule", '#' %></li>
     </ul>
   </li>

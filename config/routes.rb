@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     get :email_class
     get :manage_students
     get :manage_lessons
+    get :syllabus
+    get :description
   end
 
   resources :words
