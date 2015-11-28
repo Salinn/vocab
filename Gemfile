@@ -28,6 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # full calendar
 gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 #Web server
 gem 'puma'
