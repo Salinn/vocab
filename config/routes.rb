@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   resources :course_emails
   resources :lesson_words
   resources :sentences

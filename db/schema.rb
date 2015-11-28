@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113162947) do
+ActiveRecord::Schema.define(version: 20151128210538) do
 
   create_table "course_emails", force: :cascade do |t|
     t.integer  "course_id",  limit: 4
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 20151113162947) do
   end
 
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "lesson_modules", force: :cascade do |t|
     t.string   "name",             limit: 255
