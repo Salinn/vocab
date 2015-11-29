@@ -4,7 +4,9 @@ RSpec.describe "events/show", type: :view do
   before(:each) do
     @event = assign(:event, Event.create!(
       :title => "Title",
-      :description => "MyText"
+      :description => "MyText",
+      :start_time => DateTime.now,
+      :end_time => DateTime.now + 3.hours
     ))
   end
 

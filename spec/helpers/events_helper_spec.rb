@@ -11,5 +11,20 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe EventsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:valid_event_attributes) {
+    {
+        title: 'Event',
+        description: 'Description',
+        start_time: DateTime.now,
+        end_time: DateTime.now + 2.hours
+    }
+  }
+
+
+  describe 'Generates Valid Event Link' do
+    it "generates a link to one of the events" do
+      event = Event.create!(valid_event_attributes)
+      expect(events_link(event)).to eql('<a href="/events/' + event.id.to_s + '">Event</a>')
+    end
+  end
 end

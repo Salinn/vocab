@@ -13,7 +13,7 @@ class Lesson < ActiveRecord::Base
   validates :lesson_start_time, presence: true
   validates :lesson_end_date, presence: true
 
-  after_create :create_modules, :create_event
+  after_create :create_modules, :create_lesson_event
 
   def create_modules
     modules = ['Word Form', 'Definition']
@@ -22,7 +22,7 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def create_event
+  def create_lesson_event
     Event.create!(title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time , end_time: lesson_end_date)
   end
 end
