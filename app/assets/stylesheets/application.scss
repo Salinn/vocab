@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require jquery-ui/datepicker
  *= require_self
  */
 
@@ -22,4 +23,9 @@
   margin-left: 0px;
   margin-right: 0px;
   padding-bottom: 3rem;
+}
+
+.jumbotron {
+  padding-top: 0;
+  padding-bottom: 10px;
 }

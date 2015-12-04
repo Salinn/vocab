@@ -8,6 +8,7 @@ gem 'rails', '4.2.4'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'devise'
+gem 'jquery-ui-rails'
 
 #Javascript Stuff
 # Use Uglifier as compressor for JavaScript assets
@@ -29,7 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 
 #Roles
-gem "rolify"
+gem 'rolify'
 
 #text editor
 gem 'ckeditor'
