@@ -12,12 +12,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     course = Course.find(params[:user][:course_id])
+    @user.new_user_added_to_course(course)
 
     respond_to do |format|
       if @user.save
-        @user.new_user_added_to_course(course)
 
-        format.html { redirect_to root_path, notice: 'You have successfully registered a student for your class.' }
+        format.html { redirect_to course_manage_students_path(course), notice: 'You have successfully registered a student for your class.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { redirect_to :back }
