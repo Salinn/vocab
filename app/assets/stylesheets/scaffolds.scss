@@ -1,10 +1,13 @@
 $White: #FFFFFF;
 $Black: #000000;
+$BackgroundImage: 'http://static1.squarespace.com/static/54c69104e4b09c0cdd8089fe/t/55d4d4d9e4b0793ba4220f73/1440011482486/';
 
 body {
-  background:url('http://static1.squarespace.com/static/54c69104e4b09c0cdd8089fe/t/55d4d4d9e4b0793ba4220f73/1440011482486/') no-repeat;
-  background-size: 100%;
-  color: #333;
+  background: url($BackgroundImage) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
