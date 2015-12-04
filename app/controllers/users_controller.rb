@@ -12,15 +12,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     course = Course.find(params[:user][:course_id])
-    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
-    @user.reset_password_token = hashed_token
-    @user.reset_password_sent_at = Time.now.utc
-    @user.password = Devise.friendly_token.first(8)
 
     respond_to do |format|
       if @user.save
-        @user.add_role(:student, course)
-        UserMailer.add_to_class_email(course, @user, raw_token).deliver_later
+        @user.new_user_added_to_course(course)
+
         format.html { redirect_to root_path, notice: 'You have successfully registered a student for your class.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
