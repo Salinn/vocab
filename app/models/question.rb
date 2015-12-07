@@ -2,6 +2,8 @@ class Question < ActiveRecord::Base
   belongs_to :lesson_module
   belongs_to :lesson_word
   has_many :answer_options
+  has_many :answers
+
   validates :lesson_module_id, presence:true
   validates :lesson_word_id, presence:true
   #after_create :create_answer_options
