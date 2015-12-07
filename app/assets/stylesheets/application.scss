@@ -22,4 +22,25 @@
   margin-left: 0px;
   margin-right: 0px;
   padding-bottom: 3rem;
+  overflow: scroll;
+  min-width: 500px;
+//  float: right;
+//  width: 80%;
+}
+
+.main {
+  padding: 1rem;
+  width: 80%;
+  float: right;
+}
+
+.sidebar {
+  float: left;
+  width: 20%;
+  padding: 1rem;
+}
+
+#footer {
+  text-align: center;
+  width: 100%;
 }
