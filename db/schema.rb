@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113162947) do
+ActiveRecord::Schema.define(version: 20151207012513) do
 
   create_table "answer_options", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -73,6 +73,17 @@ ActiveRecord::Schema.define(version: 20151113162947) do
   end
 
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
+
+  create_table "lesson_extensions", force: :cascade do |t|
+    t.integer  "lesson_id",      limit: 4
+    t.integer  "user_id",        limit: 4
+    t.datetime "extension_date"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "lesson_extensions", ["lesson_id"], name: "index_lesson_extensions_on_lesson_id", using: :btree
+  add_index "lesson_extensions", ["user_id"], name: "index_lesson_extensions_on_user_id", using: :btree
 
   create_table "lesson_modules", force: :cascade do |t|
     t.string   "name",              limit: 255
@@ -284,6 +295,8 @@ ActiveRecord::Schema.define(version: 20151113162947) do
   add_foreign_key "course_users", "courses"
   add_foreign_key "course_users", "users"
   add_foreign_key "definitions", "words"
+  add_foreign_key "lesson_extensions", "lessons"
+  add_foreign_key "lesson_extensions", "users"
   add_foreign_key "lesson_modules", "lessons"
   add_foreign_key "lesson_word_definitions", "definitions"
   add_foreign_key "lesson_word_definitions", "lesson_words"

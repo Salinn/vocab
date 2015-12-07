@@ -6,10 +6,11 @@ class LessonModule < ActiveRecord::Base
   validates :attempts, numericality: { greater_than_or_equal_to: 0 }
   validates :in_use, inclusion: { in: [true, false] }
   validates :value_percentage, numericality: { greater_than_or_equal_to:0, less_than_or_equal_to: 100 }
-  after_update :create_questions
-
   validate :check_if_answer_exists, on: :update
   validate :check_if_enough_lesson_words, on: :update
+
+  after_update :create_questions
+  after_update :update_answer_options
 
   def create_questions
     if in_use?
@@ -28,6 +29,12 @@ class LessonModule < ActiveRecord::Base
 
   def check_if_enough_lesson_words
     (lesson.lesson_words.length > number_of_answers) ? true : false
+  end
+
+  def update_answer_options
+    if number_of_answers_changed?
+      question.update_answer_options
+    end
   end
 end
 
