@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.find_or_create_by(user_params)
     course = Course.find(params[:user][:course_id])
     @user.new_user_added_to_course(course)
 
