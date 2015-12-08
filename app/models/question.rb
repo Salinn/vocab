@@ -15,16 +15,17 @@ class Question < ActiveRecord::Base
     end
   end
 
+  #TODO fix possible issue of not creating or deleting a question
   def update_answer_options
     lesson_words = pick_words
     answer_options.each_with_index do |answer_option, index|
-      answer_option.lesson_word_id = lesson_words[index-1].id
+      answer_option.lesson_word_id = lesson_words[index-1]
     end
   end
 
   def pick_words
     lesson_words = lesson_module.lesson.lesson_words.pluck(:id).shuffle[0...(lesson_module.number_of_answers-1)]
-    lesson_words.push(lesson_word)
+    lesson_words.push(lesson_word.id)
     lesson_words.shuffle!
   end
 end

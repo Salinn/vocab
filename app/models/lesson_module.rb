@@ -1,4 +1,5 @@
 class LessonModule < ActiveRecord::Base
+
   belongs_to :lesson
   has_many :questions
 
@@ -10,7 +11,7 @@ class LessonModule < ActiveRecord::Base
   validate :check_if_enough_lesson_words, on: :update
 
   after_update :create_questions
-  after_update :update_answer_options
+  before_save :update_answer_options
 
   def create_questions
     if in_use?
@@ -33,7 +34,9 @@ class LessonModule < ActiveRecord::Base
 
   def update_answer_options
     if number_of_answers_changed?
-      question.update_answer_options
+      questions.each do |question|
+        question.update_answer_options
+      end
     end
   end
 end

@@ -42,7 +42,7 @@ class LessonModulesController < ApplicationController
   def update
     respond_to do |format|
       if @lesson_module.update(lesson_module_params)
-        format.html { redirect_to @lesson_module, notice: 'Lesson module was successfully updated.' }
+        format.html { redirect_to @lesson_module.lesson, notice: 'Lesson module was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson_module }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class LessonModulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_module_params
-      params.require(:lesson_module).permit(:name, :attempts, :in_use, :value_percentage, :lesson_id)
+      params.require(:lesson_module).permit(:name, :attempts, :in_use, :value_percentage, :lesson_id, :number_of_answers)
     end
 end
