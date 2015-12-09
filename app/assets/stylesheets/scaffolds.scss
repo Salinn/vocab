@@ -102,10 +102,9 @@ div {
 }
 
 .sidebar {
-  padding: 1rem;
-  border-radius: 25px;
-  background-color: #eeeeee;
+  background-color: #f5f5f5;
   opacity: .9;
+  height: 93.9vh;
 }
 
 .nav-list {
@@ -113,5 +112,14 @@ div {
 }
 
 .a_sidebar {
-  display: block
+  display: block;
+  vertical-align:middle;
+}
+
+.glyphicon_sidebar {
+  vertical-align:middle;
+}
+
+.padding-top {
+  padding-top: 3rem;
 }

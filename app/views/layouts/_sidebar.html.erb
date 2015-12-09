@@ -1,45 +1,10 @@
-<div class="sidebar">
-  <ul class="nav-list" id="accordion1">
-    <li class="panel">
-      <h4>
-        <a data-toggle="collapse" data-parent="#accordion1" class="a_sidebar" href="#class_list">Class List</a>
-        <ul id="class_list" class="collapse panel-collapse">
-          <li><h5><%= link_to "Email Class", course_email_class_path(@course), 'data-no-turbolink' => true, class: 'a_sidebar' %></h5></li>
-          <li><h5><%= link_to "Manage Students", course_manage_students_path(@course), class: 'a_sidebar' %></h5></li>
-        </ul>
-      </h4>
-    </li>
-    <li class="panel"><h4><%= link_to "Manage Lessons", course_manage_lessons_path(@course), class: 'a_sidebar' %></h4></li>
-    <li class="panel">
-      <h4>
-        <a data-toggle="collapse" data-parent="#accordion1" class="a_sidebar" href="#resources">Resources</a>
-        <ul id="resources" class="collapse panel-collapse">
-          <li><h5><%= link_to "Syllabus", '#', class: 'a_sidebar' %></h5></li>
-          <li><h5><%= link_to "Course Description", '#', class: 'a_sidebar' %></h5></li>
-          <li><h5><%= link_to "Schedule", '#', class: 'a_sidebar' %></h5></li>
-        </ul>
-      </h4>
-    </li>
-    <li class="panel">
-      <h4>
-        <%= link_to "Grade Book", '#', class: 'a_sidebar' %>
-      </h4>
-    </li>
-    <li class="panel">
-      <h4>
-        <%= link_to "Reports", '#', class: 'a_sidebar' %>
-      </h4>
-    </li>
-    <li class="panel">
-      <h4>
-        <a data-toggle="collapse" data-parent="#accordion1" class="a_sidebar" href="#dictionary">Dictionary</a>
-        <ul id="dictionary" class="collapse panel-collapse">
-          <li><h5><%= link_to 'Search Words', words_path, class: 'a_sidebar' %></h5></li>
-          <li><h5><%= link_to 'Search Word Roots', word_roots_path, class: 'a_sidebar' %></h5></li>
-          <li><h5><%= link_to 'Add Word', new_word_path, class: 'a_sidebar' %></h5></li>
-          <li><h5><%= link_to 'Add Root Word', new_word_root_path, class: 'a_sidebar' %></h5></li>
-        </ul>
-      </h4>
-    </li>
-  </ul>
+<div class="container-fluid col-sm-3 col-md-2 nopadding">
+  <div class="row row-offcanvas row-offcanvas-left sidebar">
+    <div class="col-sm-12 col-md-12 sidebar-offcanvas" id="sidebar" role="navigation">
+      <%= render 'layouts/sidebar_navigation_links' %>
+    </div>
+  </div>
 </div>
+
+<!--Found basics for this at http://www.bootply.com/gkTHCwjLO9-->
+
