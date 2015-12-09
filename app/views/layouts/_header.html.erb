@@ -22,7 +22,7 @@
         </li>
         <% if current_user %>
             <li>
-              <%= link_to 'Create Course', new_course_path %>
+              <%= link_to 'Create Course', new_course_path, data: { no_turbolink: true } %>
             </li>
             <li>
               <%= link_to 'Account', current_user %>
