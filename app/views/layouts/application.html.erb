@@ -22,14 +22,21 @@
 </div>
 
 <% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
-    <div class="sidebar">
-      <%= render 'layouts/sidebar' %>
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-4">
+        <%= render 'layouts/sidebar' %>
+      </div>
+      <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-8">
+        <%= yield %>
+      </div>
+    </div>
+<% else %>
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+        <%= yield %>
+      </div>
     </div>
 <% end %>
-
-<div class="row">
-  <%= yield %>
-</div>
 
 
 <div id="footer">
