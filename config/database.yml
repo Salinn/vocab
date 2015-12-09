@@ -14,6 +14,7 @@ default: &default
   encoding: utf8
   pool: 5
   port: 3306
+  username: <%= ENV['VOCAB_DATABASE_USER'] %>
   password: <%= ENV['VOCAB_DATABASE_PASSWORD'] %>
 
 development:

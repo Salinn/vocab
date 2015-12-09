@@ -10,6 +10,7 @@
 <%= render 'layouts/header' %>
 
 <body>
+
 <div class="container">
   <% flash.each do |name, msg| %>
       <% if name == :alert %>
@@ -20,11 +21,21 @@
   <% end %>
 </div>
 
+<% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
+    <div class="sidebar">
+      <%= render 'layouts/sidebar' %>
+    </div>
+<% end %>
+
 <div class="row">
   <%= yield %>
 </div>
-</body>
 
-<%= render 'layouts/footer' %>
+
+<div id="footer">
+  <%= render 'layouts/footer' %>
+</div>
+
+</body>
 
 </html>

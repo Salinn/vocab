@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     post :mass_add_to_course
     post :duplicate_course
     post :share_course
+    get :email_class
+    get :manage_students
+    get :manage_lessons
   end
 
   resources :words

@@ -5,12 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-#No Dependincies
+#No Dependencies
 load 'db/seeds/users.rb'
 load 'db/seeds/words.rb'
 load 'db/seeds/word_roots.rb'
 load 'db/seeds/courses.rb'
 load 'db/seeds/lesson_modules.rb'
+
 
 #Dependincies <-- Order matters
 load 'db/seeds/lessons.rb' #Depends on course and lesson_modules
