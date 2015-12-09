@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.find_or_create_by(user_params)
+    @user =  User.find_by(email: params[:user][:email])
+    @user = User.new(user_params) if @user.nil?
     course = Course.find(params[:user][:course_id])
     @user.new_user_added_to_course(course)
 
