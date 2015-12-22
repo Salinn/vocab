@@ -11,12 +11,14 @@ class LessonModule < ActiveRecord::Base
   validate :check_if_enough_lesson_words, on: :update
 
   after_update :create_questions
-  before_save :update_answer_options
+  before_save :number_of_answers_changed
 
   def create_questions
     if in_use?
       lesson.lesson_words.each do |lesson_word|
-        Question.create!(lesson_word: lesson_word, lesson_module: self) unless questions.map(&:lesson_word_id).include? lesson_word.id
+        unless questions.map(&:lesson_word_id).include? lesson_word.id
+          Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: generate_question(lesson_word))
+        end
       end
     end
   end
@@ -32,11 +34,23 @@ class LessonModule < ActiveRecord::Base
     (lesson.lesson_words.length > number_of_answers) ? true : false
   end
 
-  def update_answer_options
+  def number_of_answers_changed
     if number_of_answers_changed?
-      questions.each do |question|
-        question.update_answer_options
-      end
+      update_answer_options
+    end
+  end
+
+  def update_answer_options
+    questions.each do |question|
+      (number_of_answers > number_of_answers_was) ? question.add_options : question.remove_options
+    end
+  end
+
+  def generate_question(lesson_word)
+    if name == 'Word Form'
+      return 'Word Form'
+    elsif name == 'Definition'
+      return 'Definition'
     end
   end
 end

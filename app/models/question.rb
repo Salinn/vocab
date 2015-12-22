@@ -15,9 +15,25 @@ class Question < ActiveRecord::Base
     end
   end
 
-  #TODO fix possible issue of not creating or deleting a question
-  def update_answer_options
+  def add_options
     lesson_words = pick_words
+    (answer_options.length..lesson_module.number_of_answers).each do
+      #This is just a temp lesson word set until it gets really set in update_answer_options
+      AnswerOption.create!(lesson_word_id: lesson_words.first, question: self)
+    end
+    update_answer_options(lesson_words)
+  end
+
+  def remove_options
+    lesson_words = pick_words
+    total_to_remove = answer_options.length - lesson_module.number_of_answers
+    answer_options.each do  |answer_option|
+      (total_to_remove == 0) ? answer_option.delete : total_to_remove =- 1
+    end
+    update_answer_options(lesson_words)
+  end
+
+  def update_answer_options(lesson_words)
     answer_options.each_with_index do |answer_option, index|
       answer_option.lesson_word_id = lesson_words[index-1]
     end

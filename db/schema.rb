@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207012513) do
+ActiveRecord::Schema.define(version: 20151216130501) do
 
   create_table "answer_options", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -174,8 +174,9 @@ ActiveRecord::Schema.define(version: 20151207012513) do
   create_table "questions", force: :cascade do |t|
     t.integer  "lesson_module_id", limit: 4
     t.integer  "lesson_word_id",   limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.text     "question_string",  limit: 65535
   end
 
   add_index "questions", ["lesson_module_id"], name: "index_questions_on_lesson_module_id", using: :btree

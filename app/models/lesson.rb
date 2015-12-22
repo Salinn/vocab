@@ -3,7 +3,7 @@ class Lesson < ActiveRecord::Base
   has_many :words, through: :lesson_words
   has_many :lesson_words, dependent: :destroy
   has_many :lesson_modules, dependent: :destroy
-  accepts_nested_attributes_for :lesson_words
+  accepts_nested_attributes_for :lesson_words, after_add: :my_method_or_proc1, after_remove: :my_method_or_proc2
 
   validates :lesson_name, length: { in: 3..100 }
   validates :lesson_points, inclusion: 0..100
@@ -23,7 +23,10 @@ class Lesson < ActiveRecord::Base
 
   def check_if_answer_exists
     lesson_modules.each do |lesson_module|
-      return false unless lesson_module.check_if_answer_exists
+      unless lesson_module.check_if_answer_exists && lesson_end_date > Date.today
+        self.errors.add(:base, 'You cannot add a word to this lesson once e a student has began taking a quiz')
+        return false
+      end
     end
     return true
   end
