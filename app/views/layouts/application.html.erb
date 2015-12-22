@@ -11,8 +11,14 @@
 <%= render 'layouts/sidebar' %>
 
 <body>
-
-
+<% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
+    <div class="sidebar">
+      <%= render 'layouts/sidebar' %>
+    </div>
+<% end %>
+<div class="row">
+  <%= yield %>
+</div>
 
 
 <div id="footer">
