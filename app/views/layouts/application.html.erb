@@ -3,13 +3,19 @@
 <head>
   <title>Vocab</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <!-- use bootswatch paper theme secondary to the application's primary css
+  Add this back in after done bootstrap
+
+  < stylesheet_link_tag 'paper' %>
+  -->
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 
 <%= render 'layouts/header' %>
 
-<body>
+<body class="container-fluid">
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>

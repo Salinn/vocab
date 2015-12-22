@@ -1,41 +1,40 @@
 <h1>Listing Words</h1>
-<%= search_form_for @search, url: words_path do |f| %>
-    <div class="field">
-      <%= f.text_field :name_cont, placeholder: 'Search by Word Name'  %>
-      <%= f.search_field :word_roots_root_name_or_word_roots_root_definition_cont, placeholder: 'Search Word Root' %>
-      <%= f.search_field :word_videos_video_link_or_word_videos_video_description_cont, placeholder: 'Search Word Videos' %>
-      <%= f.search_field :sentences_word_sentence_cont, placeholder: 'Search Word Sentences' %>
-      <%= f.search_field :definitions_word_definition_cont, placeholder: 'Search by Word Definition' %>
-      <%= f.search_field :synonyms_word_synonym_cont, placeholder: 'Search by Word Synonym' %>
-      <%= f.search_field :word_forms_associated_word_cont, placeholder: 'Search by Word Form' %>
+<%= search_form_for @search, url: words_path, class: "col-sm-12" do |f| %>
+    <div class="form-group">
+      <%= f.text_field :name_cont, placeholder: 'Search by Word Name' , class: "form_control col-sm-4" %>
+      <%= f.search_field :word_roots_root_name_or_word_roots_root_definition_cont, placeholder: 'Search Word Root' , class: "form_control col-sm-4" %>
+      <%= f.search_field :word_videos_video_link_or_word_videos_video_description_cont, placeholder: 'Search Word Videos', class: "form_control col-sm-4" %>
+      <%= f.search_field :sentences_word_sentence_cont, placeholder: 'Search Word Sentences' , class: "form_control col-sm-4" %>
+      <%= f.search_field :definitions_word_definition_cont, placeholder: 'Search by Word Definition' , class: "form_control col-sm-4" %>
+      <%= f.search_field :synonyms_word_synonym_cont, placeholder: 'Search by Word Synonym' , class: "form_control col-sm-4"%>
+      <%= f.search_field :word_forms_associated_word_cont, placeholder: 'Search by Word Form' , class: "form_control col-sm-4" %>
     </div>
-    <div class="actions potentials-inline">
-      <%= f.submit "Search Roots" %>
-    </div>
-    <div class="potentials-inline">
-      <%= link_to 'Clear Search', words_path %>
+    <div class="">
+      <%= f.submit "Search Roots" , class:"btn btn-primary"%>
+      <%= link_to 'Clear Search', words_path ,class:"btn btn-primary" %>
     </div>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= sort_link @search, :name,'Word name' %></th>
-      <th>Show</th>
-      <th>Update</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @words.each do |word| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= word.name %></td>
-        <td><%= link_to 'Show', word %></td>
-        <td><%= link_to 'Update', edit_word_path(word) %></td>
+        <th><%= sort_link @search, :name,'Word name' %></th>
+        <th>Show</th>
+        <th>Update</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @words.each do |word| %>
+        <tr>
+          <td><%= word.name %></td>
+          <td><%= link_to 'Show', word %></td>
+          <td><%= link_to 'Update', edit_word_path(word) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
 <br>
 
