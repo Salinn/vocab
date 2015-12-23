@@ -1,12 +1,18 @@
 <div class="word_composition">
-  <strong>Name:</strong>
+
+  <h3>
+  <strong>Word:</strong>
   <%= @word.name %>
+  </h3>
 
   </br>
 
   <!-- Word Forms -->
+
+  <% if @word.word_forms.length > 0 %>
+
     <h3>Word Forms</h3>
-    <table>
+    <table class="table">
       <thead>
       <tr>
         <th>Word form</th>
@@ -28,10 +34,16 @@
 
       </tbody>
     </table>
+  <% else %>
+    <h3>There are no Word Forms in the dictionary for this word</h3>
+  <% end %>
+  </br>
 
   <!-- Word sentences -->
+
+  <% if @word.sentences.length > 0 %>
   <h3>Sentences</h3>
-  <table>
+  <table class="table">
     <thead>
     <tr>
       <th>Word sentence</th>
@@ -48,12 +60,16 @@
     <% end %>
     </tbody>
   </table>
-
+  <% else %>
+      <h3>There are no Sentences in the dictionary for this word</h3>
+  <% end %>
   </br>
 
   <!-- Word synonyms -->
+
+  <% if @word.synonyms.length > 0 %>
   <h3>Synonyms</h3>
-  <table>
+  <table class="table">
     <thead>
     <tr>
       <th>Word Synonym</th>
@@ -70,12 +86,16 @@
     <% end %>
     </tbody>
   </table>
-
+  <% else %>
+      <h3>There are no Synonyms in the dictionary for this word</h3>
+  <% end %>
   </br>
 
   <!-- Word definitions -->
+
+  <% if @word.definitions.length > 0 %>
   <h3>Definitions</h3>
-  <table>
+  <table class="table">
     <thead>
     <tr>
       <th>Word definition</th>
@@ -93,10 +113,16 @@
     <% end %>
     </tbody>
   </table>
+  <% else %>
+    <h3>There are no Definitions in the dictionary for this word</h3>
+  <% end %>
+  </br>
 
   <!-- Word videos -->
+
+  <% if @word.word_videos.length > 0 %>
   <h3>Word video</h3>
-  <table>
+  <table class="table">
     <thead>
     <tr>
       <th>Word video</th>
@@ -115,10 +141,15 @@
     <% end %>
     </tbody>
   </table>
+  <% else %>
+    <h3>There are no Word Videos in the dictionary for this word</h3>
+  <% end %>
+  </br>
 
-  <!-- Woord Roots-->
+  <!-- Word Roots-->
+  <% if @word.word_roots.length > 0 %>
   <h3>Word roots</h3>
-  <table>
+  <table class="table">
     <thead>
     <tr>
       <th>Word root</th>
@@ -136,6 +167,9 @@
     <% end %>
     </tbody>
   </table>
+  <% else %>
+      <h3>There are no Word Roots in the dictionary for this word</h3>
+  <% end %>
 
 
 </div>
