@@ -11,11 +11,11 @@
         </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :word_sentence %><br>
-      <%= f.text_field :word_sentence %>
+    <div class="field form-group">
+      <%= f.label :word_sentence , class:'control-label' %><br>
+      <%= f.text_field :word_sentence , class:'form-control'%>
     </div>
-    <div class="actions">
-      <%= f.submit %>
+    <div class="actions form-group">
+      <%= f.submit 'Create Sentence' , class:'btn btn-primary' %>
     </div>
 <% end %>
