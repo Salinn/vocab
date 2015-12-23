@@ -66,9 +66,9 @@
     <% end %>
     <div class="field form-group">
       <%= f.label :word_root_ids %><br>
-      <%= f.collection_select :word_root_ids, WordRoot.order(:root_name), :id, :root_name, { include_blank: true }, {multiple: true} %>
+      <%= f.collection_select :word_root_ids, WordRoot.order(:root_name), :id, :root_name, { include_blank: true }, {multiple: true, class: 'form-control' }%>
     </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions form-group pull-right">
+    <%= f.submit 'Create Word', class: 'btn btn-primary' %>
   </div>
 <% end %>
