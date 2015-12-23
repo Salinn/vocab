@@ -31,6 +31,12 @@ a {
   }
 }
 
+//NBP 12/23/2016 This is to get similar behavior as a bootstrap button for a rails link_to helper tag
+a.btn:hover,
+a.btn:visited{
+  color: #fff;
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;
