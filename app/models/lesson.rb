@@ -1,16 +1,15 @@
 class Lesson < ActiveRecord::Base
   belongs_to :course
-  has_many :words, through: :lesson_words
+  has_many :words, through: :lesson_words, after_add: :update_answers, after_remove: :update_answers
   has_many :lesson_words, dependent: :destroy
   has_many :lesson_modules, dependent: :destroy
-  accepts_nested_attributes_for :lesson_words, after_add: :my_method_or_proc1, after_remove: :my_method_or_proc2
+  accepts_nested_attributes_for :lesson_words
 
   validates :lesson_name, length: { in: 3..100 }
   validates :lesson_points, inclusion: 0..100
   validates :penalty, inclusion: 0..100
   validates :lesson_start_time, presence: true
   validates :lesson_end_date, presence: true
-  validate :check_if_answer_exists, on: :update
 
   after_create :create_modules
 
@@ -21,9 +20,9 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def check_if_answer_exists
+  def can_add_lesson_word
     lesson_modules.each do |lesson_module|
-      unless lesson_module.check_if_answer_exists && lesson_end_date > Date.today
+      unless lesson_module.check_if_answer_exists && lesson_end_date < Date.today
         self.errors.add(:base, 'You cannot add a word to this lesson once e a student has began taking a quiz')
         return false
       end

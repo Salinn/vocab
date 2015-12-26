@@ -33,6 +33,11 @@ class Question < ActiveRecord::Base
     update_answer_options(lesson_words)
   end
 
+  def update_answer_options
+    lesson_words = pick_words
+    update_answer_options(lesson_words)
+  end
+
   def update_answer_options(lesson_words)
     answer_options.each_with_index do |answer_option, index|
       answer_option.lesson_word_id = lesson_words[index-1]

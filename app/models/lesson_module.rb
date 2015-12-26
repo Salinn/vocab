@@ -31,7 +31,10 @@ class LessonModule < ActiveRecord::Base
   end
 
   def check_if_enough_lesson_words
-    (lesson.lesson_words.length > number_of_answers) ? true : false
+    unless check_if_answer_exists
+      return (lesson.lesson_words.length > number_of_answers) ? true : false
+    end
+    return true
   end
 
   def number_of_answers_changed
@@ -43,6 +46,12 @@ class LessonModule < ActiveRecord::Base
   def update_answer_options
     questions.each do |question|
       (number_of_answers > number_of_answers_was) ? question.add_options : question.remove_options
+    end
+  end
+
+  def lesson_update_answer_options
+    questions.each do |question|
+      question.update_answer_options
     end
   end
 

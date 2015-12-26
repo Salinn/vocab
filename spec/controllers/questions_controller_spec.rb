@@ -27,6 +27,7 @@ RSpec.describe QuestionsController, type: :controller do
   let (:lesson_word){ FactoryGirl.create(:lesson_word) }
   let(:valid_attributes) {
     {
+        question_string: 'Test',
         lesson_module_id: lesson_module.id,
         lesson_word_id: lesson_word.id
     }
@@ -34,6 +35,7 @@ RSpec.describe QuestionsController, type: :controller do
 
   let(:invalid_attributes) {
     {
+        question_string: 1,
         lesson_module_id: nil,
         lesson_word_id: nil
     }
