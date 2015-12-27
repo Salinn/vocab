@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
+  respond_to :html, :json
 
   def new
     @user = User.new
@@ -10,17 +11,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    generated_password = Devise.friendly_token.first(8)
-    @user.password = generated_password
+    @user =  User.find_by(email: params[:user][:email])
+    @user = User.new(user_params) if @user.nil?
     course = Course.find(params[:user][:course_id])
+    @user.new_user_added_to_course(course)
 
     respond_to do |format|
       if @user.save
-        CourseUser.create!(user_id: @user.id, course_id: course.id)
-        UserMailer.add_to_class_email(@user).deliver_later
-        current_user.add_role :student, course
-        format.html { redirect_to course_path(course.id), notice: 'You have successfully registered.' }
+
+        format.html { redirect_to course_manage_students_path(course), notice: 'You have successfully registered a student for your class.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { redirect_to :back }

@@ -2,31 +2,31 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+    user ||= User.new
+
+    if user.has_role? :admin
+      can :manage, :all
+    end
+
+    if user.has_role?(:teacehr)
+      can [:create, :update, :show], Course
+      can [:create, :update, :show], CourseEmail
+      can [:create, :update, :show], Definition
+      can [:create, :update, :show], Lesson
+      can [:create, :update, :show], LessonModule
+      can [:create, :update, :show], Sentence
+      can [:create, :update, :show], Synonym
+      can [:create, :update, :show], User
+      can [:create, :update, :show], Word
+      can [:create, :update, :show], WordForm
+      can [:create, :update, :show], WordRoot
+      can [:create, :update, :show], WordVideo
+    end
+
+    if user.has_role?(:student)
+      can [:show], Course
+      can [:show], Lesson
+      can [:show], LessonModule
+    end
   end
 end
