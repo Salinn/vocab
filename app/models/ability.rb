@@ -8,7 +8,7 @@ class Ability
       can :manage, :all
     end
 
-    if user.has_role?(:teacehr)
+    if user.has_role?(:teacher)
       can [:create, :update, :show], Course
       can [:create, :update, :show], CourseEmail
       can [:create, :update, :show], Definition
