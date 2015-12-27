@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_action :set_course_id, only: [:add_to_course ,:mass_add_to_course,:remove_user_from_course,
                                        :remove_lesson_from_course, :email_class, :manage_students, :manage_lessons]
+  load_and_authorize_resource
 
   # GET /courses
   # GET /courses.json
