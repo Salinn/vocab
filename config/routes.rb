@@ -26,7 +26,16 @@ Rails.application.routes.draw do
 
   resources :words
   devise_for :users, :controllers => { :registrations => 'registration' }, :path_names => { :'sign_up.html.erb' => 'register'}
-  resources :users, :controller => 'users'
+  resources :users, :controller => 'users' do
+  end
+
+  post 'add_role' => 'users#add_role', as: :user_add_role
+  post 'remove_role' => 'users#remove_role', as: :user_remove_role
   post 'create_user' => 'users#create', as: :create_user
+
+  StaticPagesController.action_methods.each do |action|
+    get "/#{action}", to: "static_pages##{action}", as: "#{action}"
+  end
+
   root 'static_pages#home'
 end
