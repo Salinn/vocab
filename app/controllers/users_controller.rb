@@ -28,6 +28,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def admin_create
+    @user =  User.find_by(email: params[:user][:email])
+    @user = User.new(user_params) if @user.nil?
+    @user.new_user_added_to_website(params[:user][:role])
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to :back, notice: 'You have successfully registered a user for your the website.' }
+        format.json { render action: 'show', status: :created, location: @user }
+      else
+        format.html { redirect_to :back }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def edit
     @user = User.find(params[:id])
   end

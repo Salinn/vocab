@@ -9,3 +9,5 @@
     <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s %>
     <%= submit_tag "Remove Role" %>
 <% end %>
+
+<%= render 'users/form' %>
