@@ -8,23 +8,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<%= render 'layouts/sidebar' %>
-
 <body>
-<% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
-    <div class="sidebar">
-      <%= render 'layouts/sidebar' %>
-    </div>
-<% end %>
-<div class="row">
+<div id="sidebar" class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">
+  <%= render 'layouts/sidebar' %>
+</div>
+
+<div class="row col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-10">
   <%= yield %>
 </div>
 
 
-<div id="footer">
+<div id="footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
   <%= render 'layouts/footer' %>
 </div>
 
 </body>
 
 </html>
+
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    $('.accordian1').click(function(){
+        $(this).find('span').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
+    });
+</script>
