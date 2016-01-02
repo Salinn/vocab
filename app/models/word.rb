@@ -14,4 +14,10 @@ class Word < ActiveRecord::Base
   accepts_nested_attributes_for :definitions
   accepts_nested_attributes_for :synonyms
   accepts_nested_attributes_for :word_forms
+
+  UNRANSACKABLE_ATTRIBUTES = ['id', 'created_at', 'updated_at']
+
+  def self.ransackable_attributes auth_object = nil
+    (column_names - UNRANSACKABLE_ATTRIBUTES) + _ransackers.keys
+  end
 end
