@@ -3,14 +3,16 @@
     <%= f.condition_fields do |c| %>
         <%= render "condition_fields", f: c %>
     <% end %>
-    <%= link_to_add_fields "Add Condition", f, :condition %>
-    </br>
+    <div>
+      <%= link_to_add_fields "Add", f, :condition %>
+    </div>
     <div class="actions btn-group col-sm-12">
-      <%= f.submit "Search" , class:"btn btn-primary"%>
-      <%= link_to 'Clear Search', words_path ,class:"btn btn-primary" %>
+      <%= f.submit "Search" , class:"btn btn-primary col-sm-3"%>
+      <%= link_to 'Clear Search', words_path ,class:"btn btn-primary col-sm-3" %>
     </div>
 
   <% end %>
+
 
 
   <table class="table">

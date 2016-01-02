@@ -19,11 +19,11 @@
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
-    <div class="sidebar col-sm-2">
+    <div class="sidebar col-sm-3">
       <%= render 'layouts/sidebar' %>
     </div>
 <% end %>
-<div class="col-sm-8">
+<div class="col-sm-9">
   <%= yield %>
 </div>
 
