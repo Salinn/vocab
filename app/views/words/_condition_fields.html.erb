@@ -1,4 +1,4 @@
-<div class="field row col-sm-12">
+<div class="field col-sm-12">
 
     <%= f.attribute_fields do |a| %>
         <%= a.attribute_select({associations: word_search_associations},{class: "form-control col-lg-3 col-xs-5"}) %>
@@ -10,7 +10,7 @@
   </a>
 
   <%= f.value_fields do |v| %>
-    <%= v.text_field :value , class:"form-control col-lg-3"%>
+    <%= v.text_field :value , class:"form-control col-lg-3 col-md-3"%>
   <% end %>
 
 
