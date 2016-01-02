@@ -7,4 +7,8 @@ module WordsHelper
     end
     link_to(name, '#', class: "add_fields pull-right btn btn-primary", data: {id: id, fields: fields.gsub("\n", "")})
   end
+
+  def word_search_associations
+    [:word_roots, :word_videos, :sentences, :definitions, :synonyms , :word_forms]
+  end
 end
