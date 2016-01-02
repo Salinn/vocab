@@ -1,10 +1,16 @@
 <div class="field col-sm-12">
-  <%= f.attribute_fields do |a| %>
-      <%= a.attribute_select associations: [:word_roots, :word_videos, :sentences, :definitions, :synonyms , :word_forms] , class:"form_control col-sm-3"%>
-  <% end %>
-  <%= f.predicate_select({only: [:cont, :not_cont]},{class:"form-control col-sm-3"}) %>
-  <%= f.value_fields do |v| %>
-      <%= v.text_field :value , class:"form-control col-sm-3"%>
-  <% end %>
-  <%= link_to "Remove Condition", '#', class: "remove_fields btn btn-primary col-sm-3" %>
+  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">
+    <%= f.attribute_fields do |a| %>
+        <%= a.attribute_select associations: [:word_roots, :word_videos, :sentences, :definitions, :synonyms , :word_forms] , class:"form_control col-sm-3"%>
+    <% end %>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+    <%= f.predicate_select({only: [:cont, :not_cont]},{class:"form-control col-sm-3"}) %>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+    <%= f.value_fields do |v| %>
+        <%= v.text_field :value , class:"form-control col-sm-3"%>
+    <% end %>
+  </div>
+    <%= link_to "Remove Condition", '#', class: "remove_fields btn btn-primary col-sm-3" %>
 </div>
