@@ -24,7 +24,7 @@ RSpec.describe QuestionsController, type: :controller do
   # Question. As you add validations to Question, be sure to
   # adjust the attributes here as well.
   let (:lesson_module){ FactoryGirl.create(:lesson_module) }
-  let (:lesson_word){ FactoryGirl.create(:lesson_word) }
+  let (:lesson_word){ FactoryGirl.create(:lesson_word_no_call_backs) }
   let(:valid_attributes) {
     {
         question_string: 'Test',
@@ -39,6 +39,9 @@ RSpec.describe QuestionsController, type: :controller do
         lesson_module_id: nil,
         lesson_word_id: nil
     }
+  }
+  before(:each) {
+    allow_any_instance_of(Question).to receive(:create_answer_options).and_return(true)
   }
 
   # This should return the minimal set of values that should be in the session

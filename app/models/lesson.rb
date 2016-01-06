@@ -22,7 +22,7 @@ class Lesson < ActiveRecord::Base
 
   def can_add_lesson_word
     lesson_modules.each do |lesson_module|
-      unless lesson_module.check_if_answer_exists && lesson_end_date < Date.today
+      unless lesson_module.check_if_answer_exists
         self.errors.add(:base, 'You cannot add a word to this lesson once e a student has began taking a quiz')
         return false
       end

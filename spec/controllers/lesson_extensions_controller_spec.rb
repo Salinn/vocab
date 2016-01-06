@@ -24,11 +24,15 @@ RSpec.describe LessonExtensionsController, type: :controller do
   # LessonExtension. As you add validations to LessonExtension, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        extension_date: DateTime.now
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        extension_date: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +107,16 @@ RSpec.describe LessonExtensionsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            extension_date: DateTime.now + 1.day
+        }
       }
 
       it "updates the requested lesson_extension" do
         lesson_extension = LessonExtension.create! valid_attributes
         put :update, {:id => lesson_extension.to_param, :lesson_extension => new_attributes}, valid_session
         lesson_extension.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:lesson_extension).attributes.symbolize_keys[:extension_date]).to eq(new_attributes[:extension_date])
       end
 
       it "assigns the requested lesson_extension as @lesson_extension" do
