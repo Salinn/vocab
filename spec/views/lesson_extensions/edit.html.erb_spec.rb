@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "lesson_extensions/edit", type: :view do
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
   before(:each) do
     @lesson_extension = assign(:lesson_extension, LessonExtension.create!(
-      :lesson => nil,
+      :lesson_id => lesson.id,
       :user => nil
     ))
   end

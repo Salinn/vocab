@@ -15,7 +15,7 @@
   <tbody>
     <% @lesson_extensions.each do |lesson_extension| %>
       <tr>
-        <td><%= lesson_extension.lesson %></td>
+        <td><%= lesson_extension.lesson.id %></td>
         <td><%= lesson_extension.user %></td>
         <td><%= lesson_extension.extension_date %></td>
         <td><%= link_to 'Show', lesson_extension %></td>

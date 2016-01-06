@@ -23,15 +23,17 @@ RSpec.describe LessonExtensionsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # LessonExtension. As you add validations to LessonExtension, be sure to
   # adjust the attributes here as well.
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
+  let (:lesson_update){ FactoryGirl.create(:lesson_no_call_backs) }
   let(:valid_attributes) {
     {
-        extension_date: DateTime.now
+        lesson_id: lesson.id
     }
   }
 
   let(:invalid_attributes) {
     {
-        extension_date: nil
+        lesson_id: nil
     }
   }
 
@@ -108,7 +110,7 @@ RSpec.describe LessonExtensionsController, type: :controller do
     context "with valid params" do
       let(:new_attributes) {
         {
-            extension_date: DateTime.now + 1.day
+            lesson_id: lesson_update.id
         }
       }
 
