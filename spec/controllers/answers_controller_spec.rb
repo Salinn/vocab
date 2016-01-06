@@ -43,6 +43,10 @@ RSpec.describe AnswersController, type: :controller do
     }
   }
 
+  before(:each) {
+    allow_any_instance_of(Question).to receive(:create_answer_options).and_return(true)
+  }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # AnswersController. Be sure to keep this updated too.
