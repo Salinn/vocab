@@ -2,6 +2,10 @@ $White: #FFFFFF;
 $Black: #000000;
 $BackgroundImage: 'http://static1.squarespace.com/static/54c69104e4b09c0cdd8089fe/t/55d4d4d9e4b0793ba4220f73/1440011482486/';
 
+#main {
+  padding-top: 4em;
+}
+
 body {
   background: url($BackgroundImage) no-repeat center center fixed;
   -webkit-background-size: cover;
