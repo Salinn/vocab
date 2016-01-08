@@ -1,20 +1,22 @@
-<div class="field col-sm-12">
+<div class="field row">
 
     <%= f.attribute_fields do |a| %>
-        <%= a.attribute_select({associations: word_search_associations},{class: "form-control col-lg-3 col-xs-5"}) %>
+        <%= a.attribute_select({associations: word_search_associations},{class: "form-control col-md-3 col-xs-5"}) %>
     <% end %>
-    <%= f.predicate_select({only: [:cont, :not_cont]},{class:"form-control col-lg-3 col-xs-6"}) %>
 
-  <a href="#" class="remove_fields btn btn-danger col-md-1 hidden-lg hidden-md ">
+    <%= f.predicate_select({only: [:cont, :not_cont]},{class:"form-control col-md-3 col-xs-6"}) %>
+
+
+  <a href="#" class="remove_fields btn btn-danger col-xs-1 hidden-lg hidden-md ">
     <span class=" glyphicon glyphicon-minus"></span>
   </a>
 
   <%= f.value_fields do |v| %>
-    <%= v.text_field :value , class:"form-control col-lg-3 col-md-3"%>
+    <%= v.text_field :value , class:"form-control col-md-3 col-xs-12"%>
   <% end %>
 
 
-  <a href="#" class="remove_fields btn btn-danger col-lg-1 hidden-sm hidden-xs">
+  <a href="#" class="remove_fields btn btn-danger col-md-1 hidden-sm hidden-xs">
     <span class=" glyphicon glyphicon-minus"></span>
   </a>
 

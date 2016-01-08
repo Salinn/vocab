@@ -1,5 +1,6 @@
+
 <h1>Words</h1>
-  <%= search_form_for @search, url: words_path, class: "col-sm-12 form-inline" do |f| %>
+  <%= search_form_for @search, url: words_path, class: "col-xs-12" do |f| %>
     <%= f.condition_fields do |c| %>
         <%= render "condition_fields", f: c %>
     <% end %>

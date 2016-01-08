@@ -16,8 +16,42 @@
 <%= render 'layouts/header' %>
 
 <body class="container-fluid">
+
+
+<div class="row">
+  <!-- FOR CSS TESTING ONLY NBP8557 -->
+  <% if Rails.env.development? %>
+      <p class="hidden-lg">
+        (lg) hidden-lg is visible
+      </p>
+      <p class="hidden-md">
+        (md) hidden-md is visible
+      </p>
+      <p class="hidden-sm">
+        (sm) hidden-sm is visible
+      </p>
+      <p class="hidden-xs">
+        (xs) hidden-xs is visible
+      </p>
+
+      <p class="visible-lg">
+        Only visible on large screens (lg) visible-lg
+      </p>
+      <p class="visible-md">
+        Only visible on medium screens (md) visible-md
+      </p>
+      <p class="visible-sm">
+        Only visible on small screens (sm) visible-sm
+      </p>
+      <p class="visible-xs">
+        Only visible on extra small screens (xs) visible-xs
+      </p>
+
+  <% end %>
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
+</div>
 <% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
     <div class="sidebar col-sm-3">
       <%= render 'layouts/sidebar' %>
