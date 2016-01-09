@@ -1,5 +1,6 @@
 class CourseEmailsController < ApplicationController
   before_action :set_course_email, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /course_emails
   # GET /course_emails.json

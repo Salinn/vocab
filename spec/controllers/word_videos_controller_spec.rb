@@ -19,6 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe WordVideosController, type: :controller do
+  login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # WordVideo. As you add validations to WordVideo, be sure to

@@ -1,5 +1,6 @@
 class LessonModulesController < ApplicationController
   before_action :set_lesson_module, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /lesson_modules
   # GET /lesson_modules.json

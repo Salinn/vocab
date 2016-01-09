@@ -1,5 +1,6 @@
 class SentencesController < ApplicationController
   before_action :set_sentence, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /sentences
   # GET /sentences.json

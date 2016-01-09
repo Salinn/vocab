@@ -1,5 +1,6 @@
 class WordVideosController < ApplicationController
   before_action :set_word_video, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /word_videos
   # GET /word_videos.json

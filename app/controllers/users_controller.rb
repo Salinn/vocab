@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
   respond_to :html, :json
 
   def new
@@ -19,6 +20,22 @@ class UsersController < ApplicationController
       if @user.save
 
         format.html { redirect_to course_manage_students_path(course), notice: 'You have successfully registered a student for your class.' }
+        format.json { render action: 'show', status: :created, location: @user }
+      else
+        format.html { redirect_to :back }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def admin_create
+    @user =  User.find_by(email: params[:user][:email])
+    @user = User.new(user_params) if @user.nil?
+    @user.new_user_added_to_website(params[:user][:role])
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to :back, notice: 'You have successfully registered a user for your the website.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { redirect_to :back }
@@ -48,6 +65,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     redirect_to potentials_path, notice: "User deleted."
+  end
+
+  def add_role
+    user = User.find(params[:user][:user_id])
+    user.add_role(params[:user][:role])
+    redirect_to :back
+  end
+
+  def remove_role
+    user = User.find(params[:user][:user_id])
+    user.remove_role(params[:user][:role])
+    redirect_to :back
   end
 
   def user_params
