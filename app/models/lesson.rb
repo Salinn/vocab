@@ -1,6 +1,6 @@
 class Lesson < ActiveRecord::Base
   belongs_to :course
-  has_one :event
+  has_one :event, dependent: :destroy
   has_many :words, through: :lesson_words
   has_many :lesson_words, dependent: :destroy
   has_many :lesson_modules, dependent: :destroy
@@ -14,6 +14,7 @@ class Lesson < ActiveRecord::Base
   validates :lesson_end_date, presence: true
 
   after_create :create_modules, :create_lesson_event
+  after_update :update_lesson_event
 
   def create_modules
     modules = ['Word Form', 'Definition']
@@ -23,6 +24,10 @@ class Lesson < ActiveRecord::Base
   end
 
   def create_lesson_event
-    Event.create!(title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time , end_time: lesson_end_date)
+    Event.create!(lesson_id: id, title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time, end_time: lesson_end_date)
+  end
+
+  def update_lesson_event
+    event.update_attributes(title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time , end_time: lesson_end_date)
   end
 end
