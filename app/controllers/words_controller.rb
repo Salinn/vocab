@@ -1,5 +1,6 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /words
   # GET /words.json

@@ -1,0 +1,29 @@
+<%= form_for(@lesson_extension) do |f| %>
+  <% if @lesson_extension.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lesson_extension.errors.count, "error") %> prohibited this lesson_extension from being saved:</h2>
+
+      <ul>
+      <% @lesson_extension.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :lesson_id %><br>
+    <%= f.text_field :lesson_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :extension_date %><br>
+    <%= f.datetime_select :extension_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

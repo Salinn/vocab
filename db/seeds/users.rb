@@ -1,5 +1,12 @@
 users = [
     {
+        first_name: 'Admin',
+        last_name: 'Admin',
+        email: 'team.vocabulary@gmail.com',
+        password: 'topsecret',
+        password_confirmation: 'topsecret'
+    },
+    {
         first_name: 'Paul',
         last_name: 'Darragh',
         email: 'pmd6624@rit.edu',
@@ -31,3 +38,5 @@ users = [
 
 User.delete_all
 User.create!(users)
+
+User.first.add_role :admin

@@ -20,6 +20,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe CourseEmailsController, type: :controller do
+  login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # CourseEmail. As you add validations to CourseEmail, be sure to

@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119170625) do
+ActiveRecord::Schema.define(version: 20151216130501) do
+
+  create_table "answer_options", force: :cascade do |t|
+    t.integer  "question_id",    limit: 4
+    t.integer  "lesson_word_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "answer_options", ["lesson_word_id"], name: "index_answer_options_on_lesson_word_id", using: :btree
+  add_index "answer_options", ["question_id"], name: "index_answer_options_on_question_id", using: :btree
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id",      limit: 4
+    t.integer  "user_id",          limit: 4
+    t.integer  "time_to_complete", limit: 4
+    t.boolean  "correct"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+  add_index "answers", ["user_id"], name: "index_answers_on_user_id", using: :btree
 
   create_table "course_emails", force: :cascade do |t|
     t.integer  "course_id",  limit: 4
@@ -67,14 +89,26 @@ ActiveRecord::Schema.define(version: 20151119170625) do
   add_index "grade_modifers", ["lesson_module_id"], name: "index_grade_modifers_on_lesson_module_id", using: :btree
   add_index "grade_modifers", ["user_id"], name: "index_grade_modifers_on_user_id", using: :btree
 
+  create_table "lesson_extensions", force: :cascade do |t|
+    t.integer  "lesson_id",      limit: 4
+    t.integer  "user_id",        limit: 4
+    t.datetime "extension_date"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "lesson_extensions", ["lesson_id"], name: "index_lesson_extensions_on_lesson_id", using: :btree
+  add_index "lesson_extensions", ["user_id"], name: "index_lesson_extensions_on_user_id", using: :btree
+
   create_table "lesson_modules", force: :cascade do |t|
-    t.string   "name",             limit: 255
-    t.integer  "attempts",         limit: 4
+    t.string   "name",              limit: 255
+    t.integer  "attempts",          limit: 4
     t.boolean  "in_use"
-    t.integer  "value_percentage", limit: 4
-    t.integer  "lesson_id",        limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "value_percentage",  limit: 4
+    t.integer  "lesson_id",         limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "number_of_answers", limit: 4
   end
 
   add_index "lesson_modules", ["lesson_id"], name: "index_lesson_modules_on_lesson_id", using: :btree
@@ -151,6 +185,17 @@ ActiveRecord::Schema.define(version: 20151119170625) do
   end
 
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "lesson_module_id", limit: 4
+    t.integer  "lesson_word_id",   limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.text     "question_string",  limit: 65535
+  end
+
+  add_index "questions", ["lesson_module_id"], name: "index_questions_on_lesson_module_id", using: :btree
+  add_index "questions", ["lesson_word_id"], name: "index_questions_on_lesson_word_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -258,6 +303,10 @@ ActiveRecord::Schema.define(version: 20151119170625) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "answer_options", "lesson_words"
+  add_foreign_key "answer_options", "questions"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
   add_foreign_key "course_emails", "courses"
   add_foreign_key "course_users", "courses"
   add_foreign_key "course_users", "users"
@@ -266,6 +315,8 @@ ActiveRecord::Schema.define(version: 20151119170625) do
   add_foreign_key "grade_modifers", "lesson_modules"
   add_foreign_key "grade_modifers", "lessons"
   add_foreign_key "grade_modifers", "users"
+  add_foreign_key "lesson_extensions", "lessons"
+  add_foreign_key "lesson_extensions", "users"
   add_foreign_key "lesson_modules", "lessons"
   add_foreign_key "lesson_word_definitions", "definitions"
   add_foreign_key "lesson_word_definitions", "lesson_words"
@@ -280,6 +331,8 @@ ActiveRecord::Schema.define(version: 20151119170625) do
   add_foreign_key "lesson_words", "lessons"
   add_foreign_key "lesson_words", "words"
   add_foreign_key "lessons", "courses"
+  add_foreign_key "questions", "lesson_modules"
+  add_foreign_key "questions", "lesson_words"
   add_foreign_key "root_managers", "word_roots"
   add_foreign_key "root_managers", "words"
   add_foreign_key "sentences", "words"

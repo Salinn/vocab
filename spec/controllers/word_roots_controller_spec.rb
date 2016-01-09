@@ -19,6 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe WordRootsController, type: :controller do
+  login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # WordRoot. As you add validations to WordRoot, be sure to
