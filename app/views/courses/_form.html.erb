@@ -11,9 +11,9 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :class_name %><br>
-    <%= f.text_field :class_name %>
+    <%= f.text_field :class_name , class:"form-control"%>
   </div>
   <div class="field">
     <%= f.label :start_date %><br>
@@ -24,6 +24,6 @@
     <%= f.date_select :end_date %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create Course", class:"btn btn-primary"%>
   </div>
 <% end %>
