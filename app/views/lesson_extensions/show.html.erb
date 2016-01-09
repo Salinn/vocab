@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lesson:</strong>
+  <%= @lesson_extension.lesson %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @lesson_extension.user %>
+</p>
+
+<p>
+  <strong>Extension date:</strong>
+  <%= @lesson_extension.extension_date %>
+</p>
+
+<%= link_to 'Edit', edit_lesson_extension_path(@lesson_extension) %> |
+<%= link_to 'Back', lesson_extensions_path %>

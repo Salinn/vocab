@@ -24,14 +24,15 @@ RSpec.describe LessonModulesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # LessonModule. As you add validations to LessonModule, be sure to
   # adjust the attributes here as well.
-  let(:lesson) { FactoryGirl.create(:lesson) }
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
   let(:valid_attributes) {
     {
         name: 'Definition',
         attempts: 3,
-        in_use: true,
-        lesson_id: nil,
-        value_percentage: 30
+        in_use: false,
+        value_percentage: 30,
+        lesson_id: lesson.id,
+        number_of_answers: 4
     }
   }
 
@@ -141,7 +142,7 @@ RSpec.describe LessonModulesController, type: :controller do
       it "redirects to the lesson_module" do
         lesson_module = LessonModule.create! valid_attributes
         put :update, {:id => lesson_module.to_param, :lesson_module => valid_attributes}, valid_session
-        expect(response).to redirect_to(lesson_module)
+        expect(response).to redirect_to(lesson_module.lesson)
       end
     end
 

@@ -23,6 +23,13 @@ class LessonWord < ActiveRecord::Base
   accepts_nested_attributes_for :lesson_word_forms
   accepts_nested_attributes_for :lesson_word_synonyms
 
+  before_save :can_add_lesson_word
+
+  #TODO figure out where redirect is coming from
+  def can_add_lesson_word
+    lesson.can_add_lesson_word
+  end
+
 
   #This method returns all non associated definitions in the lesson word
   def not_word_definitions

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :lesson_extensions
+  resources :answers
+  resources :questions
   resources :course_emails
   resources :lesson_words
   resources :sentences
