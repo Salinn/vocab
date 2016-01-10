@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   post 'add_role' => 'users#add_role', as: :user_add_role
   post 'remove_role' => 'users#remove_role', as: :user_remove_role
-  #post 'create_user' => 'users#create', as: :create_user
+  post 'create_user' => 'users#create', as: :create_user
   post 'admin_create_user' => 'users#admin_create', as: :admin_create_user
 
   StaticPagesController.action_methods.each do |action|

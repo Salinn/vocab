@@ -1,42 +1,35 @@
 <div>
-    <h1>Course View</h1>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-              <th>Student Name</th>
-              <th colspan="2">Lesson 1 </th>
-              <th colspan="2">Lesson 2 </th>
-            </tr>
+  <h1>Course View</h1>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Student Name</th>
+      <% @course.lessons.each do |lesson| %>
+          <th colspan="2"><%= lesson.lesson_name %></th>
+      <% end %>
+    </tr>
 
-              <tr>
-                <th></th>
-                <th>grade </th>
-                <th>time</th>
-                <th>grade </th>
-                <th>time</th>
-              </tr>
-        </thead>
+    <tr>
+      <th></th>
+      <% (0...@course.lessons.length).each do %>
+          <th>Grade </th>
+          <th>Time</th>
+      <% end %>
+    </tr>
+    </thead>
 
-        <tbody>
-            <tr>
-              <td>Bob</td>
-              <td>95</td>
-              <td>30 sec</td>
-            </tr>
-
-            <tr>
-              <td>Fred</td>
-              <td>83</td>
-              <td>30 sec</td>
-            </tr>
-
-            <tr>
-              <td>Tom</td>
-              <td>0</td>
-              <td>0 sec</td>
-            </tr>
-        </tbody>
-    </table>
+    <tbody>
+    <% User.with_role(:student, @course).each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <% @course.lessons.each do |lesson| %>
+              <th>grade<%=  %></th>
+              <th>time<%=  %></th>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
 
 
   <h1>Lesson View</h1>
@@ -44,115 +37,84 @@
     <thead>
     <tr>
       <th>Student Name</th>
-      <th colspan="2"> Module 1 </th>
-      <th colspan="2"> Module 2 </th>
+      <!-- TODO: This needs to be on a different page or passed in a specific lesson-->
+      <% @course.lessons.first.lesson_modules.each do |lesson_module| %>
+          <th colspan="2"><%= lesson_module.name %></th>
+      <% end %>
     </tr>
 
     <tr>
       <th></th>
-      <th>grade </th>
-      <th>time</th>
-      <th>grade </th>
-      <th>time</th>
+      <% (0...@course.lessons.first.lesson_modules.length).each do %>
+          <th>Grade </th>
+          <th>Time</th>
+      <% end %>
     </tr>
     </thead>
 
     <tbody>
+    <% User.with_role(:student, @course).each do |user| %>
         <tr>
-          <td>Bob</td>
-          <td>95</td>
-          <td>30 sec</td>
+          <td><%= user.name %></td>
+          <% (0...@course.lessons.first.lesson_modules.length).each do |lesson_module| %>
+              <th>grade<%=  %></th>
+              <th>time<%=  %></th>
+          <% end %>
         </tr>
-
-        <tr>
-          <td>Fred</td>
-          <td>83</td>
-          <td>30 sec</td>
-        </tr>
-
-        <tr>
-          <td>Tom</td>
-          <td>0</td>
-          <td>0 sec</td>
-        </tr>
+    <% end %>
     </tbody>
   </table>
 
-
-
   <h1>Module View</h1>
+  <% attempts = @course.lessons.first.lesson_modules.first.attempts %>
+  <% questions_length = @course.lessons.first.lesson_modules.first.questions.length %>
   <table class="table table-bordered">
     <thead>
     <tr>
       <th>Student Name</th>
-      <th colspan="11">Question 1 </th>
-      <th colspan="2">Question 2 </th>
+      <!-- TODO: This needs to be on a different page or passed in a specific lesson moduel-->
+      <% @course.lessons.first.lesson_modules.first.questions.each do |question| %>
+          <th colspan="11"><%= question.question_string %></th>
+      <% end %>
     </tr>
 
     <tr>
       <th></th>
-      <th colspan="3">Answer 1 </th>
-      <th colspan="3">Answer 2</th>
-      <th colspan="3">Answer 3 </th>
-      <th colspan="2">Total Grade</th>
+      <% (0...questions_length).each do %>
+          <% (0...attempts).each do | index| %>
+              <th colspan="3">Answer <%= index + 1 %></th>
+          <% end %>
+          <th colspan="2">Total Grade</th>
+      <% end %>
     </tr>
     <tr>
       <th></th>
-      <!-- Answer 1 -->
-      <th colspan="1">Choice</th>
-      <th colspan="1">Correct</th>
-      <th colspan="1">Time</th>
-      <!-- Answer 2 -->
-      <th colspan="1">Choice</th>
-      <th colspan="1">Correct</th>
-      <th colspan="1">Time</th>
-      <!-- Answer 3 -->
-      <th colspan="1">Choice</th>
-      <th colspan="1">Correct</th>
-      <th colspan="1">Time</th>
-      <!-- Total Grade -->
-      <th>grade </th>
-      <th>time</th>
+      <% (0...questions_length).each do %>
+          <% (0...attempts).each do %>
+              <th colspan="1">Choice</th>
+              <th colspan="1">Correct</th>
+              <th colspan="1">Time</th>
+          <% end %>
+          <th>Grade</th>
+          <th>Time</th>
+      <% end %>
     </tr>
     </thead>
-        <tbody>
-        <tr>
-          <td>Bob</td>
-          <td>A</td>
-          <td>X</td>
-          <td>5 sec</td>
-          <td>B</td>
-          <td>X</td>
-          <td>5 sec</td>
-          <td>C</td>
-          <td>X</td>
-          <td>5 sec</td>
-          <td>0%</td>
-          <td>15 sec</td>
-        </tr>
 
-        <tr>
-          <td>Fred</td>
-          <td>A</td>
-          <td>X</td>
-          <td>5 sec</td>
-          <td>D</td>
-          <td>0</td>
-          <td>10 sec</td>
-          <td colspan="3">-</td>
-          <td>100%</td>
-          <td>15 sec</td>
+    <tbody>
+    <% User.with_role(:student, @course).each do |user| %>
+        <td><%= user.name %></td>
+        <% @course.lessons.first.lesson_modules.first.questions.each do |question| %>
+            <% (0...attempts).each do |index| %>
+                <td>A</td>
+                <td>X</td>
+                <td>5 sec</td>
+            <% end %>
+            <td>100%</td>
+            <td>15 sec</td>
+        <% end %>
         </tr>
-
-        <tr>
-          <td>Tom</td>
-          <td colspan="3">-</td>
-          <td colspan="3">-</td>
-          <td colspan="3">-</td>
-          <td>0%</td>
-          <td>0 sec</td>
-        </tr>
+    <% end %>
     </tbody>
   </table>
-
 </div>

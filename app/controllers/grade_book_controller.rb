@@ -2,7 +2,7 @@ class GradeBookController < ApplicationController
   before_action :set_grade_book, only: [:show, :edit, :update, :destroy]
 
   def index
-    #@grade_book = Gradebook.all
+    @course = Course.find(params['course_id'])
   end
 
   # GET Course/gradebook/
