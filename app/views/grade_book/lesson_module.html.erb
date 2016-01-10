@@ -1,0 +1,54 @@
+<div>
+  <h1>Module View</h1>
+  <% attempts = @lesson_module.attempts %>
+  <% questions_length = @lesson_module.questions.length %>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Student Name</th>
+      <!-- TODO: This needs to be on a different page or passed in a specific lesson moduel-->
+      <% @lesson_module.questions.each do |question| %>
+          <th colspan="11"><%= question.question_string %></th>
+      <% end %>
+    </tr>
+
+    <tr>
+      <th></th>
+      <% (0...questions_length).each do %>
+          <% (0...attempts).each do | index| %>
+              <th colspan="3">Answer <%= index + 1 %></th>
+          <% end %>
+          <th colspan="2">Total Grade</th>
+      <% end %>
+    </tr>
+    <tr>
+      <th></th>
+      <% (0...questions_length).each do %>
+          <% (0...attempts).each do %>
+              <th colspan="1">Choice</th>
+              <th colspan="1">Correct</th>
+              <th colspan="1">Time</th>
+          <% end %>
+          <th>Grade</th>
+          <th>Time</th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% User.with_role(:student, @course).each do |user| %>
+        <td><%= user.name %></td>
+        <% @lesson_module.questions.each do |question| %>
+            <% (0...attempts).each do |index| %>
+                <td>A</td>
+                <td>X</td>
+                <td>5 sec</td>
+            <% end %>
+            <td>100%</td>
+            <td>15 sec</td>
+        <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

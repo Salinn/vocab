@@ -1,0 +1,33 @@
+<div>
+  <h1>Course View</h1>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Student Name</th>
+      <% @course.lessons.each do |lesson| %>
+          <th colspan="2"><%= link_to lesson.lesson_name, course_gradebook_lesson_path(lesson_id: lesson) %></th>
+      <% end %>
+    </tr>
+
+    <tr>
+      <th></th>
+      <% (0...@course.lessons.length).each do %>
+          <th>Grade </th>
+          <th>Time</th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% User.with_role(:student, @course).each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <% @course.lessons.each do |lesson| %>
+              <th>grade<%=  %></th>
+              <th>time<%=  %></th>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

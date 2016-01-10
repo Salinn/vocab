@@ -1,0 +1,34 @@
+<div>
+  <h1>Lesson View</h1>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Student Name</th>
+      <!-- TODO: This needs to be on a different page or passed in a specific lesson-->
+      <% @lesson.lesson_modules.each do |lesson_module| %>
+          <th colspan="2"><%= link_to lesson_module.name, course_gradebook_lesson_module_path(lesson_module_id: lesson_module) %></th>
+      <% end %>
+    </tr>
+
+    <tr>
+      <th></th>
+      <% (0...@lesson.lesson_modules.length).each do %>
+          <th>Grade </th>
+          <th>Time</th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% User.with_role(:student, @course).each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <% (0...@lesson.lesson_modules.length).each do |lesson_module| %>
+              <th>grade<%=  %></th>
+              <th>time<%=  %></th>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

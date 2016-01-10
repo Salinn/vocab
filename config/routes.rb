@@ -22,7 +22,9 @@ Rails.application.routes.draw do
     post :mass_add_to_course
     post :duplicate_course
     post :share_course
-    get :gradebook, controller: "grade_book", action: "index"
+    get :gradebook_course, controller: "grade_book", action: "course"
+    get '/gradebook/lesson/:lesson_id' => 'grade_book#lesson', as: :gradebook_lesson
+    get 'gradebook/lesson_module/:lesson_module_id' => 'grade_book#lesson_module', as: :gradebook_lesson_module
     get :email_class
     get :manage_students
     get :manage_lessons
