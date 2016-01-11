@@ -36,16 +36,29 @@
     </thead>
 
     <tbody>
-    <% User.with_role(:student, @course).each do |user| %>
+    <% users = User.with_role(:student, @course) %>
+    <% questions = @lesson_module.questions %>
+    <% users.each do |user| %>
         <td><%= user.name %></td>
-        <% @lesson_module.questions.each do |question| %>
-            <% (0...attempts).each do |index| %>
+        <% questions.each do |question| %>
+            <% answers = Gradebook.lesson_model_grades(user,question)%>
+            <% correct = false %>
+            <% total_time = 0 %>
+            <% answers.each do |answer| %>
+                <!-- TODO: Does he want to see their choice? -->
                 <td>A</td>
-                <td>X</td>
-                <td>5 sec</td>
+                <td><%= answer.correct %></td>
+                <td><%= answer.time_to_complete %></td>
+                <% correct = answer.correct unless correct  %>
+                <% total_time += answer.time_to_complete %>
             <% end %>
-            <td>100%</td>
-            <td>15 sec</td>
+            <% (answers.length...attempts).each do %>
+                <td></td>
+                <td></td>
+                <td></td>
+            <% end %>
+            <td><%= correct ? '100%' : '0%' %></td>
+            <td><%= total_time %> sec</td>
         <% end %>
         </tr>
     <% end %>
