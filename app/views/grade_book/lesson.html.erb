@@ -6,14 +6,14 @@
       <th>Student Name</th>
       <!-- TODO: This needs to be on a different page or passed in a specific lesson-->
       <% @lesson.lesson_modules.each do |lesson_module| %>
-          <th colspan="2"><%= link_to lesson_module.name, course_gradebook_lesson_module_path(lesson_module_id: lesson_module) %></th>
+          <th colspan="2"><%= link_to lesson_module.name, course_gradebook_lesson_module_path(lesson_module_id: lesson_module.id) %></th>
       <% end %>
     </tr>
 
     <tr>
       <th></th>
       <% (0...@lesson.lesson_modules.length).each do %>
-          <th>Grade </th>
+          <th>Grade</th>
           <th>Time</th>
       <% end %>
     </tr>
@@ -23,9 +23,10 @@
     <% User.with_role(:student, @course).each do |user| %>
         <tr>
           <td><%= user.name %></td>
-          <% (0...@lesson.lesson_modules.length).each do |lesson_module| %>
-              <th>grade<%=  %></th>
-              <th>time<%=  %></th>
+          <% @lesson.lesson_modules.each do |lesson_module| %>
+              <% grade, time = Gradebook.lesson_grades(user, lesson_module) %>
+              <th><%= grade %>%</th>
+              <th><%= time %> sec</th>
           <% end %>
         </tr>
     <% end %>
