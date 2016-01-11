@@ -23,8 +23,9 @@
         <tr>
           <td><%= user.name %></td>
           <% @course.lessons.each do |lesson| %>
-              <th>grade<%=  %></th>
-              <th>time<%=  %></th>
+              <% grade, time = Gradebook.course_grades(user, lesson) %>
+              <th><%= grade %>%</th>
+              <th><%= time %> sec</th>
           <% end %>
         </tr>
     <% end %>
