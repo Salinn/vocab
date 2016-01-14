@@ -41,7 +41,7 @@
     <% users.each do |user| %>
         <td><%= user.name %></td>
         <% questions.each do |question| %>
-            <% answers = Gradebook.lesson_model_grades(user,question)%>
+            <% answers = Gradebook.lesson_model_grade(user,question)%>
             <% correct = false %>
             <% total_time = 0 %>
             <% answers.each do |answer| %>
