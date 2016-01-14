@@ -8,6 +8,7 @@
       <% @lesson.lesson_modules.each do |lesson_module| %>
           <th colspan="2"><%= link_to lesson_module.name, course_gradebook_lesson_module_path(lesson_module_id: lesson_module.id) %></th>
       <% end %>
+      <th colspan="2">Total</th>
     </tr>
 
     <tr>
@@ -16,6 +17,8 @@
           <th>Grade</th>
           <th>Time</th>
       <% end %>
+      <th>Grade</th>
+      <th>Time</th>
     </tr>
     </thead>
 

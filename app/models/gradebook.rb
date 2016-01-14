@@ -15,12 +15,22 @@ class Gradebook
   end
 
   def self.lesson_grades(user, lesson_module)
+    student_info = []
+    correct = 0
+    time = 0
     total_correct = 0
     total_time = 0
-    lesson_module.questions.each do |question|
-      answer = lesson_model_last_grade(user, question)
-      total_correct += 1 if answer.correct
-      total_time += answer.time_to_complete
+    answers = lesson_model_last_grade(user, lesson_module.question_ids)
+    answers.each do |answer|
+      correct += answer.correct ? 1 : 0
+      time += answer.time_to_complete
+      student_info.push([correct, time])
+      correct = 0
+      time = 0
+    end
+    student_info.each do |answer|
+      total_correct += answer.first
+      total_time += answer.last
     end
     total_correct_percent = ((total_correct.fdiv(lesson_module.questions.length))*100).to_i
     [total_correct_percent, total_time]
@@ -41,8 +51,8 @@ class Gradebook
     Answer.where(user_id: user.id, question_id: question.id)
   end
 
-  def self.lesson_model_last_grade(user, question)
-    Answer.where(user_id: user.id, question_id: question.id).last
+  def self.lesson_model_last_grade(user, questions)
+    Answer.where(user_id: user.id, question_id: questions)
   end
 end
 

@@ -7,6 +7,7 @@
       <% @course.lessons.each do |lesson| %>
           <th colspan="2"><%= link_to lesson.lesson_name, course_gradebook_lesson_path(lesson_id: lesson) %></th>
       <% end %>
+      <th colspan="2">Total</th>
     </tr>
 
     <tr>
@@ -15,6 +16,8 @@
           <th>Grade </th>
           <th>Time</th>
       <% end %>
+      <th>Grade</th>
+      <th>Time</th>
     </tr>
     </thead>
 
@@ -23,10 +26,12 @@
         <tr>
           <td><%= user.name %></td>
           <% @course.lessons.each do |lesson| %>
-              <% grade, time = Gradebook.course_grades(user, lesson) %>
+              <% grade, time, total_grade, total_time = Gradebook.course_grades(user, lesson) %>
               <th><%= grade %>%</th>
               <th><%= time %> sec</th>
           <% end %>
+          <th><%= total_grade %></th>
+          <th><%= total_time %></th>
         </tr>
     <% end %>
     </tbody>
