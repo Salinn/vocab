@@ -30,8 +30,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Web server
 gem 'puma'
 
-#Roles
+#Roles and Auth
 gem 'rolify'
+gem 'cancancan', '~> 1.10'
 
 #text editor
 gem 'ckeditor'

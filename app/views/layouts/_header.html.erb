@@ -16,9 +16,16 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to 'Add Word', new_word_path %></li>
         <% if current_user %>
-            <li><%= link_to 'Create Course', new_course_path %></li>
-            <li><%= link_to 'Account', current_user %></li>
-            <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, class: "nav-item" %></li>
+            <li>
+              <%= link_to 'Create Course', new_course_path %>
+            </li>
+            <li>
+              <!-- TODO: fix this link-->
+              <%= link_to 'Account', '#' %>
+            </li>
+            <li>
+              <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, class: "nav-item" %>
+            </li>
         <% else %>
             <li><%= link_to 'Sign In', new_user_session_path %></li>
         <% end %>

@@ -1,5 +1,6 @@
 class WordFormsController < ApplicationController
   before_action :set_word_form, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /word_forms
   # GET /word_forms.json

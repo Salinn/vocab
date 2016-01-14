@@ -4,5 +4,12 @@ FactoryGirl.define do
     attempts 3
     in_use true
     value_percentage 30
+    association :lesson, factory: :lesson
+
+    factory :lesson_module_with_lesson_words do
+      after(:create) do |lesson_module|
+        create(:lesson_word, article: lesson_module)
+      end
+    end
   end
 end

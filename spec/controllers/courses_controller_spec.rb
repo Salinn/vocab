@@ -19,18 +19,11 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe CoursesController, type: :controller do
+  login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # Course. As you add validations to Course, be sure to
   # adjust the attributes here as well.
-  let(:user) { FactoryGirl.create(:user) }
-
-  before { allow(controller).to receive(:current_user) { user } }
-
-  def setup
-    @request.env["devise.mapping"] = Devise.mappings[:admin]
-    sign_in FactoryGirl.create(:admin)
-  end
 
   let(:valid_attributes) {
     {
