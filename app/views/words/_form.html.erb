@@ -1,4 +1,8 @@
-<%= form_for(@word) do |f| %>
+
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<%= form_for(@word, remote: remote, html: {role: :form, 'data-model' => 'word'}) do |f| %>
+
   <% if @word.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@word.errors.count, "error") %> prohibited this word from being saved:</h2>
@@ -12,63 +16,12 @@
   <% end %>
 
   <div class="field form-group">
-    <%= f.label :name %><br>
+    <%= f.label :name, class: 'control-label' %><br>
     <%= f.text_field :name , class:"form-control"%>
+    <span class="help-block"></span>
   </div>
-    <%= f.fields_for :word_forms, @word.word_forms.last do |word_form| %>
-        <div class="field">
-          <%= word_form.hidden_field :word, value: @word %>
-        </div>
-        <div class="field form-group">
-          <%= word_form.label :associated_word %><br>
-          <%= word_form.text_field :associated_word , class:"form-control"%>
-        </div>
-    <% end %>
-    <%= f.fields_for :sentences, @word.sentences.last do |sentence| %>
-        <div class="field">
-          <%= sentence.hidden_field :word, value: @word %>
-        </div>
-        <div class="field form-group">
-          <%= sentence.label :word_sentence %><br>
-          <%= sentence.text_field :word_sentence , class:"form-control" %>
-        </div>
-    <% end %>
-    <%= f.fields_for :word_videos, @word.word_videos.last do |word_video| %>
-        <div class="field">
-          <%= word_video.hidden_field :word, value: @word %>
-        </div>
-        <div class="field form-group">
-          <%= word_video.label :video_link %><br>
-          <%= word_video.text_field :video_link , class:"form-control" %>
-        </div>
-        <div class="field form-group">
-          <%= word_video.label :video_description %><br>
-          <%= word_video.text_field :video_description , class:"form-control" %>
-        </div>
-    <% end %>
-    <%= f.fields_for :definitions, @word.definitions.last do |definition| %>
-        <div class="field">
-          <%= definition.hidden_field :word, value: @word %>
-        </div>
-        <div class="field form-group ">
-          <%= definition.label :word_definition %><br>
-          <%= definition.text_area :word_definition , class:"form-control"%>
-        </div>
-    <% end %>
-    <%= f.fields_for :synonyms, @word.synonyms.last do |synonym| %>
-        <div class="field">
-          <%= synonym.hidden_field :word, value: @word %>
-        </div>
-        <div class="field form-group">
-          <%= synonym.label :word_synonym %><br>
-          <%= synonym.text_field :word_synonym , class:"form-control"%>
-        </div>
-    <% end %>
-    <div class="field form-group">
-      <%= f.label :word_root_ids %><br>
-      <%= f.collection_select :word_root_ids, WordRoot.order(:root_name), :id, :root_name, { include_blank: true }, {multiple: true, class: 'form-control' }%>
-    </div>
-  <div class="actions form-group pull-right">
-    <%= f.submit 'Create Word', class: 'btn btn-primary' %>
+
+  <div class="actions">
+    <%= f.submit 'Create Word', :onclick => "javascript:window.location.reload()" , class: 'btn btn-primary' %>
   </div>
 <% end %>

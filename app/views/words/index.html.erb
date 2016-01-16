@@ -4,15 +4,17 @@
     <%= f.condition_fields do |c| %>
         <%= render "condition_fields", f: c %>
     <% end %>
-    <div>
-      <%= link_to_add_fields "Add", f, :condition %>
-    </div>
+
+    <%= link_to_add_fields "", f, :condition %>
+
     <div class="actions btn-group col-sm-12">
       <%= f.submit "Search" , class:"btn btn-primary col-sm-3"%>
       <%= link_to 'Clear Search', words_path ,class:"btn btn-primary col-sm-3" %>
     </div>
 
+
   <% end %>
+<%= link_to 'New Word', '#new_word_modal', 'data-toggle' => 'modal' ,  class:'btn btn-primary col-xs-offset-9' %>
 
 
 
@@ -22,20 +24,36 @@
         <th><%= sort_link @search, :name,'Word name' %></th>
         <th>Display the Word</th>
         <th>Update a Word</th>
+        <th>Delete a Word</th>
       </tr>
     </thead>
 
     <tbody>
       <% @words.each do |word| %>
-        <tr>
-          <td><%= word.name %></td>
-          <td><%= link_to 'Show', word %></td>
-          <td><%= link_to 'Update', edit_word_path(word) %></td>
-        </tr>
+        <%= render partial: 'table_row', locals:{word: word} %>
       <% end %>
     </tbody>
   </table>
 
 <br>
 
-<%= link_to 'New Word', new_word_path , class:'btn btn-primary'%>
+
+<%# Bootstrap modal markup. @see: http://getbootstrap.com/javascript/#modals %>
+<div class="modal fade" id="new_word_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Create new word</h4>
+      </div>
+      <div class="modal-body">
+        <%# Render the new word form (passing modal => true to enable remote => true) %>
+        <%= render 'form', modal: true %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

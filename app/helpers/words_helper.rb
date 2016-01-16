@@ -5,7 +5,7 @@ module WordsHelper
     fields = f.send("#{type}_fields", new_object, child_index: id) do |builder|
       render(type.to_s + "_fields", f: builder)
     end
-    link_to(name, '#', class: "add_fields pull-right btn btn-success glyphicon glyphicon-plus", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '#', class: "add_fields col-xs-offset-12 col-md-offset-10 btn btn-success glyphicon glyphicon-plus", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
   def word_search_associations
