@@ -28,6 +28,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def update_lesson_event
-    event.update_attributes(title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time , end_time: lesson_end_date)
+    if event
+      event.update_attributes(title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time , end_time: lesson_end_date)
+    else
+      create_lesson_event
+    end
+
   end
 end
