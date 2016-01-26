@@ -1,43 +1,47 @@
-<div>
-  <h1>Course View</h1>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>Student Name</th>
-      <% @course.lessons.each do |lesson| %>
-          <th colspan="2"><%= link_to lesson.lesson_name, course_gradebook_lesson_path(lesson_id: lesson) %></th>
-      <% end %>
-      <th colspan="2">Total</th>
-    </tr>
-
-    <tr>
-      <th></th>
-      <% (0...@course.lessons.length).each do %>
-          <th>Grade </th>
-          <th>Time</th>
-      <% end %>
-      <th>Grade</th>
-      <th>Time</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% User.with_role(:student, @course).each do |user| %>
-        <% total_grade = 0 %>
-        <% total_time = 0 %>
+<div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 home-page-card-opacity">
+  <div class="jumbotron">
+    <div class="col-xl-12 col-md-12 col-xs-12"><div>
+      <h1>Course View</h1>
+      <table class="table table-bordered">
+        <thead>
         <tr>
-          <td><%= user.name %></td>
+          <th>Student Name</th>
           <% @course.lessons.each do |lesson| %>
-              <% grade, time = Gradebook.course_grades(user, lesson) %>
-              <th><%= grade %>%</th>
-              <th><%= time %> sec</th>
-              <% total_grade += grade %>
-              <% total_time += time %>
+              <th colspan="2"><%= link_to lesson.lesson_name, course_gradebook_lesson_path(lesson_id: lesson) %></th>
           <% end %>
-          <th><%= total_grade %>%</th>
-          <th><%= total_time %></th>
+          <th colspan="2">Total</th>
         </tr>
-    <% end %>
-    </tbody>
-  </table>
+
+        <tr>
+          <th></th>
+          <% (0...@course.lessons.length).each do %>
+              <th>Grade </th>
+              <th>Time</th>
+          <% end %>
+          <th>Grade</th>
+          <th>Time</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% User.with_role(:student, @course).each do |user| %>
+            <% final_grade = 0 %>
+            <% final_time = 0 %>
+            <tr>
+              <td><%= user.name %></td>
+              <% @course.lessons.each do |lesson| %>
+                  <% lesson_grade, lesson_time = @answers["#{user.id}.#{lesson.id}"] %>
+                  <th><%= lesson_grade %>%</th>
+                  <th><%= lesson_time %> sec</th>
+              <% end %>
+              <th><%= final_grade %>%</th>
+              <th><%= final_time %></th>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
 </div>

@@ -1,38 +1,45 @@
-<div>
-  <h1>Lesson View</h1>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>Student Name</th>
-      <!-- TODO: This needs to be on a different page or passed in a specific lesson-->
-      <% @lesson.lesson_modules.each do |lesson_module| %>
-          <th colspan="2"><%= link_to lesson_module.name, course_gradebook_lesson_module_path(lesson_module_id: lesson_module.id) %></th>
-      <% end %>
-      <th colspan="2">Total</th>
-    </tr>
+<div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 home-page-card-opacity">
+  <div class="jumbotron">
+    <div class="col-xl-12 col-md-12 col-xs-12">
+      <div>
+        <h1>Lesson View</h1>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Student Name</th>
+            <!-- TODO: This needs to be on a different page or passed in a specific lesson-->
+            <% @lesson.lesson_modules.each do |lesson_module| %>
+                <th colspan="2"><%= link_to lesson_module.name, course_gradebook_lesson_module_path(lesson_module_id: lesson_module.id) %></th>
+            <% end %>
+            <th colspan="2">Total</th>
+          </tr>
 
-    <tr>
-      <th></th>
-      <% (0...@lesson.lesson_modules.length).each do %>
-          <th>Grade</th>
-          <th>Time</th>
-      <% end %>
-      <th>Grade</th>
-      <th>Time</th>
-    </tr>
-    </thead>
+          <tr>
+            <th></th>
+            <% (0...@lesson.lesson_modules.length).each do %>
+                <th>Grade</th>
+                <th>Time</th>
+            <% end %>
+            <th>Grade</th>
+            <th>Time</th>
+          </tr>
+          </thead>
 
-    <tbody>
-    <% User.with_role(:student, @course).each do |user| %>
-        <tr>
-          <td><%= user.name %></td>
-          <% @lesson.lesson_modules.each do |lesson_module| %>
-              <% grade, time = Gradebook.lesson_grades(user, lesson_module) %>
-              <th><%= grade %>%</th>
-              <th><%= time %> sec</th>
+          <tbody>
+          <% User.with_role(:student, @course).each do |user| %>
+              <tr>
+                <td><%= user.name %></td>
+                <% @lesson.lesson_modules.each do |lesson_module| %>
+                    <% grade, time = Gradebook.lesson_grades(user, lesson_module) %>
+                    <th><%= grade %>%</th>
+                    <th><%= time %> sec</th>
+                <% end %>
+              </tr>
           <% end %>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
 </div>

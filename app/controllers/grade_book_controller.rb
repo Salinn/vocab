@@ -7,6 +7,13 @@ class GradeBookController < ApplicationController
 
   def course
     @course = Course.find(params['course_id'])
+    sql = "SELECT * FROM answers
+          LEFT JOIN questions ON answers.question_id=questions.id
+          LEFT JOIN lesson_modules ON questions.lesson_module_id=lesson_modules.id
+          LEFT JOIN lessons ON lesson_modules.lesson_id=lessons.id
+          LEFT JOIN courses ON lessons.course_id=courses.id
+          WHERE courses.id = #{@course.id}"
+    @answers = Gradebook.course_grades(ActiveRecord::Base.connection.select_all(sql), @course)
   end
 
   def lesson
