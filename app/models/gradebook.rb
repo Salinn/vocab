@@ -1,5 +1,5 @@
 class Gradebook
-  def self.course_grades(answers, course)
+  def self.course_grades(answers, users, course)
     user_lesson_module_grades = Hash.new([0,0])
     total_grade_and_time = Hash.new([0,0])
     answers.each do |answer|
@@ -8,9 +8,9 @@ class Gradebook
     end
     course.lessons.each do |lesson|
       lesson.lesson_modules.each do |lesson_module|
-        User.with_role(:student, course).each do |user|
-          total_correct, total_time = total_grade_and_time["#{user.id}.#{lesson_module.id}"]
-          user_lesson_module_grades["#{user.id}.#{lesson.id}.#{lesson_module.id}"] =[((total_correct.fdiv(lesson_module.questions.length))*100).to_i, total_time]
+        users.each do |user|
+          total_correct, total_time = user_lesson_module_grades["#{user.id}.#{lesson.id}.#{lesson_module.id}"]
+          user_lesson_module_grades["#{user.id}.#{lesson.id}.#{lesson_module.id}"] = calculate_lesson_grade(total_correct, total_time, lesson_module)
         end
       end
     end
@@ -20,6 +20,10 @@ class Gradebook
       total_grade_and_time["#{key_split[0]}.#{key_split[1]}"] = [total_grade+v[0],total_time+v[1]]
     end
     total_grade_and_time
+  end
+
+  def self.calculate_lesson_grade(total_correct, total_time, lesson_module)
+    [((total_correct.fdiv(lesson_module.questions.length))*lesson_module.value_percentage).to_i, total_time]
   end
 
   def self.lesson_grades(user, lesson_module)

@@ -24,17 +24,17 @@
         </thead>
 
         <tbody>
-        <% User.with_role(:student, @course).each do |user| %>
+        <% @users.each do |user| %>
             <% final_grade = 0 %>
             <% final_time = 0 %>
             <tr>
               <td><%= user.name %></td>
               <% @course.lessons.each do |lesson| %>
-                  <% lesson_grade, lesson_time = @answers["#{user.id}.#{lesson.id}"] %>
+                  <% lesson_grade, lesson_time, final_grade, final_time = get_grades(@answers, lesson, user, final_grade, final_time) %>
                   <th><%= lesson_grade %>%</th>
                   <th><%= lesson_time %> sec</th>
               <% end %>
-              <th><%= final_grade %>%</th>
+              <th><%= get_final_grade(final_grade, @course.lessons.length) %></th>
               <th><%= final_time %></th>
             </tr>
         <% end %>
