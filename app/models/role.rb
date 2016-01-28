@@ -7,4 +7,7 @@ class Role < ActiveRecord::Base
             :allow_nil => true
 
   scopify
+
+  #The %w tells it to turn the words into strings and split on space
+  CONSTANTROLES = %w[teacher student admin]
 end

@@ -19,6 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe LessonsController, type: :controller do
+  login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # Lesson. As you add validations to Lesson, be sure to

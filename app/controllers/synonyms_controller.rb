@@ -1,5 +1,6 @@
 class SynonymsController < ApplicationController
   before_action :set_synonym, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /synonyms
   # GET /synonyms.json
