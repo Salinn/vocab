@@ -42,10 +42,26 @@ class Gradebook
       final_grades["#{key_split[0]}"] = [final_grade+v[0], final_time+v[1]]
     end
 
+    course.lessons.each do |lesson|
+      users.each do |user|
+        lesson_grade, lesson_time = final_grades["#{user.id}.#{lesson.id}"]
+        average_grade_total, average_time_total = final_grades["Lesson #{lesson.id}"]
+
+        final_grades["Lesson #{lesson.id}"] = [(lesson_grade+average_grade_total), (lesson_time+average_time_total)]
+      end
+      total_students_grade, total_students_time = final_grades["Lesson #{lesson.id}"]
+      final_average_grade, final_average_time = final_grades["Course #{course.id}"]
+
+      final_grades["Lesson #{lesson.id}"] = [('%.2f' % total_students_grade.fdiv(users.length)), ('%.0f' % total_students_time.fdiv(users.length))]
+      final_grades["Course #{course.id}"] = [(final_average_grade+total_students_grade), (total_students_time+final_average_time)]
+    end
+    final_average_grade, final_average_time = final_grades["Course #{course.id}"]
+    final_grades["Course #{course.id}"] = [('%.2f' % final_average_grade.fdiv(users.length*course.lessons.length)), ('%.0f' % final_average_time.fdiv(users.length))]
+
     #This calculates the users final grade for the course
     users.each do |user|
       final_grade, final_time = final_grades["#{user.id}"]
-      final_grades["#{user.id}"] = [('%.2f' % final_grade.fdiv(course.lessons.length)), final_time]
+      final_grades["#{user.id}"] = [('%.2f' % final_grade.fdiv(course.lessons.length)).to_i, final_time]
     end
 
     #Returns hash with the user's final grade/time and grade/time for each lesson

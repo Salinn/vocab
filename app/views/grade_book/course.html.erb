@@ -22,6 +22,17 @@
             <th>Grade</th>
             <th>Time</th>
           </tr>
+          <tr>
+            <th>Averages</th>
+            <% @course.lessons.each do |lesson| %>
+                <% total_students_grade, total_students_time = @answers["Lesson #{lesson.id}"] %>
+                <th><%= total_students_grade %>%</th>
+                <th><%= total_students_time %> sec</th>
+            <% end %>
+            <% final_average_grade, final_average_time = @answers["Course #{@course.id}"] %>
+            <th><%= final_average_grade %>%</th>
+            <th><%= final_average_time %> sec</th>
+          </tr>
           </thead>
 
           <tbody>
