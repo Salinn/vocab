@@ -23,6 +23,18 @@
             <th>Grade</th>
             <th>Time</th>
           </tr>
+
+          <tr>
+            <th>Averages</th>
+            <% @lesson.lesson_modules.each do |lesson_module| %>
+                <% lesson_module_grade_total, lesson_module_time_total = @answers["Lesson Module #{lesson_module.id}"] %>
+                <th><%= lesson_module_grade_total %>%</th>
+                <th><%= lesson_module_time_total %> sec</th>
+            <% end %>
+            <% final_students_grade, final_students_time = @answers["Lesson #{@lesson.id}"] %>
+            <th><%= final_students_grade %>%</th>
+            <th><%= final_students_time %> sec</th>
+          </tr>
           </thead>
 
           <tbody>
