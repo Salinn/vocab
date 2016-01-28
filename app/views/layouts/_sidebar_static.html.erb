@@ -10,13 +10,6 @@
     <li><%= link_to 'Add Root Word <i class="sub_icon glyphicon glyphicon-plus"></i>'.html_safe, new_word_root_path, class: 'sub_link' %></li>
   </ul>
 </li>
-<li>
-    <a data-toggle="collapse" data-parent="#accordion1" href="#resources">Resources<i class="sub_icon glyphicon glyphicon-list"></i></a>
-    <ul id="resources" class="collapse panel-collapse">
-      <li><%= link_to "Syllabus", course_syllabus_path(@course) %></li>
-      <li><%= link_to "Course Description", course_description_path(@course) %></li>
-    </ul>
-</li>
 <% if current_user %>
     <li>
     <li><%= link_to 'Create Course <i class="sub_icon glyphicon glyphicon-pencil"></i>'.html_safe, new_course_path %></li>
