@@ -39,29 +39,25 @@
           </thead>
 
           <tbody>
-          <% users = User.with_role(:student, @course) %>
-          <% questions = @lesson_module.questions %>
-          <% users.each do |user| %>
-              <td><%= user.name %></td>
-              <% questions.each do |question| %>
-                  <% answers = Gradebook.lesson_model_grade(user,question)%>
-                  <% correct = false %>
-                  <% total_time = 0 %>
-                  <% answers.each do |answer| %>
+          <% @users.each do |user| %>
+              <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
+              <% @lesson_module.questions.each do |question| %>
+                  <% grade, time, student_attempts, answers = @answers["#{user.id}.#{question.id}"] %>
+                  <% answers.split %>
+                  <% (0...student_attempts).each do |index| %>
                       <!-- TODO: Does he want to see their choice? -->
-                      <td>A</td>
-                      <td><%= answer.correct %></td>
-                      <td><%= answer.time_to_complete %></td>
-                      <% correct = answer.correct unless correct  %>
-                      <% total_time += answer.time_to_complete %>
+                      <td><%= answers[index] %></td>
+                      <td><%= answer_correct?(index, student_attempts, grade) %></td>
+                      <td><%= time[index] %></td>
                   <% end %>
-                  <% (answers.length...attempts).each do %>
+                  <% (student_attempts...attempts).each do %>
                       <td></td>
                       <td></td>
                       <td></td>
                   <% end %>
-                  <td><%= correct ? '100%' : '0%' %></td>
-                  <td><%= total_time %> sec</td>
+                  <% final_grade, final_time =@answers["#{user.id}.#{@lesson_module.id}.#{question.id}"] %>
+                  <td><%= final_grade %>%</td>
+                  <td><%= final_time %> sec</td>
               <% end %>
               </tr>
           <% end %>

@@ -26,14 +26,17 @@
           </thead>
 
           <tbody>
-          <% User.with_role(:student, @course).each do |user| %>
+          <% @users.each do |user| %>
               <tr>
-                <td><%= user.name %></td>
+                <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
                 <% @lesson.lesson_modules.each do |lesson_module| %>
-                    <% grade, time = Gradebook.lesson_grades(user, lesson_module) %>
+                    <% grade, time = get_grades_lesson(@answers, lesson_module, user) %>
                     <th><%= grade %>%</th>
                     <th><%= time %> sec</th>
                 <% end %>
+                <% final_grade, final_time = @answers["#{user.id}"] %>
+                <th><%= final_grade %>%</th>
+                <th><%= final_time %></th>
               </tr>
           <% end %>
           </tbody>
