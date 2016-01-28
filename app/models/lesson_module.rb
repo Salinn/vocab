@@ -56,8 +56,8 @@ class LessonModule < ActiveRecord::Base
   end
 
   def generate_question(lesson_word)
-    if name == 'Question Word Form'
-      return 'Word Form'
+    if name == 'Word Form'
+      return 'Question Word Form'
     elsif name == 'Definition'
       return 'Question Definition'
     end

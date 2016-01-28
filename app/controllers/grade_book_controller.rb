@@ -43,6 +43,13 @@ class GradeBookController < ApplicationController
   def student_grade
     @course = Course.includes(lessons: [lesson_modules: :questions]).find(params['course_id'])
     @user = User.find(params['student_id'])
+    sql = "SELECT * FROM answers
+          LEFT JOIN questions ON answers.question_id=questions.id
+          LEFT JOIN lesson_modules ON questions.lesson_module_id=lesson_modules.id
+          LEFT JOIN lessons ON lesson_modules.lesson_id=lessons.id
+          LEFT JOIN courses ON lessons.course_id=courses.id
+          WHERE courses.id = #{@course.id} AND answers.user_id = #{@user.id}"
+    @answers = Gradebook.student_grades(ActiveRecord::Base.connection.select_all(sql), @course)
   end
 
   # GET Course/gradebook/

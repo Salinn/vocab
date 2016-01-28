@@ -136,6 +136,33 @@ class Gradebook
     lesson_module_grades
   end
 
+  def self.student_grades(answers, course)
+    student_grades = Hash.new([0,0])
+    answers.each do |answer|
+      grade, time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"]
+      lesson_grade, lesson_time = student_grades["#{course.id}.#{answer['lesson_id']}"]
+      course_grade, course_time = student_grades["#{course.id}"]
+
+      student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = [(grade + answer['correct']), (time + answer['time_to_complete'])]
+      student_grades["#{course.id}.#{answer['lesson_id']}"] = [(lesson_grade + answer['correct']), (lesson_time + answer['time_to_complete'])]
+      student_grades["#{course.id}"] = [(course_grade + answer['correct']), (course_time + answer['time_to_complete'])]
+    end
+
+    course.lessons.each do |lesson|
+      lesson.lesson_modules.each do |lesson_module|
+        lesson_module_grade, lesson_module_time = student_grades["#{course.id}.#{lesson.id}.#{lesson_module.id}"]
+        student_grades["#{course.id}.#{lesson.id}.#{lesson_module.id}"] = calculate_lesson_module_grade(lesson_module_grade, lesson_module_time, lesson_module)
+
+        lesson_grade, lesson_time = student_grades["#{course.id}.#{lesson.id}"]
+        student_grades["#{course.id}.#{lesson.id}"] = calculate_lesson_grade(lesson_grade, lesson_time, lesson_module)
+      end
+    end
+    course_grade, course_time = student_grades["#{course.id}"]
+
+    student_grades
+  end
+
+
   #Calculates a lesson total grade with only 2 digits after the decimal place
   def self.calculate_lesson_grade(total_correct, total_time, lesson_module)
     [('%.2f' % ((total_correct.fdiv(lesson_module.questions.length))*lesson_module.value_percentage)).to_i, total_time]
