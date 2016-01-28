@@ -26,6 +26,14 @@
         <%= f.text_field :start_date, readonly: true %>
       </div>
       <!--#TODO fix the formatting here so end date and submit line up-->
+      <div class="field">
+        <%= f.label :syllabus %><br>
+        <%= f.cktext_area :syllabus %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.cktext_area :description %>
+      </div>
       <div class="actions">
         <%= f.submit %>
       </div>

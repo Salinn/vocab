@@ -4,8 +4,21 @@
     <ul id="sidebar_menu" class="sidebar-nav">
       <li class="sidebar-brand"><a id="menu-toggle" href="#">Vocab<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
     </ul>
+<<<<<<< HEAD
+  </li>
+  <li class="panel">
+    <%= link_to "Manage Lessons", course_manage_lessons_path(@course) %>
+  </li>
+  <li class="panel">
+    <a data-toggle="collapse" data-parent="#accordion1" href="#resources">Resources</a>
+    <ul id="resources" class="collapse panel-collapse">
+      <li><%= link_to "Syllabus", course_syllabus_path(@course) %></li>
+      <li><%= link_to "Course Description", course_description_path(@course) %></li>
+      <li><%= link_to "Schedule", '#' %></li>
+=======
     <ul class="sidebar-nav" id="sidebar">
       <%= render 'layouts/sidebar_static' %>
+>>>>>>> master
     </ul>
   </div>
 </div>
