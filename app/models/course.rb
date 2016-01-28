@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   has_many :course_users
   has_many :users, through: :course_users
   has_many :lessons
+  has_many :events
   accepts_nested_attributes_for :users
   accepts_nested_attributes_for :course_users
 
