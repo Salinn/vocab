@@ -8,6 +8,7 @@ gem 'rails', '4.2.4'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'devise'
+gem 'jquery-ui-rails'
 
 #Javascript Stuff
 # Use Uglifier as compressor for JavaScript assets
@@ -33,8 +34,9 @@ gem 'momentjs-rails'
 #Web server
 gem 'puma'
 
-#Roles
-gem "rolify"
+#Roles and Auth
+gem 'rolify'
+gem 'cancancan', '~> 1.10'
 
 #text editor
 gem 'ckeditor'

@@ -1,5 +1,6 @@
 class WordRootsController < ApplicationController
   before_action :set_word_root, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /word_roots
   # GET /word_roots.json

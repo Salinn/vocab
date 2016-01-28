@@ -12,6 +12,7 @@
  *
  *= require fullcalendar
  *= require_tree .
+ *= require jquery-ui/datepicker
  *= require_self
  */
 
@@ -23,6 +24,11 @@
   margin-left: 0px;
   margin-right: 0px;
   padding-bottom: 3rem;
+}
+
+.jumbotron {
+  padding-top: 0;
+  padding-bottom: 10px;
   overflow: scroll;
   min-width: 500px;
 //  float: right;
@@ -35,13 +41,16 @@
   float: right;
 }
 
-.sidebar {
-  float: left;
-  width: 20%;
-  padding: 1rem;
-}
 
 #footer {
   text-align: center;
   width: 100%;
+}
+
+.container-fluid {
+  padding-left: 0px;
+}
+
+.navbar-default {
+  background-color: #f5f5f5;
 }

@@ -1,7 +1,7 @@
 class Lesson < ActiveRecord::Base
   belongs_to :course
   has_one :event, dependent: :destroy
-  has_many :words, through: :lesson_words
+  has_many :words, through: :lesson_words, after_add: :update_answers, after_remove: :update_answers
   has_many :lesson_words, dependent: :destroy
   has_many :lesson_modules, dependent: :destroy
   accepts_nested_attributes_for :lesson_words
@@ -9,7 +9,6 @@ class Lesson < ActiveRecord::Base
   validates :lesson_name, length: { in: 3..100 }
   validates :lesson_points, inclusion: 0..100
   validates :penalty, inclusion: 0..100
-  # validates :course, presence: true Causing issue with tests
   validates :lesson_start_time, presence: true
   validates :lesson_end_date, presence: true
 
@@ -19,7 +18,7 @@ class Lesson < ActiveRecord::Base
   def create_modules
     modules = ['Word Form', 'Definition']
     modules.each do |name|
-      LessonModule.create!(name: name, attempts: 3, in_use: true, value_percentage: (100/modules.length).round, lesson_id: id)
+      LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, value_percentage: (100/modules.length).round, lesson_id: id)
     end
   end
 
@@ -33,6 +32,15 @@ class Lesson < ActiveRecord::Base
     else
       create_lesson_event
     end
+  end
 
+  def can_add_lesson_word
+    lesson_modules.each do |lesson_module|
+      unless lesson_module.check_if_answer_exists
+        self.errors.add(:base, 'You cannot add a word to this lesson once e a student has began taking a quiz')
+        return false
+      end
+    end
+    return true
   end
 end

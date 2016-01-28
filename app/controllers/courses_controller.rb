@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_action :set_course_id, only: [:add_to_course ,:mass_add_to_course,:remove_user_from_course,
                                        :remove_lesson_from_course, :email_class, :manage_students, :manage_lessons]
+  load_and_authorize_resource
 
   # GET /courses
   # GET /courses.json
@@ -71,36 +72,22 @@ class CoursesController < ApplicationController
 
   def add_to_course
     user = User.find(params[:user][:user_id])
-    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
-    user.reset_password_token = hashed_token
-    user.reset_password_sent_at = Time.now.utc
-    user.save
-    user.add_role :student, @course
-    CourseUser.create!(user_id: user.id, course_id: @course.id)
-    UserMailer.add_to_class_email(@course, user, raw_token).deliver_later
-    redirect_to @course
+    user.new_user_added_to_course(@course)
+    redirect_to :back, notice: 'The student was successfully added to the class.'
   end
 
   def mass_add_to_course
     params[:user][:user_emails].split(',').each do |user_email|
-      generated_password = Devise.friendly_token.first(8)
       user = User.find_or_create_by(email: user_email)
-      raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
-      user.reset_password_token = hashed_token
-      user.reset_password_sent_at = Time.now.utc
-      user.password = generated_password
-      user.save
-      user.add_role :student, course
-      CourseUser.create!(user_id: user.id, course_id: course.id)
-      UserMailer.add_to_class_email(course, user, raw_token).deliver_later
+      user.new_user_added_to_course(@course)
     end
-    redirect_to @course
+    redirect_to :back, notice: 'The student(s) were successfully add to the class.'
   end
 
   def remove_user_from_course()
     user = User.find(params[:user_id])
-    @course.users.delete user
-    redirect_to @course, notice: 'The student was successfully removed from the class.'
+    user.remove_role(:student, @course)
+    redirect_to course_manage_students_path(@course), notice: 'The student was successfully removed from the class.'
   end
 
   def remove_lesson_from_course()
@@ -126,11 +113,17 @@ class CoursesController < ApplicationController
   end
 
   def manage_students
-    #TODO fix this relation
-    @course.users.build
   end
 
   def manage_lessons
+  end
+
+  def syllabus
+    @course = Course.find(params[:course_id])
+  end
+
+  def description
+    @course = Course.find(params[:course_id])
   end
 
   private
@@ -149,6 +142,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:class_name, :start_date, :end_date, :user_id)
+      params.require(:course).permit(:class_name, :start_date, :end_date, :user_id, :syllabus, :description)
     end
 end

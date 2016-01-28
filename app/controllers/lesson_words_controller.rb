@@ -1,5 +1,6 @@
 class LessonWordsController < ApplicationController
   before_action :set_lesson_word, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /lessons
   # GET /lessons.json
