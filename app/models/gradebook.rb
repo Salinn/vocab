@@ -140,24 +140,25 @@ class Gradebook
     student_grades = Hash.new([0,0])
     answers.each do |answer|
       grade, time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"]
-      lesson_grade, lesson_time = student_grades["#{course.id}.#{answer['lesson_id']}"]
-      course_grade, course_time = student_grades["#{course.id}"]
-
       student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = [(grade + answer['correct']), (time + answer['time_to_complete'])]
-      student_grades["#{course.id}.#{answer['lesson_id']}"] = [(lesson_grade + answer['correct']), (lesson_time + answer['time_to_complete'])]
-      student_grades["#{course.id}"] = [(course_grade + answer['correct']), (course_time + answer['time_to_complete'])]
     end
 
     course.lessons.each do |lesson|
       lesson.lesson_modules.each do |lesson_module|
-        lesson_module_grade, lesson_module_time = student_grades["#{course.id}.#{lesson.id}.#{lesson_module.id}"]
-        student_grades["#{course.id}.#{lesson.id}.#{lesson_module.id}"] = calculate_lesson_module_grade(lesson_module_grade, lesson_module_time, lesson_module)
-
         lesson_grade, lesson_time = student_grades["#{course.id}.#{lesson.id}"]
-        student_grades["#{course.id}.#{lesson.id}"] = calculate_lesson_grade(lesson_grade, lesson_time, lesson_module)
+        lesson_module_grade, lesson_module_time = student_grades["#{course.id}.#{lesson.id}.#{lesson_module.id}"]
+        module_grade, module_time = calculate_lesson_module_grade(lesson_module_grade, lesson_module_time, lesson_module)
+        calculated_lesson_grade, calculated_lesson_time = calculate_student_lesson_grade(module_grade, module_time, lesson_module)
+
+        student_grades["#{course.id}.#{lesson.id}.#{lesson_module.id}"] = [module_grade, module_time]
+        student_grades["#{course.id}.#{lesson.id}"] = [lesson_grade + calculated_lesson_grade, lesson_time + calculated_lesson_time ]
       end
+      course_grade, course_time = student_grades["#{course.id}"]
+      lesson_grade, lesson_time = student_grades["#{course.id}.#{lesson.id}"]
+      student_grades["#{course.id}"] = [course_grade + lesson_grade, course_time + lesson_time]
     end
     course_grade, course_time = student_grades["#{course.id}"]
+    student_grades["#{course.id}"] = [('%.2f' % course_grade.fdiv(course.lessons.length)).to_i, course_time]
 
     student_grades
   end
@@ -166,6 +167,10 @@ class Gradebook
   #Calculates a lesson total grade with only 2 digits after the decimal place
   def self.calculate_lesson_grade(total_correct, total_time, lesson_module)
     [('%.2f' % ((total_correct.fdiv(lesson_module.questions.length))*lesson_module.value_percentage)).to_i, total_time]
+  end
+
+  def self.calculate_student_lesson_grade(total_correct, total_time, lesson_module)
+    [('%.2f' % (total_correct*(lesson_module.value_percentage.fdiv(100)))).to_i, total_time]
   end
 
   #Calculates a lesson_module total grade with only 2 digits after the decimal place
