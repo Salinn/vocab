@@ -1,5 +1,5 @@
 #Course Info
-courses_to_create = 100
+courses_to_create = 1
 course_name = 'College 101'
 start_date = Date.today
 end_date = Date.today + 5.months
@@ -58,9 +58,11 @@ lesson_end_date = start_date + 7.days
       lesson_module.questions.each do |question|
         User.with_role(:student, course).each do |user|
           (0...lesson_module.attempts).each do
+            answer_options = question.answer_options.pluck(:id)
             is_true = (rand(2) == 1 ? true : false)
             time = rand(3...25)
-            Answer.create!(question_id: question.id, user_id: user.id, time_to_complete: time, correct: is_true)
+            answer_picked = answer_options[rand(0...3)]
+            Answer.create!(question_id: question.id, user_id: user.id, time_to_complete: time, correct: is_true, answer_option_id: answer_picked)
             break if is_true
           end
         end

@@ -114,33 +114,54 @@ class Gradebook
   def self.lesson_module_grades(answers, users, lesson_module)
     #Creates 1 hashes that will always start with an empty array oy 0,0
     #lesson_module_grades will become the size of students + students * question * lesson_module.attempts and will figure out the points per question
-    lesson_module_grades = Hash.new([0,[],0,[]])
+    lesson_module_grades = Hash.new{ |h, k| h[k] = [] }
 
     #This iterates over all of the answers queried and condenses them in the hash by inserting by the user.id,
     #  question.id to create a unqiue value for all of the answers belonging to those 2 unique values.
     #There can be multiple answers for the above for the number of total course questions * lesson_module.attempt.
     #  That is why it adds for each iteration instead of inserting.
     answers.each do |answer|
-      total_correct, total_time, number_of_attempts, choices = lesson_module_grades["#{answer['user_id']}.#{answer['question_id']}"]
-
-      lesson_module_grades["#{answer['user_id']}.#{answer['question_id']}"] = [(total_correct + answer['correct']), (total_time.push(answer['time_to_complete'])), (number_of_attempts+1), choices.push('X')]
+      student_answers = lesson_module_grades["#{answer['user_id']}.#{answer['question_id']}"]
+      if student_answers.empty?
+        student_answers[0] = answer['correct']
+        student_answers[1] = answer['time_to_complete']
+      else
+        student_answers[0] = (student_answers[0] + answer['correct'])
+        student_answers[1] = (student_answers[1] + answer['time_to_complete'])
+      end
+      student_answers.push(answer['answer_option_id'])
+      student_answers.push(answer['correct'])
+      student_answers.push(answer['time_to_complete'])
+      lesson_module_grades["#{answer['user_id']}.#{answer['question_id']}"] = student_answers
     end
 
-    #TODO: needs work and has a clear bug
     lesson_module.questions.each do |question|
       users.each do |user|
-        total_correct, total_time, number_of_attempts, choices = lesson_module_grades["#{user.id}.#{question.id}"]
-        lesson_module_grades["#{user.id}.#{lesson_module.id}.#{question.id}"] = [calculate_question_grade(total_correct),(total_time.sum)]
+        student_answers = lesson_module_grades["#{user.id}.#{question.id}"]
+        total_correct = student_answers.shift
+        student_answers.unshift(calculate_question_grade(total_correct))
+        lesson_module_grades["#{user.id}.#{question.id}"] = student_answers
       end
     end
+
     lesson_module_grades
   end
 
   def self.student_grades(answers, course)
     student_grades = Hash.new([0,0])
+    user_answers = Hash.new{ |h, k| h[k] = [] }
+
     answers.each do |answer|
+      student_answers = user_answers["#{answer['user_id']}.#{answer['question_id']}"]
+      student_answers.push(answer['answer_option_id'])
+      student_answers.push(answer['correct'])
+      student_answers.push(answer['time_to_complete'])
+      user_answers["#{answer['user_id']}.#{answer['question_id']}"] = student_answers
+
       grade, time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"]
+      question_grade, question_time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"]
       student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = [(grade + answer['correct']), (time + answer['time_to_complete'])]
+      student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"] = [calculate_question_grade(question_grade + answer['correct']), (question_time + answer['time_to_complete'])]
     end
 
     course.lessons.each do |lesson|
@@ -160,7 +181,7 @@ class Gradebook
     course_grade, course_time = student_grades["#{course.id}"]
     student_grades["#{course.id}"] = [('%.2f' % course_grade.fdiv(course.lessons.length)).to_i, course_time]
 
-    student_grades
+    [student_grades, user_answers]
   end
 
 

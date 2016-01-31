@@ -42,20 +42,20 @@
           <% @users.each do |user| %>
               <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
               <% @lesson_module.questions.each do |question| %>
-                  <% grade, time, student_attempts, answers = @answers["#{user.id}.#{question.id}"] %>
-                  <% answers.split %>
-                  <% (0...student_attempts).each do |index| %>
+                  <% student_answers = @answers["#{user.id}.#{question.id}"] %>
+                  <% final_grade, final_time = student_answers.shift(2) %>
+                  <% (0...student_answers.length).each do |index| %>
+                      <% next if(index % 3 != 0) %>
                       <!-- TODO: Does he want to see their choice? -->
-                      <td><%= answers[index] %></td>
-                      <td><%= answer_correct?(index, student_attempts, grade) %></td>
-                      <td><%= time[index] %></td>
+                      <td><%= student_answers[index] %></td>
+                      <td><%= answer_correct?(student_answers[index + 1]) %></td>
+                      <td><%= student_answers[index+2] %></td>
                   <% end %>
-                  <% (student_attempts...attempts).each do %>
+                  <% ((student_answers.length/3)...attempts).each do %>
                       <td></td>
                       <td></td>
                       <td></td>
                   <% end %>
-                  <% final_grade, final_time =@answers["#{user.id}.#{@lesson_module.id}.#{question.id}"] %>
                   <td><%= final_grade %>%</td>
                   <td><%= final_time %> sec</td>
               <% end %>

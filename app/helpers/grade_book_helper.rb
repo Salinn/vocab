@@ -11,7 +11,7 @@ module GradeBookHelper
     final_grade.fdiv(lessons_length).to_i
   end
 
-  def answer_correct?(current_index, stdudent_attempts, grade)
-    (((stdudent_attempts-1) == current_index) && grade == 100) ? true : false
+  def answer_correct?(grade)
+    (grade == 1) ? true : false
   end
 end

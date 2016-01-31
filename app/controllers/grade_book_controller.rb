@@ -49,7 +49,7 @@ class GradeBookController < ApplicationController
           LEFT JOIN lessons ON lesson_modules.lesson_id=lessons.id
           LEFT JOIN courses ON lessons.course_id=courses.id
           WHERE courses.id = #{@course.id} AND answers.user_id = #{@user.id}"
-    @answers = Gradebook.student_grades(ActiveRecord::Base.connection.select_all(sql), @course)
+    @answers, @student_answers = Gradebook.student_grades(ActiveRecord::Base.connection.select_all(sql), @course)
   end
 
   # GET Course/gradebook/
