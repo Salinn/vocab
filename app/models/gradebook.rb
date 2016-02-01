@@ -141,6 +141,16 @@ class Gradebook
         total_correct = student_answers.shift
         student_answers.unshift(calculate_question_grade(total_correct))
         lesson_module_grades["#{user.id}.#{question.id}"] = student_answers
+
+        grade, time = student_answers.shift(2)
+        answer_options = question.answer_options.pluck(:id)
+        (0...student_answers.length).each do |index|
+          next if(index % 3 != 0)
+          student_answers[index] = determine_choice(student_answers[index], answer_options)
+        end
+        student_answers.unshift(time)
+        student_answers.unshift(grade)
+        lesson_module_grades["#{user.id}.#{question}"] = student_answers
       end
     end
 
