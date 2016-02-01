@@ -65,7 +65,17 @@
                                   <div class="clearfix"></div>
                                 </div>
                                 <div id="collapse<%= lesson.id %>-<%= lesson_module.id %>-<%= question.id %>" class="panel-collapse collapse">
-                                  <div class="panel-body">Panel Body</div>
+                                  <div class="panel-body">
+                                    <% student_answers = @student_answers["#{question.id}"] %>
+                                    <% (0...student_answers.length).each do |index| %>
+                                        <% next if(index % 3 != 0) %>
+                                        <h5>
+                                        <td>Student's Choice: <%= student_answers[index] %></td>
+                                        <td>Correct: <%= answer_correct?(student_answers[index + 1]) %></td>
+                                        <td>Time Taken: <%= student_answers[index+2] %></td>
+                                        </h5>
+                                    <% end %>
+                                  </div>
                                 </div>
                               </div>
                             </div>

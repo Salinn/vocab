@@ -152,11 +152,11 @@ class Gradebook
     user_answers = Hash.new{ |h, k| h[k] = [] }
 
     answers.each do |answer|
-      student_answers = user_answers["#{answer['user_id']}.#{answer['question_id']}"]
+      student_answers = user_answers["#{answer['question_id']}"]
       student_answers.push(answer['answer_option_id'])
       student_answers.push(answer['correct'])
       student_answers.push(answer['time_to_complete'])
-      user_answers["#{answer['user_id']}.#{answer['question_id']}"] = student_answers
+      user_answers["#{answer['question_id']}"] = student_answers
 
       grade, time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"]
       question_grade, question_time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"]
@@ -173,6 +173,15 @@ class Gradebook
 
         student_grades["#{course.id}.#{lesson.id}.#{lesson_module.id}"] = [module_grade, module_time]
         student_grades["#{course.id}.#{lesson.id}"] = [lesson_grade + calculated_lesson_grade, lesson_time + calculated_lesson_time ]
+        lesson_module.questions.each do |question|
+          answer_options = question.answer_options.pluck(:id)
+          student_answers = user_answers["#{question.id}"]
+          (0...student_answers.length).each do |index|
+            next if(index % 3 != 0)
+            student_answers[index] = determine_choice(student_answers[index], answer_options)
+          end
+          user_answers["#{question}"] = student_answers
+        end
       end
       course_grade, course_time = student_grades["#{course.id}"]
       lesson_grade, lesson_time = student_grades["#{course.id}.#{lesson.id}"]
@@ -204,5 +213,12 @@ class Gradebook
   #If it is wrong then the incoming number should be a 0
   def self.calculate_question_grade(total_correct)
     (total_correct == 1) ? 100 : 0
+  end
+
+  def self.determine_choice(student_answer, answer_options)
+    letters = %W[A B C D E F G H I J K L M N O P Q R S T U V W Y X Z]
+    answer_options.each_with_index do |answer_option, index|
+      return letters[index] if answer_option == student_answer
+    end
   end
 end
