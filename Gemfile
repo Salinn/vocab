@@ -56,6 +56,9 @@ group :development, :test do
 
   #used for creating seeds. It generates fake data
   gem 'faker'
+
+  #used for simulating how real user would interact with the application
+  gem 'capybara'
 end
 
 group :development do
