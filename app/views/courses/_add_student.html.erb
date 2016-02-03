@@ -1,14 +1,6 @@
-<%= form_for(@course.users.last, url: create_user_path(@course.users.last), html: { class:''}) do |f| %>
-    <% if @course.users.last.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-          <ul>
-            <% @course.users.last.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+
+<%= form_for(User.new, url: create_user_path(@course, format: :html) ) do |f| %>
+
     <div class="registration_space">
 
       <div class="form-group">

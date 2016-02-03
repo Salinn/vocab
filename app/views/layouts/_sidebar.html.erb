@@ -2,7 +2,7 @@
   <li class="panel">
     <a data-toggle="collapse" data-parent="#accordion1" href="#class_list">Class List</a>
     <ul id="class_list" class="collapse panel-collapse">
-      <li><%= link_to "Email Class", course_email_class_path(@course) %></li>
+      <li><%= link_to "Email Class", course_email_class_path(@course), 'data-no-turbolink' => true %></li>
       <li><%= link_to "Manage Students", course_manage_students_path(@course) %></li>
     </ul>
   </li>

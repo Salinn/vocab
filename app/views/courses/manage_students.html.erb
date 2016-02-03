@@ -42,13 +42,12 @@
   </thead>
 
   <tbody>
-  <% @course.users.each do |user| %>
-      <% next if user.id == nil || user.has_role?(:teacher, @course) %>
+  <% User.with_role(:student, @course).each do |user| %>
       <tr>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= button_to "Remove user", course_remove_from_course_path(@course, user_id: user.id), :method => :delete %></td>
+        <td><%= button_to "Remove user", course_remove_user_from_course_path(@course, user_id: user.id), :method => :delete %></td>
       </tr>
   <% end %>
   </tbody>

@@ -25,14 +25,18 @@ class Course < ActiveRecord::Base
 
   def self.set_user_attributes(user, user_hash, course_id)
     course = Course.find(course_id)
-    generated_password = Devise.friendly_token.first(8)
+
     user.first_name = user_hash["FIRSTNAME"]
     user.last_name = user_hash["LASTNAME"]
-    user.password = generated_password
+    user.password = Devise.friendly_token.first(8)
+
+    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+    user.reset_password_token = hashed_token
+    user.reset_password_sent_at = Time.now.utc
     user.save
-    CourseUser.create!(user_id: user.id, course_id: course.id)
-    UserMailer.add_to_class_email(user).deliver_later
+
     user.add_role :student, course
+    UserMailer.add_to_class_email(course, user, raw_token).deliver_later
   end
 
   def duplicate_course
