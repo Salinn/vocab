@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     post :mass_add_to_course
     post :duplicate_course
     post :share_course
+    get :gradebook_course, controller: "grade_book", action: "course"
+    get '/gradebook/lesson/:lesson_id' => 'grade_book#lesson', as: :gradebook_lesson
+    get 'gradebook/lesson_module/:lesson_module_id' => 'grade_book#lesson_module', as: :gradebook_lesson_module
+    get 'gradebook/student_grade/:student_id' => 'grade_book#student_grade', as: :gradebook_student
     get :email_class
     get :manage_students
     get :manage_lessons
@@ -36,7 +40,7 @@ Rails.application.routes.draw do
 
   post 'add_role' => 'users#add_role', as: :user_add_role
   post 'remove_role' => 'users#remove_role', as: :user_remove_role
-  #post 'create_user' => 'users#create', as: :create_user
+  post 'create_user' => 'users#create', as: :create_user
   post 'admin_create_user' => 'users#admin_create', as: :admin_create_user
 
   StaticPagesController.action_methods.each do |action|

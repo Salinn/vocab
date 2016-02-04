@@ -1,0 +1,70 @@
+<div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 home-page-card-opacity">
+  <div class="jumbotron">
+    <div class="col-xl-12 col-md-12 col-xs-12">
+      <div>
+        <h1>Module View</h1>
+        <% attempts = @lesson_module.attempts %>
+        <% questions_length = @lesson_module.questions.length %>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Student Name</th>
+            <!-- TODO: This needs to be on a different page or passed in a specific lesson moduel-->
+            <% @lesson_module.questions.each do |question| %>
+                <th colspan="11"><%= question.question_string %></th>
+            <% end %>
+          </tr>
+
+          <tr>
+            <th></th>
+            <% (0...questions_length).each do %>
+                <% (0...attempts).each do | index| %>
+                    <th colspan="3">Answer <%= index + 1 %></th>
+                <% end %>
+                <th colspan="2">Total Grade</th>
+            <% end %>
+          </tr>
+          <tr>
+            <th></th>
+            <% (0...questions_length).each do %>
+                <% (0...attempts).each do %>
+                    <th colspan="1">Choice</th>
+                    <th colspan="1">Correct</th>
+                    <th colspan="1">Time</th>
+                <% end %>
+                <th>Grade</th>
+                <th>Time</th>
+            <% end %>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @users.each do |user| %>
+              <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
+              <% @lesson_module.questions.each do |question| %>
+                  <% student_answers = @answers["#{user.id}.#{question.id}"] %>
+                  <% final_grade, final_time = student_answers.shift(2) %>
+                  <% (0...student_answers.length).each do |index| %>
+                      <% next if(index % 3 != 0) %>
+                      <!-- TODO: Does he want to see their choice? -->
+                      <td><%= student_answers[index] %></td>
+                      <td><%= answer_correct?(student_answers[index + 1]) %></td>
+                      <td><%= student_answers[index+2] %></td>
+                  <% end %>
+                  <% ((student_answers.length/3)...attempts).each do %>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  <% end %>
+                  <td><%= final_grade %>%</td>
+                  <td><%= final_time %> sec</td>
+              <% end %>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
