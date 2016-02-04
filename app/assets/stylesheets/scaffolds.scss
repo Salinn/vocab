@@ -1,6 +1,17 @@
+$White: #FFFFFF;
+$Black: #000000;
+$BackgroundImage: 'http://static1.squarespace.com/static/54c69104e4b09c0cdd8089fe/t/55d4d4d9e4b0793ba4220f73/1440011482486/';
+
+#main {
+  padding-top: 4em;
+}
+
 body {
-  background-color: #fff;
-  color: #333;
+  background: url($BackgroundImage) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -26,8 +37,7 @@ a {
   }
 
   &:hover {
-    color: #fff;
-    background-color: #000;
+    color: #2fbeff;
   }
 }
 
@@ -76,4 +86,44 @@ div {
     font-size: 12px;
     list-style: square;
   }
+}
+
+//alerts
+.alert-info {
+  background-color: indianred;
+  border-color: $Black;
+  color: $White;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.notice-info {
+  background-color: #428f50;
+  border-color: $Black;
+  color: $White;
+}
+
+.home-page-card-opacity {
+  opacity: .9;
+}
+
+.nav-list {
+  padding: 0px;
+}
+
+.a_sidebar {
+  display: block;
+  vertical-align:middle;
+}
+
+.glyphicon_sidebar {
+  vertical-align:middle;
+}
+
+.padding-top {
+  padding-top: 3rem;
 }

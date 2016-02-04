@@ -8,6 +8,7 @@ gem 'rails', '4.2.4'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'devise'
+gem 'jquery-ui-rails'
 
 #Javascript Stuff
 # Use Uglifier as compressor for JavaScript assets
@@ -26,11 +27,16 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# full calendar
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 #Web server
 gem 'puma'
 
-#Roles
-gem "rolify"
+#Roles and Auth
+gem 'rolify'
+gem 'cancancan', '~> 1.10'
 
 #text editor
 gem 'ckeditor'

@@ -10,7 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require fullcalendar
  *= require_tree .
+ *= require jquery-ui/datepicker
  *= require_self
  */
 
@@ -19,13 +21,16 @@
 
 //body
 .row {
-  //margin-left: 0px;
-  //margin-right: 0px;
-  //padding-bottom: 3rem;
-  //overflow: scroll;
-  //min-width: 500px;
-//  float: right;
-//  width: 80%;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-bottom: 3rem;
+}
+
+.jumbotron {
+  padding-top: 0;
+  padding-bottom: 10px;
+  overflow: scroll;
+  min-width: 500px;
 }
 
 .main {
@@ -43,4 +48,12 @@
 #footer {
   text-align: center;
   width: 100%;
+}
+
+.container-fluid {
+  padding-left: 0px;
+}
+
+.navbar-default {
+  background-color: #f5f5f5;
 }

@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   has_many :course_users
   has_many :users, through: :course_users
   has_many :lessons
+  has_many :events
   accepts_nested_attributes_for :users
   accepts_nested_attributes_for :course_users
 
@@ -67,6 +68,23 @@ class Course < ActiveRecord::Base
         dup_lesson_word = lesson_word.dup
         dup_lesson_word.lesson = dup_lesson
         dup_lesson_word.save
+      end
+      lesson.lesson_modules.each do |lesson_module|
+        dup_lesson_module = lesson_module
+        dup_lesson_module.lesson = dup_lesson
+        dup_lesson_module.save
+        lesson_module.questions.each do |question|
+          dup_question = question
+          #TODO need to look into lesson_words if that needs to be duplicated or found here
+          dup_question.lesson_module = dup_lesson_module
+          dup_question.save
+          question.answer_options.each do |answer_option|
+            dup_answer_option = answer_option
+            dup_answer_option.question = dup_question
+            #TODO need to figure out lesson words
+            #dup_answer_option.lesson_word = dup_lesson
+          end
+        end
       end
     end
     course
