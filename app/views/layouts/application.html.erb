@@ -3,94 +3,45 @@
 <head>
   <title>Vocab</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <!-- use bootswatch paper theme secondary to the application's primary css
-  Add this back in after done bootstrap
-
-  < stylesheet_link_tag 'paper' %>
-  -->
-
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<%= render 'layouts/header' %>
-
-<body class="container-fluid">
-
-
-<div class="row">
-  <!-- FOR CSS TESTING ONLY NBP8557 -->
-  <% if Rails.env.development? %>
-      <p class="hidden-lg">
-        (lg) hidden-lg is visible
-      </p>
-      <p class="hidden-md">
-        (md) hidden-md is visible
-      </p>
-      <p class="hidden-sm">
-        (sm) hidden-sm is visible
-      </p>
-      <p class="hidden-xs">
-        (xs) hidden-xs is visible
-      </p>
-
-      <p class="visible-lg">
-        Only visible on large screens (lg) visible-lg
-      </p>
-      <p class="visible-md">
-        Only visible on medium screens (md) visible-md
-      </p>
-      <p class="visible-sm">
-        Only visible on small screens (sm) visible-sm
-      </p>
-      <p class="visible-xs">
-        Only visible on extra small screens (xs) visible-xs
-      </p>
-
-  <% end %>
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-</div>
-
-<% if controller.controller_name == 'courses' && action_name != 'new' && action_name != 'index' %>
-    <div class="sidebar col-sm-3">
-      <%= render 'layouts/sidebar' %>
-    </div>
-<% end %>
-<div class="col-sm-9">
-
 <body>
-  <%= yield %>
-</body>
-
+<div id="sidebar" class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">
+  <%= render 'layouts/sidebar' %>
 </div>
 
+<div id='main' class="row col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-10">
+  <%= yield %>
+</div>
 
 
 <div id="footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
   <%= render 'layouts/footer' %>
 </div>
 
+</body>
+
 </html>
 
 
 <!-- Menu Toggle Script -->
 <script>
-    $('#menu-toggle').on('click', function(){
-        if($('#wrapper').attr('class') == 'active') {
-            $('#wrapper').removeClass('active');
-        } else {
-            $('#wrapper').addClass('active');
-        }
-        localStorage.setItem('active', $('#wrapper').attr('class'));
-    });
-    //Sets sidebar in or out on load
-    $(function() {
-        $('#wrapper').addClass(localStorage.getItem('active'));
-    });
-    $('.accordian1').click(function(){
-        $(this).find('span').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
-    });
+  $('#menu-toggle').on('click', function(){
+    if($('#wrapper').attr('class') == 'active') {
+      $('#wrapper').removeClass('active');
+    } else {
+      $('#wrapper').addClass('active');
+    }
+    localStorage.setItem('active', $('#wrapper').attr('class'));
+  });
+  //Sets sidebar in or out on load
+  $(function() {
+    $('#wrapper').addClass(localStorage.getItem('active'));
+  });
+  $('.accordian1').click(function(){
+    $(this).find('span').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
+  });
 </script>
