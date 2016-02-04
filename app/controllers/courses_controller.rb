@@ -92,8 +92,8 @@ class CoursesController < ApplicationController
 
   def remove_lesson_from_course()
     lesson = Lesson.find(params[:lesson_id])
-    @course.lessons.delete lesson
-    redirect_to :back , notice: 'The lesson was successfully removed from the class.'
+    @course.lessons.destroy lesson
+    redirect_to @course , notice: 'The lesson was successfully removed from the class.'
   end
 
   def duplicate_course
@@ -118,6 +118,14 @@ class CoursesController < ApplicationController
   def manage_lessons
   end
 
+  def syllabus
+    @course = Course.find(params[:course_id])
+  end
+
+  def description
+    @course = Course.find(params[:course_id])
+  end
+
   private
     #creates relations for the teacher
     def create_relations
@@ -134,6 +142,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:class_name, :start_date, :end_date, :user_id)
+      params.require(:course).permit(:class_name, :start_date, :end_date, :user_id, :syllabus, :description)
     end
 end
