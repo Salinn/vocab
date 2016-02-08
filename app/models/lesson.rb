@@ -16,7 +16,7 @@ class Lesson < ActiveRecord::Base
   after_update :update_lesson_event
 
   def create_modules
-    modules = ['Word Form', 'Definition']
+    modules = ['Definition', 'Sentence', 'Synonym', 'Word Form']
     modules.each do |name|
       LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, value_percentage: (100/modules.length).round, lesson_id: id)
     end

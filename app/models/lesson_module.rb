@@ -17,7 +17,9 @@ class LessonModule < ActiveRecord::Base
     if in_use?
       lesson.lesson_words.each do |lesson_word|
         unless questions.map(&:lesson_word_id).include? lesson_word.id
-          Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: generate_question(lesson_word))
+          question = generate_question(lesson_word)
+          next if question == 'skip'
+          Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: question)
         end
       end
     end
@@ -57,9 +59,13 @@ class LessonModule < ActiveRecord::Base
 
   def generate_question(lesson_word)
     if name == 'Word Form'
-      return 'Word Form'
+      return lesson_word.word_forms.any? ? lesson_word.word_forms.associated_word : 'skip'
     elsif name == 'Definition'
-      return 'Definition'
+      return lesson_word.definitions.any? ? lesson_word.definitions.first.word_definition : 'skip'
+    elsif name == 'Synonym'
+      return lesson_word.synonyms.any? ? lesson_word.synonyms.word_synonym : 'skip'
+    elsif name == 'Sentence'
+      return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/lesson_word.word.name/,'______') : 'skip'
     end
   end
 end
