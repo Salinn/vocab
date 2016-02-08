@@ -1,7 +1,7 @@
 
-<%= form_for(User.new, url: create_user_path(@course, format: :html) ) do |f| %>
+<%= form_for(User.new, url: create_user_path(@course, format: :html), :html => {:class => "form-inline"} ) do |f| %>
 
-    <div class="registration_space">
+    <div class="registration_space row">
 
       <div class="form-group">
         <label class="control-label">First Name</label>
@@ -13,10 +13,12 @@
         <%= f.text_field :last_name,:placeholder => 'Last Name',:class => 'form-control' %>
       </div>
 
+      
       <div class="form-group">
         <label class="control-label">Email</label>
         <%= f.email_field :email, :placeholder => 'Email', :class => ' form-control' %>
       </div>
+
 
       <%= f.hidden_field :course_id, value: @course.id %>
 
