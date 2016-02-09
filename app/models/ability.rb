@@ -8,8 +8,8 @@ class Ability
       can :manage, :all
     end
 
-    if user.has_role?(:teacher)
-      can [:create, :update, :show], Course
+    if user.has_role?(:teacher, :any)
+      can [:create, :update, :show, :add_to_course ,:mass_add_to_course, :remove_user_from_course, :remove_lesson_from_course, :email_class, :manage_students, :manage_lessons], Course
       can [:create, :update, :show], CourseEmail
       can [:create, :update, :show], Definition
       can [:create, :update, :show], Lesson

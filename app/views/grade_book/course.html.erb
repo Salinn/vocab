@@ -1,0 +1,67 @@
+<div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 home-page-card-opacity">
+  <div class="jumbotron">
+    <div class="col-xl-12 col-md-12 col-xs-12">
+      <div>
+        <h1>Course View</h1>
+        <% if @users.empty? && @course.lessons.empty? %>
+            <h3>Please Add Lessons To This Class</h3>
+            <h3>Please Add Students To This Class</h3>
+        <% elsif @users.empty?  %>
+            <h3>Please Add Students To This Class</h3>
+        <% elsif @course.lessons.empty? %>
+            <h3>Please Add Lessons To This Class</h3>
+        <% else %>
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>Student Name</th>
+                <% @course.lessons.each do |lesson| %>
+                    <th colspan="2"><%= link_to lesson.lesson_name, course_gradebook_lesson_path(lesson_id: lesson) %></th>
+                <% end %>
+                <th colspan="2">Total</th>
+              </tr>
+
+              <tr>
+                <th></th>
+                <% (0...@course.lessons.length).each do %>
+                    <th>Grade </th>
+                    <th>Time</th>
+                <% end %>
+                <th>Grade</th>
+                <th>Time</th>
+              </tr>
+              <tr>
+                <th>Averages</th>
+                <% @course.lessons.each do |lesson| %>
+                    <% total_students_grade, total_students_time = @answers["Lesson #{lesson.id}"] %>
+                    <th><%= total_students_grade %>%</th>
+                    <th><%= total_students_time %> sec</th>
+                <% end %>
+                <% final_average_grade, final_average_time = @answers["Course #{@course.id}"] %>
+                <th><%= final_average_grade %>%</th>
+                <th><%= final_average_time %> sec</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% @users.each do |user| %>
+                  <tr>
+                    <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
+                    <% @course.lessons.each do |lesson| %>
+                        <% lesson_grade, lesson_time = get_grades(@answers, lesson, user) %>
+                        <th><%= lesson_grade %>%</th>
+                        <th><%= lesson_time %> sec</th>
+                    <% end %>
+                    <% final_grade, final_time = @answers["#{user.id}"] %>
+                    <th><%= final_grade %>%</th>
+                    <th><%= final_time %></th>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+        <% end %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
