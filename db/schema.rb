@@ -78,6 +78,18 @@ ActiveRecord::Schema.define(version: 20160129213136) do
 
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
 
+  create_table "events", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "lesson_id",   limit: 4
+  end
+
+  add_index "events", ["lesson_id"], name: "index_events_on_lesson_id", using: :btree
+
   create_table "grade_modifers", force: :cascade do |t|
     t.integer  "user_id",              limit: 4
     t.integer  "lesson_id",            limit: 4
@@ -92,18 +104,6 @@ ActiveRecord::Schema.define(version: 20160129213136) do
   add_index "grade_modifers", ["lesson_id"], name: "index_grade_modifers_on_lesson_id", using: :btree
   add_index "grade_modifers", ["lesson_module_id"], name: "index_grade_modifers_on_lesson_module_id", using: :btree
   add_index "grade_modifers", ["user_id"], name: "index_grade_modifers_on_user_id", using: :btree
-
-  create_table "events", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "lesson_id",   limit: 4
-  end
-
-  add_index "events", ["lesson_id"], name: "index_events_on_lesson_id", using: :btree
 
   create_table "lesson_extensions", force: :cascade do |t|
     t.integer  "lesson_id",      limit: 4

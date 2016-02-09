@@ -6,7 +6,7 @@
     </ul>
     <ul class="sidebar-nav" id="sidebar">
       <%= render 'layouts/sidebar_static' %>
-      <% if @course %>
+      <% if @course && !@course.id.nil? %>
           <%= render 'layouts/sidebar_course' %>
       <% end %>
     </ul>
