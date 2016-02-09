@@ -23,7 +23,6 @@
     <%= collection_select :user, :teacher_id, User.with_role(:teacher, :any).uniq, :id, :name_and_email %>
     <%= submit_tag "Duplicate Class" %>
 <% end %>
-<hr>
 </div>
 
 
