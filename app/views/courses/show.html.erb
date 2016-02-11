@@ -5,26 +5,26 @@
   <%= @course.class_name %>
 </p>
 
-<p class="col-sm-6">
+<p class="col-sm-3">
   <strong>Start date:</strong>
   <%= @course.start_date %>
 </p>
 
-<p class="col-sm-6">
+<p class="col-sm-9">
   <strong>End date:</strong>
   <%= @course.end_date %>
 </p>
 
 <%= form_tag course_duplicate_course_path(@course) do %>
     <div class="form-group">
-        <%= submit_tag "Duplicate Class for User" , class:"btn btn-primary"%>
+        <%= submit_tag "Duplicate Class" , class:"btn btn-primary"%>
     </div>
 <% end %>
 
 <%= form_tag course_share_course_path(@course) do %>
       <div class="form-group">
-        <%= collection_select :user, :teacher_id, User.with_role(:teacher, :any).uniq, :id, :name_and_email, {class:"form-control"} %>
-        <%= submit_tag "Duplicate Class for User" , class:"btn btn-primary"%>
+        <%= collection_select :user, :teacher_id, User.with_role(:teacher, :any).uniq, :id, :name_and_email, {} , {class:"form-control width-control"} %>
+        <%= submit_tag "Share Class" , class:"btn btn-primary"%>
       </div>
 <% end %>
 </div>
