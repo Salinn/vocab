@@ -40,4 +40,4 @@ puts "\nSeeding Completed - Full Course Example\n"
 
 endTime = Time.new();
 
-puts "Seeding has completed in #{(endTime-startTime)/60} seconds"
+puts "Seeding has completed in #{(endTime-startTime)} seconds"
