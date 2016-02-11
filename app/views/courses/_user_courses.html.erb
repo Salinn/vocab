@@ -5,11 +5,11 @@
   <li class="active"><a href="#student" data-toggle="tab">Student</a></li>
   <li><a href="#teacher" data-toggle="tab">Teacher</a></li>
 </ul>
-<div id="my-tab-content" class="tab-content col-sm-4">
+<div id="my-tab-content" class="tab-content">
   <div class="tab-pane active" id="student">
     <%= render 'courses/get_selected_classes', role: :student %>
   </div>
-  <div class="tab-pane" id="teacher col-sm-4">
+  <div class="tab-pane" id="teacher">
     <%= render 'courses/get_selected_classes', role: :teacher %>
   </div>
 </div>
