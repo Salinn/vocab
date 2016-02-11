@@ -15,10 +15,10 @@
     <li><%= link_to 'Create Course <i class="sub_icon glyphicon glyphicon-pencil"></i>'.html_safe, new_course_path, data: { no_turbolink: true } %></li>
     </li>
     <li>
-    <li><%= link_to 'Account <i class="sub_icon glyphicon glyphicon-user"></i>'.html_safe, '#' %></li>
+    <li><%= link_to 'Account <i class="sub_icon glyphicon glyphicon-user"></i>'.html_safe, current_user %></li>
     </li>
     <li>
-    <li><%= link_to 'Sign Out <i class="sub_icon glyphicon glyphicon-log-out"></i>'.html_safe, destroy_user_session_path %></li>
+    <li><%= link_to 'Sign Out <i class="sub_icon glyphicon glyphicon-log-out"></i>'.html_safe, destroy_user_session_path, method: :delete  %></li>
     </li>
 <% else %>
     <li>
