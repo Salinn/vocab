@@ -8,7 +8,7 @@
 #No Dependencies
 startTime = Time.new();
 
-puts "\n\nSeeding has begun\n\n"
+puts "\nSeeding has begun\n"
 
 load 'db/seeds/users.rb'
 load 'db/seeds/words.rb'
@@ -27,17 +27,11 @@ load 'db/seeds/lesson_word_definitions.rb' #Depends on lesson_words and definiti
 load 'db/seeds/word_roots_words.rb' #Depends on words and root words
 #load 'db/seeds/lesson_modules.rb'
 
-puts "\nSeeding Begun - Full Course Example\n"
-
 load 'db/seeds/full_course_examples.rb'
-puts "\nSeeding Completed - Full Course Example\n"
-
-
 
 #load 'db/seeds/word_roots_words.rb' #Depends on words and word roots
 
 
-
 endTime = Time.new();
 
-puts "Seeding has completed in #{(endTime-startTime)} seconds"
+puts "\nSeeding has completed in #{(endTime-startTime)} seconds\n"
