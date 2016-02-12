@@ -19,10 +19,27 @@ class LessonModule < ActiveRecord::Base
         unless questions.map(&:lesson_word_id).include? lesson_word.id
           question = generate_question(lesson_word)
           next if question == 'skip'
-          Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: question)
+          if question == 'Study the Word'
+            study_the_word(lesson_word)
+          elsif question == 'Pretest'
+            pretest(lesson_word)
+          else
+            Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: question)
+          end
         end
       end
     end
+  end
+
+  def pretest(lesson_word)
+    'Pretest'
+  end
+
+  def study_the_word(lesson_word)
+    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - definition') if lesson_word.definitions.any?
+    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - word form') if lesson_word.word_forms.any?
+    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - synonym') if lesson_word.synonyms.any?
+    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - sentence') if lesson_word.sentences.any?
   end
 
   def check_if_answer_exists
@@ -53,7 +70,7 @@ class LessonModule < ActiveRecord::Base
 
   def lesson_update_answer_options
     questions.each do |question|
-      question.update_answer_options
+      question.update_all_answer_options
     end
   end
 
@@ -66,7 +83,10 @@ class LessonModule < ActiveRecord::Base
       return lesson_word.synonyms.any? ? lesson_word.synonyms.word_synonym : 'skip'
     elsif name == 'Sentence'
       return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/lesson_word.word.name/,'______') : 'skip'
+    elsif name == 'Pretest'
+      return lesson_word ? 'Pretest' : 'skip'
+    elsif name == 'Study the Word'
+      return lesson_word ? 'Study the Word': 'skip'
     end
   end
 end
-

@@ -16,9 +16,15 @@ class Lesson < ActiveRecord::Base
   after_update :update_lesson_event
 
   def create_modules
-    modules = ['Definition', 'Sentence', 'Synonym', 'Word Form']
-    modules.each do |name|
-      LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, value_percentage: (100/modules.length).round, lesson_id: id)
+    graded_modules = ['Definition', 'Sentence', 'Synonym', 'Word Form']
+    non_graded_modules = ['Pretest', 'Study the Word']
+
+    non_graded_modules.each do |name|
+      LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: 0)
+    end
+
+    graded_modules.each do |name|
+      LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: (100/graded_modules.length).round)
     end
   end
 

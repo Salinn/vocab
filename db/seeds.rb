@@ -10,6 +10,7 @@ load 'db/seeds/users.rb'
 load 'db/seeds/words.rb'
 load 'db/seeds/word_roots.rb'
 load 'db/seeds/courses.rb'
+load 'db/seeds/test_words.rb'
 
 
 #Dependincies <-- Order matters

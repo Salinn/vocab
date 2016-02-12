@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson, only: [:edit, :update, :destroy]
   load_and_authorize_resource
 
   # GET /lessons
@@ -12,9 +12,8 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @words = Word.all
+    @lesson = Lesson.includes(lesson_words: :word).find(params[:id])
     @lesson.lesson_words.build
-    @lesson_module = LessonModule.all
   end
 
   # GET /lessons/new
