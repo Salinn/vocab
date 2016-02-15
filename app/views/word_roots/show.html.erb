@@ -10,5 +10,7 @@
   <%= @word_root.root_definition %>
 </p>
 
-<%= link_to 'Edit', edit_word_root_path(@word_root) %> |
-<%= link_to 'Back', word_roots_path %>
+<div class="form-group">
+<%= link_to 'Edit', edit_word_root_path(@word_root) , class:'btn btn-primary' %> |
+<%= link_to 'Back', word_roots_path , class:'btn btn-primary' %>
+</div>

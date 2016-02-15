@@ -1,0 +1,7 @@
+/**
+ * Created by nbp8557 on 1/16/16.
+ * For new word modal
+ */
+
+$('#word_table').append("<%= j render partial: 'table_row', locals: {word: @word } %>");
+$('#new_word_modal').modal_success();
