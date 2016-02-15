@@ -10,7 +10,7 @@ total_students = 30
 
 #Lessons
 lessons_to_create = 15
-words_in_lesson = 7
+words = Word.where(id: [13...23])
 lesson_start_time = start_date
 lesson_end_date = start_date + 7.days
 
@@ -39,14 +39,25 @@ lesson_end_date = start_date + 7.days
 #Create Lessons
   (0...lessons_to_create).each do |index|
     lesson = Lesson.create!(lesson_name: "Lesson #{index + 1}", lesson_points: 50, lesson_start_time: lesson_start_time, lesson_end_date: lesson_end_date, course_id: course.id, penalty: 5)
+    puts "Created Lesson ##{index+1}"
+
     #Sets next lesson's start and end date
     lesson_start_time = lesson_start_time + 8.days
     lesson_end_date = lesson_start_time + 7.days
     #Creates the words that are associated with this lesson
-    (0...words_in_lesson).each do |word_index|
-      LessonWord.create!(lesson_id: lesson.id, word_id: (word_index + 1))
+    words.each do |word|
+      puts "Word: #{word.id}"
+      puts "Lesson: #{lesson.id}"
+      lesson_word = LessonWord.create!(lesson: lesson, word: word)
+      LessonWordDefinition.create!(lesson_word: lesson_word, definition: word.definitions.first) if word.definitions.any?
+      LessonWordSentence.create!(lesson_word: lesson_word, sentence: word.sentences.first) if word.sentences.any?
+      LessonWordSynonym.create!(lesson_word: lesson_word, synonym: word.synonyms.first) if word.synonyms.any?
+      LessonWordForm.create!(lesson_word: lesson_word, word_form: word.word_forms.first) if word.word_forms.any?
+
+      puts "Created Lesson Word ##{word.name}"
     end
     #Creates the Questions and AnswerOptions by setting each lesson module to true
+    puts "Turing on lesson Modules"
     lesson.lesson_modules.each do |lesson_module|
       lesson_module.update_attributes(in_use: true)
     end
@@ -67,6 +78,9 @@ lesson_end_date = start_date + 7.days
           end
         end
       end
+      puts "Created Answers For #{course.class_name} #{lesson.lesson_name}, module #{lesson_module.name}"
     end
+    puts "Finished creating answers for #{lesson.lesson_name}"
   end
+  puts "Finished creating answers for Course #{course.class_name}"
 end

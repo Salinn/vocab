@@ -76,13 +76,13 @@ class LessonModule < ActiveRecord::Base
 
   def generate_question(lesson_word)
     if name == 'Word Form'
-      return lesson_word.word_forms.any? ? lesson_word.word_forms.associated_word : 'skip'
+      return lesson_word.word_forms.any? ? lesson_word.word_forms.first.associated_word : 'skip'
     elsif name == 'Definition'
       return lesson_word.definitions.any? ? lesson_word.definitions.first.word_definition : 'skip'
     elsif name == 'Synonym'
-      return lesson_word.synonyms.any? ? lesson_word.synonyms.word_synonym : 'skip'
+      return lesson_word.synonyms.any? ? lesson_word.synonyms.first.word_synonym : 'skip'
     elsif name == 'Sentence'
-      return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/lesson_word.word.name/,'______') : 'skip'
+      return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/#{lesson_word.word.name}/i, '______') : 'skip'
     elsif name == 'Pretest'
       return lesson_word ? 'Pretest' : 'skip'
     elsif name == 'Study the Word'

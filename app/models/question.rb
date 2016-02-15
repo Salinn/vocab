@@ -9,22 +9,25 @@ class Question < ActiveRecord::Base
   after_create :create_answer_options
 
   def create_answer_options
+    #TODO set answer_option_id
     if question_string =~ /Study the Word/
-      question_type = question_string.split('-').last
-      self.question_string = "What is the correct #{question_type} for the word #{lesson_word.word.name}"
+      question_type = question_string.split('-').last.strip
+      self.update_columns(question_string: "What is the correct #{question_type} for the word #{lesson_word.word.name}")
       lesson_words = pick_words_definitions if question_type == 'definition'
       lesson_words = pick_words_word_forms if question_type == 'word form'
       lesson_words = pick_words_synonyms if question_type == 'synonym'
       lesson_words = pick_words_sentences if question_type == 'sentence'
       lesson_words.each do |current_lesson_word|
-        AnswerOption.create!(lesson_word_id: current_lesson_word, question: self)
+        answer_option = AnswerOption.create!(lesson_word_id: current_lesson_word, question: self)
+        self.update_columns(answer_options_id: answer_option) if current_lesson_word == lesson_word.id
       end
     elsif question_string =~ /Pretest/
-      return
+      self.update_columns(question_string: "Do you know the #{lesson_word.word.name} word?")
     else
       lesson_words = pick_words
       lesson_words.each do |current_lesson_word|
-        AnswerOption.create!(lesson_word_id: current_lesson_word, question: self)
+        answer_option = AnswerOption.create!(lesson_word_id: current_lesson_word, question: self)
+        self.update_columns(answer_options_id: answer_option) if current_lesson_word == lesson_word.id
       end
     end
   end
@@ -65,25 +68,25 @@ class Question < ActiveRecord::Base
   end
 
   def pick_words_definitions
-    lesson_words = lesson_module.lesson.lesson_words.definitions.pluck(:id).shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = lesson_module.lesson.lesson_words.map{ |lw| lw.definitions.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
     lesson_words.push(lesson_word.definitions.first.id)
     lesson_words.shuffle!
   end
 
   def pick_words_word_forms
-    lesson_words = lesson_module.lesson.lesson_words.word_forms.pluck(:id).shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words =lesson_module.lesson.lesson_words.map{ |lw| lw.word_forms.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
     lesson_words.push(lesson_word.word_forms.first.id)
     lesson_words.shuffle!
   end
 
   def pick_words_synonyms
-    lesson_words = lesson_module.lesson.lesson_words.synonyms.pluck(:id).shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words =lesson_module.lesson.lesson_words.map{ |lw| lw.synonyms.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
     lesson_words.push(lesson_word.synonyms.first.id)
     lesson_words.shuffle!
   end
 
   def pick_words_sentences
-    lesson_words = lesson_module.lesson.lesson_words.sentences.pluck(:id).shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = lesson_module.lesson.lesson_words.map{ |lw| lw.sentences.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
     lesson_words.push(lesson_word.sentences.first.id)
     lesson_words.shuffle!
   end
