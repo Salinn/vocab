@@ -32,7 +32,7 @@ class LessonModule < ActiveRecord::Base
   end
 
   def pretest(lesson_word)
-    'Pretest'
+    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Pretest') if lesson_word.definitions.any?
   end
 
   def study_the_word(lesson_word)
@@ -84,7 +84,7 @@ class LessonModule < ActiveRecord::Base
     elsif name == 'Sentence'
       return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/#{lesson_word.word.name}/i, '______') : 'skip'
     elsif name == 'Pretest'
-      return lesson_word ? 'Pretest' : 'skip'
+      return (lesson_word.lesson.lesson_words.length > 4) ? 'Pretest' : 'skip'
     elsif name == 'Study the Word'
       return lesson_word ? 'Study the Word': 'skip'
     end
