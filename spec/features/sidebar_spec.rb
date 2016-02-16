@@ -5,13 +5,13 @@ feature 'Sidebar Behaviors' do
     visit '/'
   end
   scenario 'Open Sidebar', :js => true do
-    find('#menu-toggle').click
-   # expect(page).to have_content 'Vocab'
+    find('#main_icon').click
+    expect(page).to have_selector '#wrapper.active'
   end
 
   scenario 'Close sidebar', :js => true do
-    find('#menu-toggle').click
-   # expect(page).to_not have_content 'Vocab'
+    find('#main_icon').click
+    expect(page).to_not have_selector '#wrapper.active'
   end
 
   scenario "Validate navigation links", :js => true do

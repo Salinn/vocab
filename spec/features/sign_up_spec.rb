@@ -13,7 +13,7 @@ feature "Sign Up" do
 
     click_button 'Sign up'
 
-    expect(page).to have_content 'Classes'
+    expect(page.body).to have_content 'Classes'
   end
 
 end
