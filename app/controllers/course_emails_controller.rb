@@ -79,7 +79,7 @@ class CourseEmailsController < ApplicationController
         send_class_email(:email)
       else
         #UserMailer.custom_email(:recipients, :title, :content, :email).deliver_later
-        UserMailer.custom_email(@users, :title, :content, :email).deliver
+        UserMailer.custom_email(@users, :title, :content, :email).deliver_later
       end
     end
 
