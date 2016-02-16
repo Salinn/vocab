@@ -16,17 +16,17 @@
     </div>
     <div>
       <%= f.label :user %><br>
-      <%= f.collection_select :user_id, User.with_role(:student, course), :id, :name_and_email, { include_blank: true } %>
+      <%= f.collection_select :user_id, User.with_role(:student, course), :id, :name_and_email, { include_blank: true } , class:"form-control"%>
     </div>
     <div class="field">
       <%= f.label :title %><br>
-      <%= f.text_field :title %>
+      <%= f.text_field :title , class:"form-control"%>
     </div>
     <div class="field">
       <%= f.label :content %><br>
       <%= f.cktext_area :content %>
     </div>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit "Send Email", class:"btn btn-primary pull-right"%>
     </div>
 <% end %>

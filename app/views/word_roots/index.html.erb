@@ -1,22 +1,22 @@
 <h1>Listing Word Roots</h1>
 <%= search_form_for @search, url: word_roots_path do |f| %>
-    <div class="field">
-      <%= f.text_field :root_name_cont, placeholder: 'Search by Root Name'  %>
-      <%= f.text_field :root_definition_cont, placeholder: 'Search by Root Definition'  %>
+    <div class="field form-group">
+      <label class='control-label'>Search By Roots</label>
+      <%= f.text_field :root_name_cont, placeholder: 'Syn' , class:'form-control' %>
+      <label class='control-label'>Search By Root Definition</label>
+      <%= f.text_field :root_definition_cont, placeholder: 'with or together', class:'form-control'  %>
     </div>
-    <div class="actions potentials-inline">
-      <%= f.submit "Search Roots" %>
-    </div>
-    <div class="potentials-inline">
-      <%= link_to 'Clear Search', word_roots_path %>
+    <div class="actions form-group btn-group">
+        <%= f.submit "Search Roots" , class:'btn btn-primary'%>
+        <%= link_to 'Clear Search', word_roots_path , class:'btn btn-primary' %>
     </div>
 <% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th><%= sort_link @search, :root_name,'Root name' %></th>
-      <th><%= sort_link @search, :root_definition,'Root definition' %></th>
+      <th><%= sort_link @search, :root_name, 'Root name' %></th>
+      <th><%= sort_link @search, :root_definition, 'Root definition' %></th>
     </tr>
   </thead>
 
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Word root', new_word_root_path %>
+<%= link_to 'New Word root', new_word_root_path , class:'btn btn-primary' %>

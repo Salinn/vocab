@@ -74,6 +74,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  #Helps find n+1 queries
+  gem 'bullet'
+
   #These 2 gems makes it a bit easier to debug issues when they occur
   #This occurs by stopping where the error occurs and giving you a terminial and info on what was going on
   gem 'better_errors', '1.0.1'

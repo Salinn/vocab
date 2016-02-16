@@ -3,18 +3,14 @@
 </div>
 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
   <li class="active"><a href="#student" data-toggle="tab">Student</a></li>
-  <li><a href="#teaching_assistant" data-toggle="tab">Teaching Assistant</a></li>
   <li><a href="#teacher" data-toggle="tab">Teacher</a></li>
 </ul>
-<div id="my-tab-content" class="tab-content col-xl-4 col-md-4 col-xs-4">
+<div id="my-tab-content" class="tab-content">
   <div class="tab-pane active" id="student">
-    <%= render 'course_emails/get_selected_classes', role: :student %>
+    <%= render 'courses/get_selected_classes', role: :student %>
   </div>
-  <div class="tab-pane" id="teaching_assistant col-xl-4 col-md-4 col-xs-4">
-    <%= render 'course_emails/get_selected_classes', role: :teaching_assistant %>
-  </div>
-  <div class="tab-pane" id="teacher col-xl-4 col-md-4 col-xs-4">
-    <%= render 'course_emails/get_selected_classes', role: :teacher %>
+  <div class="tab-pane" id="teacher">
+    <%= render 'courses/get_selected_classes', role: :teacher %>
   </div>
 </div>
 

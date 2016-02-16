@@ -11,15 +11,15 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :video_link %><br>
-    <%= f.text_field :video_link %>
+  <div class="field form-group">
+    <%= f.label :video_link , class:'control-label'%><br>
+    <%= f.text_field :video_link , class:'form-control'%>
   </div>
-  <div class="field">
-    <%= f.label :video_description %><br>
-    <%= f.text_field :video_description %>
+  <div class="field form-group">
+    <%= f.label :video_description , class:'control-label'%><br>
+    <%= f.text_field :video_description , class:'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions form-group">
+    <%= f.submit 'Create Word Video', class:'btn btn-primary' %>
   </div>
 <% end %>
