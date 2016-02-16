@@ -1,9 +1,12 @@
 require "rails_helper"
 
-feature "Create A New Course" do
-  background do
-    user = FactoryGirl.create(:user)
+feature 'Create a course' do
+  scenario 'Log in as teacher', :js => true do
+
   end
 
+  scenario 'Create a new course', :js => true do
+
+  end
 
 end

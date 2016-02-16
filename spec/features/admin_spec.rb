@@ -1,11 +1,15 @@
 require 'rails_helper'
 
-feature 'Create a course' do
-  scenario 'Log in as teacher', :js => true do
+feature 'Admin' do
+  scenario 'Log in as admin', :js => true do
 
   end
 
-  scenario 'Create a new course', :js => true do
+  scenario 'Add teacher role', :js => true do
+
+  end
+
+  scenario 'Add student role', :js => true do
 
   end
 
