@@ -30,6 +30,7 @@ class CourseEmailsController < ApplicationController
       if @course_email.save
         format.html { redirect_to @course_email.course, notice: 'Course email was successfully created.' }
         format.json { render :show, status: :created, location: @course_email }
+        send_email
       else
         format.html { render :new }
         format.json { render json: @course_email.errors, status: :unprocessable_entity }
@@ -69,6 +70,17 @@ class CourseEmailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_email_params
-      params.require(:course_email).permit(:course_id, :title, :content, :user_id)
+      params.require(:course_email).permit(:recipients, :course_id, :title, :content, :user_id)
     end
+
+    def send_email
+      @users = User.where(id: :user_id)
+      if :user_id.nil?
+        send_class_email(:email)
+      else
+        #UserMailer.custom_email(:recipients, :title, :content, :email).deliver_later
+        UserMailer.custom_email(@users, :title, :content, :email).deliver
+      end
+    end
+
 end
