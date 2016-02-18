@@ -75,6 +75,10 @@ group :development do
   #This occurs by stopping where the error occurs and giving you a terminial and info on what was going on
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
+
+  gem 'pry-rails'
+  gem 'quiet_assets'
+  gem 'awesome_print'
 end
 
 group :production do
