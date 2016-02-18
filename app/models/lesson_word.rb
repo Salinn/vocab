@@ -17,6 +17,8 @@ class LessonWord < ActiveRecord::Base
   has_many :lesson_word_synonyms
   has_many :synonyms, through: :lesson_word_synonyms
 
+  has_many :answer_options
+
   accepts_nested_attributes_for :lesson_word_definitions
   accepts_nested_attributes_for :lesson_word_videos
   accepts_nested_attributes_for :lesson_word_sentences

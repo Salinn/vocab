@@ -1,5 +1,6 @@
 class LessonModulesController < ApplicationController
-  before_action :set_lesson_module, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson_module, only: [:show, :update, :destroy]
+  before_action :set_edit_lesson_module, only: [:edit]
   load_and_authorize_resource
 
   # GET /lesson_modules
@@ -66,6 +67,10 @@ class LessonModulesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson_module
       @lesson_module = LessonModule.find(params[:id])
+    end
+
+    def set_edit_lesson_module
+      @lesson_module = LessonModule.includes(questions: [lesson_word: :word]).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

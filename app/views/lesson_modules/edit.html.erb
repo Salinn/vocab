@@ -2,5 +2,9 @@
 
 <%= render 'form' %>
 
+<% @lesson_module.questions.each do |question| %>
+    <%= render 'questions/lesson_module_form', question: question %>
+<% end %>
+
 <%= link_to 'Show', @lesson_module %> |
 <%= link_to 'Back', lesson_modules_path %>
