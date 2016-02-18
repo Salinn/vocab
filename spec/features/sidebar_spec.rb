@@ -17,4 +17,10 @@ feature 'Sidebar Behaviors' do
   scenario "Validate navigation links", :js => true do
 
   end
+
+  def close_sidebar
+    if page.find(:css, '#wrapper.active')
+      find('#main_icon').click
+    end
+  end
 end

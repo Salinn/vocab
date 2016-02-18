@@ -5,5 +5,9 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password "password"
     password_confirmation "password"
+
+    factory :teacher do
+      after(:create) {|user| user.add_role(:teacher)}
+    end
   end
 end
