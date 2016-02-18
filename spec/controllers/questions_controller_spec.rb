@@ -124,7 +124,7 @@ RSpec.describe QuestionsController, type: :controller do
       it "redirects to the question" do
         question = Question.create! valid_attributes
         put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
-        expect(response).to redirect_to(question)
+        expect(response).to redirect_to(:back)
       end
     end
 

@@ -26,8 +26,10 @@ lesson_end_date = start_date + 7.days
 
 #Create Users(Teachers)
   (0...total_teachers).each do
-    teacher = User.create!(email: Faker::Internet.email, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, password: 'topsecret', password_confirmation: 'topsecret')
-    teacher.add_role(:teacher, course)
+    teachers = User.find_by(id: [2..5])
+    teachers.each do |teacher|
+      teacher.add_role(:teacher, course)
+    end
   end
 
 #Create Users(Students)

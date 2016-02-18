@@ -39,13 +39,14 @@ class QuestionsController < ApplicationController
 
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
+  #TODO update error on views when failed updating
   def update
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to :back, notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
-        format.html { render :edit }
+        format.html { redirect_to :back, error: 'Question was not updated.' }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end

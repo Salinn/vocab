@@ -8,6 +8,22 @@ class Question < ActiveRecord::Base
   validates :lesson_word_id, presence:true
   after_create :create_answer_options
 
+  before_save :check_for_answers
+
+  def check_for_answers
+    if question_string_changed?
+      unless check_if_answer_exists
+        errors.add(:question, 'This Module Cannot be changed if')
+        return false
+      end
+    end
+    return true
+  end
+
+  def check_if_answer_exists
+    answers.any? ? false : true
+  end
+
   def create_answer_options
     #TODO set answer_option_id
     if question_string =~ /Study the Word/

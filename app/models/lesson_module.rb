@@ -11,7 +11,7 @@ class LessonModule < ActiveRecord::Base
   validate :check_if_enough_lesson_words, on: :update
 
   after_update :create_questions
-  before_save :number_of_answers_changed
+  before_save :check_for_answers, :number_of_answers_changed
 
   def create_questions
     if in_use?
@@ -52,6 +52,16 @@ class LessonModule < ActiveRecord::Base
   def check_if_enough_lesson_words
     unless check_if_answer_exists
       return (lesson.lesson_words.length > number_of_answers) ? true : false
+    end
+    return true
+  end
+
+  def check_for_answers
+    if number_of_answers_changed? || attempts_changed?
+      unless check_if_answer_exists
+        errors.add(:lesson_module, 'This Module Cannot be changed if')
+        return false
+      end
     end
     return true
   end
