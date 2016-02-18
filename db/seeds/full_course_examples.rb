@@ -26,7 +26,7 @@ lesson_end_date = start_date + 7.days
 
 #Create Users(Teachers)
   (0...total_teachers).each do
-    teachers = User.find_by(id: [2..5])
+    teachers = User.where(id: [2..5])
     teachers.each do |teacher|
       teacher.add_role(:teacher, course)
     end
