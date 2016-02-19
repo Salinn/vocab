@@ -13,7 +13,7 @@ class Question < ActiveRecord::Base
   def check_for_answers
     if question_string_changed?
       unless check_if_answer_exists
-        errors.add(:question, 'This Module Cannot be changed if')
+        errors.add(:question, 'This Module Cannot be changed if there are any student answers')
         return false
       end
     end

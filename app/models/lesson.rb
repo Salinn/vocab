@@ -12,8 +12,19 @@ class Lesson < ActiveRecord::Base
   validates :lesson_start_time, presence: true
   validates :lesson_end_date, presence: true
 
+  before_create :validate_dates
+  before_update :validate_dates
+
   after_create :create_modules, :create_lesson_event
   after_update :update_lesson_event
+
+  def validate_dates
+    unless lesson_start_time < lesson_end_date
+      errors.add(:lesson, 'The start date must come before the end date')
+      return false
+    end
+    return true
+  end
 
   def create_modules
     graded_modules = ['Definition', 'Sentence', 'Synonym', 'Word Form']

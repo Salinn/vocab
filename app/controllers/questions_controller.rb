@@ -43,10 +43,10 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to :back, notice: 'Question was successfully updated.' }
+        format.html { redirect_to @question.lesson_module, notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
-        format.html { redirect_to :back, error: 'Question was not updated.' }
+        format.html { redirect_to @question.lesson_module, error: 'Question was not updated.' }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
