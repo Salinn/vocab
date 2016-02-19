@@ -1,21 +1,21 @@
 Rails.application.routes.draw do
-  resources :events
-  resources :lesson_extensions
   resources :answers
-  resources :questions
-  resources :course_emails
-  resources :lesson_words
-  resources :sentences
-  resources :word_videos
-  resources :synonyms
-  resources :word_forms
-  resources :lesson_modules
-  resources :word_roots
-  resources :lessons
-  resources :definitions
 
+  #All routes associated with a course
   resources :courses do
-    resources :lessons
+    resources :events
+    resources :course_emails
+
+    #All the routes under course/:id/lessons
+    resources :lessons do
+      resources :lesson_words
+      resources :lesson_extensions
+
+      #All the routes under course/:id/lessons/:id/lesson_modules
+      resources :lesson_modules do
+        resources :questions
+      end
+    end
     collection { post :import }
     delete :remove_user_from_course
     delete :remove_lesson_from_course
@@ -29,12 +29,20 @@ Rails.application.routes.draw do
     get 'gradebook/student_grade/:student_id' => 'grade_book#student_grade', as: :gradebook_student
     get :email_class
     get :manage_students
-    get :manage_lessons
     get :syllabus
     get :description
   end
 
+  #All the word routes
+  resources :definitions
+  resources :synonyms
+  resources :sentences
+  resources :word_forms
+  resources :word_roots
+  resources :word_videos
   resources :words
+
+  #All the routes pertaining to users
   devise_for :users, :controllers => { :registrations => 'registration' }
   resources :users_admin, :controller => 'users'
 
@@ -43,6 +51,7 @@ Rails.application.routes.draw do
   post 'create_user' => 'users#create', as: :create_user
   post 'admin_create_user' => 'users#admin_create', as: :admin_create_user
 
+  #Creates static page routes
   StaticPagesController.action_methods.each do |action|
     get "/#{action}", to: "static_pages##{action}", as: "#{action}"
   end
