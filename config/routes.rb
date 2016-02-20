@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :answers
-
   #All routes associated with a course
   resources :courses do
     resources :events
@@ -13,9 +11,12 @@ Rails.application.routes.draw do
 
       #All the routes under course/:id/lessons/:id/lesson_modules
       resources :lesson_modules do
-        resources :questions
+        resources :questions do
+          resources :answers
+        end
       end
     end
+
     collection { post :import }
     delete :remove_user_from_course
     delete :remove_lesson_from_course
