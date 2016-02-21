@@ -28,7 +28,7 @@ class LessonExtensionsController < ApplicationController
 
     respond_to do |format|
       if @lesson_extension.save
-        format.html { redirect_to @lesson_extension, notice: 'Lesson extension was successfully created.' }
+        format.html { redirect_to course_lesson_lesson_extension_path(@lesson_extension, lesson_id: @lesson_extension.lesson.id, course_id: @lesson_extension.lesson.course.id), notice: 'Lesson extension was successfully created.' }
         format.json { render :show, status: :created, location: @lesson_extension }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class LessonExtensionsController < ApplicationController
   def update
     respond_to do |format|
       if @lesson_extension.update(lesson_extension_params)
-        format.html { redirect_to @lesson_extension, notice: 'Lesson extension was successfully updated.' }
+        format.html { redirect_to course_lesson_lesson_extension_path(@lesson_extension, lesson_id: @lesson_extension.lesson.id, course_id: @lesson_extension.lesson.course.id), notice: 'Lesson extension was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson_extension }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class LessonExtensionsController < ApplicationController
   def destroy
     @lesson_extension.destroy
     respond_to do |format|
-      format.html { redirect_to lesson_extensions_url, notice: 'Lesson extension was successfully destroyed.' }
+      format.html { redirect_to course_lesson_lesson_extensions_path(lesson: @lesson_extension.lesson, course: @lesson_extension.lesson.course), notice: 'Lesson extension was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
