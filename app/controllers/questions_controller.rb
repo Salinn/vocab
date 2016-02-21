@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to course_lesson_lesson_module_question_path(@question, lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.html { redirect_to course_lesson_lesson_module_question_path(@question, lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to course_lesson_lesson_module_questions_path(lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
