@@ -36,7 +36,7 @@ class LessonsController < ApplicationController
     @lesson = course.lessons.create(lesson_params)
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to course_lesson_path(@lesson,  course_id: @lesson.course.id), notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
     @lesson_module = LessonModule.all
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to course_lesson_path(@lesson,  course_id: @lesson.course.id), notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
         format.html { render :edit }
@@ -66,7 +66,7 @@ class LessonsController < ApplicationController
     @lesson_module = LessonModule.all
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to course_lessons_path(course_id: @lesson.course.id), notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
