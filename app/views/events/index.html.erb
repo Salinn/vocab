@@ -20,9 +20,9 @@
         <td><%= event.description %></td>
         <td><%= event.start_time %></td>
         <td><%= event.end_time %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', course_event_path(event, course_id: event.lesson.course.id) %></td>
+        <td><%= link_to 'Edit', edit_course_event_path(event, course_id: event.lesson.course.id) %></td>
+        <td><%= link_to 'Destroy', course_event_path(event, course_id: event.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,7 +30,7 @@
 
 <br>
 
-<%= link_to 'New Event', new_event_path %>
+<%= link_to 'New Event', new_course_event_path %>
 
 <br>
 

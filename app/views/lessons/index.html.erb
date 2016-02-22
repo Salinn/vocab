@@ -30,9 +30,9 @@
         <td><%= lesson.lesson_end_date %></td>
         <td><%= lesson.course.class_name %></td>
         <td><%= lesson.penalty %></td>
-        <td><%= link_to 'Show', lesson %></td>
-        <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', course_lesson_path(lesson, course_id: lesson.course.id) %></td>
+        <td><%= link_to 'Edit', edit_course_lesson_path(lesson, course_id: lesson.course.id) %></td>
+        <td><%= link_to 'Destroy', course_lessons_path(lesson), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +40,4 @@
 
 <br>
 
-<%= link_to 'New Lesson', new_lesson_path %>
+<%= link_to 'New Lesson', new_course_lesson_path %>

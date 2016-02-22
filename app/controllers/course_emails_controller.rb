@@ -28,7 +28,7 @@ class CourseEmailsController < ApplicationController
     @course_email = CourseEmail.new(course_email_params)
     respond_to do |format|
       if @course_email.save
-        format.html { redirect_to @course_email.course, notice: 'Course email was successfully created.' }
+        format.html { redirect_to course_course_email_path(@course_email, course_id: @course_email.course.id), notice: 'Course email was successfully created.' }
         format.json { render :show, status: :created, location: @course_email }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class CourseEmailsController < ApplicationController
   def update
     respond_to do |format|
       if @course_email.update(course_email_params)
-        format.html { redirect_to @course_email, notice: 'Course email was successfully updated.' }
+        format.html { redirect_to course_course_email_path(@course_email, course_id: @course_email.course.id), notice: 'Course email was successfully updated.' }
         format.json { render :show, status: :ok, location: @course_email }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class CourseEmailsController < ApplicationController
   def destroy
     @course_email.destroy
     respond_to do |format|
-      format.html { redirect_to course_emails_url, notice: 'Course email was successfully destroyed.' }
+      format.html { redirect_to course_course_emails_path(course_id: @course_email.course.id), notice: 'Course email was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
