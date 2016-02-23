@@ -11,12 +11,14 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe EventsHelper, type: :helper do
+  let(:lesson) {FactoryGirl.create(:lesson_no_call_backs)}
   let(:valid_event_attributes) {
     {
         title: 'Event',
         description: 'Description',
         start_time: DateTime.now,
-        end_time: DateTime.now + 2.hours
+        end_time: DateTime.now + 2.hours,
+        lesson_id: lesson.id
     }
   }
 
