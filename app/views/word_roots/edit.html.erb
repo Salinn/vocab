@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @word_root %> |
-<%= link_to 'Back', word_roots_path %>
+<div class="btn-group">
+<%= link_to 'Show', @word_root , class:'btn btn-primary' %> |
+<%= link_to 'Back', word_roots_path , class:'btn btn-primary' %>
+</div>

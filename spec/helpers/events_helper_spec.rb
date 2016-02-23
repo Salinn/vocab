@@ -11,12 +11,14 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe EventsHelper, type: :helper do
+  let(:lesson) {FactoryGirl.create(:lesson_no_call_backs)}
   let(:valid_event_attributes) {
     {
         title: 'Event',
         description: 'Description',
         start_time: DateTime.now,
-        end_time: DateTime.now + 2.hours
+        end_time: DateTime.now + 2.hours,
+        lesson_id: lesson.id
     }
   }
 
@@ -24,7 +26,7 @@ RSpec.describe EventsHelper, type: :helper do
   describe 'Generates Valid Event Link' do
     it "generates a link to one of the events" do
       event = Event.create!(valid_event_attributes)
-      expect(events_link(event)).to eql('<a href="/events/' + event.id.to_s + '">Event</a>')
+      expect(events_link(course_event_path(event, course_id: event.lesson.id)).to eql('<a href="/courses/' + event.lesson.course.id.to_s + 'events/' + event.id.to_s + '>Event</a>'))
     end
   end
 end

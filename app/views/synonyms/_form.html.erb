@@ -11,11 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :word_synonym %><br>
-    <%= f.text_field :word_synonym %>
+  <div class="field form-group">
+    <%= f.label :word_synonym , class:'control-label'%><br>
+    <%= f.text_field :word_synonym , class:'form-control'%>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions form-group">
+    <%= f.submit 'Create Synonym' , class:'btn btn-primary' %>
   </div>
 <% end %>

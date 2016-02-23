@@ -6,7 +6,10 @@ class WordsController < ApplicationController
   # GET /words.json
   def index
     @search = Word.ransack(params[:q])
+    @search.build_condition if @search.conditions.empty?
     @words = @search.result.includes(:word_roots, :word_videos, :sentences, :definitions, :synonyms, :word_forms)
+
+    @word = Word.new
   end
 
   # GET /words/1
@@ -32,12 +35,16 @@ class WordsController < ApplicationController
 
     respond_to do |format|
       if @word.save
-        update_word_roots
+        #update_word_roots
         format.html { redirect_to @word, notice: 'Word was successfully created.' }
         format.json { render :show, status: :created, location: @word }
+        # added:
+        format.js   { render action: 'show', status: :created, location: @word }
       else
         format.html { render :new }
         format.json { render json: @word.errors, status: :unprocessable_entity }
+        # added:
+        format.js   { render json: @word.errors, status: :unprocessable_entity }
       end
     end
   end

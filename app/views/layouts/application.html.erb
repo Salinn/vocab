@@ -29,19 +29,19 @@
 
 <!-- Menu Toggle Script -->
 <script>
-    $('#menu-toggle').on('click', function(){
-        if($('#wrapper').attr('class') == 'active') {
-            $('#wrapper').removeClass('active');
-        } else {
-            $('#wrapper').addClass('active');
-        }
-        localStorage.setItem('active', $('#wrapper').attr('class'));
-    });
-    //Sets sidebar in or out on load
-    $(function() {
-        $('#wrapper').addClass(localStorage.getItem('active'));
-    });
-    $('.accordian1').click(function(){
-        $(this).find('span').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
-    });
+  $('#menu-toggle').on('click', function(){
+    if($('#wrapper').attr('class') == 'active') {
+      $('#wrapper').removeClass('active');
+    } else {
+      $('#wrapper').addClass('active');
+    }
+    localStorage.setItem('active', $('#wrapper').attr('class'));
+  });
+  //Sets sidebar in or out on load
+  $(function() {
+    $('#wrapper').addClass(localStorage.getItem('active'));
+  });
+  $('.accordian1').click(function(){
+    $(this).find('span').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
+  });
 </script>

@@ -9,7 +9,7 @@ RSpec.describe "LessonModules", type: :request do
 
   describe "GET /lesson_modules" do
     it "works! (now write some real specs)" do
-      get lesson_modules_path
+      get course_lesson_lesson_modules_path
       expect(response).to have_http_status(200)
     end
   end
