@@ -2,7 +2,7 @@
 <%= form_for(@word, remote: true, html: {role: :form}) do |f| %>
 
   <% if @word.errors.any? %>
-    <div id="error_explanation" class="bh-danger text-danger">
+    <div id="error_explanation" class="bg-danger text-danger">
       <h2><%= pluralize(@word.errors.count, "error") %> prohibited this word from being saved:</h2>
 
       <ul>

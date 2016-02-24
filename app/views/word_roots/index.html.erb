@@ -1,4 +1,4 @@
-<h1>Listing Word Roots</h1>
+<h1>Listing Root Words</h1>
 <%= search_form_for @search, url: word_roots_path, class: "col-xs-12" do |f| %>
     <div class="field form-group col-sm-12">
       <div class="col-sm-6">
@@ -12,7 +12,7 @@
     </div>
 
     <div>
-      <%= link_to 'New Root Word', new_word_root_path, class:'btn btn-primary col-sm-3' %>
+      <%= link_to 'New Root Word', new_word_root_path, remote: true, class:'btn btn-primary col-sm-3' %>
     </div>
 
     <div class="actions btn-group col-sm-offset-4">
@@ -29,14 +29,12 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody id="word_roots">
     <% @word_roots.each do |word_root| %>
-      <tr>
-        <td><%= word_root.root_name %></td>
-        <td><%= word_root.root_definition %></td>
-      </tr>
+      <%= render 'word_root_row', word_root: word_root %>
     <% end %>
   </tbody>
 </table>
 
 
+<%= render 'layouts/dialog' %>
