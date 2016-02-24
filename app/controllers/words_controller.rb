@@ -39,12 +39,10 @@ class WordsController < ApplicationController
         format.html { redirect_to @word, notice: 'Word was successfully created.' }
         format.json { render :show, status: :created, location: @word }
         # added:
-        format.js   { render action: 'show', status: :created, location: @word }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @word.errors, status: :unprocessable_entity }
-        # added:
-        format.js   { render json: @word.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,6 +55,7 @@ class WordsController < ApplicationController
         update_word_roots
         format.html { redirect_to @word, notice: 'Word was successfully updated.' }
         format.json { render :show, status: :ok, location: @word }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @word.errors, status: :unprocessable_entity }
@@ -69,6 +68,7 @@ class WordsController < ApplicationController
   def destroy
     @word.destroy
     respond_to do |format|
+      format.js
       format.html { redirect_to words_url, notice: 'Word was successfully destroyed.' }
       format.json { head :no_content }
     end
