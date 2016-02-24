@@ -1,0 +1,8 @@
+<tr id="word_<%= course.id %>">
+  <td><%= course.class_name %></td>
+  <td><%= course.start_date %></td>
+  <td><%= course.end_date %></td>
+  <td><%= link_to 'Show', course %></td>
+  <td><%= link_to 'Edit', edit_course_path(course)%></td>
+  <td><%= link_to 'Destroy', course, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

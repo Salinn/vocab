@@ -2,6 +2,9 @@
 
 <h1>Course List</h1>
 
+<%= link_to 'New Course', new_course_path ,  class:"btn btn-primary"%>
+
+
 <table class="table">
   <thead>
     <tr>
@@ -12,20 +15,12 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody id="courses">
     <% @courses.each do |course| %>
-      <tr>
-        <td><%= course.class_name %></td>
-        <td><%= course.start_date %></td>
-        <td><%= course.end_date %></td>
-        <td><%= link_to 'Show', course %></td>
-        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= render 'course_row', course: course %>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<%=render 'layouts/dialog' %>
 
-<%= link_to 'New Course', new_course_path , class:"btn btn-primary"%>
