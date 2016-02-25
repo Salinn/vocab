@@ -12,8 +12,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson = Lesson.includes(lesson_words: :word).find(params[:id])
-    @lesson.lesson_words.build
+    @lesson = Lesson.includes(lesson_words: [:word, :definitions, :sentences, :synonyms]).find(params[:id])
   end
 
   # GET /lessons/new

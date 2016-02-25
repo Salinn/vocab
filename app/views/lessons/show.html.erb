@@ -28,12 +28,28 @@
   <%= @lesson.penalty %>
 </p>
 <hr>
-<p>Words In Lesson: </p>
-    <% @lesson.lesson_words.each do |lesson_word| %>
-    <%= lesson_words_link(lesson_word) %>
-<% end %>
+<table id class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>Word</th>
+    <th>Total Definitions</th>
+    <th>Total Sentences</th>
+    <th>Total Synonyms</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody id="lesson_words">
+  <% @lesson.lesson_words.each do |lesson_word| %>
+      <%= render 'lesson_words/lesson_word', lesson_word: lesson_word %>
+  <% end %>
+  </tbody>
+</table>
 <hr><p>Add Word:</p>
-<%= render 'lessons/add_word' %>
+<div class="well">
+  <%= link_to "Add Lesson Word", new_lesson_word_path(lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
+</div>
+<%# render 'lessons/add_word' %>
 <hr>
 <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
 <hr>
@@ -41,3 +57,4 @@
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
 <%= link_to 'Back', @lesson.course %>
 
+<%= render 'layouts/dialog' %>

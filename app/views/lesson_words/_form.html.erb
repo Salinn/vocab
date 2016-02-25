@@ -1,0 +1,18 @@
+<%= form_for(@lesson_word, remote: true, :html => { :role => "form" }) do |f| %>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="field">
+            <%= f.hidden_field :lesson_id, value: @lesson.id %>
+          </div>
+          <div class="field">
+            <%= f.label :word %><br>
+            <%= f.collection_select :word_id, Word.all, :id, :name %>
+          </div>
+          <div class="actions">
+            <%= f.submit %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
