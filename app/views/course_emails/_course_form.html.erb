@@ -15,8 +15,8 @@
       <%= f.hidden_field :course_id, value: course.id %>
       <%= f.hidden_field :email, value: current_user.email %>
     </div>
-    <div>
-      <%= f.label :recipients %><br>
+    <div class="field">
+      <%= f.label :users %><br>
       <%= f.collection_check_boxes(:user_id, User.with_role(:student, course), :id, :name_and_email,
           { include_blank: true },{:class => 'checkbox'}) { |input| input.label(:class => 'checkbox') { input.check_box + input.text } } %>
     </div>

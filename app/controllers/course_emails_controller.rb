@@ -70,16 +70,14 @@ class CourseEmailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_email_params
-      params.require(:course_email).permit(:recipients, :course_id, :title, :content, :user_id)
+      params.require(:course_email).permit(:users, :title, :content)
     end
 
     def send_email
-      @users = User.where(id: :user_id)
       if :user_id.nil?
         send_class_email(:email)
       else
-        #UserMailer.custom_email(:recipients, :title, :content, :email).deliver_later
-        UserMailer.custom_email(@users, :title, :content, :email).deliver_later
+        UserMailer.custom_email(params[:user_ids], params[:title], params[:content], params[:email]).deliver_later
       end
     end
 

@@ -31,7 +31,8 @@ RSpec.describe CourseEmailsController, type: :controller do
     {
         title: 'Hello Class',
         content: 'I just wanted to welcome you to class',
-        course_id: course.id
+        course_id: course.id,
+        user_id: 3
     }
   }
 
@@ -84,22 +85,13 @@ RSpec.describe CourseEmailsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new CourseEmail" do
-        expect {
-          post :create, {:course_email => valid_attributes}, valid_session
-        }.to change(CourseEmail, :count).by(1)
+      it "should deliver the new course email" do
+        # expect
+        expect(UserMailer).to(receive(:deliver_email).with(valid_attributes))
+        # when
+        post :email, valid_attributes
       end
 
-      it "assigns a newly created course_email as @course_email" do
-        post :create, {:course_email => valid_attributes}, valid_session
-        expect(assigns(:course_email)).to be_a(CourseEmail)
-        expect(assigns(:course_email)).to be_persisted
-      end
-
-      it "redirects to the created course_email" do
-        post :create, {:course_email => valid_attributes}, valid_session
-        expect(response).to redirect_to(CourseEmail.last.course)
-      end
     end
 
     context "with invalid params" do
