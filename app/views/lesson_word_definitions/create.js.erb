@@ -1,0 +1,1 @@
+$('#definition_<%= @lesson_word_definition.lesson_word_id %>_<%= @lesson_word_definition.definition_id %>').append('<%= j render 'lesson_words/definition', definition: @lesson_word_definition.definition, lesson_word: @lesson_word_definition.lesson_word %>')

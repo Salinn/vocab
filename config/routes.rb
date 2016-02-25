@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :word_roots
   resources :lessons
   resources :definitions
+  resources :lesson_word_definitions
 
   resources :courses do
     resources :lessons

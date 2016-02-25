@@ -11,11 +11,6 @@ class LessonWordsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson_word.lesson_word_definitions.build
-    @lesson_word.lesson_word_videos.build
-    @lesson_word.lesson_word_sentences.build
-    @lesson_word.lesson_word_forms.build
-    @lesson_word.lesson_word_synonyms.build
   end
 
   # GET /lessons/new
@@ -26,6 +21,11 @@ class LessonWordsController < ApplicationController
 
   # GET /lessons/1/edit
   def edit
+    @lesson_word.lesson_word_definitions.build
+    @lesson_word.lesson_word_videos.build
+    @lesson_word.lesson_word_sentences.build
+    @lesson_word.lesson_word_forms.build
+    @lesson_word.lesson_word_synonyms.build
   end
 
   # POST /lessons

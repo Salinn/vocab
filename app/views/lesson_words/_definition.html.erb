@@ -1,0 +1,6 @@
+<tr id="definition_<%= definition.id %>">
+  <td><%= definition.word_definition %></td>
+  <td>
+    <%= link_to 'Delete', lesson_word_definition_path(definition_id: definition.id, lesson_word_id: @lesson_word.id), remote: true, :method => :delete, class: 'btn btn-sm btn-danger' %>
+  </td>
+</tr>

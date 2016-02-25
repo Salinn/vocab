@@ -1,8 +1,8 @@
 // Add the dialog title
-$('#dialog h3').html("<i class='glyphicon glyphicon-plus'></i> Add New Lesson Word");
+$('#dialog h3').html("<i class='glyphicon glyphicon-plus'></i> Edit Lesson Word");
 
 // Render the new form
-$('.modal-body').html('<%= j render("lesson_words/form") %>');
+$('.modal-body').html('<%= j render("lesson_words/form_edit") %>');
 
 // Show the dynamic dialog
 $('#dialog').modal("show");

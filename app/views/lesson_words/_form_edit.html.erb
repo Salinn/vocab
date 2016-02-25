@@ -1,0 +1,10 @@
+<h1>
+  <%= @lesson_word.word.name %>
+</h1>
+
+<%= render 'lesson_words/display_lesson_word_definitions', lesson_word: @lesson_word %>
+
+<%# Only render the ability to add definitions if the word has at least one definition %>
+<% if @lesson_word.word.definitions.any? && @lesson_word.not_word_definitions.any? %>
+    <%= render 'lesson_words/add_definition' %>
+<% end %>
