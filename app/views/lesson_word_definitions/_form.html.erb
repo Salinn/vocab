@@ -5,7 +5,7 @@
     </div>
     <div class="field">
       <%= f.label :definition %><br>
-      <%= f.collection_select :definition_id, lesson_word.not_word_definitions, :id, :word_definition, class: "dropdown-menu" %>
+      <%= f.collection_select :definition_id, lesson_word.not_word_definitions, :id, :word_definition, { prompt: "Please select" }, class: "input-sm" %>
     </div>
     <div class="actions">
       <%= f.submit class: "btn btn-primary" %>
