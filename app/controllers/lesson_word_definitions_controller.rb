@@ -32,10 +32,6 @@ class LessonWordDefinitionsController < ApplicationController
   def set_lesson_word_definition
     begin
       @lesson_word_definition = LessonWordDefinition.find_by!(definition_id: params[:definition_id], lesson_word_id: params[:lesson_word_id])
-      @lesson_word_definition
-    rescue => e
-      puts e
-      @lesson_word_definition.definition_id = params[:definition_id]
     end
   end
 
