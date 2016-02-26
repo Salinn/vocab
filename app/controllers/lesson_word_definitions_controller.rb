@@ -30,7 +30,13 @@ class LessonWordDefinitionsController < ApplicationController
   private
 # Use callbacks to share common setup or constraints between actions.
   def set_lesson_word_definition
-    @lesson_word_definition = LessonWordDefinition.find_by!(definition_id: params[:definition_id], lesson_word_id: params[:lesson_word_id])
+    begin
+      @lesson_word_definition = LessonWordDefinition.find_by!(definition_id: params[:definition_id], lesson_word_id: params[:lesson_word_id])
+      @lesson_word_definition
+    rescue => e
+      puts e
+      @lesson_word_definition.definition_id = params[:definition_id]
+    end
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
