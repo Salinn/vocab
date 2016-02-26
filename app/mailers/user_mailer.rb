@@ -14,14 +14,19 @@ class UserMailer < ApplicationMailer
   end
 
   def custom_email(recipients, email_title, message, teacher_email)
-    @recipients = recipients
-    @recipients.each do |recipient|
-      @recipient = recipient.user_email
-      @message = message
-      @email_title = email_title
-      body_template = 'user_mailer/custom_email'
-      email_template(body_template, email_title, @recipient, teacher_email)
-    end
+    #@recipients = recipients
+    #@recipients.each do |recipient|
+     # @recipient = recipient.user_email
+     # @message = message
+     # @email_title = email_title
+     # body_template = 'user_mailer/custom_email'
+    #  email_template(body_template, email_title, @recipient, teacher_email)
+    #end
+    @recipient = "richard.n.ngo@gmail.com"
+    @message = message
+    @email_title = email_title
+    body_template = 'user_mailer/custom_email'
+    email_template(body_template, email_title, @recipient, teacher_email)
   end
 
  # def send_email(recipients, email_title, message, teacher_email)
