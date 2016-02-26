@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     @questions = Question.all
+    @lesson_module = LessonModule.find(params[:lesson_module_id])
   end
 
   # GET /questions/1

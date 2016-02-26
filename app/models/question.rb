@@ -9,6 +9,7 @@ class Question < ActiveRecord::Base
   after_create :create_answer_options
 
   def create_answer_options
+    return if lesson_module.lesson.lesson_words.length < lesson_module.number_of_answers
     lesson_words = pick_words
     lesson_words.each do |current_lesson_word|
       AnswerOption.create!(lesson_word_id: current_lesson_word, question: self)

@@ -5,6 +5,7 @@ class CourseEmailsController < ApplicationController
   # GET /course_emails
   # GET /course_emails.json
   def index
+    @course = Course.find(params[:course_id])
     @course_emails = CourseEmail.all
   end
 

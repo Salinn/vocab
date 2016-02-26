@@ -5,6 +5,7 @@ class AnswersController < ApplicationController
   # GET /answers.json
   def index
     @answers = Answer.all
+    @question = Question.find(params[:question_id])
   end
 
   # GET /answers/1
