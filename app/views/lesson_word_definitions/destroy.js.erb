@@ -1,1 +1,3 @@
 $('#definition_<%= @lesson_word_definition.definition_id %>').fadeOut()
+var optionSelect = $("#lesson_word_definition_definition_id")
+optionSelect.append($('<option></option>').val("<%= @lesson_word_definition.definition_id %>").html("<%= @lesson_word_definition.definition.word_definition %>"));

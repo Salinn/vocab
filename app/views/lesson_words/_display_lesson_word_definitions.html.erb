@@ -8,9 +8,9 @@
       <th>Delete</th>
     </tr>
     </thead>
-    <tbody id="defintions">
+    <tbody id="definitions">
     <% @lesson_word.definitions.each do |definition| %>
-        <%= render 'lesson_words/definition', definition: definition %>
+        <%= render 'lesson_words/definition', definition: definition, lesson_word: @lesson_word %>
     <% end %>
     </tbody>
   </table>
