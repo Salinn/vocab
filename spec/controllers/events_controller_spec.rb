@@ -54,7 +54,7 @@ RSpec.describe EventsController, type: :controller do
     it "assigns all events as @events" do
       event = Event.create! valid_attributes
       get :index, {course_id: event.lesson.course.id}, valid_session
-      expect(assigns(:events)).to eq([event])
+      expect(assigns(:events)).to eq(lesson.event)
     end
   end
 
