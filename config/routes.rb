@@ -43,8 +43,8 @@ Rails.application.routes.draw do
   resources :word_videos
   resources :words
 
-  #All the routes pertaining to users
-  devise_for :users, :controllers => { :registrations => 'registration' }
+  devise_for :users, :controllers => { :registrations => 'registration' }, :path_names => { :'sign_up.html.erb' => 'register'}
+  resources :users, :only => [:index, :show, :edit, :update, :new, :create ]
   resources :users_admin, :controller => 'users'
 
   post 'add_role' => 'users#add_role', as: :user_add_role

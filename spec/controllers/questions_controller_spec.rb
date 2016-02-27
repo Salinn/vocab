@@ -38,7 +38,6 @@ RSpec.describe QuestionsController, type: :controller do
   let(:invalid_attributes) {
     {
         question_string: 1,
-        lesson_module_id: nil,
         lesson_word_id: nil
     }
   }
@@ -137,6 +136,8 @@ RSpec.describe QuestionsController, type: :controller do
         expect(assigns(:question)).to eq(question)
       end
 
+
+      #TODO figure out if we need this or not with the modals
       it "re-renders the 'edit' template" do
         question = Question.create! valid_attributes
         put :update, {:id => question.to_param, :question => invalid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
@@ -159,5 +160,4 @@ RSpec.describe QuestionsController, type: :controller do
       expect(response).to redirect_to(course_lesson_lesson_module_questions_path(lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id))
     end
   end
-
 end

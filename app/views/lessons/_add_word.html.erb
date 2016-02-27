@@ -17,7 +17,7 @@
         </div>
         <div class="field">
           <%= lesson_word.label :word %><br>
-          <%= lesson_word.collection_select :word_id, @words, :id, :name %>
+          <%= lesson_word.collection_select :word_id, Word.all, :id, :name %>
         </div>
     <% end %>
     <div class="actions">
