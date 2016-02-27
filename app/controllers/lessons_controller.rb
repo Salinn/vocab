@@ -5,7 +5,8 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @course = Course.find(params[:course_id])
+    @lessons = @course.lessons
     @lesson_module = LessonModule.all
   end
 

@@ -17,6 +17,7 @@ class CourseEmailsController < ApplicationController
   # GET /course_emails/new
   def new
     @course_email = CourseEmail.new
+    @course = Course.find(params[:course_id])
   end
 
   # GET /course_emails/1/edit

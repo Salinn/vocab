@@ -4,7 +4,12 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all.includes(lesson: :course)
+    @course = Course.find(params[:course_id])
+    if @course.lessons.any?
+      @events = Event.all.includes(lesson: :course).find_by!(lesson_id: @course.lessons)
+    else
+      @events = []
+    end
   end
 
   # GET /events/1
