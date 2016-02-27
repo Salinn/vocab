@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "courses/index", type: :view do
   let!(:user) { FactoryGirl.create(:user) }
   before(:each) do
-    view.stub(:current_user).and_return(user)
+    allow(view).to receive_messages(:current_user => user)
     assign(:courses, [
       Course.create!(
         class_name: "Class Name",
