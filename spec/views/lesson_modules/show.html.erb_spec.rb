@@ -1,13 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "lesson_modules/show", type: :view do
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
   before(:each) do
     @lesson_module = assign(:lesson_module, LessonModule.create!(
                                               name: 'Definition',
                                               attempts: 3,
                                               in_use: true,
-                                              value_percentage: 30
+                                              value_percentage: 30,
+                                              lesson: lesson
     ))
+    @lesson = @lesson_module.lesson
+    @course = @lesson_module.lesson.course
   end
 
   it "renders attributes in <p>" do

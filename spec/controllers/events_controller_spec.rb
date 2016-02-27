@@ -24,7 +24,7 @@ RSpec.describe EventsController, type: :controller do
   # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
   let(:course) {FactoryGirl.create(:course)}
-  let(:lesson) {FactoryGirl.create(:lesson_no_call_backs)}
+  let(:lesson) {FactoryGirl.create(:lesson)}
   let(:valid_attributes) {
     {
         title: 'Event 1',
@@ -85,19 +85,19 @@ RSpec.describe EventsController, type: :controller do
     context "with valid params" do
       it "creates a new Event" do
         expect {
-          post :create, {:event => valid_attributes}, valid_session
-        }.to change(Event, :count).by(1)
+          post :create, {event: valid_attributes, course_id: lesson.course.id}, valid_session
+        }.to change(Event, :count).by(2)
       end
 
       it "assigns a newly created event as @event" do
-        post :create, {:event => valid_attributes}, valid_session
+        post :create, {event: valid_attributes, course_id: course.id}, valid_session
         expect(assigns(:event)).to be_a(Event)
         expect(assigns(:event)).to be_persisted
       end
 
       it "redirects to the created event" do
-        post :create, {:event => valid_attributes}, valid_session
-        expect(response).to redirect_to(course_event_path(Event.last, course_id: Event.last.course.id))
+        post :create, {event: valid_attributes, course_id: course.id}, valid_session
+        expect(response).to redirect_to(course_event_path(Event.last, course_id: course.id))
       end
     end
 

@@ -5,7 +5,8 @@ class LessonModulesController < ApplicationController
   # GET /lesson_modules
   # GET /lesson_modules.json
   def index
-    @lesson_module = LessonModule.all
+    @lesson_modules = LessonModule.all
+    @course = Course.find(params[:course_id])
     @lesson = Lesson.find(params[:lesson_id])
   end
 
@@ -67,6 +68,8 @@ class LessonModulesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson_module
       @lesson_module = LessonModule.find(params[:id])
+      @course = Course.find(params[:course_id])
+      @lesson = Lesson.find(params[:lesson_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

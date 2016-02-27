@@ -5,6 +5,7 @@ class LessonExtensionsController < ApplicationController
   # GET /lesson_extensions.json
   def index
     @lesson_extensions = LessonExtension.all
+    @course = Course.find(params[:course_id])
     @lesson = Lesson.find(params[:lesson_id])
   end
 
@@ -66,6 +67,8 @@ class LessonExtensionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson_extension
       @lesson_extension = LessonExtension.find(params[:id])
+      @course = Course.find(params[:course_id])
+      @lesson = Lesson.find(params[:lesson_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

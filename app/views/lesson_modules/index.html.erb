@@ -4,32 +4,30 @@
 
 <table>
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Attempts</th>
-      <th>In use</th>
-      <th>Value percentage</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Attempts</th>
+    <th>In use</th>
+    <th>Value percentage</th>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-  <% if false%>
-    <% @lesson_module.find_each do |lesson_module| %>
+  <% @lesson_modules.each do |lesson_module| %>
       <tr>
         <td><%= lesson_module.name %></td>
         <td><%= lesson_module.attempts %></td>
         <td><%= lesson_module.in_use %></td>
         <td><%= lesson_module.value_percentage %></td>
-        <td><%= link_to 'Show', lesson_module %></td>
-        <td><%= link_to 'Edit', edit_lesson_module_path(lesson_module) %></td>
-        <td><%= link_to 'Destroy', lesson_module, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', course_lesson_lesson_module_path(lesson_module, @course.id, lesson_id: @lesson.id) %></td>
+        <td><%= link_to 'Edit', edit_course_lesson_lesson_module_path(lesson_module, @course.id, lesson_id: @lesson.id) %></td>
+        <td><%= link_to 'Destroy', course_lesson_lesson_module_path(lesson_module, @course.id, lesson_id: @lesson.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
   <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Lesson module', new_course_lesson_lesson_module_path(lesson_id: @lesson.id, course_id: @lesson.course.id) %>
+<%= link_to 'New Lesson module', new_course_lesson_lesson_module_path(lesson_id: @lesson.id, course_id: @course.id) %>

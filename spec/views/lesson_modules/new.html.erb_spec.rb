@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "lesson_modules/new", type: :view do
-  let(:lesson) { FactoryGirl.create(:lesson) }
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
   before(:each) do
     assign(:lesson_module, LessonModule.new(
                              name: 'Definition',
@@ -10,12 +10,14 @@ RSpec.describe "lesson_modules/new", type: :view do
                              in_use: true,
                              value_percentage: 30
                          ))
+    @course = lesson.course
+    @lesson = lesson
   end
 
   it "renders new lesson_module form" do
     render
 
-    assert_select "form[action=?][method=?]", lesson_modules_path, "post" do
+    assert_select "form[action=?][method=?]", course_lesson_lesson_modules_path(course_id: @course.id, lesson_id: @lesson.id), "post" do
 
       assert_select "input#lesson_module_name[name=?]", "lesson_module[name]"
 
