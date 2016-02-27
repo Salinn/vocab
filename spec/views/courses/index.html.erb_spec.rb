@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "courses/index", type: :view do
+  let!(:user) { FactoryGirl.create(:user) }
   before(:each) do
+    view.stub(:current_user).and_return(user)
     assign(:courses, [
       Course.create!(
         class_name: "Class Name",
