@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
         format.html { redirect_to course_lesson_lesson_module_question_path(@question, lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
-        format.html { redirect_to @question.lesson_module, error: 'Question was not updated.' }
+        format.html { render :edit }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
