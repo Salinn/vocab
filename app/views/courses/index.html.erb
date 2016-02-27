@@ -18,9 +18,11 @@
         <td><%= course.class_name %></td>
         <td><%= course.start_date %></td>
         <td><%= course.end_date %></td>
-        <td><%= link_to 'Show', course %></td>
-        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if !current_user.has_role?(:teacher, :admin, :any) %>
+          <td><%= link_to 'Show', course %></td>
+          <td><%= link_to 'Edit', edit_course_path(course) %></td>
+          <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Course', new_course_path , class:"btn btn-primary"%>
+<%= link_to_if(can?(:create, Course), 'New Course', new_course_path , class:"btn btn-primary")%>
