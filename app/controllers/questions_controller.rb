@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     @questions = Question.all
+    @lesson_module = LessonModule.find(params[:lesson_module_id])
   end
 
   # GET /questions/1
@@ -28,7 +29,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to course_lesson_lesson_module_question_path(@question, lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new }
@@ -43,10 +44,10 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question.lesson_module, notice: 'Question was successfully updated.' }
+        format.html { redirect_to course_lesson_lesson_module_question_path(@question, lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
-        format.html { redirect_to @question.lesson_module, error: 'Question was not updated.' }
+        format.html { render :edit }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
@@ -57,7 +58,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to course_lesson_lesson_module_questions_path(lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

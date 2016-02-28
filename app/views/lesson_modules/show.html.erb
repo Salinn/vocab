@@ -18,5 +18,5 @@
   <%= @lesson_module.value_percentage %>
 </p>
 
-<%= link_to 'Edit', edit_lesson_module_path(@lesson_module) %> |
-<%= link_to 'Back', lesson_modules_path %>
+<%= link_to 'Edit', edit_course_lesson_lesson_module_path(@lesson_module, course_id: @course.id, lesson_id: @lesson.id) %> |
+<%= link_to 'Back', course_lesson_lesson_modules_path(course_id: @course.id, lesson_id: @lesson.id) %>

@@ -54,7 +54,7 @@
 <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
 <hr>
 
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
+<%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
 <%= link_to 'Back', @lesson.course %>
 
 <%= render 'layouts/dialog' %>

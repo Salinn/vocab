@@ -7,12 +7,14 @@ RSpec.describe "lesson_extensions/edit", type: :view do
       :lesson_id => lesson.id,
       :user => nil
     ))
+    @lesson = lesson
+    @course = lesson.course
   end
 
   it "renders the edit lesson_extension form" do
     render
 
-    assert_select "form[action=?][method=?]", lesson_extension_path(@lesson_extension), "post" do
+    assert_select "form[action=?][method=?]", course_lesson_lesson_extensions_path(course_id: @course.id, lesson_id: @lesson.id), "post" do
 
       assert_select "input#lesson_extension_lesson_id[name=?]", "lesson_extension[lesson_id]"
 
