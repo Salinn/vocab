@@ -71,6 +71,9 @@ group :development do
   #Helps find n+1 queries
   gem 'bullet'
 
+  #Helps make print out in rails console look better
+  gem 'awesome_print'
+
   #These 2 gems makes it a bit easier to debug issues when they occur
   #This occurs by stopping where the error occurs and giving you a terminial and info on what was going on
   gem 'better_errors', '1.0.1'

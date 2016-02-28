@@ -4,8 +4,9 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @course = Course.find(params[:course_id])
     @lesson_module = LessonModule.find(params[:lesson_module_id])
+    @questions = Question.includes(:lesson_module, answer_options: [lesson_word: :word]).where(lesson_module_id: @lesson_module.id)
   end
 
   # GET /questions/1
