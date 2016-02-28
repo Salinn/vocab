@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :lesson_words do
         resources :lesson_word_definitions
         resources :lesson_word_sentences
+        resources :lesson_word_synonyms
       end
       resources :lesson_extensions
 
