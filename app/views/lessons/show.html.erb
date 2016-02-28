@@ -30,7 +30,7 @@
 <hr>
 <p>Words In Lesson: </p>
     <% @lesson.lesson_words.each do |lesson_word| %>
-    <%= lesson_words_link(lesson_word) %>
+    <%= lesson_word %>
 <% end %>
 <hr><p>Add Word:</p>
 <%= render 'lessons/add_word' %>
@@ -38,6 +38,6 @@
 <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
 <hr>
 
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
+<%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
 <%= link_to 'Back', @lesson.course %>
 

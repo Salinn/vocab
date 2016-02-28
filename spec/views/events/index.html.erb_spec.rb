@@ -1,21 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe "events/index", type: :view do
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
   before(:each) do
     assign(:events, [
       Event.create!(
-        :title => "Event",
-        :description => "Event Description",
-        :start_time => DateTime.now,
-        :end_time => DateTime.now + 3.hours
+        title: "Event",
+        description: "Event Description",
+        start_time: DateTime.now,
+        end_time: DateTime.now + 3.hours,
+        lesson: lesson
       ),
       Event.create!(
-        :title => "Event",
-        :description => "Event Description",
-        :start_time => DateTime.now,
-        :end_time => DateTime.now + 3.hours
+          title: "Event",
+          description: "Event Description",
+          start_time: DateTime.now,
+          end_time: DateTime.now + 3.hours,
+          lesson: lesson
       )
     ])
+    @course = lesson.course
   end
 
   it "renders a list of events" do

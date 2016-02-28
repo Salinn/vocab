@@ -3,7 +3,7 @@
   <ul id="resource" class="collapse panel-collapse">
     <li><%= link_to 'Syllabus <i class="sub_icon glyphicon glyphicon-road"></i>'.html_safe, course_syllabus_path(@course), class: 'sub_link' %></li>
     <li><%= link_to 'Course Description <i class="sub_icon glyphicon glyphicon-book"></i>'.html_safe, course_description_path(@course), class: 'sub_link' %></li>
-    <li><%= link_to 'Schedule <i class="sub_icon glyphicon glyphicon glyphicon-calendar"></i>'.html_safe, '#', class: 'sub_link' %></li>
+    <li><%= link_to 'Schedule <i class="sub_icon glyphicon glyphicon glyphicon-calendar"></i>'.html_safe, course_events_path(@course), class: 'sub_link' %></li>
   </ul>
 </li>
 <li>
@@ -14,7 +14,4 @@
 </li>
 <li>
   <%= link_to 'Grade Book <i class="sub_icon glyphicon glyphicon-inbox"></i>'.html_safe, course_gradebook_course_path(@course)  %>
-</li>
-<li>
-  <%= link_to 'Reports <i class="sub_icon glyphicon glyphicon glyphicon-list-alt"></i>'.html_safe, '#'  %>
 </li>

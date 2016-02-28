@@ -15,6 +15,8 @@ RSpec.describe "lesson_extensions/index", type: :view do
         extension_date: DateTime.now
       )
     ])
+    @lesson = lesson
+    @course = lesson.course
   end
 
   it "renders a list of lesson_extensions" do

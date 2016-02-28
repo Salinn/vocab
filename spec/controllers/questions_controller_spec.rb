@@ -23,6 +23,8 @@ RSpec.describe QuestionsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Question. As you add validations to Question, be sure to
   # adjust the attributes here as well.
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
+  let (:course) { FactoryGirl.create(:course)}
   let (:lesson_module){ FactoryGirl.create(:lesson_module) }
   let (:lesson_word){ FactoryGirl.create(:lesson_word_no_call_backs) }
   let(:valid_attributes) {
@@ -51,7 +53,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #index" do
     it "assigns all questions as @questions" do
       question = Question.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {:question => valid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
       expect(assigns(:questions)).to eq([question])
     end
   end
@@ -59,14 +61,14 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested question as @question" do
       question = Question.create! valid_attributes
-      get :show, {:id => question.to_param}, valid_session
+      get :show, {:id => question.to_param, :question => valid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
       expect(assigns(:question)).to eq(question)
     end
   end
 
   describe "GET #new" do
     it "assigns a new question as @question" do
-      get :new, {}, valid_session
+      get :new, {lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
       expect(assigns(:question)).to be_a_new(Question)
     end
   end
@@ -74,7 +76,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested question as @question" do
       question = Question.create! valid_attributes
-      get :edit, {:id => question.to_param}, valid_session
+      get :edit, {:id => question.to_param, :question => valid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
       expect(assigns(:question)).to eq(question)
     end
   end
@@ -83,30 +85,30 @@ RSpec.describe QuestionsController, type: :controller do
     context "with valid params" do
       it "creates a new Question" do
         expect {
-          post :create, {:question => valid_attributes}, valid_session
+          post :create, {:question => valid_attributes, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         }.to change(Question, :count).by(1)
       end
 
       it "assigns a newly created question as @question" do
-        post :create, {:question => valid_attributes}, valid_session
+        post :create, {:question => valid_attributes, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         expect(assigns(:question)).to be_a(Question)
         expect(assigns(:question)).to be_persisted
       end
 
       it "redirects to the created question" do
-        post :create, {:question => valid_attributes}, valid_session
-        expect(response).to redirect_to(Question.last)
+        post :create, {:question => valid_attributes, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
+        expect(response).to redirect_to(course_lesson_lesson_module_question_path(Question.last, lesson_module_id: Question.last.lesson_module, lesson_id: Question.last.lesson_module.lesson.id, course_id: Question.last.lesson_module.lesson.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved question as @question" do
-        post :create, {:question => invalid_attributes}, valid_session
+        post :create, {:question => invalid_attributes, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         expect(assigns(:question)).to be_a_new(Question)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:question => invalid_attributes}, valid_session
+        post :create, {:question => invalid_attributes, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -116,21 +118,21 @@ RSpec.describe QuestionsController, type: :controller do
     context "with valid params" do
       it "assigns the requested question as @question" do
         question = Question.create! valid_attributes
-        put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
-        #expect(assigns(question.lesson_module)).to eq(question.lesson_module)
+        put :update, {:id => question.to_param, :question => valid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
+        expect(assigns(:question)).to eq(question)
       end
 
       it "redirects to the question" do
         question = Question.create! valid_attributes
-        put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
-        expect(response).to redirect_to(question.lesson_module)
+        put :update, {:id => question.to_param, :question => valid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
+        expect(response).to redirect_to(course_lesson_lesson_module_question_path(question, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns the question as @question" do
         question = Question.create! valid_attributes
-        put :update, {:id => question.to_param, :question => invalid_attributes}, valid_session
+        put :update, {:id => question.to_param, :question => invalid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
         expect(assigns(:question)).to eq(question)
       end
 
@@ -138,9 +140,8 @@ RSpec.describe QuestionsController, type: :controller do
       #TODO figure out if we need this or not with the modals
       it "re-renders the 'edit' template" do
         question = Question.create! valid_attributes
-        put :update, {:id => question.to_param, :question => invalid_attributes}, valid_session
-        skip
-        expect(response).to render_template(question)
+        put :update, {:id => question.to_param, :question => invalid_attributes, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
+        expect(response).to render_template("edit")
       end
     end
   end
@@ -149,15 +150,14 @@ RSpec.describe QuestionsController, type: :controller do
     it "destroys the requested question" do
       question = Question.create! valid_attributes
       expect {
-        delete :destroy, {:id => question.to_param}, valid_session
+        delete :destroy, {:id => question.to_param, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
       }.to change(Question, :count).by(-1)
     end
 
     it "redirects to the questions list" do
       question = Question.create! valid_attributes
-      delete :destroy, {:id => question.to_param}, valid_session
-      expect(response).to redirect_to(questions_url)
+      delete :destroy, {:id => question.to_param, lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id}, valid_session
+      expect(response).to redirect_to(course_lesson_lesson_module_questions_path(lesson_module_id: question.lesson_module, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id))
     end
   end
-
 end
