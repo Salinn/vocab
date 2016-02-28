@@ -1,4 +1,4 @@
-<%= form_for(@lesson_word, remote: true, :html => { :role => "form" }) do |f| %>
+<%= form_for(@lesson_word, url: course_lesson_lesson_words_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, :html => { :role => "form" }) do |f| %>
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">

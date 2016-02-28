@@ -47,7 +47,7 @@
 </table>
 <hr><p>Add Word:</p>
 <div class="well">
-  <%= link_to "Add Lesson Word", new_lesson_word_path(lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
+  <%= link_to "Add Lesson Word", new_course_lesson_lesson_word_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
 </div>
 <%# render 'lessons/add_word' %>
 <hr>

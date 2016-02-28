@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
     #All the routes under course/:id/lessons
     resources :lessons do
-      resources :lesson_words
+      resources :lesson_words do
+        resources :lesson_word_definitions
+        resources :lesson_word_sentences
+      end
       resources :lesson_extensions
 
       #All the routes under course/:id/lessons/:id/lesson_modules

@@ -1,5 +1,5 @@
 <% lesson_word_definition = LessonWordDefinition.new %>
-<%= form_for(lesson_word_definition, remote: true, :html => { :role => "form" }) do |f| %>
+<%= form_for(lesson_word_definition, url: course_lesson_lesson_word_lesson_word_definitions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_word_id: @lesson_word), remote: true, :html => { :role => "form" }) do |f| %>
     <div class="field">
       <%= f.hidden_field :lesson_word_id, value: lesson_word.id %>
     </div>
