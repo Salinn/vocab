@@ -1,19 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Lesson module:</strong>
-  <%= @question.lesson_module %>
-</p>
-
-<p>
-  <strong>Lesson word:</strong>
-  <%= @question.lesson_word %>
-</p>
-
-<p>
-  <strong>Correct choice:</strong>
-  <%= @question.correct_choice %>
-</p>
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<% @lesson_module.questions.each do |question| %>
+    <% if question.correct?(current_user.id)  %>
+        <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+            <div class="green circle" id="question_<%= question.id %>"></div>
+        <% end %>
+    <% elsif question.wrong?(current_user.id) %>
+        <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+            <div class="red circle" id="question_<%= question.id %>"></div>
+        <% end %>
+    <% else %>
+        <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+            <div class="circle" id="question_<%= question.id %>"></div>
+        <% end %>
+    <% end %>
+<% end %>
+<h2><b>Please read the following question and answer accordingly</b></h2>
+<h3>Q: <%= @question.question_string %></h3>
+<%= render 'answers/form', question: @question %>

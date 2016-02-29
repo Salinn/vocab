@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   def index
     @course = Course.find(params[:course_id])
     @lesson_module = LessonModule.find(params[:lesson_module_id])
-    @questions = Question.includes(:lesson_module, answer_options: [lesson_word: :word]).where(lesson_module_id: @lesson_module.id)
+    @questions = Question.includes(:lesson_module).where(lesson_module_id: @lesson_module.id)
   end
 
   # GET /questions/1
@@ -67,7 +67,9 @@ class QuestionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
-      @question = Question.find(params[:id])
+      @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:id])
+      @course = Course.find(params[:course_id])
+      @lesson_module = LessonModule.find(params[:lesson_module_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

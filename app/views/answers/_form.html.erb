@@ -3,8 +3,6 @@
     <%= f.hidden_field :question_id, value: question.id %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :time_to_complete, value: 1 %>
-
-    <%= label_tag :answer_options %><br>
     <% question.answer_options.each do |option| %>
         <h5>
           <%= radio_button_tag :answer_option_id, option.id %>

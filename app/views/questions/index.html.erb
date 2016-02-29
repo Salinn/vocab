@@ -1,5 +1,17 @@
 <% @questions.each do |question| %>
-    <h2><b>Please read the following question and answer accordingly</b></h2>
-    <h3>Q: <%= question.question_string %></h3>
-    <%= render 'answers/form', question: question %>
+    <% if question.correct?(current_user.id)  %>
+        <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+            <div class="green" id="circle"></div>
+        <% end %>
+    <% elsif question.wrong?(current_user.id) %>
+        <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+            <div class="red" id="circle"></div>
+        <% end %>
+    <% else %>
+        <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+            <div id="circle"></div>
+        <% end %>
+    <% end %>
 <% end %>
+<br>
+<%= link_to 'Begin Quiz', course_lesson_lesson_module_question_path(@questions.first, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) %>

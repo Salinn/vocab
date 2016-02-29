@@ -108,4 +108,22 @@ class Question < ActiveRecord::Base
     lesson_words.push(lesson_word.sentences.first.id)
     lesson_words.shuffle!
   end
+
+  def correct?(user_id)
+    user_answers = answers.where(user_id: user_id)
+    user_answers.each do |user_answer|
+      return true if user_answer.correct
+    end
+    false
+  end
+
+  def wrong?(user_id)
+    user_answers = answers.where(user_id: user_id)
+    if user_answers.length > lesson_module.attempts
+      user_answers.each do |user_answer|
+        return true if user_answer.correct
+      end
+    end
+    false
+  end
 end

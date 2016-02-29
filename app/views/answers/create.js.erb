@@ -1,0 +1,9 @@
+<% if @answer.correct? %>
+  $("#answer_option_id_<%= @answer.answer_option_id %>").parent().css("background-color", "green");
+  $("#question_<%= @answer.question.id %>").addClass("green");
+<% elsif @answer.question.answers.where(user_id: current_user.id).length >= @answer.question.lesson_module.attempts %>
+  $("#answer_option_id_<%= @answer.answer_option_id %>").parent().css("background-color", "red");
+  $("#question_<%= @answer.question.id %>").addClass("red");
+<% else %>
+  $("#answer_option_id_<%= @answer.answer_option_id %>").parent().css("background-color", "red");
+<% end %>
