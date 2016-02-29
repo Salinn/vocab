@@ -11,12 +11,13 @@ RSpec.describe "course_emails/edit", type: :view do
       :title => "MyString",
       :content => "MyText is long"
     ))
+    @course = course
   end
 
   it "renders the edit course_email form" do
     render
 
-    assert_select "form[action=?][method=?]", course_email_path(@course_email), "post" do
+    assert_select "form[action=?][method=?]", course_course_emails_path(course_id: course.id), "post" do
 
       assert_select "input#course_email_course_id[name=?]", "course_email[course_id]"
 

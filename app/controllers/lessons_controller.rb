@@ -1,20 +1,20 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson, only: [:edit, :update, :destroy]
   load_and_authorize_resource
 
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @course = Course.find(params[:course_id])
+    @lessons = @course.lessons
     @lesson_module = LessonModule.all
   end
 
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @words = Word.all
+    @lesson = Lesson.includes(lesson_words: :word).find(params[:id])
     @lesson.lesson_words.build
-    @lesson_module = LessonModule.all
   end
 
   # GET /lessons/new
@@ -36,7 +36,7 @@ class LessonsController < ApplicationController
     @lesson = course.lessons.create(lesson_params)
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to course_lesson_path(@lesson,  course_id: @lesson.course.id), notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
     @lesson_module = LessonModule.all
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to course_lesson_path(@lesson,  course_id: @lesson.course.id), notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
         format.html { render :edit }
@@ -66,7 +66,7 @@ class LessonsController < ApplicationController
     @lesson_module = LessonModule.all
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to course_lessons_path(course_id: @lesson.course.id), notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

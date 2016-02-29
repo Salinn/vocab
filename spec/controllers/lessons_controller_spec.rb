@@ -55,7 +55,7 @@ RSpec.describe LessonsController, type: :controller do
   describe "GET #index" do
     it "assigns all lessons as @lessons" do
       lesson = Lesson.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {course_id: course.id}, valid_session
       expect(assigns(:lessons)).to eq([lesson])
     end
   end
@@ -63,7 +63,7 @@ RSpec.describe LessonsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested lesson as @lesson" do
       lesson = Lesson.create! valid_attributes
-      get :show, {:id => lesson.to_param}, valid_session
+      get :show, {:id => lesson.to_param, course_id: course.id}, valid_session
       expect(assigns(:lesson)).to eq(lesson)
     end
   end
@@ -99,7 +99,7 @@ RSpec.describe LessonsController, type: :controller do
 
       it "redirects to the created lesson" do
         post :create, {:lesson => valid_attributes, course_id: course.id}, valid_session
-        expect(response).to redirect_to(Lesson.last)
+        expect(response).to redirect_to(course_lesson_path(Lesson.last,  course_id: Lesson.last.course.id))
       end
     end
 
@@ -126,34 +126,34 @@ RSpec.describe LessonsController, type: :controller do
 
       it "updates the requested lesson" do
         lesson = Lesson.create! valid_attributes
-        put :update, {:id => lesson.to_param, :lesson => new_attributes}, valid_session
+        put :update, {:id => lesson.to_param, :lesson => new_attributes, course_id: course.id}, valid_session
         lesson.reload
         expect(assigns(:lesson).attributes.symbolize_keys[:lesson_name]).to eq(new_attributes[:lesson_name])
       end
 
       it "assigns the requested lesson as @lesson" do
         lesson = Lesson.create! valid_attributes
-        put :update, {:id => lesson.to_param, :lesson => valid_attributes}, valid_session
+        put :update, {:id => lesson.to_param, :lesson => valid_attributes, course_id: course.id}, valid_session
         expect(assigns(:lesson)).to eq(lesson)
       end
 
       it "redirects to the lesson" do
         lesson = Lesson.create! valid_attributes
-        put :update, {:id => lesson.to_param, :lesson => valid_attributes}, valid_session
-        expect(response).to redirect_to(lesson)
+        put :update, {:id => lesson.to_param, :lesson => valid_attributes, course_id: course.id}, valid_session
+        expect(response).to redirect_to(course_lesson_path(lesson, course_id: course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns the lesson as @lesson" do
         lesson = Lesson.create! valid_attributes
-        put :update, {:id => lesson.to_param, :lesson => invalid_attributes}, valid_session
+        put :update, {:id => lesson.to_param, :lesson => invalid_attributes, course_id: course.id}, valid_session
         expect(assigns(:lesson)).to eq(lesson)
       end
 
       it "re-renders the 'edit' template" do
         lesson = Lesson.create! valid_attributes
-        put :update, {:id => lesson.to_param, :lesson => invalid_attributes}, valid_session
+        put :update, {:id => lesson.to_param, :lesson => invalid_attributes, course_id: course.id}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -163,14 +163,14 @@ RSpec.describe LessonsController, type: :controller do
     it "destroys the requested lesson" do
       lesson = Lesson.create! valid_attributes
       expect {
-        delete :destroy, {:id => lesson.to_param}, valid_session
+        delete :destroy, {:id => lesson.to_param, course_id: course.id}, valid_session
       }.to change(Lesson, :count).by(-1)
     end
 
     it "redirects to the lessons list" do
       lesson = Lesson.create! valid_attributes
-      delete :destroy, {:id => lesson.to_param}, valid_session
-      expect(response).to redirect_to(lessons_url)
+      delete :destroy, {:id => lesson.to_param, course_id: course.id}, valid_session
+      expect(response).to redirect_to(course_lessons_path(course_id: course.id))
     end
   end
 

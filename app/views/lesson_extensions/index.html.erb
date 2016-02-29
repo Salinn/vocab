@@ -18,9 +18,9 @@
         <td><%= lesson_extension.lesson.id %></td>
         <td><%= lesson_extension.user %></td>
         <td><%= lesson_extension.extension_date %></td>
-        <td><%= link_to 'Show', lesson_extension %></td>
-        <td><%= link_to 'Edit', edit_lesson_extension_path(lesson_extension) %></td>
-        <td><%= link_to 'Destroy', lesson_extension, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id) %></td>
+        <td><%= link_to 'Edit', edit_course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id) %></td>
+        <td><%= link_to 'Destroy', course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Lesson extension', new_lesson_extension_path %>
+<%= link_to 'New Lesson extension', new_course_lesson_lesson_extension_path(lesson_id: @lesson.id, course_id: @course.id ) %>

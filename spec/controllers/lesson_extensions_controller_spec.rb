@@ -25,6 +25,7 @@ RSpec.describe LessonExtensionsController, type: :controller do
   # adjust the attributes here as well.
   let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
   let (:lesson_update){ FactoryGirl.create(:lesson_no_call_backs) }
+  let(:course) { FactoryGirl.create(:course)}
   let(:valid_attributes) {
     {
         lesson_id: lesson.id
@@ -45,7 +46,7 @@ RSpec.describe LessonExtensionsController, type: :controller do
   describe "GET #index" do
     it "assigns all lesson_extensions as @lesson_extensions" do
       lesson_extension = LessonExtension.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
       expect(assigns(:lesson_extensions)).to eq([lesson_extension])
     end
   end
@@ -53,14 +54,14 @@ RSpec.describe LessonExtensionsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested lesson_extension as @lesson_extension" do
       lesson_extension = LessonExtension.create! valid_attributes
-      get :show, {:id => lesson_extension.to_param}, valid_session
+      get :show, {:id => lesson_extension.to_param, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
       expect(assigns(:lesson_extension)).to eq(lesson_extension)
     end
   end
 
   describe "GET #new" do
     it "assigns a new lesson_extension as @lesson_extension" do
-      get :new, {}, valid_session
+      get :new, { course_id: course.id, lesson_id: lesson.id}, valid_session
       expect(assigns(:lesson_extension)).to be_a_new(LessonExtension)
     end
   end
@@ -68,7 +69,7 @@ RSpec.describe LessonExtensionsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested lesson_extension as @lesson_extension" do
       lesson_extension = LessonExtension.create! valid_attributes
-      get :edit, {:id => lesson_extension.to_param}, valid_session
+      get :edit, {:id => lesson_extension.to_param, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
       expect(assigns(:lesson_extension)).to eq(lesson_extension)
     end
   end
@@ -77,30 +78,30 @@ RSpec.describe LessonExtensionsController, type: :controller do
     context "with valid params" do
       it "creates a new LessonExtension" do
         expect {
-          post :create, {:lesson_extension => valid_attributes}, valid_session
+          post :create, {:lesson_extension => valid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
         }.to change(LessonExtension, :count).by(1)
       end
 
       it "assigns a newly created lesson_extension as @lesson_extension" do
-        post :create, {:lesson_extension => valid_attributes}, valid_session
+        post :create, {:lesson_extension => valid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
         expect(assigns(:lesson_extension)).to be_a(LessonExtension)
         expect(assigns(:lesson_extension)).to be_persisted
       end
 
       it "redirects to the created lesson_extension" do
-        post :create, {:lesson_extension => valid_attributes}, valid_session
-        expect(response).to redirect_to(LessonExtension.last)
+        post :create, {:lesson_extension => valid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
+        expect(response).to redirect_to(course_lesson_lesson_extension_path(LessonExtension.last, lesson_id: LessonExtension.last.lesson.id, course_id: LessonExtension.last.lesson.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved lesson_extension as @lesson_extension" do
-        post :create, {:lesson_extension => invalid_attributes}, valid_session
+        post :create, {:lesson_extension => invalid_attributes,  course_id: course.id, lesson_id: lesson.id}, valid_session
         expect(assigns(:lesson_extension)).to be_a_new(LessonExtension)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:lesson_extension => invalid_attributes}, valid_session
+        post :create, {:lesson_extension => invalid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -116,34 +117,34 @@ RSpec.describe LessonExtensionsController, type: :controller do
 
       it "updates the requested lesson_extension" do
         lesson_extension = LessonExtension.create! valid_attributes
-        put :update, {:id => lesson_extension.to_param, :lesson_extension => new_attributes}, valid_session
+        put :update, {:id => lesson_extension.to_param, :lesson_extension => new_attributes, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
         lesson_extension.reload
         expect(assigns(:lesson_extension).attributes.symbolize_keys[:extension_date]).to eq(new_attributes[:extension_date])
       end
 
       it "assigns the requested lesson_extension as @lesson_extension" do
         lesson_extension = LessonExtension.create! valid_attributes
-        put :update, {:id => lesson_extension.to_param, :lesson_extension => valid_attributes}, valid_session
+        put :update, {:id => lesson_extension.to_param, :lesson_extension => valid_attributes, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
         expect(assigns(:lesson_extension)).to eq(lesson_extension)
       end
 
       it "redirects to the lesson_extension" do
         lesson_extension = LessonExtension.create! valid_attributes
-        put :update, {:id => lesson_extension.to_param, :lesson_extension => valid_attributes}, valid_session
-        expect(response).to redirect_to(lesson_extension)
+        put :update, {:id => lesson_extension.to_param, :lesson_extension => valid_attributes, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
+        expect(response).to redirect_to(course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns the lesson_extension as @lesson_extension" do
         lesson_extension = LessonExtension.create! valid_attributes
-        put :update, {:id => lesson_extension.to_param, :lesson_extension => invalid_attributes}, valid_session
+        put :update, {:id => lesson_extension.to_param, :lesson_extension => invalid_attributes, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
         expect(assigns(:lesson_extension)).to eq(lesson_extension)
       end
 
       it "re-renders the 'edit' template" do
         lesson_extension = LessonExtension.create! valid_attributes
-        put :update, {:id => lesson_extension.to_param, :lesson_extension => invalid_attributes}, valid_session
+        put :update, {:id => lesson_extension.to_param, :lesson_extension => invalid_attributes, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -153,14 +154,14 @@ RSpec.describe LessonExtensionsController, type: :controller do
     it "destroys the requested lesson_extension" do
       lesson_extension = LessonExtension.create! valid_attributes
       expect {
-        delete :destroy, {:id => lesson_extension.to_param}, valid_session
+        delete :destroy, {:id => lesson_extension.to_param, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
       }.to change(LessonExtension, :count).by(-1)
     end
 
     it "redirects to the lesson_extensions list" do
       lesson_extension = LessonExtension.create! valid_attributes
-      delete :destroy, {:id => lesson_extension.to_param}, valid_session
-      expect(response).to redirect_to(lesson_extensions_url)
+      delete :destroy, {:id => lesson_extension.to_param, course_id: lesson_extension.lesson.course.id, lesson_id: lesson_extension.lesson.id}, valid_session
+      expect(response).to redirect_to(course_lesson_lesson_extensions_path(lesson: lesson_extension.lesson, course: lesson_extension.lesson.course))
     end
   end
 
