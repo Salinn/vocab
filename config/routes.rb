@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :lesson_modules do
         resources :questions do
           resources :answers
+          get 'skip'
         end
       end
     end

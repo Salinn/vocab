@@ -4,12 +4,12 @@
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :time_to_complete, value: 1 %>
     <% question.answer_options.each do |option| %>
-        <h5>
-          <%= radio_button_tag :answer_option_id, option.id %>
+        <h5 class="<%= answer_option_words(@question, option) %>">
+          <%= f.radio_button :answer_option_id, option.id %>
           <%= label_tag(:answer_options, option.lesson_word.word.name) %>
         </h5>
     <% end %>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit "Checkout", data: { disable_with: "Please wait..." } %>
     </div>
 <% end %>

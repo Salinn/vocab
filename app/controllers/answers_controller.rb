@@ -36,6 +36,7 @@ class AnswersController < ApplicationController
         format.html { redirect_to course_lesson_lesson_module_question_answer_path(@answer, question_id: @answer.question.id, lesson_module_id: @answer.question.lesson_module.id, lesson_id: @answer.question.lesson_module.lesson.id, course_id: @answer.question.lesson_module.lesson.course.id), notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
       else
+        format.js
         format.html { render :new }
         format.json { render json: @answer.errors, status: :unprocessable_entity }
       end

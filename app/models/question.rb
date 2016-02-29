@@ -111,19 +111,13 @@ class Question < ActiveRecord::Base
 
   def correct?(user_id)
     user_answers = answers.where(user_id: user_id)
-    user_answers.each do |user_answer|
-      return true if user_answer.correct
-    end
+    return true if user_answers.any? { |answer| answer.correct? }
     false
   end
 
   def wrong?(user_id)
     user_answers = answers.where(user_id: user_id)
-    if user_answers.length > lesson_module.attempts
-      user_answers.each do |user_answer|
-        return true if user_answer.correct
-      end
-    end
+    return true if user_answers.length >= lesson_module.attempts && !user_answers.any? { |answer| answer.correct? }
     false
   end
 end
