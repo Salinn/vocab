@@ -65,7 +65,12 @@ group :development, :test do
   gem 'database_cleaner'
 
   #used for security testing
-  gem 'brakeman'
+  gem 'brakeman', :require => false
+  gem 'dawnscanner', require: false
+
+  #used to format rspec results for easy viewing, especially on CI
+  gem 'rspec_junit_formatter'
+
 end
 
 group :development do
