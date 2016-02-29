@@ -61,7 +61,11 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 
+  #used for cleaning database between tests
   gem 'database_cleaner'
+
+  #used for security testing
+  gem 'brakeman', :require => false
 end
 
 group :development do
