@@ -79,8 +79,17 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def update_words_picked(lesson_words, lesson_word)
+    while lesson_words.include?(lesson_word.id) && lesson_words.uniq.length == lesson_words.length
+      lesson_words.delete(lesson_word.id)
+      lesson_words.push(lesson_module.lesson.lesson_words.pluck(:id).shuffle.first)
+    end
+    lesson_words
+  end
+
   def pick_words
     lesson_words = lesson_module.lesson.lesson_words.pluck(:id).shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = update_words_picked(lesson_words, lesson_word) if lesson_words.include?(lesson_word.id)
     lesson_words.push(lesson_word.id)
     lesson_words.shuffle!
   end

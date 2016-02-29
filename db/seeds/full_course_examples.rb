@@ -61,17 +61,28 @@ lesson_end_date = start_date + 7.days
     #Creates the Questions and AnswerOptions by setting each lesson module to true
     puts "Turing on lesson Modules"
     lesson.lesson_modules.each do |lesson_module|
+      puts "Turning on lesson_module: #{lesson_module.id}"
       lesson_module.update_attributes(in_use: true)
     end
+    puts "finished lesson: #{lesson.id}"
   end
+  puts "finished course besides answers, course: #{course.id}"
 
 #Create Answers
+  skipped = 0
   course.lessons.each do |lesson|
+    puts "start lesson: #{lesson.id}"
     lesson.lesson_modules.each do |lesson_module|
+      puts "start lesson_module: #{lesson_module.id}"
       lesson_module.questions.each do |question|
+        puts "question: #{question.id}"
         User.with_role(:student, course).each do |user|
           (0...lesson_module.attempts).each do
             answer_options = question.answer_options.pluck(:id)
+            if answer_options.empty?
+              skipped += 1
+              next
+            end
             is_true = (rand(2) == 1 ? true : false)
             time = rand(3...25)
             answer_picked = answer_options[rand(0...3)]
@@ -83,6 +94,8 @@ lesson_end_date = start_date + 7.days
       puts "Created Answers For #{course.class_name} #{lesson.lesson_name}, module #{lesson_module.name}"
     end
     puts "Finished creating answers for #{lesson.lesson_name}"
+    puts "-----------------------------"
+    puts "Total Skipped: #{skipped}"
   end
   puts "Finished creating answers for Course #{course.class_name}"
 end
