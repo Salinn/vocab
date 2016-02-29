@@ -11,7 +11,7 @@
     <%= link_to 'Email Class <i class="sub_icon glyphicon glyphicon glyphicon-envelope"></i>'.html_safe, course_email_class_path(@course), data: { no_turbolink: true } %>
   </li>
 <% end %>
-<% if can?(:manage_student, Course) %>
+<% if can?(:manage_students, Course) %>
   <li>
     <%= link_to 'Manage Students <i class="sub_icon glyphicon glyphicon glyphicon glyphicon-th-list"></i>'.html_safe, course_manage_students_path(@course) %>
   </li>
