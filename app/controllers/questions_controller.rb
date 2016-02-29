@@ -66,10 +66,12 @@ class QuestionsController < ApplicationController
   end
 
   def skip
+    #TODO improve these queries
     questions = []
     all_questions = Question.where(lesson_module_id: @lesson_module.id)
     all_questions.each do |question|
-      questions.push(question) if (question.id == @question.id) || (!question.answers.where(user_id: current_user.id).any? { |answer| answer.correct? } && question.answers.where(user_id: current_user.id).length < question.lesson_module.attempts )
+      answers = question.answers.where(user_id: current_user.id)
+      questions.push(question) if (question.id == @question.id) || (!answers.any? { |answer| answer.correct? } && answers.length < question.lesson_module.attempts )
     end
     redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'This is the only question left' and return if questions.length == 1
     questions.each_with_index do |question, index|
