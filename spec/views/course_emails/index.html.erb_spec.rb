@@ -18,6 +18,7 @@ RSpec.describe "course_emails/index", type: :view do
         :content => "MyText is long"
       )
     ])
+    @course = course
   end
 
   it "renders a list of course_emails" do

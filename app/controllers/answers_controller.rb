@@ -5,6 +5,7 @@ class AnswersController < ApplicationController
   # GET /answers.json
   def index
     @answers = Answer.all
+    @question = Question.find(params[:question_id])
   end
 
   # GET /answers/1
@@ -28,7 +29,7 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
-        format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
+        format.html { redirect_to course_lesson_lesson_module_question_answer_path(@answer, question_id: @answer.question.id, lesson_module_id: @answer.question.lesson_module.id, lesson_id: @answer.question.lesson_module.lesson.id, course_id: @answer.question.lesson_module.lesson.course.id), notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class AnswersController < ApplicationController
   def update
     respond_to do |format|
       if @answer.update(answer_params)
-        format.html { redirect_to @answer, notice: 'Answer was successfully updated.' }
+        format.html { redirect_to course_lesson_lesson_module_question_answer_path(@answer, question_id: @answer.question.id, lesson_module_id: @answer.question.lesson_module.id, lesson_id: @answer.question.lesson_module.lesson.id, course_id: @answer.question.lesson_module.lesson.course.id), notice: 'Answer was successfully updated.' }
         format.json { render :show, status: :ok, location: @answer }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class AnswersController < ApplicationController
   def destroy
     @answer.destroy
     respond_to do |format|
-      format.html { redirect_to answers_url, notice: 'Answer was successfully destroyed.' }
+      format.html { redirect_to course_lesson_lesson_module_question_answers_path(question: @answer.question, lesson_module_id: @answer.question.lesson_module, lesson_id: @answer.question.lesson_module.lesson.id, course_id: @answer.question.lesson_module.lesson.course.id), notice: 'Answer was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

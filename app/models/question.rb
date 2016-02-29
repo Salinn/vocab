@@ -25,6 +25,8 @@ class Question < ActiveRecord::Base
   end
 
   def create_answer_options
+    return if lesson_module.lesson.lesson_words.length < lesson_module.number_of_answers
+    lesson_words = pick_words
     #TODO set answer_option_id
     if question_string =~ /Study the Word/
       question_type = question_string.split('-').last.strip

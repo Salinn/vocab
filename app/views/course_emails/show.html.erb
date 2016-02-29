@@ -15,5 +15,5 @@
   <%= @course_email.content %>
 </p>
 
-<%= link_to 'Edit', edit_course_email_path(@course_email) %> |
-<%= link_to 'Back', course_emails_path %>
+<%= link_to 'Edit', edit_course_course_email_path(@course_email, course_id: @course_email.course.id) %> |
+<%= link_to 'Back', course_course_emails_path(course_id: @course_email.course.id) %>
