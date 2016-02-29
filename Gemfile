@@ -65,7 +65,7 @@ group :development, :test do
   gem 'database_cleaner'
 
   #used for security testing
-  gem 'brakeman', :require => false
+  gem 'brakeman'
 end
 
 group :development do
