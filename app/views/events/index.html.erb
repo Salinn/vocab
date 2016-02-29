@@ -29,9 +29,9 @@
 </table>
 
 <br>
-
+<% if can?(:create, @course) %>
 <%= link_to 'New Event', new_course_event_path(course_id: @course.id) %>
-
+<% end %>
 <br>
 
 <div id="calendar">
