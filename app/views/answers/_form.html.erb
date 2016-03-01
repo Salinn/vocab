@@ -5,7 +5,7 @@
       <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.hidden_field :time_to_complete, value: 1 %>
       <% question.answer_options.each do |option| %>
-          <h5 class="<%= answer_option_words(correct, wrong) %>">
+          <h5 class="<%= answer_option_words(question.answer_options_id, option.id) if (correct || wrong) %>">
             <%= f.radio_button :answer_option_id, option.id %>
             <%= f.label :answer_option_id, option.lesson_word.word.name, value: option.id %>
           </h5>
