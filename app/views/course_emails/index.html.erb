@@ -28,4 +28,6 @@
 
 <br>
 
+<% if can?(:email_class, @course) %>
 <%= link_to 'New Course email', new_course_course_email_path(course_id: @course) %>
+<% end %>
