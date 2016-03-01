@@ -1,15 +1,15 @@
 module AnswersHelper
-  def answer_option_words(question, option)
+  def answer_option_words(correct, wrong)
     classes = ''
-    classes = 'green' if question.wrong?(current_user.id) && question.lesson_word_id == option.lesson_word_id
-    classes = 'green' if question.correct?(current_user.id) && question.lesson_word_id == option.lesson_word_id
+    classes = 'green' if correct
+    classes = 'green' if wrong
     classes
   end
 
-  def question_title(question)
+  def question_title(correct, wrong)
     classes = ''
-    classes = 'red' if question.wrong?(current_user.id)
-    classes = 'green' if question.correct?(current_user.id)
+    classes = 'red' if correct
+    classes = 'green' if wrong
     classes
   end
 end

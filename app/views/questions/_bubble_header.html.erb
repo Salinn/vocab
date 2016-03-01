@@ -1,0 +1,34 @@
+<% questions.each do |current_question| %>
+    <% correct, wrong = current_question.check_user(current_user.id) %>
+    <% if correct %>
+        <% if current_question.id == question.id %>
+            <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+                <div class="green focused_circle" id="question_<%= question.id %>"></div>
+            <% end %>
+        <% else %>
+            <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+                <div class="green circle" id="question_<%= question.id %>"></div>
+            <% end %>
+        <% end %>
+    <% elsif wrong %>
+        <% if current_question.id == question.id %>
+            <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+                <div class="red focused_circle" id="question_<%= question.id %>"></div>
+            <% end %>
+        <% else %>
+            <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+                <div class="red circle" id="question_<%= question.id %>"></div>
+            <% end %>
+        <% end %>
+    <% else %>
+        <% if current_question.id == question.id %>
+            <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+                <div class="focused_circle" id="question_<%= question.id %>"></div>
+            <% end %>
+        <% else %>
+            <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+                <div class="circle" id="question_<%= question.id %>"></div>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>

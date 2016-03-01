@@ -120,14 +120,17 @@ class Question < ActiveRecord::Base
     lesson_words.shuffle!
   end
 
-  def correct?(user_id)
+  def check_user(user_id)
     user_answers = answers.where(user_id: user_id)
+    [correct?(user_answers), wrong?(user_answers)]
+  end
+
+  def correct?(user_answers)
     return true if user_answers.any? { |answer| answer.correct? }
     false
   end
 
-  def wrong?(user_id)
-    user_answers = answers.where(user_id: user_id)
+  def wrong?(user_answers)
     return true if user_answers.length >= lesson_module.attempts && !user_answers.any? { |answer| answer.correct? }
     false
   end

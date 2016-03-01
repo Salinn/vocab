@@ -76,29 +76,32 @@ class QuestionsController < ApplicationController
     redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'This is the only question left' and return if questions.length == 1
     questions.each_with_index do |question, index|
       if question.id == @question.id
-        @question = questions[index+1] unless index == (questions.length - 1)
-        @question = questions.first if @question.id == questions.last.id
+        if @question.id == questions.last.id
+          @question = questions.first
+        elsif !(index == (questions.length))
+          @question = questions[index+1]
+        end
         redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'Skipped the last word' and return
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_question
-      @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:id])
-      @course = Course.find(params[:course_id])
-      @lesson_module = LessonModule.find(params[:lesson_module_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_question
+    @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:id])
+    @course = Course.find(params[:course_id])
+    @lesson_module = LessonModule.find(params[:lesson_module_id])
+  end
 
-    def set_question_id
-      @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:question_id])
-      @course = Course.find(params[:course_id])
-      @lesson_module = LessonModule.find(params[:lesson_module_id])
-    end
+  def set_question_id
+    @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:question_id])
+    @course = Course.find(params[:course_id])
+    @lesson_module = LessonModule.find(params[:lesson_module_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def question_params
-      params.require(:question).permit(:question_string, :lesson_module_id, :lesson_word_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def question_params
+    params.require(:question).permit(:question_string, :lesson_module_id, :lesson_word_id)
+  end
 end
