@@ -1,25 +1,18 @@
-<%= form_for(course.course_emails.build) do |f| %>
-    <% if course.course_emails.last.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(course.course_email.errors.count, "error") %> prohibited this course_email from being saved:</h2>
-
-          <ul>
-            <% course.course_emails.last.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
+<%= form_for(CourseEmail.new) do |f| %>
     <div class="field">
       <%= f.hidden_field :course_id, value: course.id %>
       <%= f.hidden_field :email, value: current_user.email %>
     </div>
     <div class="field">
       <%= f.label :users %><br>
-      <%= f.collection_check_boxes(:user_id, User.with_role(:student, course), :id, :name_and_email,
-          { include_blank: true },{:class => 'checkbox'}) { |input| input.label(:class => 'checkbox') { input.check_box + input.text } } %>
+      <%= f.collection_check_boxes(:user_id, User.with_role(:student, course), :id, :name_and_email) do |this| %>
+            <div class="collection-check-box">
+              <%= this.check_box %>
+              <%= this.text %>
+            </div>
+      <% end %>
     </div>
+
     <div class="field">
       <%= f.label :title %><br>
       <%= f.text_field :title %>

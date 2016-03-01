@@ -13,27 +13,12 @@ class UserMailer < ApplicationMailer
     email_template(body_template, email_title, to_address, nil)
   end
 
-  def custom_email(recipients, email_title, message, teacher_email)
-    #@recipients = recipients
-    #@recipients.each do |recipient|
-     # @recipient = recipient.user_email
-     # @message = message
-     # @email_title = email_title
-     # body_template = 'user_mailer/custom_email'
-    #  email_template(body_template, email_title, @recipient, teacher_email)
-    #end
-    @recipient = "richard.n.ngo@gmail.com"
+  def custom_email(recipient, email_title, message, teacher_email)
+    @recipient = recipient
     @message = message
     @email_title = email_title
-    body_template = 'user_mailer/custom_email'
-    email_template(body_template, email_title, @recipient, teacher_email)
+    mail(to: recipient, subject: email_title, cc: teacher_email)
   end
-
- # def send_email(recipients, email_title, message, teacher_email)
- #   @user = user
- #   @greeting = "Hi"
- #   mail to: user.email, Subject: "This is my test"
- # end
 
   def email_template(body_template, email_title, to_address, cc_email)
     @body_template = body_template

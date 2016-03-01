@@ -74,10 +74,11 @@ class CourseEmailsController < ApplicationController
     end
 
     def send_email
-      if :user_id.nil?
-        send_class_email(:email)
-      else
-        UserMailer.custom_email(params[:user_ids], params[:title], params[:content], params[:email]).deliver_later
+      params[:course_email][:user_id].each do |id|
+        @student = User.find_by_id(id)
+        if @student
+          UserMailer.custom_email(@student.email, course_email_params[:title], course_email_params[:content], course_email_params[:email]).deliver_later
+        end
       end
     end
 
