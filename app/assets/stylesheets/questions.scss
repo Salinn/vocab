@@ -9,6 +9,14 @@
   display: inline-block;
 }
 
+.focused_circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-style: solid;
+  display: inline-block;
+}
+
 .green {
   background: green;
 }
