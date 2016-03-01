@@ -11,15 +11,15 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :associated_word %><br>
-    <%= f.text_field :associated_word %>
+  <div class="field form-group">
+    <%= f.label :associated_word , class:'control-label' %><br>
+    <%= f.text_field :associated_word , class:'form-control'%>
   </div>
-  <div class="field">
-    <%= f.label :word %><br>
-    <%= f.collection_select :word_id, @words, :id, :name %>
+  <div class="field form-group">
+    <%= f.label :word , class:'control-label'%><br>
+    <%= f.collection_select :word_id, @words, :id, :name , class:'form-control'%>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions form-group">
+    <%= f.submit 'Create Word Form' , class:'btn btn-primary'%>
   </div>
 <% end %>

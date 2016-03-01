@@ -15,5 +15,7 @@
   <%= @word_video.word.name %>
 </p>
 
-<%= link_to 'Edit', edit_word_video_path(@word_video) %> |
-<%= link_to 'Back', word_videos_path %>
+<div class="btn-group">
+<%= link_to 'Edit', edit_word_video_path(@word_video) , class:'btn btn-primary' %> |
+<%= link_to 'Back', word_videos_path , class:'btn btn-primary' %>
+</div>

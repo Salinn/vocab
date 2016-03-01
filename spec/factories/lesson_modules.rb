@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :lesson_module do
     name 'Definition'
     attempts 3
+    number_of_answers 4
     in_use true
     value_percentage 30
     association :lesson, factory: :lesson

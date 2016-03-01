@@ -18,9 +18,9 @@
         <td><%= question.lesson_module %></td>
         <td><%= question.lesson_word %></td>
         <td><%= question.correct_choice %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', course_lesson_lesson_module_question_path(question, lesson_module_id: question.lesson_module.id, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id) %></td>
+        <td><%= link_to 'Edit', edit_course_lesson_lesson_module_question_path(question, lesson_module_id: question.lesson_module.id, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id) %></td>
+        <td><%= link_to 'Destroy', course_lesson_lesson_module_question_path(question, lesson_module_id: question.lesson_module.id, lesson_id: question.lesson_module.lesson.id, course_id: question.lesson_module.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_course_lesson_lesson_module_question_path(lesson_module_id: @lesson_module.id, lesson_id: @lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id) %>

@@ -1,42 +1,59 @@
-<h1>Listing Words</h1>
-<%= search_form_for @search, url: words_path do |f| %>
-    <div class="field">
-      <%= f.text_field :name_cont, placeholder: 'Search by Word Name'  %>
-      <%= f.search_field :word_roots_root_name_or_word_roots_root_definition_cont, placeholder: 'Search Word Root' %>
-      <%= f.search_field :word_videos_video_link_or_word_videos_video_description_cont, placeholder: 'Search Word Videos' %>
-      <%= f.search_field :sentences_word_sentence_cont, placeholder: 'Search Word Sentences' %>
-      <%= f.search_field :definitions_word_definition_cont, placeholder: 'Search by Word Definition' %>
-      <%= f.search_field :synonyms_word_synonym_cont, placeholder: 'Search by Word Synonym' %>
-      <%= f.search_field :word_forms_associated_word_cont, placeholder: 'Search by Word Form' %>
-    </div>
-    <div class="actions potentials-inline">
-      <%= f.submit "Search Roots" %>
-    </div>
-    <div class="potentials-inline">
-      <%= link_to 'Clear Search', words_path %>
-    </div>
-<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= sort_link @search, :name,'Word name' %></th>
-      <th>Show</th>
-      <th>Update</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @words.each do |word| %>
-      <tr>
-        <td><%= word.name %></td>
-        <td><%= link_to 'Show', word %></td>
-        <td><%= link_to 'Update', edit_word_path(word) %></td>
-      </tr>
+<h1>Words</h1>
+  <%= search_form_for @search, url: words_path, class: "col-xs-12" do |f| %>
+    <%= f.condition_fields do |c| %>
+        <%= render "condition_fields", f: c %>
     <% end %>
-  </tbody>
-</table>
+
+    <%= link_to_add_fields "", f, :condition %>
+
+    <div class="actions btn-group col-sm-12">
+      <%= f.submit "Search" , class:"btn btn-primary col-sm-3"%>
+      <%= link_to 'Clear Search', words_path ,class:"btn btn-primary col-sm-3" %>
+    </div>
+
+
+  <% end %>
+<%= link_to 'New Word', '#new_word_modal', 'data-toggle' => 'modal' ,  class:'btn btn-primary col-xs-offset-9' %>
+
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= sort_link @search, :name,'Word name' %></th>
+        <th>Display the Word</th>
+        <th>Update a Word</th>
+        <th>Delete a Word</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @words.each do |word| %>
+        <%= render partial: 'table_row', locals:{word: word} %>
+      <% end %>
+    </tbody>
+  </table>
 
 <br>
 
-<%= link_to 'New Word', new_word_path %>
+
+<%# Bootstrap modal markup. @see: http://getbootstrap.com/javascript/#modals %>
+<div class="modal fade" id="new_word_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Create new word</h4>
+      </div>
+      <div class="modal-body">
+        <%# Render the new word form (passing modal => true to enable remote => true) %>
+        <%= render 'form', modal: true %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -55,7 +55,7 @@ RSpec.describe CourseEmailsController, type: :controller do
   describe "GET #index" do
     it "assigns all course_emails as @course_emails" do
       course_email = CourseEmail.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {course_id: course_email.course.id}, valid_session
       expect(assigns(:course_emails)).to eq([course_email])
     end
   end
@@ -63,15 +63,23 @@ RSpec.describe CourseEmailsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested course_email as @course_email" do
       course_email = CourseEmail.create! valid_attributes
-      get :show, {:id => course_email.to_param}, valid_session
+      get :show, {:id => course_email.to_param, course_id: course_email.course.id}, valid_session
       expect(assigns(:course_email)).to eq(course_email)
     end
   end
 
   describe "GET #new" do
     it "assigns a new course_email as @course_email" do
-      get :new, {}, valid_session
+      get :new, {course_id: course.id}, valid_session
       expect(assigns(:course_email)).to be_a_new(CourseEmail)
+    end
+  end
+
+  describe "GET #edit" do
+    it "assigns the requested course_email as @course_email" do
+      course_email = CourseEmail.create! valid_attributes
+      get :edit, {:id => course_email.to_param, course_id: course_email.course.id}, valid_session
+      expect(assigns(:course_email)).to eq(course_email)
     end
   end
 
@@ -87,17 +95,16 @@ RSpec.describe CourseEmailsController, type: :controller do
                       }, valid_session
         }.to change(CourseEmail, :count).by(1)
       end
-
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved course_email as @course_email" do
-        post :create, {:course_email => invalid_attributes}, valid_session
+        post :create, {:course_email => invalid_attributes, course_id: course.id}, valid_session
         expect(assigns(:course_email)).to be_a_new(CourseEmail)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:course_email => invalid_attributes}, valid_session
+        post :create, {:course_email => invalid_attributes, course_id: course.id}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -113,32 +120,31 @@ RSpec.describe CourseEmailsController, type: :controller do
 
       it "updates the requested course_email" do
         course_email = CourseEmail.create! valid_attributes
-        put :update, {:id => course_email.to_param, :course_email => new_attributes}, valid_session
+        put :update, {:id => course_email.to_param, :course_email => new_attributes, course_id: course_email.course.id}, valid_session
         course_email.reload
         expect(assigns(:course_email).attributes.symbolize_keys[:title]).to eq(new_attributes[:title])
       end
 
       it "assigns the requested course_email as @course_email" do
         course_email = CourseEmail.create! valid_attributes
-        put :update, {:id => course_email.to_param, :course_email => valid_attributes}, valid_session
+        put :update, {:id => course_email.to_param, :course_email => valid_attributes, course_id: course_email.course.id}, valid_session
         expect(assigns(:course_email)).to eq(course_email)
       end
 
       it "redirects to the course_email" do
         course_email = CourseEmail.create! valid_attributes
-        put :update, {:id => course_email.to_param, :course_email => valid_attributes}, valid_session
-        expect(response).to redirect_to(course_email)
+        put :update, {:id => course_email.to_param, :course_email => valid_attributes, course_id: course_email.course.id}, valid_session
+        expect(response).to redirect_to(course_course_email_path(course_email, course_id: course_email.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns the course_email as @course_email" do
         course_email = CourseEmail.create! valid_attributes
-        put :update, {:id => course_email.to_param, :course_email => invalid_attributes}, valid_session
+        put :update, {:id => course_email.to_param, :course_email => invalid_attributes, course_id: course_email.course.id}, valid_session
         expect(assigns(:course_email)).to eq(course_email)
       end
     end
   end
-
 
 end

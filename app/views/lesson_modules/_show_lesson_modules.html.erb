@@ -20,6 +20,6 @@
     </p>
 
     <p>
-      <%= link_to 'Edit Module', edit_lesson_module_path(lesson_module) %>
+      <%= link_to 'Edit Module', edit_course_lesson_lesson_module_path(lesson_module, lesson_id: lesson_module.lesson.id, course_id: lesson_module.lesson.course.id) %>
     </p>
 <% end %>
