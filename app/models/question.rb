@@ -41,6 +41,8 @@ class Question < ActiveRecord::Base
       end
     elsif question_string =~ /Pretest/
       self.update_columns(question_string: "Do you know the #{lesson_word.word.name} word?")
+      AnswerOption.create!(lesson_word_id: lesson_module.lesson.lesson_words.first, question: self)
+      AnswerOption.create!(lesson_word_id: lesson_module.lesson.lesson_words.second, question: self)
     else
       lesson_words = pick_words
       lesson_words.each do |current_lesson_word|

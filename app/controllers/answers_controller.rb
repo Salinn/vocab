@@ -27,7 +27,6 @@ class AnswersController < ApplicationController
   def create
     @answer = Answer.new(answer_params)
     @answer.time_to_complete = 3
-    @answer.answer_option_id = params[:answer_option_id]
     @answer.correct = (@answer.answer_option_id == @answer.question.answer_options_id ? true : false)
 
     respond_to do |format|
@@ -75,6 +74,6 @@ class AnswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def answer_params
-      params.require(:answer).permit(:question_id, :user_id)
+      params.require(:answer).permit(:question_id, :user_id, :answer_option_id)
     end
 end

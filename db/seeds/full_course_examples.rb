@@ -69,7 +69,7 @@ lesson_end_date = start_date + 7.days
   puts "finished course besides answers, course: #{course.id}"
 
 #Create Answers
-  skipped = 0
+  skipped = []
   course.lessons.each do |lesson|
     puts "start lesson: #{lesson.id}"
     lesson.lesson_modules.each do |lesson_module|
@@ -79,10 +79,6 @@ lesson_end_date = start_date + 7.days
         User.with_role(:student, course).each do |user|
           (0...lesson_module.attempts).each do
             answer_options = question.answer_options.pluck(:id)
-            if answer_options.empty?
-              skipped += 1
-              next
-            end
             is_true = (rand(2) == 1 ? true : false)
             time = rand(3...25)
             answer_picked = answer_options[rand(0...3)]
