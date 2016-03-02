@@ -6,4 +6,6 @@
 <h3 class="<%= question_title(correct, wrong) %>"><%= @question.question_string %></h3>
 <%= render 'answers/form', question: @question, disable: ( correct || wrong ), correct: correct, wrong: wrong %>
 <% skip_or_next = ( correct || wrong ) ? 'Next Question' : 'Skip Question' %>
+<%= link_to 'Last Question', course_lesson_lesson_module_question_back_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: 'btn btn-primary', id: 'skip_or_back' %>
 <%= link_to skip_or_next, course_lesson_lesson_module_question_skip_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: 'btn btn-primary', id: 'skip_or_next' %>
+<%= render  %>

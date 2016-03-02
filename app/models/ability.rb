@@ -23,9 +23,9 @@ class Ability
       can [:create, :update, :show], WordVideo
     end
 
-    if user.has_role?(:student)
+    if Course.with_role(:student, user).pluck(:id)
       can [:show], Course
-      can [:show], Lesson
+      can [:show, :index], Lesson
       can [:show], LessonModule
     end
   end

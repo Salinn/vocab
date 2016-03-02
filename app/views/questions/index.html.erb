@@ -1,3 +1,3 @@
-<% render 'questions/bubble_header', questions: @questions, question: nil %>
+<%= render 'questions/bubble_header', questions: @questions, question: nil %>
 <br>
 <%= link_to 'Begin Quiz', course_lesson_lesson_module_question_path(@questions.first, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) %>

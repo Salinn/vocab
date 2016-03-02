@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-  before_action :set_question_id, only: [:skip]
+  before_action :set_question_id, only: [:back, :skip]
 
   # GET /questions
   # GET /questions.json
@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
   def skip
     #TODO improve these queries
     questions = []
-    all_questions = Question.where(lesson_module_id: @lesson_module.id)
+    all_questions = Question.includes(:answers).where(lesson_module_id: @lesson_module.id)
     all_questions.each do |question|
       answers = question.answers.where(user_id: current_user.id)
       questions.push(question) if (question.id == @question.id) || (!answers.any? { |answer| answer.correct? } && answers.length < question.lesson_module.attempts )
@@ -80,6 +80,27 @@ class QuestionsController < ApplicationController
           @question = questions.first
         elsif !(index == (questions.length))
           @question = questions[index+1]
+        end
+        redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'Skipped the last word' and return
+      end
+    end
+  end
+
+  def back
+    #TODO improve these queries
+    questions = []
+    all_questions = Question.where(lesson_module_id: @lesson_module.id)
+    all_questions.each do |question|
+      answers = question.answers.where(user_id: current_user.id)
+      questions.push(question) if (question.id == @question.id) || (!answers.any? { |answer| answer.correct? } && answers.length < question.lesson_module.attempts )
+    end
+    redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'This is the only question left' and return if questions.length == 1
+    questions.each_with_index do |question, index|
+      if question.id == @question.id
+        if @question.id == questions.first.id
+          @question = questions.last
+        elsif !(index == (questions.length))
+          @question = questions[index-1]
         end
         redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'Skipped the last word' and return
       end

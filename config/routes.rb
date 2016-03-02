@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         resources :questions do
           resources :answers
           get 'skip'
+          get 'back'
         end
       end
     end
