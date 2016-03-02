@@ -1,6 +1,8 @@
+<% total_correct = 0 %>
 <% questions.each do |current_question| %>
     <% correct, wrong = current_question.check_user(current_user.id) %>
     <% if correct %>
+        <% total_correct += 1 %>
         <% if question && current_question.id == question.id %>
             <%= link_to course_lesson_lesson_module_question_path(current_question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
                 <div class="green focused_circle" id="question_<%= current_question.id %>"></div>
@@ -32,3 +34,5 @@
         <% end %>
     <% end %>
 <% end %>
+
+<h3 id="total_grade" style="padding-left: 10px;display: inline-block"><%= ((total_correct.fdiv(questions.length)) * 100) %></h3><h3 style="display: inline-block">% answered correctly</h3>
