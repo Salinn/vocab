@@ -1,13 +1,16 @@
 <% correct, wrong = @question.check_user(current_user.id) %>
 <%= render 'questions/bubble_header', questions: @question.lesson_module.questions, question: @question %>
-<h2><b>Please read the following question and answer accordingly</b></h2>
-
-
-<h3 class="<%= question_title(correct, wrong) %>"><%= @question.question_string %></h3>
-<%= render 'answers/form', question: @question, disable: ( correct || wrong ), correct: correct, wrong: wrong %>
-<% skip_or_next = ( correct || wrong ) ? 'Next Question' : 'Skip Question' %>
-<%= link_to 'Last Question', course_lesson_lesson_module_question_back_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: 'btn btn-primary', id: 'skip_or_back' %>
-<%= link_to skip_or_next, course_lesson_lesson_module_question_skip_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: 'btn btn-primary', id: 'skip_or_next' %>
-<br><br>
-<%= link_to 'Back to Lessons', course_lessons_path(course_id: @course.id), class: 'btn btn-primary', id: 'back_to_lessons' %>
-<%= link_to "View #{@question.lesson_module.name} Grades", course_lesson_lesson_module_path(@question.lesson_module, course_id: @course.id, lesson_id: @question.lesson_module.lesson.id), class: 'btn btn-primary', id: 'back_to_lessons' %>
+<% if @lesson_module.name == 'Pretest' %>
+    <%= render 'questions/pretest', correct: correct, wrong: wrong %>
+<% elsif @lesson_module.name == 'Study the Word' %>
+    <%= render 'questions/study_the_word', correct: correct, wrong: wrong %>
+<% elsif @lesson_module.name == 'Definition' %>
+    <%= render 'questions/definition', correct: correct, wrong: wrong %>
+<% elsif @lesson_module.name == 'Sentence' %>
+    <%= render 'questions/sentence', correct: correct, wrong: wrong %>
+<% elsif @lesson_module.name == 'Synonym' %>
+    <%= render 'questions/synonym', correct: correct, wrong: wrong %>
+<% elsif @lesson_module.name == 'Word Form' %>
+    <%= render 'questions/word_form', correct: correct, wrong: wrong %>
+<% end %>
+<%= render 'questions/links', correct: correct, wrong: wrong %>

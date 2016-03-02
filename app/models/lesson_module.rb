@@ -32,7 +32,7 @@ class LessonModule < ActiveRecord::Base
   end
 
   def pretest(lesson_word)
-    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Pretest') if lesson_word.definitions.any?
+    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Pretest')
   end
 
   def study_the_word(lesson_word)

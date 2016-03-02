@@ -3,5 +3,13 @@
 <% @lesson_module.questions.each do |question| %>
     <% correct, wrong = question.check_user(current_user.id) %>
     <h3 class="<%= question_title(correct, wrong) %>"><%= question.question_string %></h3>
-    <%= render 'answers/form', question: question, disable: ( correct || wrong ), correct: correct, wrong: wrong %>
+    <ul>
+      <% question.answer_options.each do |option| %>
+          <li>
+            <h5 class="<%= answer_option_words(question.answer_options_id, option.id) if (correct || wrong) %>">
+              <%= option.lesson_word.word.name %>
+            </h5>
+          </li>
+      <% end %>
+    </ul>
 <% end %>

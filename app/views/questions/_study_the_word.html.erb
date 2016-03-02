@@ -1,0 +1,6 @@
+<h1>Study the Word</h1>
+<h2><b>Please read the following question and answer accordingly</b></h2>
+
+
+<h3 class="<%= question_title(correct, wrong) %>"><%= @question.question_string %></h3>
+<%= render 'answers/form', question: @question, disable: ( correct || wrong ), correct: correct, wrong: wrong %>

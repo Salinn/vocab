@@ -28,10 +28,11 @@ class Lesson < ActiveRecord::Base
 
   def create_modules
     graded_modules = ['Definition', 'Sentence', 'Synonym', 'Word Form']
-    non_graded_modules = ['Pretest', 'Study the Word']
+    #non_graded_modules = ['Pretest', 'Study the Word']
+    #non_graded_modules = ['Study the Word']
 
-    LessonModule.create!(name: non_graded_modules.first, attempts: 3, in_use: false, number_of_answers: 2, lesson_id: id, value_percentage: 0)
-    LessonModule.create!(name: non_graded_modules.last, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: 0)
+    #LessonModule.create!(name: non_graded_modules.first, attempts: 3, in_use: false, number_of_answers: 2, lesson_id: id, value_percentage: 0)
+    #LessonModule.create!(name: non_graded_modules.last, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: 0)
 
     graded_modules.each do |name|
       LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: (100/graded_modules.length).round)

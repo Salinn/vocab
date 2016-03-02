@@ -1,0 +1,5 @@
+<h2><b>Pick the word that matches the synonym below</b></h2>
+
+
+<h3 class="<%= question_title(correct, wrong) %>">Synonym: <%= @question.question_string %></h3>
+<%= render 'answers/form', question: @question, disable: ( correct || wrong ), correct: correct, wrong: wrong %>

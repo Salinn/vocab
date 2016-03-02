@@ -14,6 +14,9 @@ class LessonModulesController < ApplicationController
   # GET /lesson_modules/1
   # GET /lesson_modules/1.json
   def show
+    @lesson_module = LessonModule.includes(questions: [answer_options: [lesson_word: :word]]).find(params[:id])
+    @course = Course.find(params[:course_id])
+    @lesson = Lesson.find(params[:lesson_id])
   end
 
   # GET /lesson_modules/new

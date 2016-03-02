@@ -1,0 +1,5 @@
+<h2><b>Pick the word that matches the word form below</b></h2>
+
+
+<h3 class="<%= question_title(correct, wrong) %>">Word Form: <%= @question.question_string %></h3>
+<%= render 'answers/form', question: @question, disable: ( correct || wrong ), correct: correct, wrong: wrong %>
