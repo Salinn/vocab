@@ -13,11 +13,11 @@ class UserMailer < ApplicationMailer
     email_template(body_template, email_title, to_address, nil)
   end
 
-  def custom_email(recipient, email_title, message, teacher_email)
-    @recipient = recipient
+  def custom_email(recipients, email_title, message, teacher_email)
+    @recipients = recipients
     @message = message
     @email_title = email_title
-    mail(to: recipient, subject: email_title, cc: teacher_email)
+    mail(bcc: recipients, subject: email_title, cc: teacher_email)
   end
 
   def email_template(body_template, email_title, to_address, cc_email)
