@@ -31,7 +31,7 @@ class CourseEmailsController < ApplicationController
     respond_to do |format|
       if @course_email.save
         send_email
-        format.html { redirect_to course_course_email_path(@course_email, course_id: @course_email.course.id), notice: 'Course email was successfully created.' }
+        format.html { redirect_to course_path(@course_email.course), notice: 'Course email was successfully created.' }
 
         format.json { render :show, status: :created, location: @course_email }
       else

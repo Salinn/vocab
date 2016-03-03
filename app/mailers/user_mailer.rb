@@ -17,7 +17,7 @@ class UserMailer < ApplicationMailer
     @recipients = recipients
     @message = message
     @email_title = email_title
-    mail(bcc: recipients, subject: email_title, cc: teacher_email)
+    mail(bcc: recipients, subject: email_title, to: teacher_email)
   end
 
   def email_template(body_template, email_title, to_address, cc_email)
