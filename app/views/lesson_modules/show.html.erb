@@ -1,15 +1,9 @@
 <%= render 'questions/bubble_header', questions: @lesson_module.questions, question: nil %>
-
-<% @lesson_module.questions.each do |question| %>
-    <% correct, wrong = question.check_user(current_user.id) %>
-    <h3 class="<%= question_title(correct, wrong) %>"><%= question.question_string %></h3>
-    <ul>
-      <% question.answer_options.each do |option| %>
-          <li>
-            <h5 class="<%= answer_option_words(question.answer_options_id, option.id) if (correct || wrong) %>">
-              <%= option.lesson_word.word.name %>
-            </h5>
-          </li>
-      <% end %>
-    </ul>
-<% end %>
+<%= link_to "Link back to #{@lesson_module.name} Module", course_lesson_lesson_module_question_path(@lesson_module.questions.first, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) , class: 'btn btn-primary' %>
+<hr>
+<div class="container">
+  <% @lesson_module.questions.each do |question| %>
+      <% correct, wrong = question.check_user(current_user.id) %>
+      <%= render 'questions/answered_question', question: question, correct: correct, wrong: wrong %>
+  <% end %>
+</div>

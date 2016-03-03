@@ -13,6 +13,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    @wrong_answers = Answer.where(user_id: current_user.id, question_id: @question.id).pluck(:answer_option_id)
   end
 
   # GET /questions/new

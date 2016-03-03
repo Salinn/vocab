@@ -17,6 +17,7 @@ class LessonModulesController < ApplicationController
     @lesson_module = LessonModule.includes(questions: [answer_options: [lesson_word: :word]]).find(params[:id])
     @course = Course.find(params[:course_id])
     @lesson = Lesson.find(params[:lesson_id])
+    @wrong_answers = Answer.where(user_id: current_user.id, question_id: @lesson_module.questions).pluck(:answer_option_id)
   end
 
   # GET /lesson_modules/new

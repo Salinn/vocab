@@ -1,5 +1,5 @@
 <% skip_or_next = ( correct || wrong ) ? 'Next Question' : 'Skip Question' %>
-<%= link_to 'Last Question', course_lesson_lesson_module_question_back_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: 'btn btn-primary', id: 'skip_or_back' %>
+<%= link_to 'Previous Question', course_lesson_lesson_module_question_back_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: 'btn btn-primary', id: 'skip_or_back' %>
 <%= link_to skip_or_next, course_lesson_lesson_module_question_skip_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: 'btn btn-primary', id: 'skip_or_next' %>
 <br><br>
 <%= link_to 'Back to Lessons', course_lessons_path(course_id: @course.id), class: 'btn btn-primary', id: 'back_to_lessons' %>
