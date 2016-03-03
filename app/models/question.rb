@@ -17,7 +17,7 @@ class Question < ActiveRecord::Base
         return false
       end
     end
-    return true
+    true
   end
 
   def check_if_answer_exists

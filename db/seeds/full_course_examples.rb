@@ -69,7 +69,6 @@ lesson_end_date = start_date + 7.days
   puts "finished course besides answers, course: #{course.id}"
 
 #Create Answers
-  skipped = []
   course.lessons.each do |lesson|
     puts "start lesson: #{lesson.id}"
     lesson.lesson_modules.each do |lesson_module|
@@ -90,8 +89,6 @@ lesson_end_date = start_date + 7.days
       puts "Created Answers For #{course.class_name} #{lesson.lesson_name}, module #{lesson_module.name}"
     end
     puts "Finished creating answers for #{lesson.lesson_name}"
-    puts "-----------------------------"
-    puts "Total Skipped: #{skipped}"
   end
   puts "Finished creating answers for Course #{course.class_name}"
 end
