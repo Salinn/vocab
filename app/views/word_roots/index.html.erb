@@ -32,4 +32,6 @@
 
 <br>
 
-<%= link_to 'New Word root', new_word_root_path , class:'btn btn-primary' %>
+<% if can?(:create, WordRoot) %>
+  <%= link_to 'New Word root', new_word_root_path , class:'btn btn-primary' %>
+<% end %>

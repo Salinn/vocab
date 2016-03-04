@@ -18,7 +18,7 @@
         <td><%= course.class_name %></td>
         <td><%= course.start_date %></td>
         <td><%= course.end_date %></td>
-        <% if !current_user.has_role?(:student, :any) %>
+        <% if can?(:manage, course) %>
           <td><%= link_to 'Show', course %></td>
           <td><%= link_to 'Edit', edit_course_path(course) %></td>
           <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>

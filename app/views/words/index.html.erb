@@ -22,9 +22,11 @@
     <thead>
       <tr>
         <th><%= sort_link @search, :name,'Word name' %></th>
-        <th>Display the Word</th>
-        <th>Update a Word</th>
-        <th>Delete a Word</th>
+        <% if can?(:manage, @word) %>
+          <th>Display the Word</th>
+          <th>Update a Word</th>
+          <th>Delete a Word</th>
+        <% end %>
       </tr>
     </thead>
 

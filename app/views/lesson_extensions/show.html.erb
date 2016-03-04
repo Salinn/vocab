@@ -15,5 +15,7 @@
   <%= @lesson_extension.extension_date %>
 </p>
 
-<%= link_to 'Edit', edit_course_lesson_lesson_extension_path(@lesson_extension, course_id: @lesson_extension.lesson.course.id, lesson_id: @lesson_extension.lesson.id) %> |
+<% if can?(:edit, @lesson_extension) %>
+  <%= link_to 'Edit', edit_course_lesson_lesson_extension_path(@lesson_extension, course_id: @lesson_extension.lesson.course.id, lesson_id: @lesson_extension.lesson.id) %>
+<% end %>
 <%= link_to 'Back', course_lesson_lesson_extensions_path(course_id: @lesson_extension.lesson.course.id, lesson_id: @lesson_extension.lesson.id) %>
