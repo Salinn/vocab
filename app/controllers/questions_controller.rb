@@ -68,13 +68,7 @@ class QuestionsController < ApplicationController
 
   def skip
     #TODO improve these queries
-    questions = []
-    all_questions = Question.includes(:answers).where(lesson_module_id: @lesson_module.id)
-    all_questions.each do |question|
-      answers = question.answers.where(user_id: current_user.id)
-      questions.push(question) if (question.id == @question.id) || (!answers.any? { |answer| answer.correct? } && answers.length < question.lesson_module.attempts )
-    end
-    redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'This is the only question left' and return if questions.length == 1
+    questions = Question.includes(:answers).where(lesson_module_id: @lesson_module.id)
     questions.each_with_index do |question, index|
       if question.id == @question.id
         if @question.id == questions.last.id
@@ -89,13 +83,7 @@ class QuestionsController < ApplicationController
 
   def back
     #TODO improve these queries
-    questions = []
-    all_questions = Question.where(lesson_module_id: @lesson_module.id)
-    all_questions.each do |question|
-      answers = question.answers.where(user_id: current_user.id)
-      questions.push(question) if (question.id == @question.id) || (!answers.any? { |answer| answer.correct? } && answers.length < question.lesson_module.attempts )
-    end
-    redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'This is the only question left' and return if questions.length == 1
+    questions = Question.where(lesson_module_id: @lesson_module.id)
     questions.each_with_index do |question, index|
       if question.id == @question.id
         if @question.id == questions.first.id

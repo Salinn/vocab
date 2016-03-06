@@ -1,22 +1,25 @@
 <div>
   <div style="float: left; width: auto; display: inline;">
     <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
-        <div class="<%= question_title(correct, wrong) %> circle" id="question_<%= question.id %>"></div>
+        <ul class="<%= (correct || wrong) ? question_title(correct, wrong) : 'bullet-big' %>" id="question_<%= question.id %>">
+          <li></li>
+        </ul>
     <% end %>
   </div>
   <div style="float: left; width: 90%; display: inline; padding-left: 10px;">
     <h3 style="margin: 0;"><%= question.question_string %></h3>
   </div>
 </div>
-<br>
 <div class="clearfix"></div>
-<ul>
+<hr>
+<div class="clearfix"></div>
   <% question.answer_options.each do |option| %>
-      <li style="font-size: 250%; color: <%= answer_option_words(question.answer_options_id, option.id, @wrong_answers) if (correct || wrong) %>;">
-        <h5 style="color: black; vertical-align: text-top;">
+    <ul class="<%= (correct || wrong) ? answer_option_words(question.answer_options_id, option.id, @wrong_answers) : 'bullet' %>">
+      <li>
+        <h5>
           <%= option.lesson_word.word.name %>
         </h5>
       </li>
+    </ul>
   <% end %>
-</ul>
 <hr>
