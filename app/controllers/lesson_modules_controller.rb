@@ -8,7 +8,7 @@ class LessonModulesController < ApplicationController
   def index
     @course = Course.find(params[:course_id])
     @lesson = Lesson.find(params[:lesson_id])
-    @lesson_modules = LessonModule.where(lesson_id: @lesson.id, id: params[:lesson_module_id])
+    @lesson_modules = LessonModule.includes(:questions).where(lesson_id: @lesson.id, id: params[:lesson_module_id])
   end
 
   # GET /lesson_modules/1

@@ -17,10 +17,18 @@
   <%= render 'questions/links', correct: correct, wrong: wrong %>
 </div>
 
-<!--<div class="col-xs-1">-->
-  <!--<%# @lesson_module.questions.each do |question| %>-->
-      <!--<%# if question.lesson_word.word_videos.any? && question.lesson_word.word_videos.first.video_link  %>-->
-         <!--<%# link_to question.lesson_word.word_videos.first.video_description, question.lesson_word.word_videos.first.video_link %>-->
-      <!--<%# end %>-->
-  <!--<%# end %>-->
-<!--</div>-->
+<div class="col-xs-1">
+  <% @lesson_module.questions.each do |question| %>
+      <% if question.lesson_word.word_videos.any? && question.lesson_word.word_videos.first.video_link  %>
+          <%= link_to question.lesson_word.word_videos.first.video_description, course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id), remote: true %>
+      <% end %>
+  <% end %>
+</div>
+
+<%= render 'layouts/dialog' %>
+
+<script>
+  $('#dialog').on('classChange', function() {
+    $('#word_video').attr('src', '')
+  })
+</script>

@@ -1,0 +1,13 @@
+// Add the dialog title
+$('#dialog h3').html("<i class='glyphicon glyphicon-facetime-video'></i> Youtube Video for <%= @question.lesson_word.word_videos.first.video_description %>");
+
+// Render the new form
+$('.modal-body').html('<%= j render("questions/youtube_video", question: @question) %>');
+
+// Show the dynamic dialog
+$('#dialog').modal("show");
+
+// Set focus to the first element
+$('#dialog').on('shown.bs.modal', function () {
+  $('.first_input').focus()
+})
