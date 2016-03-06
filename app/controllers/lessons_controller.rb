@@ -13,8 +13,8 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson = Lesson.includes(lesson_words: :word).find(params[:id])
-    @lesson.lesson_words.build
+    @lesson = Lesson.includes(lesson_words: [:word, :definitions, :sentences, :synonyms]).find(params[:id])
+    @course = Course.find(params[:course_id])
   end
 
   # GET /lessons/new
@@ -75,6 +75,7 @@ class LessonsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
       @lesson = Lesson.find(params[:id])
+      @course = Course.find(params[:course_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

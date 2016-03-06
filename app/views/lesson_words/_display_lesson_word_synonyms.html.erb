@@ -1,0 +1,19 @@
+<div class="">
+
+  <h2>Synonyms</h2>
+  <table id class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Synonym</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="synonyms">
+    <% @lesson_word.synonyms.each do |synonym| %>
+        <%= render 'lesson_words/synonym', synonym: synonym, lesson_word: @lesson_word %>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'lesson_word_synonyms/form', lesson_word: @lesson_word %>
