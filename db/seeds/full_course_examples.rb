@@ -55,7 +55,7 @@ lesson_end_date = start_date + 7.days
       LessonWordSentence.create!(lesson_word: lesson_word, sentence: word.sentences.first) if word.sentences.any?
       LessonWordSynonym.create!(lesson_word: lesson_word, synonym: word.synonyms.first) if word.synonyms.any?
       LessonWordForm.create!(lesson_word: lesson_word, word_form: word.word_forms.first) if word.word_forms.any?
-
+      LessonWordVideo.create!(lesson_word: lesson_word, word_video: word.word_videos.first) if word.word_videos.any?
       puts "Created Lesson Word ##{word.name}"
     end
     #Creates the Questions and AnswerOptions by setting each lesson module to true

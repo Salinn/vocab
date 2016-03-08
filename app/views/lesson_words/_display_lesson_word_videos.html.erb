@@ -1,0 +1,19 @@
+<div class="">
+
+  <h2>Word Videos</h2>
+  <table id class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Word video</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="definitions">
+    <% @lesson_word.word_videos.each do |word_video| %>
+        <%= render 'lesson_words/word_video', word_video: word_video, lesson_word: @lesson_word %>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'lesson_word_videos/form', lesson_word: @lesson_word %>
