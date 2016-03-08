@@ -1,33 +1,18 @@
-<%= form_for(@answer) do |f| %>
-  <% if @answer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
-
-      <ul>
-      <% @answer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<% answer = Answer.new %>
+<%= form_for(answer, url: course_lesson_lesson_module_question_answers_path(course_id: @course.id, lesson_id: question.lesson_module.lesson.id, lesson_module_id: question.lesson_module.id, question_id: question.id ), remote: true) do |f| %>
+    <fieldset id="question_fieldset_<%= question.id %>" <%= 'disabled' if (correct || wrong) %>>
+      <%= f.hidden_field :question_id, value: question.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :time_to_complete, value: 1 %>
+      <% question.answer_options.each do |option| %>
+          <h5 class="<%= answer_option_words(question.answer_options_id, option.id) if (correct || wrong) %>">
+            <%= f.radio_button :answer_option_id, option.id %>
+            <%= f.label :answer_option_id, option.lesson_word.word.name, value: option.id %>
+          </h5>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :question_id %><br>
-    <%= f.collection_select(:question_id, Question.all, :id, :lesson_word_id ) %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.collection_select(:user_id, User.all, :id, :email ) %>
-  </div>
-  <div class="field">
-    <%= f.label :time_to_complete %><br>
-    <%= f.number_field :time_to_complete %>
-  </div>
-  <div class="field">
-    <%= f.label :correct %><br>
-    <%= f.check_box :correct %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+      <div class="actions">
+        <%= f.submit "Submit", data: { disable_with: "Submitting your answer..." } %>
+      </div>
+    </fieldset>
 <% end %>
+

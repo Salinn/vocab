@@ -1,9 +1,9 @@
 words = [
     {
-        name: 'Anachronism'
+        name: 'Yes'
     },
     {
-        name: 'Chronic'
+        name: 'No'
     },
     {
         name: 'Chronicle'

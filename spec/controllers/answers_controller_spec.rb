@@ -24,7 +24,8 @@ RSpec.describe AnswersController, type: :controller do
   # Answer. As you add validations to Answer, be sure to
   # adjust the attributes here as well.
   let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
-  let (:course) { FactoryGirl.create(:course)}
+  let (:course) { FactoryGirl.create(:course) }
+  let (:answer_option) { FactoryGirl.create(:answer_option) }
   let (:lesson_module){ FactoryGirl.create(:lesson_module) }
   let (:question){ FactoryGirl.create(:question) }
   let (:user){ FactoryGirl.create(:user) }
@@ -39,9 +40,9 @@ RSpec.describe AnswersController, type: :controller do
 
   let(:invalid_attributes) {
     {
-        question_id: -1,
-        user_id: -1,
-        time_to_complete: -10,
+        question_id: nil,
+        user_id: nil,
+        time_to_complete: nil,
         correct: nil
     }
   }
@@ -107,15 +108,6 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved answer as @answer" do
-        post :create, {:answer => invalid_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
-        expect(assigns(:answer)).to be_a_new(Answer)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:answer => invalid_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
-        expect(response).to render_template("new")
-      end
     end
   end
 
@@ -126,13 +118,6 @@ RSpec.describe AnswersController, type: :controller do
             correct: false
         }
       }
-
-      it "updates the requested answer" do
-        answer = Answer.create! valid_attributes
-        put :update, {:id => answer.to_param, :answer => new_attributes, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
-        answer.reload
-        expect(assigns(:answer).attributes.symbolize_keys[:correct]).to eq(new_attributes[:correct])
-      end
 
       it "assigns the requested answer as @answer" do
         answer = Answer.create! valid_attributes

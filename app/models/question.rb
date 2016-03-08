@@ -17,7 +17,7 @@ class Question < ActiveRecord::Base
         return false
       end
     end
-    return true
+    true
   end
 
   def check_if_answer_exists
@@ -79,33 +79,72 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def update_words_picked(lesson_words, lesson_word)
+    while lesson_words.include?(lesson_word.id) && lesson_words.uniq.length == lesson_words.length
+      lesson_words.delete(lesson_word.id)
+      lesson_words.push(lesson_module.lesson.lesson_words.pluck(:id).shuffle.first)
+    end
+    lesson_words
+  end
+
   def pick_words
     lesson_words = lesson_module.lesson.lesson_words.pluck(:id).shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = update_words_picked(lesson_words, lesson_word) if lesson_words.include?(lesson_word.id)
     lesson_words.push(lesson_word.id)
     lesson_words.shuffle!
   end
 
   def pick_words_definitions
     lesson_words = lesson_module.lesson.lesson_words.map{ |lw| lw.definitions.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = update_words_picked(lesson_words, lesson_word) if lesson_words.include?(lesson_word.id)
     lesson_words.push(lesson_word.definitions.first.id)
     lesson_words.shuffle!
   end
 
   def pick_words_word_forms
-    lesson_words =lesson_module.lesson.lesson_words.map{ |lw| lw.word_forms.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = lesson_module.lesson.lesson_words.map{ |lw| lw.word_forms.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = update_words_picked(lesson_words, lesson_word) if lesson_words.include?(lesson_word.id)
     lesson_words.push(lesson_word.word_forms.first.id)
     lesson_words.shuffle!
   end
 
   def pick_words_synonyms
-    lesson_words =lesson_module.lesson.lesson_words.map{ |lw| lw.synonyms.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = lesson_module.lesson.lesson_words.map{ |lw| lw.synonyms.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = update_words_picked(lesson_words, lesson_word) if lesson_words.include?(lesson_word.id)
     lesson_words.push(lesson_word.synonyms.first.id)
     lesson_words.shuffle!
   end
 
   def pick_words_sentences
     lesson_words = lesson_module.lesson.lesson_words.map{ |lw| lw.sentences.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
+    lesson_words = update_words_picked(lesson_words, lesson_word) if lesson_words.include?(lesson_word.id)
     lesson_words.push(lesson_word.sentences.first.id)
     lesson_words.shuffle!
+  end
+
+  def check_user(user_id)
+    user_answers = answers.where(user_id: user_id)
+    [correct?(user_answers), wrong?(user_answers)]
+  end
+
+  def correct?(user_answers)
+    return true if user_answers.any? { |answer| answer.correct? }
+    false
+  end
+
+  def wrong?(user_answers)
+    return true if user_answers.length >= lesson_module.attempts && !user_answers.any? { |answer| answer.correct? }
+    false
+  end
+
+  def all_questions_completed(user_id)
+    user_answers = Hash.new(0)
+    lesson_module_questions = questions.pluck(:id)
+    answers = Answer.where(user_id: user_id, questions_id: lesson_module_questions)
+    answers.each{ |answer| (answer == 'correct') ? (user_answers[answer.question_id] = 'correct') : (user_answers[answer.question_id] += 1) }
+    lesson_module_questions.each do |question|
+      return false if user_answers[question] != 'correct' ||  user_answers[question] >= attempts
+    end
+    true
   end
 end

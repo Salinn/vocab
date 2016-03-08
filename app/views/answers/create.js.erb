@@ -1,0 +1,14 @@
+<% if @answer.correct? %>
+  $("#answer_answer_option_id_<%= @answer.answer_option_id %>").parent().css("background-color", "green");
+  $("#question_<%= @answer.question.id %>").addClass("green");
+  $("#skip_or_next").text('Next Question');
+  $("#question_fieldset_<%= @answer.question.id %>").prop('disabled', true);
+  $("#total_grade").text(parseFloat($("#total_grade").text())+(<%= ((1.fdiv(@answer.question.lesson_module.questions.length)) * 100)  %>))
+<% elsif @answer.question.answers.where(user_id: current_user.id).length >= @answer.question.lesson_module.attempts %>
+  $("#answer_answer_option_id_<%= @answer.answer_option_id %>").parent().css("background-color", "red");
+  $("#question_<%= @answer.question.id %>").addClass("red");
+  $("#skip_or_next").text('Next Question');
+  $("#question_fieldset_<%= @answer.question.id %>").prop('disabled', true);
+<% else %>
+  $("#answer_answer_option_id_<%= @answer.answer_option_id %>").parent().css("background-color", "red");
+<% end %>

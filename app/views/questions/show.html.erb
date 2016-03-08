@@ -1,19 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="col-xs-11">
+  <% correct, wrong = @question.check_user(current_user.id) %>
+  <%= render 'questions/bubble_header', questions: @question.lesson_module.questions, question: @question %>
+  <% if @lesson_module.name == 'Pretest' %>
+      <%= render 'questions/pretest', correct: correct, wrong: wrong %>
+  <% elsif @lesson_module.name == 'Study the Word' %>
+      <%= render 'questions/study_the_word', correct: correct, wrong: wrong %>
+  <% elsif @lesson_module.name == 'Definition' %>
+      <%= render 'questions/definition', correct: correct, wrong: wrong %>
+  <% elsif @lesson_module.name == 'Sentence' %>
+      <%= render 'questions/sentence', correct: correct, wrong: wrong %>
+  <% elsif @lesson_module.name == 'Synonym' %>
+      <%= render 'questions/synonym', correct: correct, wrong: wrong %>
+  <% elsif @lesson_module.name == 'Word Form' %>
+      <%= render 'questions/word_form', correct: correct, wrong: wrong %>
+  <% end %>
+  <%= render 'questions/links', correct: correct, wrong: wrong %>
+</div>
 
-<p>
-  <strong>Lesson module:</strong>
-  <%= @question.lesson_module %>
-</p>
+<div class="col-xs-1">
+  <% @lesson_module.questions.each do |question| %>
+      <% if question.lesson_word.word_videos.any? && question.lesson_word.word_videos.first.video_link  %>
+          <%= link_to question.lesson_word.word_videos.first.video_description, course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id), remote: true %>
+      <% end %>
+  <% end %>
+</div>
 
-<p>
-  <strong>Lesson word:</strong>
-  <%= @question.lesson_word %>
-</p>
+<%= render 'layouts/dialog' %>
 
-<p>
-  <strong>Correct choice:</strong>
-  <%= @question.correct_choice %>
-</p>
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<script>
+  $('#dialog').on('classChange', function() {
+    $('#word_video').attr('src', '')
+  })
+</script>
