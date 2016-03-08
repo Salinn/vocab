@@ -8,7 +8,7 @@
       <th>Delete</th>
     </tr>
     </thead>
-    <tbody id="definitions">
+    <tbody id="word_videos">
     <% @lesson_word.word_videos.each do |word_video| %>
         <%= render 'lesson_words/word_video', word_video: word_video, lesson_word: @lesson_word %>
     <% end %>

@@ -1,7 +1,7 @@
-$('#definitions').append('<%= j render 'lesson_words/definition', definition: @lesson_word_sentence.definition, lesson_word: @lesson_word_sentence.lesson_word %>')
+$('#word_videos').append('<%= j render 'lesson_words/word_video', word_video: @lesson_word_video.word_video, lesson_word: @lesson_word_video.lesson_word %>')
 
-var optionSelect = $("#lesson_word_definition_definition_id")
-optionSelect.find('option[value=<%= @lesson_word_sentence.definition_id %>]').remove();
+var optionSelect = $("#lesson_word_video_word_video")
+optionSelect.find('option[value=<%= @lesson_word_video.word_video_id %>]').remove();
 
 //Updates word row
-$('#lesson_word_<%= @lesson_word_sentence.lesson_word.id %>').replaceWith('<%= j render 'lesson_words/lesson_word', lesson_word: @lesson_word_sentence.lesson_word %>')
+$('#lesson_word_<%= @lesson_word_video.lesson_word.id %>').replaceWith('<%= j render 'lesson_words/lesson_word', lesson_word: @lesson_word_video.lesson_word %>')
