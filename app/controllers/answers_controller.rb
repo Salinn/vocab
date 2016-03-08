@@ -25,8 +25,9 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
+    end_time = Time.now
     @answer = Answer.new(answer_params)
-    @answer.time_to_complete = 3
+    @answer.time_to_complete = (end_time - (params[:answer][:start_time]).to_time).to_i
     @answer.correct = (@answer.answer_option_id == @answer.question.answer_options_id ? true : false)
 
     respond_to do |format|
