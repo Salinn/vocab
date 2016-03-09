@@ -23,8 +23,9 @@ class Ability
       can :manage, WordVideo
       can :manage, Event
       can :manage, Question
-      can :manage, LessonExtension
+#      can :manage, LessonExtension
       can :manage, LessonWord
+      can :manage, Answer
     end
 
     if Course.with_role(:student, user).any?
@@ -38,7 +39,8 @@ class Ability
       can [:index, :show], WordForm
       can [:index, :show], Synonym
       can [:index, :show], Sentence
-      can [:index, :show], LessonExtension
+#      can [:index, :show], LessonExtension
+      can [:index, :show], Answer
     end
   end
 end
