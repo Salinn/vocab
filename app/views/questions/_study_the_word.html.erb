@@ -4,5 +4,13 @@
     <%= render 'questions/answered_question', question: @question, correct: correct, wrong: wrong %>
 <% else %>
     <h3 class="<%= question_title(correct, wrong) %>"><%= @question.question_string %></h3>
-    <%= render 'answers/form', question: @question, correct: correct, wrong: wrong %>
+    <% if @question.question_string =~ /definition/ %>
+        <%= render 'answers/form_stw_definition', question: @question, correct: correct, wrong: wrong %>
+    <% elsif @question.question_string =~ /word form/ %>
+        <%= render 'answers/form_stw_word_form', question: @question, correct: correct, wrong: wrong %>
+    <% elsif @question.question_string =~ /synonym/ %>
+        <%= render 'answers/form_stw_synonym', question: @question, correct: correct, wrong: wrong %>
+    <% elsif @question.question_string =~ /sentence/ %>
+        <%= render 'answers/form_stw_sentence', question: @question, correct: correct, wrong: wrong %>
+    <% end %>
 <% end %>

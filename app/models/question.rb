@@ -37,7 +37,7 @@ class Question < ActiveRecord::Base
       lesson_words = pick_words_sentences if question_type == 'sentence'
       lesson_words.each do |current_lesson_word|
         answer_option = AnswerOption.create!(lesson_word_id: current_lesson_word, question: self)
-        self.update_columns(answer_options_id: answer_option) if current_lesson_word == lesson_word.id
+        self.update_columns(answer_options_id: answer_option.id) if current_lesson_word == lesson_word.id
       end
     elsif question_string =~ /Pretest/
       self.update_columns(question_string: "Do you know the #{lesson_word.word.name} word?")
@@ -116,8 +116,19 @@ class Question < ActiveRecord::Base
   end
 
   def pick_words_sentences
-    lesson_words = lesson_module.lesson.lesson_words.map{ |lw| lw.sentences.pluck(:id)}.flatten.shuffle[0...(lesson_module.number_of_answers-1)]
-    lesson_words = update_words_picked(lesson_words, lesson_word) if lesson_words.include?(lesson_word.id)
+    lesson_words_with_sentences = []
+    lesson_words = lesson_module.lesson.lesson_words.each do | lesson_word |
+      if lesson_word.sentences.any?
+        puts 'passed'
+        puts lesson_word.sentences.length
+        lesson_words_with_sentences.push(lesson_word.id)
+      end
+    end
+    if lesson_words_with_sentences.empty?
+      puts 'failed'
+      return false
+    end
+    lesson_words = lesson_words_with_sentences.shuffle[0...(lesson_module.number_of_answers-1)]
     lesson_words.push(lesson_word.sentences.first.id)
     lesson_words.shuffle!
   end

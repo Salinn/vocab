@@ -39,7 +39,12 @@ class LessonModule < ActiveRecord::Base
     Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - definition') if lesson_word.definitions.any?
     Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - word form') if lesson_word.word_forms.any?
     Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - synonym') if lesson_word.synonyms.any?
-    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - sentence') if lesson_word.sentences.any?
+    if lesson_word.sentences.any?
+      puts lesson_word.word.name
+      puts lesson_word.sentences.word_sentence
+      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111'
+      Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - sentence')
+    end
   end
 
   def check_if_answer_exists
