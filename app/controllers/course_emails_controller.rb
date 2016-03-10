@@ -84,7 +84,7 @@ class CourseEmailsController < ApplicationController
           recipients.push(@student.email)
         end
       end
-      UserMailer.custom_email(recipients, course_email_params[:title], course_email_params[:content], course_email_params[:email]).deliver_later
+      UserMailer.custom_email(recipients, @course_email.title, @course_email.content, User.with_role(:teacher, @course_email.course).pluck(:email)).deliver_later
     end
 
 end
