@@ -21,8 +21,6 @@ class LessonModule < ActiveRecord::Base
           next if question == 'skip'
           if question == 'Study the Word'
             study_the_word(lesson_word)
-          elsif question == 'Pretest'
-            pretest(lesson_word)
           else
             Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: question)
           end
@@ -39,12 +37,7 @@ class LessonModule < ActiveRecord::Base
     Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - definition') if lesson_word.definitions.any?
     Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - word form') if lesson_word.word_forms.any?
     Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - synonym') if lesson_word.synonyms.any?
-    if lesson_word.sentences.any?
-      puts lesson_word.word.name
-      puts lesson_word.sentences.word_sentence
-      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111'
-      Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - sentence')
-    end
+    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - sentence') if lesson_word.sentences.any?
   end
 
   def check_if_answer_exists
@@ -98,8 +91,6 @@ class LessonModule < ActiveRecord::Base
       return lesson_word.synonyms.any? ? lesson_word.synonyms.first.word_synonym : 'skip'
     elsif name == 'Sentence'
       return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/#{lesson_word.word.name}/i, '______') : 'skip'
-    elsif name == 'Pretest'
-      return (lesson_word.lesson.lesson_words.length > 4) ? 'Pretest' : 'skip'
     elsif name == 'Study the Word'
       return lesson_word ? 'Study the Word': 'skip'
     end

@@ -117,19 +117,12 @@ class Question < ActiveRecord::Base
 
   def pick_words_sentences
     lesson_words_with_sentences = []
-    lesson_words = lesson_module.lesson.lesson_words.each do | lesson_word |
-      if lesson_word.sentences.any?
-        puts 'passed'
-        puts lesson_word.sentences.length
-        lesson_words_with_sentences.push(lesson_word.id)
-      end
+    lesson_words = lesson_module.lesson.lesson_words.each do | current_lesson_word |
+      lesson_words_with_sentences.push(current_lesson_word.id)  if (current_lesson_word.sentences.any? && current_lesson_word.id != lesson_word.id)
     end
-    if lesson_words_with_sentences.empty?
-      puts 'failed'
-      return false
-    end
+    return false if lesson_words_with_sentences.empty?
     lesson_words = lesson_words_with_sentences.shuffle[0...(lesson_module.number_of_answers-1)]
-    lesson_words.push(lesson_word.sentences.first.id)
+    lesson_words.push(lesson_word.id)
     lesson_words.shuffle!
   end
 
