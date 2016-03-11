@@ -8,7 +8,7 @@
       <% question.answer_options.each do |option| %>
           <h5 class="<%= answer_option_words(question.answer_options_id, option.id) if (correct || wrong) %>">
             <%= f.radio_button :answer_option_id, option.id %>
-            <%= f.label :answer_option_id, study_the_word_sentance(option, @question), value: option.id %>
+            <%= f.label :answer_option_id, study_the_word_sentence(option, @question), value: option.id %>
           </h5>
       <% end %>
       <div class="actions">

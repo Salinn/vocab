@@ -7,7 +7,19 @@ module QuestionsHelper
     ((total_correct.fdiv(questions_length)) * 100)
   end
 
-  def study_the_word_sentance(answer_option, question)
+  def study_the_word_sentence(answer_option, question)
     answer_option.lesson_word.sentences.first.word_sentence.gsub(/#{answer_option.lesson_word.word.name}/i, question.lesson_word.word.name)
+  end
+
+  def study_the_word_form(answer_option)
+    answer_option.lesson_word.word_forms.first.associated_word
+  end
+
+  def study_the_word_synonym(answer_option)
+    answer_option.lesson_word.synonyms.first.word_synonym
+  end
+
+  def study_the_word_definition(answer_option)
+    answer_option.lesson_word.definitions.first.word_definition
   end
 end
