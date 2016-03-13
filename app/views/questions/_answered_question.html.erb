@@ -1,5 +1,5 @@
 <div>
-  <div style="float: left; width: auto; display: inline;">
+  <div style="float: left; width: auto; display: inline; margin-left: -23px;">
     <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
         <ul class="<%= (correct || wrong) ? question_title(correct, wrong) : 'bullet-big' %>" id="question_<%= question.id %>">
           <li></li>
@@ -16,9 +16,9 @@
   <% question.answer_options.each do |option| %>
     <ul class="<%= (correct || wrong) ? answer_option_words(question.answer_options_id, option.id, @wrong_answers) : 'bullet' %>">
       <li>
-        <h5>
+        <h4 class="answer-option">
           <%= option.lesson_word.word.name %>
-        </h5>
+        </h4>
       </li>
     </ul>
   <% end %>

@@ -6,9 +6,22 @@
       <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.hidden_field :start_time, value: start_time %>
       <% question.answer_options.each do |option| %>
-          <h5 class="<%= answer_option_words(question.answer_options_id, option.id) if (correct || wrong) %>">
-            <%= f.radio_button :answer_option_id, option.id %>
-            <%= f.label :answer_option_id, option.lesson_word.word.name, value: option.id %>
+          <div id="answer_id_<%= option.id %>">
+            <% if @wrong_answers.include?(option.id) %>
+                <ul class="wrong-bullet">
+                  <li>
+                    <h4>
+                      <%= option.lesson_word.word.name %>
+                    </h4>
+                  </li>
+                </ul>
+            <% else %>
+                <h4>
+                  <%= f.radio_button :answer_option_id, option.id %>
+                  <%= f.label :answer_option_id, option.lesson_word.word.name, value: option.id %>
+                </h4>
+            <% end %>
+          </div>
           </h5>
       <% end %>
       <div class="actions">

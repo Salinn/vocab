@@ -101,7 +101,7 @@ class QuestionsController < ApplicationController
   def set_question
     @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:id])
     @course = Course.find(params[:course_id])
-    @lesson_module = LessonModule.find(params[:lesson_module_id])
+    @lesson_module = LessonModule.includes(questions: [lesson_word: [:word_videos, :word]]).find(params[:lesson_module_id])
   end
 
   def set_question_id

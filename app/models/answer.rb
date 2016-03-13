@@ -1,6 +1,8 @@
 class Answer < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
+  belongs_to :answer_option
+
   validates :question_id, presence: true
   validates :user_id, presence: true
   validates :time_to_complete, numericality: { only_integer: true }

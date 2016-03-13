@@ -3,7 +3,7 @@
 <% @lessons.each do |lesson| %>
     <h3><%= lesson.lesson_name %> ________ Due: <%= lesson.lesson_end_date.strftime('%b %d, %Y') %></h3>
     <%= lesson.lesson_modules.find_each do |lesson_module| %>
-        <h5><%= get_total_correct(lesson_module.questions.map {|q| q.answers.where(user_id: current_user.id, correct: true).length }.sum, lesson_module.questions.length) %>% correct -- <%= link_to lesson_module.name, course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: lesson_module.lesson.id, lesson_module_id: lesson_module.id) %></h5><br>
+        <h5><%= link_to lesson_module.name, course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: lesson_module.lesson.id, lesson_module_id: lesson_module.id) %></h5><br>
     <% end %>
     <hr>
 <% end %>
