@@ -22,4 +22,18 @@ module QuestionsHelper
   def study_the_word_definition(answer_option)
     answer_option.lesson_word.definitions.first.word_definition
   end
+
+  def answered_question_text(answer_option)
+    if answer_option.question.question_string =~ /definition/
+      study_the_word_definition(answer_option)
+    elsif answer_option.question.question_string =~ /word form/
+      study_the_word_form(answer_option)
+    elsif answer_option.question.question_string =~ /synonym/
+      study_the_word_synonym(answer_option)
+    elsif answer_option.question.question_string =~ /sentence/
+      study_the_word_sentence(answer_option, answer_option.question)
+    else
+      option.lesson_word.word.name
+    end
+  end
 end

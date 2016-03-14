@@ -17,7 +17,7 @@
     <ul class="<%= (correct || wrong) ? answer_option_words(question.answer_options_id, option.id, @wrong_answers) : 'bullet' %>">
       <li>
         <h4 class="answer-option">
-          <%= option.lesson_word.word.name %>
+          <%= answered_question_text(option) %>
         </h4>
       </li>
     </ul>

@@ -10,5 +10,5 @@
   $("#question_fieldset_<%= @answer.question.id %>").prop('disabled', true);
   $("#question_<%= @answer.question.id %>").addClass("red");
 <% else %>
-  $("#answer_id_<%= @answer.answer_option_id %>").replaceWith("<ul class='wrong-bullet'><li><h4 class='answer-option'><%= @answer.answer_option.lesson_word.word.name %></h4></li></ul>");
+  $("#answer_id_<%= @answer.answer_option_id %>").replaceWith("<ul class='wrong-bullet'><li><h4 class='answer-option'><%= answered_question_text(@answer.answer_option) %></h4></li></ul>");
 <% end %>

@@ -18,7 +18,7 @@
             <% else %>
                 <h4>
                   <%= f.radio_button :answer_option_id, option.id %>
-                  <%= f.label :answer_option_id, option.lesson_word.word.name, value: option.id %>
+                  <%= f.label :answer_option_id, option.lesson_word.word.name, value: option.id, style: 'display: inline' %>
                 </h4>
             <% end %>
           </div>

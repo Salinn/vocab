@@ -6,13 +6,25 @@
       <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.hidden_field :start_time, value: start_time %>
       <% question.answer_options.each do |option| %>
-          <h5 class="<%= answer_option_words(question.answer_options_id, option.id) if (correct || wrong) %>">
-            <%= f.radio_button :answer_option_id, option.id %>
-            <%= f.label :answer_option_id, study_the_word_form(option), value: option.id %>
-          </h5>
+          <div id="answer_id_<%= option.id %>">
+            <% if @wrong_answers.include?(option.id) %>
+                <ul class="wrong-bullet">
+                  <li>
+                    <h4>
+                      <%= option.lesson_word.word.name %>
+                    </h4>
+                  </li>
+                </ul>
+            <% else %>
+                <h4>
+                  <%= f.radio_button :answer_option_id, option.id %>
+                  <%= f.label :answer_option_id, study_the_word_form(option), value: option.id, style: 'display: inline' %>
+                </h4>
+            <% end %>
+          </div>
       <% end %>
       <div class="actions">
-        <%= f.submit "Submit", data: { disable_with: "Submitting your answer..." } %>
+        <%= f.submit "Submit" %>
       </div>
     </fieldset>
 <% end %>
