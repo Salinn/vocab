@@ -33,7 +33,7 @@ module QuestionsHelper
     elsif answer_option.question.question_string =~ /sentence/
       study_the_word_sentence(answer_option, answer_option.question)
     else
-      option.lesson_word.word.name
+      answer_option.lesson_word.word.name
     end
   end
 end
