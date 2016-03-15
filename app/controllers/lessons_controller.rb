@@ -7,7 +7,6 @@ class LessonsController < ApplicationController
   def index
     @course = Course.find(params[:course_id])
     @lessons = @course.lessons
-    @lesson_module = LessonModule.all
   end
 
   # GET /lessons/1
