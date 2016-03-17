@@ -30,7 +30,9 @@ class CourseEmailsController < ApplicationController
     @course_email = CourseEmail.new(course_email_params)
     respond_to do |format|
       if @course_email.save
-        format.html { redirect_to course_course_email_path(@course_email, course_id: @course_email.course.id), notice: 'Course email was successfully created.' }
+        send_email
+        format.html { redirect_to course_path(@course_email.course), notice: 'Course email was successfully created.' }
+
         format.json { render :show, status: :created, location: @course_email }
       else
         format.html { render :new }
@@ -73,4 +75,16 @@ class CourseEmailsController < ApplicationController
     def course_email_params
       params.require(:course_email).permit(:course_id, :title, :content, :user_id)
     end
+
+    def send_email
+      recipients = []
+      params[:course_email][:user_id].each do |id|
+        @student = User.find_by_id(id)
+        if @student
+          recipients.push(@student.email)
+        end
+      end
+      UserMailer.custom_email(recipients, @course_email.title, @course_email.content, User.with_role(:teacher, @course_email.course).pluck(:email)).deliver_later
+    end
+
 end

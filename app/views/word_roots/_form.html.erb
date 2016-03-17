@@ -1,6 +1,6 @@
-<%= form_for(@word_root) do |f| %>
+<%= form_for(@word_root, remote: true, :html => { :role => "form" }) do |f| %>
   <% if @word_root.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="bg-danger text-danger">
       <h2><%= pluralize(@word_root.errors.count, "error") %> prohibited this word_root from being saved:</h2>
 
       <ul>
