@@ -44,6 +44,10 @@ gem 'ckeditor'
 #helps with searching
 gem 'ransack'
 
+#pagination
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
+
 group :development, :test do
   #RSpec is used for unit testing
   gem 'rspec-rails', '~> 3.0'

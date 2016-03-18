@@ -152,15 +152,4 @@ class Question < ActiveRecord::Base
     return true if user_answers.length >= lesson_module.attempts && !user_answers.any? { |answer| answer.correct? }
     false
   end
-
-  def all_questions_completed(user_id)
-    user_answers = Hash.new(0)
-    lesson_module_questions = questions.pluck(:id)
-    answers = Answer.where(user_id: user_id, questions_id: lesson_module_questions)
-    answers.each{ |answer| (answer == 'correct') ? (user_answers[answer.question_id] = 'correct') : (user_answers[answer.question_id] += 1) }
-    lesson_module_questions.each do |question|
-      return false if user_answers[question] != 'correct' ||  user_answers[question] >= attempts
-    end
-    true
-  end
 end

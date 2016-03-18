@@ -6,7 +6,8 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def index
     @course = Course.find(params[:course_id])
-    @lessons = @course.lessons
+    params[:page] = get_current_Weeks_page if params[:page] == nil
+    @lessons = Lesson.includes(lesson_modules: :questions).where(course_id: @course.id).paginate(:page => params[:page], per_page: 1)
   end
 
   # GET /lessons/1
@@ -71,6 +72,13 @@ class LessonsController < ApplicationController
   end
 
   private
+    def get_current_Weeks_page
+      today = DateTime.now
+      @course.lessons.each_with_index do |lesson, index|
+        return (index + 1) if (lesson.lesson_start_time < today) && ( today < lesson.lesson_end_date)
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
       @lesson = Lesson.find(params[:id])

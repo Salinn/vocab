@@ -1,9 +1,15 @@
-<% total_correct = 0 %>
+<%= will_paginate @lessons, renderer: BootstrapPagination::Rails %>
 <h1>Listing Lessons</h1>
 <% @lessons.each do |lesson| %>
-    <h3><%= lesson.lesson_name %> ________ Due: <%= lesson.lesson_end_date.strftime('%b %d, %Y') %></h3>
+    <h3 class="col-sm-5 col-xs-12" style="padding-left: 0;"><%= lesson.lesson_name %></h3><h3 class="col-sm-5 col-xs-12" style="padding-left: 0;">Due: <%= lesson.lesson_end_date.strftime('%B %d, %Y') %></h3>
+    <div class="clearfix"></div>
     <%= lesson.lesson_modules.find_each do |lesson_module| %>
-        <h5><%= link_to lesson_module.name, course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: lesson_module.lesson.id, lesson_module_id: lesson_module.id) %></h5><br>
+        <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
+        <h5>
+          <span class="<%= display_completed(completed) %>" style="padding-right: 5px;"></span>
+          <% percentage_correct = total_percentage_correct(total_correct, lesson_module.questions.length) %>
+          <%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: lesson_module.lesson.id, lesson_module_id: lesson_module.id) %>
+        </h5><br>
     <% end %>
     <hr>
 <% end %>

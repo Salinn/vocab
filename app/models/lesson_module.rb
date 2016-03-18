@@ -95,4 +95,17 @@ class LessonModule < ActiveRecord::Base
       return lesson_word ? 'Study the Word': 'skip'
     end
   end
+
+  def all_questions_completed(user_id)
+    total_correct = 0
+    flag = true
+    questions.each do |question|
+      answers = question.answers.where(user_id: user_id)
+      correct_question = answers.any? { |answer| answer.correct }
+      total_correct += 1 if correct_question
+      next if answers.length > 0 && (answers.length == attempts || correct_question )
+      flag = false
+    end
+    [flag, total_correct]
+  end
 end
