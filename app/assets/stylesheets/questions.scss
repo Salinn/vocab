@@ -123,3 +123,18 @@
   margin-left: -23px;
   font-weight: bold;
 }
+
+#word_links {
+  @media (min-width: 992px) and (max-width: 1199px) {
+    padding-top: 15px;
+  }
+  @media (min-width: 320px) and (max-width: 991px) {
+    padding-top: 25px;
+  }
+}
+
+.card-background {
+  background-color: lightgrey;
+  border: 14px solid #337AB7;
+  border-radius: 28px
+}

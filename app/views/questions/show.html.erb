@@ -1,4 +1,4 @@
-<div class="col-xs-11">
+<div class="col-md-10 col-xs-12">
   <% correct, wrong = @question.check_user(current_user.id) %>
   <%= render 'questions/bubble_header', questions: @question.lesson_module.questions, question: @question %>
   <% if @lesson_module.name == 'Study the Word' %>
@@ -15,15 +15,22 @@
   <%= render 'questions/links', correct: correct, wrong: wrong %>
 </div>
 
-<div class="col-xs-1">
-  <!-- Ensures unique question links -->
-  <%  word_ids = [] %>
-  <% @lesson_module.questions.each do |question| %>
-      <% word_ids.include?(question.lesson_word.id) ? next : word_ids.push(question.lesson_word.id) %>
-      <% if question.lesson_word.word_videos.any? && question.lesson_word.word_videos.first.video_link  %>
-          <%= link_to question.lesson_word.word.name, course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id), remote: true %>
-      <% end %>
+<div id="word_links" class="col-md-2 col-xs-12">
+  <div class="card card-background">
+      <!-- Ensures unique question links -->
+      <%  word_ids = [] %>
+      <% @lesson_module.questions.each do |question| %>
+          <% word_ids.include?(question.lesson_word.id) ? next : word_ids.push(question.lesson_word.id) %>
+        <div class="col-xs-12" style="padding: 4px">
+        <% if question.lesson_word.word_videos.any? && question.lesson_word.word_videos.first.video_link  %>
+              <%= link_to question.lesson_word.word.name, course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id), remote: true %>
+          <% else %>
+              <%= question.lesson_word.word.name %>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
   <% end %>
+  </div>
 </div>
 
 <%= render 'layouts/dialog' %>

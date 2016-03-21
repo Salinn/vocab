@@ -13,7 +13,7 @@
 <div class="clearfix"></div>
 <hr>
 <div class="clearfix"></div>
-  <% question.answer_options.each do |option| %>
+<% question.answer_options.each do |option| %>
     <ul class="<%= (correct || wrong) ? answer_option_words(question.answer_options_id, option.id, @wrong_answers) : 'bullet' %>">
       <li>
         <h4 class="answer-option">
@@ -21,5 +21,10 @@
         </h4>
       </li>
     </ul>
-  <% end %>
+<% end %>
+<% unless current_page?(controller: 'lesson_modules', action: 'show') %>
+    <div>
+      <%= link_to 'Next Question', course_lesson_lesson_module_question_skip_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: "btn btn-primary" %>
+    </div>
+<% end %>
 <hr>

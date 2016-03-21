@@ -1,6 +1,10 @@
 <%= render 'questions/bubble_header', questions: @questions, question: nil %>
 <br>
-<h3>This quiz will give you <%= @questions.first.lesson_module.attempts %> attempts per question</h3>
-<!-- TODO: fix created_At with lesson_module edit -->
-<h3>You have until <%= @questions.first.lesson_module.created_at.strftime('%A, %d %B %l:%M %p') %> to complete this module</h3>
-<%= link_to 'Begin Quiz', course_lesson_lesson_module_question_path(@questions.first, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) %>
+<div class="card-background col-xs-12 col-sm-8">
+  <h3>This quiz will give you <%= @questions.first.lesson_module.attempts %> attempts per question</h3>
+  <!-- TODO: fix created_At with lesson_module edit -->
+  <h3>You have until <%= @questions.first.lesson_module.created_at.strftime('%A, %d %B %l:%M %p') %> to complete this module</h3>
+  <h3>
+    <%= link_to 'Begin Quiz', course_lesson_lesson_module_question_path(@questions.first, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) %>
+  </h3>
+</div>

@@ -4,7 +4,7 @@ module QuestionsHelper
   end
 
   def get_total_correct(total_correct, questions_length)
-    sprintf('%.2f',((total_correct.fdiv(questions_length)) * 100))
+    sprintf('%.0f',((total_correct.fdiv(questions_length)) * 100))
   end
 
   def study_the_word_sentence(answer_option, question)
@@ -35,5 +35,13 @@ module QuestionsHelper
     else
       answer_option.lesson_word.word.name
     end
+  end
+
+  def number_of_questions(question_lengths)
+    (question_lengths/2).ceil
+  end
+
+  def number_of_questions_revered(question_lengths)
+    12 - (question_lengths/2).ceil
   end
 end

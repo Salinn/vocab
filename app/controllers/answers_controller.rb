@@ -34,6 +34,7 @@ class AnswersController < ApplicationController
       if @answer.save
         @course = Course.find(params[:course_id])
         @lesson_module = LessonModule.find(params[:lesson_module_id])
+        @question = @answer.question
         @wrong_answers = Answer.where(user_id: current_user.id, question_id: @answer.question_id).pluck(:answer_option_id)
         format.js
         format.html { redirect_to course_lesson_lesson_module_question_answer_path(@answer, question_id: @answer.question.id, lesson_module_id: @answer.question.lesson_module.id, lesson_id: @answer.question.lesson_module.lesson.id, course_id: @answer.question.lesson_module.lesson.course.id), notice: 'Answer was successfully created.' }
