@@ -34,7 +34,7 @@ class LessonModulesController < ApplicationController
 
     respond_to do |format|
       if @lesson_module.save
-        format.html { redirect_to course_lesson_path(lesson_id: @lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id), notice: 'Lesson module was successfully created.' }
+        format.html { redirect_to course_lesson_lesson_module_path(@lesson_module, lesson_id: @lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id), notice: 'Lesson module was successfully created.' }
         format.json { render :show, status: :created, location: @lesson_module }
       else
         format.html { render :new }

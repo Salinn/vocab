@@ -15,4 +15,4 @@
 <% end %>
 <br>
 
-<%= link_to 'New Lesson', new_course_lesson_path %>
+<%= link_to 'New Lesson', new_course_lesson_path(course_id: @lessons.first.course.id) %>

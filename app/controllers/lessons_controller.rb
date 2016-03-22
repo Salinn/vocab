@@ -77,6 +77,7 @@ class LessonsController < ApplicationController
       @course.lessons.each_with_index do |lesson, index|
         return (index + 1) if (lesson.lesson_start_time < today) && ( today < lesson.lesson_end_date)
       end
+      return @course.lessons.first.id
     end
 
     # Use callbacks to share common setup or constraints between actions.

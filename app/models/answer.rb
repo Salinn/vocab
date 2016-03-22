@@ -7,7 +7,7 @@ class Answer < ActiveRecord::Base
   validates :user_id, presence: true
   validates :time_to_complete, numericality: { only_integer: true }
   validates :correct, inclusion: { in: [true, false] }
-  validates :answer_option_id, presence: true
+  #validates :answer_option_id, presence: true
 
   # validate :not_an_answer_option
   #

@@ -10,6 +10,7 @@ RSpec.describe "lessons/show", type: :view do
       lesson_start_time: Date.today,
       lesson_end_date: Date.today + 3.months
     ))
+    @course = @lesson.course
   end
 
   it "renders attributes in <p>" do
