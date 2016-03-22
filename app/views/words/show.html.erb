@@ -188,5 +188,6 @@
 
 <% if can?(:edit, @word) %>
 <%= link_to 'Edit', edit_word_path(@word) %>
-    <%end%>
+<%end%>
+<%# link_to 'Update', edit_word_path(word), remote:true %>
 <%= link_to 'Back', words_path %>

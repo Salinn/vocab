@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   resources :word_videos
   resources :words
 
+  resources :course_emails
+
   devise_for :users, :controllers => { :registrations => 'registration' }, :path_names => { :'sign_up.html.erb' => 'register'}
   resources :users, :only => [:index, :show, :edit, :update, :new, :create ]
   resources :users_admin, :controller => 'users'
