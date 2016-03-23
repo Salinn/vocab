@@ -1,43 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Lessons</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Lesson name</th>
-      <th>Lesson modules</th>
-      <th>Lesson points</th>
-      <th>Lesson start time</th>
-      <th>Lesson end date</th>
-      <th>Course</th>
-      <th>Penalty</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @lessons.each do |lesson| %>
-      <tr>
-        <td><%= lesson.lesson_name %></td>
-        <td>
-          <%= lesson.lesson_modules.find_each do |lm| %>
-            <%= lm.name %><br>
-          <% end %>
-        </td>
-        <td><%= lesson.lesson_points %></td>
-        <td><%= lesson.lesson_start_time %></td>
-        <td><%= lesson.lesson_end_date %></td>
-        <td><%= lesson.course.class_name %></td>
-        <td><%= lesson.penalty %></td>
-        <td><%= link_to 'Show', course_lesson_path(lesson, course_id: lesson.course.id) %></td>
-        <td><%= link_to 'Edit', edit_course_lesson_path(lesson, course_id: lesson.course.id) %></td>
-        <td><%= link_to 'Destroy', course_lessons_path(lesson), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<%= will_paginate @lessons, renderer: BootstrapPagination::Rails %>
+<div class="clearfix"></div>
+<% @lessons.each do |lesson| %>
+    <h1 class="col-sm-5 col-xs-12" style="padding-left: 0;"><%= lesson.lesson_name %></h1><h1 class="col-sm-5 col-xs-12" style="padding-left: 0;">Due: <%= lesson.lesson_end_date.strftime('%B %d, %Y') %></h1>
+    <div class="clearfix"></div>
+    <%= lesson.lesson_modules.find_each do |lesson_module| %>
+        <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
+        <h4>
+          <span class="<%= display_completed(completed) %>" style="padding-right: 5px;"></span>
+          <% percentage_correct = total_percentage_correct(total_correct, lesson_module.questions.length) %>
+          <%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: lesson_module.lesson.id, lesson_module_id: lesson_module.id) %>
+        </h4><br>
     <% end %>
-  </tbody>
-</table>
-
+    <hr>
+<% end %>
 <br>
 
-<%= link_to 'New Lesson', new_course_lesson_path(course_id: @course.id) %>
+<%= link_to 'New Lesson', new_course_lesson_path(course_id: @lessons.first.course.id) %>

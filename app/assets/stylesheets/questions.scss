@@ -1,3 +1,140 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border-style: solid;
+  display: inline-block;
+}
+
+.focused_circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-style: solid;
+  display: inline-block;
+}
+
+.green {
+  background: green;
+}
+
+.red {
+  background: #f00;
+}
+
+.correct-bullet li {
+  display: block;
+}
+
+.wrong-bullet li {
+  display: block;
+}
+
+.bullet li {
+  display: block;
+}
+
+.correct-bullet-big li {
+  display: block;
+}
+
+.wrong-bullet-big li {
+  display: block;
+}
+
+.bullet-big li {
+  display: block;
+}
+
+.correct-bullet li:before
+{
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\e013";
+  font-family: 'Glyphicons Halflings';
+  float: left;
+  margin-top: -4px;
+  margin-left: -42px;
+  color: green;
+  font-size: 15px;
+}
+
+.wrong-bullet li:before
+{
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\e014";
+  font-family: 'Glyphicons Halflings';
+  float: left;
+  margin-top: -4px;
+  margin-left: -42px;
+  color: red;
+  font-size: 15px;
+}
+
+.bullet li:before {
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\2022";
+  font-family: 'Glyphicons Halflings';
+  float: left;
+  margin-top: -7px;
+  margin-left: -42px;
+  color: grey;
+  font-size: 35px;
+}
+
+.correct-bullet-big li:before
+{
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\e013";
+  font-family: 'Glyphicons Halflings';
+  float: left;
+  margin-top: -4px;
+  margin-left: -25px;
+  color: green;
+  font-size: 30px;
+}
+
+.wrong-bullet-big li:before
+{
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\e014";
+  font-family: 'Glyphicons Halflings';
+  float: left;
+  margin-top: -4px;
+  margin-left: -25px;
+  color: red;
+  font-size: 30px;
+}
+
+.bullet-big li:before {
+  /*Using a Bootstrap glyphicon as the bullet point*/
+  content: "\2022";
+  font-family: 'Glyphicons Halflings';
+  float: left;
+  margin-top: -20px;
+  margin-left: -25px;
+  color: grey;
+  font-size: 95px;
+}
+
+.answer-option {
+  margin-left: -23px;
+  font-weight: bold;
+}
+
+#word_links {
+  @media (min-width: 992px) and (max-width: 1199px) {
+    padding-top: 15px;
+  }
+  @media (min-width: 320px) and (max-width: 991px) {
+    padding-top: 25px;
+  }
+}
+
+.card-background {
+  background-color: lightgrey;
+  border: 14px solid #337AB7;
+  border-radius: 28px
+}

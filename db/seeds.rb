@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #No Dependencies
-startTime = Time.new();
+startTime = Time.new()
 
 puts "\nSeeding has begun\n"
 
@@ -33,6 +33,6 @@ load 'db/seeds/full_course_examples.rb'
 #load 'db/seeds/word_roots_words.rb' #Depends on words and word roots
 
 
-endTime = Time.new();
+endTime = Time.new()
 
 puts "\nSeeding has completed in #{(endTime-startTime)} seconds\n"

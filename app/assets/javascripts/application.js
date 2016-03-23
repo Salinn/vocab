@@ -20,7 +20,6 @@
 //= require fullcalendar
 //= require_tree .
 
-//Ajax error handling for a the dialog modal
 $(document).ajaxError(function(event,xhr,options,exc) {
 
     var errors = JSON.parse(xhr.responseText);

@@ -1,0 +1,14 @@
+<% if @answer.correct? %>
+  $("#question_id_<%= @answer.question_id %>").html("<%= escape_javascript( render 'questions/answered_question', question: @answer.question, correct: true, wrong: false) %>");
+  $("#skip_or_next").text('Next Question');
+  $("#question_<%= @answer.question.id %>").addClass("green");
+  $("#total_grade").text(parseFloat($("#total_grade").text())+(<%= sprintf('%.0f',((1.fdiv(@answer.question.lesson_module.questions.length)) * 100))  %>));
+<% elsif @answer.question.answers.where(user_id: current_user.id).length >= @answer.question.lesson_module.attempts %>
+  $("#answer_id_<%= @answer.answer_option_id %>").replaceWith("<ul class='wrong-bullet'><li><h5><%= @answer.question.lesson_word.word.name %></h5></li></ul>");
+  $("#question_id_<%= @answer.question_id %>").html("<%= escape_javascript( render 'questions/answered_question', question: @answer.question, correct: false, wrong: true) %>");
+  $("#skip_or_next").text('Next Question');
+  $("#question_fieldset_<%= @answer.question.id %>").prop('disabled', true);
+  $("#question_<%= @answer.question.id %>").addClass("red");
+<% else %>
+  $("#answer_id_<%= @answer.answer_option_id %>").replaceWith("<ul class='wrong-bullet'><li><h4 class='answer-option'><%= answered_question_text(@answer.answer_option) %></h4></li></ul>");
+<% end %>

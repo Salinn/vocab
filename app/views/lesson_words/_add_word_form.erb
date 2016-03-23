@@ -1,4 +1,4 @@
-<%= form_for(@lesson_word) do |f| %>
+<%= form_for(@lesson_word, remote: true, :html => { :role => "form" }) do |f| %>
     <%= f.fields_for :lesson_word_forms, @lesson_word.lesson_word_forms.last do |word_form| %>
         <div class="field">
           <%= word_form.label :lesson_word %><br>

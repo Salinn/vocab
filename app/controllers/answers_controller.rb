@@ -25,10 +25,18 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
+    end_time = Time.now
     @answer = Answer.new(answer_params)
+    @answer.time_to_complete = (end_time - (params[:answer][:start_time]).to_time).to_i
+    @answer.correct = (@answer.answer_option_id == @answer.question.answer_options_id ? true : false)
 
     respond_to do |format|
       if @answer.save
+        @course = Course.find(params[:course_id])
+        @lesson_module = LessonModule.find(params[:lesson_module_id])
+        @question = @answer.question
+        @wrong_answers = Answer.where(user_id: current_user.id, question_id: @answer.question_id).pluck(:answer_option_id)
+        format.js
         format.html { redirect_to course_lesson_lesson_module_question_answer_path(@answer, question_id: @answer.question.id, lesson_module_id: @answer.question.lesson_module.id, lesson_id: @answer.question.lesson_module.lesson.id, course_id: @answer.question.lesson_module.lesson.course.id), notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
       else
@@ -70,6 +78,6 @@ class AnswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def answer_params
-      params.require(:answer).permit(:question_id, :user_id, :time_to_complete, :correct)
+      params.require(:answer).permit(:question_id, :user_id, :answer_option_id)
     end
 end

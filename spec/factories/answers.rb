@@ -4,5 +4,6 @@ FactoryGirl.define do
     association :user, factory: :user
     time_to_complete 3
     correct false
+    association :answer_option, factory: :answer_option
   end
 end
