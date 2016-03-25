@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :grades
   #All routes associated with a course
   resources :courses do
     resources :events
