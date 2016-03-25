@@ -33,13 +33,13 @@
               <tr>
                 <th>Averages</th>
                 <% @course.lessons.each do |lesson| %>
-                    <% total_students_grade, total_students_time = @answers["Lesson #{lesson.id}"] %>
-                    <th><%= total_students_grade %>%</th>
-                    <th><%= total_students_time %> sec</th>
+                    <% average_grade, average_time = @grades["lesson_average#{lesson.id}"] %>
+                    <th><%= average_grade %>%</th>
+                    <th><%= average_time %> sec</th>
                 <% end %>
-                <% final_average_grade, final_average_time = @answers["Course #{@course.id}"] %>
-                <th><%= final_average_grade %>%</th>
-                <th><%= final_average_time %> sec</th>
+                <% average_course_grade, average_course_time = @grades['course_average']%>
+                <th><%= average_course_grade %>%</th>
+                <th><%= average_course_time %> sec</th>
               </tr>
               </thead>
 
@@ -48,11 +48,11 @@
                   <tr>
                     <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
                     <% @course.lessons.each do |lesson| %>
-                        <% lesson_grade, lesson_time = get_grades(@answers, lesson, user) %>
-                        <th><%= lesson_grade %>%</th>
-                        <th><%= lesson_time %> sec</th>
+                        <% grade, time = @grades["#{user.id}-#{lesson.id}"] %>
+                        <th><%= grade %>%</th>
+                        <th><%= time %> sec</th>
                     <% end %>
-                    <% final_grade, final_time = @answers["#{user.id}"] %>
+                    <% final_grade, final_time = @grades["user_course_#{user.id}"] %>
                     <th><%= final_grade %>%</th>
                     <th><%= final_time %></th>
                   </tr>
