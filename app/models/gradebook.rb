@@ -15,53 +15,42 @@ class Gradebook
         grades["#{grade.user_id}-#{grade.lesson_id}"] = [grade.grade, grade.time]
       end
     end
+
     course.lessons.each do |lesson|
       lesson_average_grade, lesson_average_time = grades["lesson_average#{lesson.id}"]
       grades["lesson_average#{lesson.id}"] = [((lesson_average_grade.fdiv(users_length)).to_i),((lesson_average_time.fdiv(users_length)).to_i)]
     end
+
     final_grade, final_time = grades['course_average']
     grades['course_average'] = [((final_grade.fdiv(users_length)).to_i),((final_time.fdiv(users_length)).to_i)]
     grades
   end
 
-  def self.lesson_grades(answers, users, lesson)
-    #Creates 1 hashes that will always start with an empty array oy 0,0
-    #lesson_grades will become the size of students + students * lesson_modules and will figure out the points per lesson_module
-    lesson_grades = Hash.new([0,0])
-    answers.each do |answer|
-      total_correct, total_time = lesson_grades["#{answer['user_id']}.#{answer['lesson_module_id']}"]
-      lesson_grades["#{answer['user_id']}.#{answer['lesson_module_id']}"] = [(total_correct + answer['correct']), (total_time + answer['time_to_complete'])]
-    end
+  def self.lesson_grades(users, lesson)
+    users_length = users.length
+    grades = Hash.new([0,0])
+    Grade.includes(:lesson_module).where("user_id IN (?) AND (lesson_id =? OR lesson_module_id IN (?))", users.pluck(:id), lesson.id, lesson.lesson_modules.pluck(:id)).each do |grade|
+      if grade.lesson_module.nil?
+        user_course_grade, user_course_time = grades["user_lesson_#{grade.user_id}"]
+        grades["user_lesson_#{grade.user_id}"] = [(user_course_grade+grade.grade), (user_course_time+grade.time)]
 
-    #sets the final grade and time for each lesson and lesson_module
-    lesson.lesson_modules.each do |lesson_module|
-      users.each do |user|
-        #Gets the basic information for the lesson and lesson_modules for final grades
-        total_correct, total_time = lesson_grades["#{user.id}.#{lesson_module.id}"]
-        final_grade, final_time = lesson_grades["#{user.id}"]
-        lesson_module_grade_total, lesson_module_time_total = lesson_grades["Lesson Module #{lesson_module.id}"]
-        final_average_grade, final_average_time = lesson_grades["Lesson #{lesson.id}"]
-
-        #Calculates the grades for the lesson total and the lesson_module totals
-        lesson_module_grade, lesson_module_time = calculate_lesson_module_grade(total_correct, total_time, lesson_module)
-        lesson_grade, lesson_time = calculate_lesson_grade(total_correct, total_time, lesson_module)
-
-        #Sets the grade and time for each lesson_module and the final lesson grade overall
-        lesson_grades["#{user.id}.#{lesson_module.id}"] = [lesson_module_grade, lesson_module_time]
-        lesson_grades["#{user.id}"] = [(final_grade+lesson_grade),(final_time+lesson_time)]
-        lesson_grades["Lesson Module #{lesson_module.id}"] = [(lesson_module_grade_total+lesson_module_grade), (lesson_module_time_total+lesson_module_time)]
-        lesson_grades["Lesson #{lesson.id}"] = [(final_average_grade+lesson_grade),(final_average_time+lesson_time)]
+        average_course_grade, average_course_time = grades['lesson_average']
+        grades['lesson_average'] = [(average_course_grade+grade.grade),(average_course_time+grade.time)]
+      else
+        lesson_grade, lesson_time = grades["lesson_module_average#{grade.lesson_module.id}"]
+        grades["lesson_module_average#{grade.lesson_module.id}"] = [(lesson_grade+grade.grade),(lesson_time+grade.time)]
+        grades["#{grade.user_id}-#{grade.lesson_module_id}"] = [grade.grade, grade.time]
       end
-      lesson_module_grade_total, lesson_module_time_total = lesson_grades["Lesson Module #{lesson_module.id}"]
-
-      lesson_grades["Lesson Module #{lesson_module.id}"] = [('%.2f' % lesson_module_grade_total.fdiv(users.length)), ('%.0f' % lesson_module_time_total.fdiv(users.length))]
     end
-    final_students_grade, final_students_time = lesson_grades["Lesson #{lesson.id}"]
-    lesson_grades["Lesson #{lesson.id}"] = [('%.2f' % final_students_grade.fdiv(users.length)), ('%.0f' % final_students_time.fdiv(users.length))]
 
+    lesson.lesson_modules.each do |lesson_module|
+      lesson_module_average_grade, lesson_module_average_time = grades["lesson_module_average#{lesson_module.id}"]
+      grades["lesson_module_average#{lesson_module.id}"] = [((lesson_module_average_grade.fdiv(users_length)).to_i),((lesson_module_average_time.fdiv(users_length)).to_i)]
+    end
 
-    #Returns hash with the user's final lesson grade/time and grade/time for each lesson_module
-    lesson_grades
+    final_grade, final_time = grades['lesson_average']
+    grades['lesson_average'] = [((final_grade.fdiv(users_length)).to_i),((final_time.fdiv(users_length)).to_i)]
+    grades
   end
 
   def self.lesson_module_grades(answers, users, lesson_module)
