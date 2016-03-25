@@ -29,7 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 #Delayed jobs
 gem 'delayed_job_active_record'
-
+gem 'daemons'
 
 # full calendar
 gem 'fullcalendar-rails'

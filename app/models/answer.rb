@@ -19,6 +19,6 @@ class Answer < ActiveRecord::Base
   # end
 
   def delayed_jobs_kicked_off
-    Grade.add_or_update(self.user, self) if correct?
+    Grade.delay.add_or_update(self.user, self) if correct?
   end
 end

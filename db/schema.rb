@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323011148) do
+ActiveRecord::Schema.define(version: 20160325150810) do
 
   create_table "answer_options", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160323011148) do
     t.integer  "lesson_module_id", limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "time",             limit: 4
   end
 
   add_index "grades", ["course_id"], name: "index_grades_on_course_id", using: :btree
