@@ -1,10 +1,8 @@
 
-<% modal ||= false %>
-<% remote = modal ? true : false %>
-<%= form_for(@word, remote: remote, html: {role: :form, 'data-model' => 'word'}) do |f| %>
+<%= form_for(@word, remote: true, html: {role: :form}) do |f| %>
 
   <% if @word.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="bg-danger text-danger">
       <h2><%= pluralize(@word.errors.count, "error") %> prohibited this word from being saved:</h2>
 
       <ul>
@@ -21,7 +19,7 @@
     <span class="help-block"></span>
   </div>
 
-  <div class="actions">
-    <%= f.submit 'Create Word', :onclick => "javascript:window.location.reload()" , class: 'btn btn-primary' %>
+  <div class="actions form-group">
+    <%= f.submit @word.new_record? ? "Create Word" : "Update Word" , class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -31,7 +31,8 @@ RSpec.describe CourseEmailsController, type: :controller do
     {
         title: 'Hello Class',
         content: 'I just wanted to welcome you to class',
-        course_id: course.id
+        course_id: course.id,
+        user_id: [3,""]
     }
   }
 
@@ -84,21 +85,15 @@ RSpec.describe CourseEmailsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new CourseEmail" do
+      it "should deliver the new course email" do
         expect {
-          post :create, {:course_email => valid_attributes, course_id: course.id}, valid_session
+          post :create, {:course_email => valid_attributes,
+                         title: 'Hello Class',
+                         content: 'I just wanted to welcome you to class',
+                         course_id: course.id,
+                         user_id: [3,""]
+                      }, valid_session
         }.to change(CourseEmail, :count).by(1)
-      end
-
-      it "assigns a newly created course_email as @course_email" do
-        post :create, {:course_email => valid_attributes, course_id: course.id}, valid_session
-        expect(assigns(:course_email)).to be_a(CourseEmail)
-        expect(assigns(:course_email)).to be_persisted
-      end
-
-      it "redirects to the created course_email" do
-        post :create, {:course_email => valid_attributes, course_id: course.id}, valid_session
-        expect(response).to redirect_to(course_course_email_path(CourseEmail.last, course_id: CourseEmail.last.course.id))
       end
     end
 
@@ -149,27 +144,6 @@ RSpec.describe CourseEmailsController, type: :controller do
         put :update, {:id => course_email.to_param, :course_email => invalid_attributes, course_id: course_email.course.id}, valid_session
         expect(assigns(:course_email)).to eq(course_email)
       end
-
-      it "re-renders the 'edit' template" do
-        course_email = CourseEmail.create! valid_attributes
-        put :update, {:id => course_email.to_param, :course_email => invalid_attributes, course_id: course_email.course.id}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested course_email" do
-      course_email = CourseEmail.create! valid_attributes
-      expect {
-        delete :destroy, {:id => course_email.to_param, course_id: course_email.course.id}, valid_session
-      }.to change(CourseEmail, :count).by(-1)
-    end
-
-    it "redirects to the course_emails list" do
-      course_email = CourseEmail.create! valid_attributes
-      delete :destroy, {:id => course_email.to_param, course_id: course_email.course.id}, valid_session
-      expect(response).to redirect_to(course_course_emails_path(course_id: course_email.course.id))
     end
   end
 

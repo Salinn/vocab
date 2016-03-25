@@ -32,6 +32,7 @@ class WordRootsController < ApplicationController
       if @word_root.save
         format.html { redirect_to @word_root, notice: 'Word root was successfully created.' }
         format.json { render :show, status: :created, location: @word_root }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @word_root.errors, status: :unprocessable_entity }

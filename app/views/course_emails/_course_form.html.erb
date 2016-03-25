@@ -10,14 +10,20 @@
           </ul>
         </div>
     <% end %>
-
     <div class="field">
       <%= f.hidden_field :course_id, value: course.id %>
+      <%= f.hidden_field :email, value: current_user.email %>
     </div>
-    <div>
-      <%= f.label :user %><br>
-      <%= f.collection_select :user_id, User.with_role(:student, course), :id, :name_and_email, { include_blank: true } , class:"form-control"%>
+    <div class="field">
+      <%= f.label :users %><br>
+      <%= f.collection_check_boxes(:user_id, User.with_role(:student, course), :id, :name_and_email) do |this| %>
+            <div class="collection-check-box">
+              <%= this.check_box %>
+              <%= this.text %>
+            </div>
+      <% end %>
     </div>
+
     <div class="field">
       <%= f.label :title %><br>
       <%= f.text_field :title , class:"form-control"%>
