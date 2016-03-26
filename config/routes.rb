@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :courses do
     resources :events
     resources :course_emails
+    resources :grade_modifiers
 
     #All the routes under course/:id/lessons
     resources :lessons do

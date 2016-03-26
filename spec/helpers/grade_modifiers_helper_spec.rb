@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes
-# the GradeModfierHelper. For example:
+# the GradeModifiersHelper. For example:
 #
-# describe GradeModfierHelper do
+# describe GradeModifiersHelper do
 #   describe "string concat" do
 #     it "concats two strings with spaces" do
 #       expect(helper.concat_strings("this","that")).to eq("this that")
 #     end
 #   end
 # end
-RSpec.describe GradeModfierHelper, type: :helper do
+RSpec.describe GradeModifiersHelper, type: :helper do
 end
