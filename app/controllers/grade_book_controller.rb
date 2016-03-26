@@ -6,8 +6,19 @@ class GradeBookController < ApplicationController
   end
 
   def course
+    @grade_modifiers = Hash.new(0)
     @course = Course.includes(:lessons).find(params['course_id'])
     @users = User.with_role(:student, @course)
+    modifiers = GradeModifer.where("user_id IN (?) AND (course_id =? OR lesson_id IN (?))", @users.pluck(:id), @course.id, @course.lessons.pluck(:id))
+    modifiers.each do |modifier|
+      if modifier.course_id
+        @grade_modifiers["#{modifier.user_id}-#{modifier.course_id}"] = modifier.modified_grade_value
+      elsif modifier.lesson_id
+        @grade_modifiers["#{modifier.user_id}-#{modifier.lesson_id}"] = modifier.modified_grade_value
+      else
+        @grade_modifiers["#{modifier.user_id}-#{modifier.lesson_module_id}"] = modifier.modified_grade_value
+      end
+    end
     @grades = Gradebook.course_grades(@users, @course)
   end
 

@@ -49,7 +49,8 @@
                     <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
                     <% @course.lessons.each do |lesson| %>
                         <% grade, time = @grades["#{user.id}-#{lesson.id}"] %>
-                        <th><%= link_to "#{grade}%", course_grade_modifiers_path(course_id: @course.id, grade: grade, lesson_id: lesson.id, user_id: user.id), remote: true %></th>
+                        <% modified_grade = @grade_modifiers["#{user.id}-#{lesson.id}"] %>
+                        <th><%= link_to "#{grade + modified_grade.to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: grade, lesson_id: lesson.id, user_id: user.id), remote: true, id: "#{user.id}-#{lesson.id}" %></th>
                         <th><%= time %> sec</th>
                     <% end %>
                     <% final_grade, final_time = @grades["user_course_#{user.id}"] %>

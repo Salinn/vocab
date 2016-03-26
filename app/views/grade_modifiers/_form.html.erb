@@ -3,7 +3,7 @@
         <div class="field">
           <%= f.hidden_field :lesson_id, value: lesson.id %>
           <%= f.hidden_field :user_id, value: user.id %>
-          <%= f.number_field :modified_grade_value, placeholder: modified_grade %>
+          <%= f.number_field :modified_grade_value, value: 0 %>
           <%= f.submit class: 'btn btn-primary' %>
         </div>
     <% end %>
@@ -12,7 +12,7 @@
         <div class="field">
           <%= f.hidden_field :lesson_id, value: lesson.id %>
           <%= f.hidden_field :user_id, value: user.id %>
-          <%= f.number_field :modified_grade_value, placeholder: modified_grade %>
+          <%= f.number_field :modified_grade_value %>
           <%= f.submit class: 'btn btn-primary' %>
         </div>
     <% end %>
