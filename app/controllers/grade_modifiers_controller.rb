@@ -34,6 +34,7 @@ class GradeModifiersController < ApplicationController
 
   def update
     @grade_modifier = GradeModifer.find(params[:id])
+    @old_grade = @grade_modifier.modified_grade_value
     respond_to do |format|
       if @grade_modifier.update(grade_modfier_params)
         format.js
