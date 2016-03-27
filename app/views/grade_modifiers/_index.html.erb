@@ -23,7 +23,7 @@
     <h1>current grade <%= grade %></h1>
     <% modified_grade = grade_modifier.modified_grade_value.nil? ? 0 : grade_modifier.modified_grade_value %>
     <div id="grade_modifier_form">
-      <%= render 'grade_modifiers/form_user_course', grade_modifier: grade_modifier, course: course, modified_grade: modified_grade, user: user %>
+      <%= render 'grade_modifiers/form_course', grade_modifier: grade_modifier, course: course, modified_grade: modified_grade, user: user %>
     </div>
     <h1 id="final_grade">final grade <%= grade.to_i + modified_grade %></h1>
 <% end %>

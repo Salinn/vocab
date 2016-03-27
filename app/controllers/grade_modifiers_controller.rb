@@ -16,8 +16,10 @@ class GradeModifiersController < ApplicationController
       @grade_modifier = GradeModifer.find_by(user_id: @user.id, course_id: @course.id)
     elsif params[:lesson_id]
       @lesson = Lesson.find(params[:lesson_id])
-    else
       @grade_modifier = GradeModifer.find_by(user_id: nil, lesson_id: @lesson.id)
+    else
+      @course = Course.find(params[:course_id])
+      @grade_modifier = GradeModifer.find_by(user_id: nil, course_id: @course.id)
     end
     @grade_modifier = GradeModifer.new if @grade_modifier.nil?
   end
@@ -37,7 +39,7 @@ class GradeModifiersController < ApplicationController
           format.json { render json: @grade_modifier.errors, status: :unprocessable_entity }
         end
       end
-    else
+    elsif params[:grade_modifer][:lesson_id]
       @course = Course.find(params[:grade_modifer][:course_id])
       params[:grade_modifer][:course_id] = nil
       @grade_modifier = GradeModifer.create!(grade_modfier_params)
@@ -45,6 +47,19 @@ class GradeModifiersController < ApplicationController
       @users = User.with_role(:student, @course)
       @modified_grade = params[:grade_modifer][:modified_grade_value]
       modifiers = GradeModifer.where("user_id IN (?) AND lesson_id = (?)", @users.pluck(:id), params[:grade_modifer][:lesson_id])
+      modifiers.each { |modifier| grade_modified[modifier.user_id] = modifier.modified_grade_value }
+      @users.each do |user|
+        params[:grade_modifer][:user_id] = user.id
+        params[:grade_modifer][:modified_grade_value] = @modified_grade.to_i + grade_modified[user.id]
+        GradeModifer.create!(grade_modfier_params)
+      end
+    else
+      @course = Course.find(params[:grade_modifer][:course_id])
+      @grade_modifier = GradeModifer.create!(grade_modfier_params)
+      grade_modified = Hash.new(0)
+      @users = User.with_role(:student, @course)
+      @modified_grade = params[:grade_modifer][:modified_grade_value]
+      modifiers = GradeModifer.where("user_id IN (?) AND course_id = (?)", @users.pluck(:id), params[:grade_modifer][:course_id])
       modifiers.each { |modifier| grade_modified[modifier.user_id] = modifier.modified_grade_value }
       @users.each do |user|
         params[:grade_modifer][:user_id] = user.id
@@ -69,7 +84,7 @@ class GradeModifiersController < ApplicationController
           format.json { render json: @grade_modifier.errors, status: :unprocessable_entity }
         end
       end
-    else
+    elsif params[:grade_modifer][:lesson_id]
       @course = Course.find(params[:grade_modifer][:course_id])
       params[:grade_modifer][:course_id] = nil
       @grade_modifier = GradeModifer.find(params[:id])
@@ -78,6 +93,17 @@ class GradeModifiersController < ApplicationController
       @users = User.with_role(:student, @course)
       @modified_grade = params[:grade_modifer][:modified_grade_value]
       modifiers = GradeModifer.where("user_id IN (?) AND lesson_id = (?)", @users.pluck(:id), params[:grade_modifer][:lesson_id])
+      modifiers.each do |modifier|
+        modifier.update(grade_modfier_params)
+      end
+    else
+      @course = Course.find(params[:grade_modifer][:course_id])
+      @grade_modifier = GradeModifer.find(params[:id])
+      @old_grade = @grade_modifier.modified_grade_value
+      @grade_modifier.update(grade_modfier_params)
+      @users = User.with_role(:student, @course)
+      @modified_grade = params[:grade_modifer][:modified_grade_value]
+      modifiers = GradeModifer.where("user_id IN (?) AND course_id = (?)", @users.pluck(:id), @course.id)
       modifiers.each do |modifier|
         modifier.update(grade_modfier_params)
       end
