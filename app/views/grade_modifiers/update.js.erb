@@ -1,4 +1,4 @@
-<% if @grade_modifier.user_id.nil? %>
+<% if @grade_modifier.user_id.nil? and @grade_modifier.lesson_id %>
   var final_grade_string  = $('#final_grade');
   var grade_modifier_form = $('#grade_modifier_form');
   var current_grade = parseInt(final_grade_string.text().match(/\d+/))+<%= (@grade_modifier.modified_grade_value - @old_grade).to_i%>;
@@ -10,9 +10,20 @@
   <% @users.each do |user| %>
   user_grade = parseInt($('#<%= "#{user.id}-#{@grade_modifier.lesson_id}" %>').text().match(/\d+/))+<%= (@grade_modifier.modified_grade_value - @old_grade).to_i %>;
   $('#<%= "#{user.id}-#{@grade_modifier.lesson_id}" %>').text(user_grade+'%');
-<% end %>
+  <% end %>
   grade_modifier_form.html("<%= escape_javascript(render 'grade_modifiers/form_no_user', grade_modifier: @grade_modifier, lesson: @grade_modifier.lesson, course: @grade_modifier.lesson.course, user: @grade_modifier.user) %>");
-      <% else %>
+grade_modifier_form.html("<%= escape_javascript(render 'grade_modifiers/form_no_user', grade_modifier: @grade_modifier, lesson: @grade_modifier.lesson, course: @grade_modifier.lesson.course, user: @grade_modifier.user) %>");
+<% elsif @grade_modifier.user_id? and @grade_modifier.course_id %>
+  var final_grade_string  = $('#final_grade');
+  var user_link = $('#<%= "user#{@grade_modifier.user_id}" %>')
+  var grade_modifier_form = $('#grade_modifier_form');
+  var current_grade = parseInt(final_grade_string.text().match(/\d+/))+<%= (@grade_modifier.modified_grade_value - @old_grade).to_i %>;
+
+
+  final_grade_string.text('final grade '+current_grade);
+  user_link.text(current_grade+'%');
+  grade_modifier_form.html("<%= escape_javascript(render 'grade_modifiers/form', grade_modifier: @grade_modifier, lesson: @grade_modifier.lesson, course: @grade_modifier.lesson.course, user: @grade_modifier.user) %>");
+<% else %>
   var final_grade_string  = $('#final_grade');
   var lesson_link = $('#<%= "#{@grade_modifier.user_id}-#{@grade_modifier.lesson_id}" %>')
   var grade_modifier_form = $('#grade_modifier_form');

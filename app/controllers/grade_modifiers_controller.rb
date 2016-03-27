@@ -7,10 +7,15 @@ class GradeModifiersController < ApplicationController
   def index
     @grade = params[:grade]
     @course = Course.find(params[:course_id])
-    @lesson = Lesson.find(params[:lesson_id])
-    if params[:user_id]
+    if params[:user_id] && params[:lesson_id]
       @user = User.find(params[:user_id])
+      @lesson = Lesson.find(params[:lesson_id])
       @grade_modifier = GradeModifer.find_by(user_id: @user.id, lesson_id: @lesson.id)
+    elsif params[:user_id] && params[:course_id]
+      @user = User.find(params[:user_id])
+      @grade_modifier = GradeModifer.find_by(user_id: @user.id, course_id: @course.id)
+    elsif params[:lesson_id]
+      @lesson = Lesson.find(params[:lesson_id])
     else
       @grade_modifier = GradeModifer.find_by(user_id: nil, lesson_id: @lesson.id)
     end
