@@ -7,6 +7,7 @@
           <span class="<%= display_completed(completed) %>" style="padding-right: 5px;"></span>
           <% percentage_correct = total_percentage_correct(total_correct, lesson_module.questions.length) %>
           <%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_module_id: lesson_module.id) %>
+          <%= link_to "edit", edit_course_lesson_lesson_module_url(course_id: @course.id, lesson_id: @lesson.id, id: lesson_module.id) %>
         </h4><br>
     <% end %>
     <%= link_to "new lesson module", new_course_lesson_lesson_module_path(course_id: @course.id, lesson_id: @lesson.id) %>

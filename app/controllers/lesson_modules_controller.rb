@@ -27,6 +27,8 @@ class LessonModulesController < ApplicationController
 
   # GET /lesson_modules/1/edit
   def edit
+    @course = Course.find(params[:course_id])
+    @lesson = Lesson.find(params[:lesson_id])
   end
 
   # POST /lesson_modules
