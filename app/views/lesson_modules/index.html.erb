@@ -1,33 +1,13 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Lesson Modules</h1>
-
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Attempts</th>
-    <th>In use</th>
-    <th>Value percentage</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @lesson_modules.each do |lesson_module| %>
-      <tr>
-        <td><%= lesson_module.name %></td>
-        <td><%= lesson_module.attempts %></td>
-        <td><%= lesson_module.in_use %></td>
-        <td><%= lesson_module.value_percentage %></td>
-        <td><%= link_to 'Show', course_lesson_lesson_module_path(lesson_module, @course.id, lesson_id: @lesson.id) %></td>
-        <td><%= link_to 'Edit', edit_course_lesson_lesson_module_path(lesson_module, @course.id, lesson_id: @lesson.id) %></td>
-        <td><%= link_to 'Destroy', course_lesson_lesson_module_path(lesson_module, @course.id, lesson_id: @lesson.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
+<div class="clearfix"></div>
+    <h1 class="col-sm-5 col-xs-12" style="padding-left: 0;"><%= @lesson.lesson_name %></h1><h1 class="col-sm-5 col-xs-12" style="padding-left: 0;">Due: <%= @lesson.lesson_end_date.strftime('%B %d, %Y') %></h1>
+    <div class="clearfix"></div>
+    <%= @lesson.lesson_modules.find_each do |lesson_module| %>
+        <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
+        <h4>
+          <span class="<%= display_completed(completed) %>" style="padding-right: 5px;"></span>
+          <% percentage_correct = total_percentage_correct(total_correct, lesson_module.questions.length) %>
+          <%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_module_id: lesson_module.id) %>
+        </h4><br>
+    <% end %>
+    <hr>
 <br>
-
-<%= link_to 'New Lesson module', new_course_lesson_lesson_module_path(lesson_id: @lesson.id, course_id: @course.id) %>
