@@ -9,5 +9,6 @@
           <%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_module_id: lesson_module.id) %>
         </h4><br>
     <% end %>
+    <%= link_to "new lesson module", new_course_lesson_lesson_module_path(course_id: @course.id, lesson_id: @lesson.id) %>
     <hr>
 <br>

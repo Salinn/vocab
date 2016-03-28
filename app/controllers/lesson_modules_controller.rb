@@ -20,6 +20,8 @@ class LessonModulesController < ApplicationController
 
   # GET /lesson_modules/new
   def new
+    @course = Course.find(params[:course_id])
+    @lesson = Lesson.find(params[:lesson_id])
     @lesson_module = LessonModule.new
   end
 
