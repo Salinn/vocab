@@ -44,6 +44,10 @@ gem 'ckeditor'
 #helps with searching
 gem 'ransack'
 
+#pagination
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
+
 group :development, :test do
   #RSpec is used for unit testing
   gem 'rspec-rails', '~> 3.0'
@@ -70,6 +74,9 @@ group :development do
 
   #Helps find n+1 queries
   gem 'bullet'
+
+  #Helps make print out in rails console look better
+  gem 'awesome_print'
 
   #These 2 gems makes it a bit easier to debug issues when they occur
   #This occurs by stopping where the error occurs and giving you a terminial and info on what was going on

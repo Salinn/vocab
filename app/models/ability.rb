@@ -44,6 +44,5 @@ class Ability
       can [:index, :show], LessonExtension
       can [:index, :show], Answer
     end
-
   end
 end

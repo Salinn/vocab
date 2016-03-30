@@ -55,20 +55,26 @@ lesson_end_date = start_date + 7.days
       LessonWordSentence.create!(lesson_word: lesson_word, sentence: word.sentences.first) if word.sentences.any?
       LessonWordSynonym.create!(lesson_word: lesson_word, synonym: word.synonyms.first) if word.synonyms.any?
       LessonWordForm.create!(lesson_word: lesson_word, word_form: word.word_forms.first) if word.word_forms.any?
-
+      LessonWordVideo.create!(lesson_word: lesson_word, word_video: word.word_videos.first) if word.word_videos.any?
       puts "Created Lesson Word ##{word.name}"
     end
     #Creates the Questions and AnswerOptions by setting each lesson module to true
     puts "Turing on lesson Modules"
     lesson.lesson_modules.each do |lesson_module|
+      puts "Turning on lesson_module: #{lesson_module.id}"
       lesson_module.update_attributes(in_use: true)
     end
+    puts "finished lesson: #{lesson.id}"
   end
+  puts "finished course besides answers, course: #{course.id}"
 
 #Create Answers
   course.lessons.each do |lesson|
+    puts "start lesson: #{lesson.id}"
     lesson.lesson_modules.each do |lesson_module|
+      puts "start lesson_module: #{lesson_module.id}"
       lesson_module.questions.each do |question|
+        puts "question: #{question.id}"
         User.with_role(:student, course).each do |user|
           (0...lesson_module.attempts).each do
             answer_options = question.answer_options.pluck(:id)

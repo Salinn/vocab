@@ -1,0 +1,19 @@
+<div class="">
+
+  <h2>Sentences</h2>
+  <table id class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Sentence</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="sentences">
+    <% @lesson_word.sentences.each do |sentence| %>
+        <%= render 'lesson_words/sentence', sentence: sentence, lesson_word: @lesson_word %>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'lesson_word_sentences/form', lesson_word: @lesson_word %>

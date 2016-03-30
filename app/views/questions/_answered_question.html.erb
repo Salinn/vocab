@@ -1,0 +1,30 @@
+<div>
+  <div style="float: left; width: auto; display: inline; margin-left: -23px;">
+    <%= link_to course_lesson_lesson_module_question_path(question, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) do %>
+        <ul class="<%= (correct || wrong) ? question_title(correct, wrong) : 'bullet-big' %>" id="question_<%= question.id %>">
+          <li></li>
+        </ul>
+    <% end %>
+  </div>
+  <div style="float: left; width: 90%; display: inline; padding-left: 10px;">
+    <h3 style="margin: 0;"><%= question.question_string %></h3>
+  </div>
+</div>
+<div class="clearfix"></div>
+<hr>
+<div class="clearfix"></div>
+<% question.answer_options.each do |option| %>
+    <ul class="<%= (correct || wrong) ? answer_option_words(question.answer_options_id, option.id, @wrong_answers) : 'bullet' %>">
+      <li>
+        <h4 class="answer-option">
+          <%= answered_question_text(option) %>
+        </h4>
+      </li>
+    </ul>
+<% end %>
+<% unless current_page?(controller: 'lesson_modules', action: 'show') %>
+    <div>
+      <%= link_to 'Next Question', course_lesson_lesson_module_question_skip_path(course_id: @course.id,lesson_id: @lesson_module.lesson.id,lesson_module_id: @lesson_module.id,question_id: @question.id), class: "btn btn-primary" %>
+    </div>
+<% end %>
+<hr>

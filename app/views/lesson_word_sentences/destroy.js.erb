@@ -1,0 +1,7 @@
+$('#sentence_<%= @lesson_word_sentence.sentence_id %>').fadeOut()
+$('#sentence_<%= @lesson_word_sentence.sentence_id %>').remove()
+var optionSelect = $("#lesson_word_sentence_sentence_id")
+optionSelect.append($('<option></option>').val("<%= @lesson_word_sentence.sentence_id %>").html("<%= @lesson_word_sentence.sentence.word_sentence %>"));
+
+//Updates word row
+$('#lesson_word_<%= @lesson_word_sentence.lesson_word.id %>').replaceWith('<%= j render 'lesson_words/lesson_word', lesson_word: @lesson_word_sentence.lesson_word %>')

@@ -1,0 +1,13 @@
+<% lesson_word_sentence = LessonWordSentence.new %>
+<%= form_for(lesson_word_sentence, url: course_lesson_lesson_word_lesson_word_sentences_path(course_id: @course.id, lesson_id: @lesson.id, lesson_word_id: @lesson_word), remote: true, :html => { :role => "form" }) do |f| %>
+    <div class="field">
+      <%= f.hidden_field :lesson_word_id, value: lesson_word.id %>
+    </div>
+    <div class="field">
+      <%= f.label :sentence %><br>
+      <%= f.collection_select :sentence_id, lesson_word.not_word_sentences, :id, :word_sentence, { prompt: "Please select" }, class: "input-sm" %>
+    </div>
+    <div class="actions">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+<% end %>
