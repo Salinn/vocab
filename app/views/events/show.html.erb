@@ -20,5 +20,5 @@
   <%= @event.end_time %>
 </p>
 
-<%= link_to 'Edit', edit_course_event_path(@event, course_id: @course.id) %> |
-<%= link_to 'Back', course_events_path(course_id: @course.id) %>
+<%= link_to 'Edit', edit_course_event_path(@event, course_id: @course.id), class:"btn btn-primary" %>
+<%= link_to 'Back', course_events_path(course_id: @course.id), class:"btn btn-primary" %>
