@@ -23,7 +23,7 @@
       <tbody id="word_form">
 
       <% @word.word_forms.each do |word_form| %>
-          <%= render 'word_form_row', word_form: word_form %>
+          <%= render 'word_forms/word_form_row', word_form: word_form %>
       <% end %>
 
       </tbody>
@@ -31,7 +31,7 @@
   <% else %>
     <h3>There are no Word Forms in the dictionary for this word</h3>
   <% end %>
-  <%= link_to 'New Word Form', new_word_form_path, remote: true,  class:'btn btn-primary col-sm-3 ' %>
+  <%= link_to 'New Word Form', new_word_form_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
   </br>
 
   <!-- Word sentences -->

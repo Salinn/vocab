@@ -16,8 +16,7 @@
     <%= f.text_field :associated_word , class:'form-control'%>
   </div>
   <div class="field form-group">
-    <%= f.label :word , class:'control-label'%><br>
-    <%= f.collection_select :word_id, @words, :id, :name , class:'form-control'%>
+    <%= f.hidden_field :word_id, value: word.id%>
   </div>
   <div class="actions form-group">
     <%= f.submit @word_form.new_record? ? "Create Word Form" : "Update Word Form" , class: 'btn btn-primary' %>

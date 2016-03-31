@@ -16,12 +16,13 @@ class WordFormsController < ApplicationController
   # GET /word_forms/new
   def new
     @word_form = WordForm.new
-    @words = Word.all
+    @word = Word.find(params[:word_id])
   end
 
   # GET /word_forms/1/edit
   def edit
     @words = Word.all
+    @word = Word.find(params[:word_id])
   end
 
   # POST /word_forms
