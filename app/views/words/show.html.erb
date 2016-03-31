@@ -67,24 +67,23 @@
   <h3>Synonyms</h3>
   <table class="table">
     <thead>
-    <tr>
-      <th>Word Synonym</th>
-      <th colspan="3"></th>
-    </tr>
+      <tr>
+        <th>Word Synonym</th>
+        <th colspan="3"></th>
+      </tr>
     </thead>
-    <tbody>
+
+    <tbody id="word_synonym">
     <% @word.synonyms.each do |synonym| %>
-        <tr>
-          <td><%=synonym.word_synonym %></td>
-          <td><%= link_to 'Show', synonym %></td>
-          <td><%= link_to 'Edit', edit_synonym_path(synonym) %></td>
-          <td><%= link_to 'Destroy', synonym, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%= render 'synonyms/synonym_row', synonym: synonym %>
     <% end %>
     </tbody>
+
   </table>
   <% else %>
       <h3>There are no Synonyms in the dictionary for this word</h3>
   <% end %>
+  <%= link_to 'New Synonym', new_synonym_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
   </br>
 
   <!-- Word definitions -->
