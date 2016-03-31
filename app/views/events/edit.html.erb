@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', course_events_path(@event, course_id: @event.lesson.course.id ) %> |
-<%= link_to 'Back', course_events_path(course_id: @event.lesson.course.id) %>
+<%= link_to 'Show', course_events_path(@event, course_id: @event.lesson.course.id ), class:"btn btn-primary"%>
+<%= link_to 'Back', course_events_path(course_id: @event.lesson.course.id), class:"btn btn-primary" %>
