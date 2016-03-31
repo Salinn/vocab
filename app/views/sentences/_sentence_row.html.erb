@@ -2,5 +2,5 @@
 <tr id="word_sentence_<%= sentence.id %>">
   <td><%= sentence.word_sentence %></td>
   <td><%= link_to 'Edit', edit_sentence_path(sentence, word_id: sentence.word.id), remote: true %></td>
-  <td><%= link_to 'Destroy', sentence, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>s
+  <td><%= link_to 'Destroy', sentence, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
