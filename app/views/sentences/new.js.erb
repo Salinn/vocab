@@ -2,7 +2,7 @@
 $('#dialog h3').html("<i class='glyphicon glyphicon-plus'></i> Add New Sentence");
 
 // Render the new form
-$('.modal-body').html('<%= j render("sentences/sentence_row", word: @word) %>');
+$('.modal-body').html('<%= j render("sentences/form", word: @word) %>');
 
 // Show the dynamic dialog
 $('#dialog').modal("show");
