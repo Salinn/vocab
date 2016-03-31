@@ -9,8 +9,6 @@
 
   <!-- Word Forms -->
 
-  <% if @word.word_forms.length > 0 %>
-
     <h3>Word Forms</h3>
     <table class="table">
       <thead>
@@ -28,15 +26,11 @@
 
       </tbody>
     </table>
-  <% else %>
-    <h3>There are no Word Forms in the dictionary for this word</h3>
-  <% end %>
   <%= link_to 'New Word Form', new_word_form_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
   </br>
 
   <!-- Word sentences -->
 
-  <% if @word.sentences.length > 0 %>
   <h3>Sentences</h3>
   <table class="table">
     <thead>
@@ -55,15 +49,12 @@
     </tbody>
 
   </table>
-  <% else %>
-      <h3>There are no Sentences in the dictionary for this word</h3>
-  <% end %>
+
   <%= link_to 'New Sentence', new_sentence_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
   </br>
 
   <!-- Word synonyms -->
 
-  <% if @word.synonyms.length > 0 %>
   <h3>Synonyms</h3>
   <table class="table">
     <thead>
@@ -80,15 +71,11 @@
     </tbody>
 
   </table>
-  <% else %>
-      <h3>There are no Synonyms in the dictionary for this word</h3>
-  <% end %>
   <%= link_to 'New Synonym', new_synonym_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
   </br>
 
   <!-- Word definitions -->
 
-  <% if @word.definitions.length > 0 %>
   <h3>Definitions</h3>
   <table class="table">
     <thead>
@@ -105,15 +92,11 @@
     </tbody>
 
   </table>
-  <% else %>
-    <h3>There are no Definitions in the dictionary for this word</h3>
-  <% end %>
   <%= link_to 'New Definition', new_definition_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
   </br>
 
   <!-- Word videos -->
 
-  <% if @word.word_videos.length > 0 %>
   <h3>Word video</h3>
   <table class="table">
     <thead>
@@ -128,14 +111,11 @@
     <% end %>
     </tbody>
   </table>
-  <% else %>
-    <h3>There are no Word Videos in the dictionary for this word</h3>
-  <% end %>
   <%= link_to 'New Word Video', new_word_video_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
   </br>
 
   <!-- Word Roots-->
-  <% if @word.word_roots.length > 0 %>
+
   <h3>Word roots</h3>
   <table class="table">
     <thead>
@@ -144,26 +124,17 @@
       <th colspan="3"></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="word_roots">
     <% @word.word_roots.each do |word_root| %>
-        <tr>
-          <td><%= word_root.root_name %></td>
-          <td><%= link_to 'Show', word_root %></td>
-          <td><%= link_to 'Edit', edit_word_root_path(word_root) %></td>
-          <td><%= link_to 'Destroy', word_root, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+      <%= render 'word_roots/word_root_row', word_root: word_root %>
     <% end %>
     </tbody>
   </table>
-  <% else %>
-      <h3>There are no Word Roots in the dictionary for this word</h3>
-  <% end %>
-
+  <%= link_to 'New Word Root', new_word_root_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
 
 </div>
 
 <%= render 'layouts/dialog' %>
-<%# link_to 'Update', edit_word_path(word), remote:true %>
 
 <%= link_to 'Edit', edit_word_path(@word) %> |
 <%= link_to 'Back', words_path %>

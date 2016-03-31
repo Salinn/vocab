@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   resources :synonyms
   resources :sentences
   resources :word_forms
-  resources :word_roots
+  resources :word_roots do
+      delete 'remove_relation' => 'word_roots#remove_relation' , as: :remove_relation
+  end
   resources :word_videos
   resources :words
 

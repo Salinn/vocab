@@ -19,7 +19,12 @@
     <%= f.label :root_definition %><br>
     <%= f.text_area :root_definition , class:'form-control'%>
   </div>
+
+  <div class="field form-group">
+    <%= f.hidden_field :word_id, value: word.id%>
+  </div>
+
   <div class="actions form-group">
-    <%= f.submit 'Create Word Root', class:'btn btn-primary' %>
+    <%= f.submit @word_root.new_record? ? "Create Word Form" : "Update Word Form" , class:'btn btn-primary' %>
   </div>
 <% end %>

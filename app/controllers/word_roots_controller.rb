@@ -1,5 +1,6 @@
 class WordRootsController < ApplicationController
   before_action :set_word_root, only: [:show, :edit, :update, :destroy]
+  before_action :set_relationship, only: [:remove_relation]
   load_and_authorize_resource
 
   # GET /word_roots
@@ -17,10 +18,12 @@ class WordRootsController < ApplicationController
   # GET /word_roots/new
   def new
     @word_root = WordRoot.new
+    @word = Word.find(params[:word_id])
   end
 
   # GET /word_roots/1/edit
   def edit
+    @word = Word.find(params[:word_id])
   end
 
   # POST /word_roots
@@ -47,6 +50,7 @@ class WordRootsController < ApplicationController
       if @word_root.update(word_root_params)
         format.html { redirect_to @word_root, notice: 'Word root was successfully updated.' }
         format.json { render :show, status: :ok, location: @word_root }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @word_root.errors, status: :unprocessable_entity }
@@ -61,10 +65,26 @@ class WordRootsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to word_roots_url, notice: 'Word root was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
+    end
+  end
+
+  # Removes a word roots assignment to a word
+  def remove_relation
+    @word.word_roots.delete(@word_root)
+    respond_to do |format|
+      format.js
     end
   end
 
   private
+
+    def set_relationship
+      #if request param id is null then we are using the specific id otherwise we are ok to the use the standard
+      @word_root = (params[:id].nil?) ? WordRoot.find(params[:word_root_id]) : WordRoot.find(params[:id])
+      @word = Word.find(params[:word_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_word_root
       @word_root = WordRoot.find(params[:id])
