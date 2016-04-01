@@ -49,7 +49,7 @@ class GradeModifiersController < ApplicationController
       @modified_grade = params[:grade_modifer][:modified_grade_value]
       modifiers = GradeModifer.where("user_id IN (?) AND lesson_id = (?)", @user_ids, params[:grade_modifer][:lesson_id])
       modifiers.each { |modifier| grade_modified[modifier.user_id] = modifier.modified_grade_value }
-      GradeModifer.create_lesson_grade_for_all(@user_ids, lesson_id, @modified_grade, grade_modified)
+      GradeModifer.delay.create_lesson_grade_for_all(@user_ids, lesson_id, @modified_grade, grade_modified)
     else
       @grade_modifier = GradeModifer.create!(grade_modfier_params)
       grade_modified = Hash.new(0)
@@ -85,13 +85,13 @@ class GradeModifiersController < ApplicationController
       @old_grade = @grade_modifier.modified_grade_value
       @grade_modifier.update(grade_modfier_params)
       @modified_grade = params[:grade_modifer][:modified_grade_value]
-      GradeModifer.update_course_grade_for_all(@user_ids, lesson_id, @modified_grade)
+      GradeModifer.delay.update_course_grade_for_all(@user_ids, lesson_id, @modified_grade)
     else
       @grade_modifier = GradeModifer.find(params[:id])
       @old_grade = @grade_modifier.modified_grade_value
       @grade_modifier.update(grade_modfier_params)
       @modified_grade = params[:grade_modifer][:modified_grade_value]
-      GradeModifer.update_course_grade_for_all(@user_ids, @course.id, @modified_grade)
+      GradeModifer.delay.update_course_grade_for_all(@user_ids, @course.id, @modified_grade)
     end
   end
 
