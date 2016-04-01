@@ -1,5 +1,5 @@
 // Add the dialog title
-$('#dialog h3').html("<i class='glyphicon glyphicon-plus'></i> Add New Lesson Word");
+$('#dialog h3').html("<i class='glyphicon glyphicon-plus'></i> Modify Student(s) grades");
 
 // Render the new form
 $('.modal-body').html('<%= j render("grade_modifiers/index", grade: @grade, grade_modifier: @grade_modifier, lesson: @lesson, course: @course, user: @user) %>');
