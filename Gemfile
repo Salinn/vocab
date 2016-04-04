@@ -27,6 +27,10 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+#Delayed jobs
+gem 'delayed_job_active_record'
+gem 'daemons'
+
 # full calendar
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
@@ -43,6 +47,10 @@ gem 'ckeditor'
 
 #helps with searching
 gem 'ransack'
+
+#pagination
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   #RSpec is used for unit testing

@@ -56,7 +56,7 @@
   font-family: 'Glyphicons Halflings';
   float: left;
   margin-top: -4px;
-  margin-left: -17px;
+  margin-left: -42px;
   color: green;
   font-size: 15px;
 }
@@ -68,7 +68,7 @@
   font-family: 'Glyphicons Halflings';
   float: left;
   margin-top: -4px;
-  margin-left: -17px;
+  margin-left: -42px;
   color: red;
   font-size: 15px;
 }
@@ -79,7 +79,7 @@
   font-family: 'Glyphicons Halflings';
   float: left;
   margin-top: -7px;
-  margin-left: -17px;
+  margin-left: -42px;
   color: grey;
   font-size: 35px;
 }
@@ -117,4 +117,24 @@
   margin-left: -25px;
   color: grey;
   font-size: 95px;
+}
+
+.answer-option {
+  margin-left: -23px;
+  font-weight: bold;
+}
+
+#word_links {
+  @media (min-width: 992px) and (max-width: 1199px) {
+    padding-top: 15px;
+  }
+  @media (min-width: 320px) and (max-width: 991px) {
+    padding-top: 25px;
+  }
+}
+
+.card-background {
+  background-color: lightgrey;
+  border: 14px solid #337AB7;
+  border-radius: 28px
 }

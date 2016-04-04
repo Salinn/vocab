@@ -1,0 +1,2 @@
+$('#dialog').modal('toggle');
+$('#course_<%= @course.id %>').replaceWith('<%= j render 'course_row', course: @course %>')

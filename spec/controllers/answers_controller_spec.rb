@@ -19,6 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe AnswersController, type: :controller do
+  login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # Answer. As you add validations to Answer, be sure to
@@ -34,7 +35,19 @@ RSpec.describe AnswersController, type: :controller do
         question_id: question.id,
         user_id: user.id,
         time_to_complete: 10,
-        correct: true
+        correct: true#,
+        #answer_option_id: question.answer_option.id
+    }
+  }
+
+  let(:valid_creation_attributes) {
+    {
+        question_id: question.id,
+        user_id: user.id,
+        time_to_complete: 10,
+        correct: true,
+        start_time: DateTime.now#,
+        #answer_option_id: question.answer_option.id
     }
   }
 
@@ -91,18 +104,18 @@ RSpec.describe AnswersController, type: :controller do
     context "with valid params" do
       it "creates a new Answer" do
         expect {
-          post :create, {:answer => valid_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
+          post :create, {answer: valid_creation_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         }.to change(Answer, :count).by(1)
       end
 
       it "assigns a newly created answer as @answer" do
-        post :create, {:answer => valid_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
+        post :create, {:answer => valid_creation_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         expect(assigns(:answer)).to be_a(Answer)
         expect(assigns(:answer)).to be_persisted
       end
 
       it "redirects to the created answer" do
-        post :create, {:answer => valid_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
+        post :create, {:answer => valid_creation_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         expect(response).to redirect_to(course_lesson_lesson_module_question_answer_path(Answer.last, question_id: Answer.last.question.id, lesson_module_id: Answer.last.question.lesson_module.id, lesson_id: Answer.last.question.lesson_module.lesson.id, course_id: Answer.last.question.lesson_module.lesson.course.id))
       end
     end

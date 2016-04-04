@@ -21,8 +21,6 @@ class LessonModule < ActiveRecord::Base
           next if question == 'skip'
           if question == 'Study the Word'
             study_the_word(lesson_word)
-          elsif question == 'Pretest'
-            pretest(lesson_word)
           else
             Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: question)
           end
@@ -93,10 +91,21 @@ class LessonModule < ActiveRecord::Base
       return lesson_word.synonyms.any? ? lesson_word.synonyms.first.word_synonym : 'skip'
     elsif name == 'Sentence'
       return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/#{lesson_word.word.name}/i, '______') : 'skip'
-    elsif name == 'Pretest'
-      return (lesson_word.lesson.lesson_words.length > 4) ? 'Pretest' : 'skip'
     elsif name == 'Study the Word'
       return lesson_word ? 'Study the Word': 'skip'
     end
+  end
+
+  def all_questions_completed(user_id)
+    total_correct = 0
+    flag = true
+    questions.each do |question|
+      answers = question.answers.where(user_id: user_id)
+      correct_question = answers.any? { |answer| answer.correct }
+      total_correct += 1 if correct_question
+      next if answers.length > 0 && (answers.length == attempts || correct_question )
+      flag = false
+    end
+    [flag, total_correct]
   end
 end

@@ -31,6 +31,7 @@ lesson_end_date = start_date + 7.days
       teacher.add_role(:teacher, course)
     end
   end
+  User.first.add_role(:student, course)
 
 #Create Users(Students)
   (0...total_students).each do

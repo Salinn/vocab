@@ -1,11 +1,5 @@
 words = [
     {
-        name: 'Yes'
-    },
-    {
-        name: 'No'
-    },
-    {
         name: 'Chronicle'
     },
     {

@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :grades
   #All routes associated with a course
   resources :courses do
     resources :events
     resources :course_emails
+    resources :grade_modifiers
 
     #All the routes under course/:id/lessons
     resources :lessons do
@@ -50,6 +52,8 @@ Rails.application.routes.draw do
   resources :word_roots
   resources :word_videos
   resources :words
+
+  resources :course_emails
 
   devise_for :users, :controllers => { :registrations => 'registration' }, :path_names => { :'sign_up.html.erb' => 'register'}
   resources :users, :only => [:index, :show, :edit, :update, :new, :create ]
