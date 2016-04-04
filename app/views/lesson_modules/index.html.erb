@@ -1,15 +1,19 @@
-<div class="clearfix"></div>
-    <h1 class="col-sm-5 col-xs-12" style="padding-left: 0;"><%= @lesson.lesson_name %></h1><h1 class="col-sm-5 col-xs-12" style="padding-left: 0;">Due: <%= @lesson.lesson_end_date.strftime('%B %d, %Y') %></h1>
-    <div class="clearfix"></div>
-    <%= @lesson.lesson_modules.find_each do |lesson_module| %>
-        <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
-        <h4>
-          <span class="<%= display_completed(completed) %>" style="padding-right: 5px;"></span>
+<h1><%= @lesson.lesson_name %> - Due: <%= @lesson.lesson_end_date.strftime('%B %d, %Y') %></h1>
+    <table>
+      <tr>
+        <th>Lesson Module</th>
+        <th>Edit</th>
+      </tr>
+
+      <%= @lesson.lesson_modules.find_each do |lesson_module| %>
+          <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
           <% percentage_correct = total_percentage_correct(total_correct, lesson_module.questions.length) %>
-          <%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_module_id: lesson_module.id) %>
-          <%= link_to "edit", edit_course_lesson_lesson_module_url(course_id: @course.id, lesson_id: @lesson.id, id: lesson_module.id) %>
-        </h4><br>
-    <% end %>
-    <%= link_to "new lesson module", new_course_lesson_lesson_module_path(course_id: @course.id, lesson_id: @lesson.id) %>
-    <hr>
-<br>
+          <tr>
+            <td><%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_module_id: lesson_module.id) %></td>
+            <td><%= link_to "edit", edit_course_lesson_lesson_module_url(course_id: @course.id, lesson_id: @lesson.id, id: lesson_module.id) %></td>
+          </tr>
+
+      <% end %>
+    </table>
+
+    <%= button_to "Create Lesson Module", new_course_lesson_lesson_module_path(course_id: @course.id, lesson_id: @lesson.id), :method => :get %>
