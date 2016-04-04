@@ -105,5 +105,5 @@ words.each_with_index do |word_string, index|
   end
 
   puts "word_video is: #{word_form}"
-  WordVideo.create!(video_link: word_videos[index], video_description: word.name, word: word)
+  WordVideo.create!(video_link: word_videos[index], video_description: "ASL Video for the word #{word.name}", word: word)
 end
