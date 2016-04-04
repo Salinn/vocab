@@ -1,14 +1,15 @@
 <div class="word_composition">
 
-  <h3>
-  <strong>Word:</strong>
-  <%= @word.name %>
-  </h3>
+  <div class="container">
+      <h3 class="col-xs-6">
+          <strong>Word:</strong>
+          <%= @word.name %>
+      </h3>
+      <%= link_to 'Back', words_path, class:'btn btn-primary col-xs-offset-3 col-xs-2' %>
+  </div>
 
-  </br>
-
-  <!-- Word Forms -->
-
+  <div class="container word-container">
+    <!-- Word Forms -->
     <h3>Word Forms</h3>
     <table class="table">
       <thead>
@@ -26,115 +27,115 @@
 
       </tbody>
     </table>
-  <%= link_to 'New Word Form', new_word_form_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
-  </br>
+    <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_word_form_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
-  <!-- Word sentences -->
+  <div class="container">
+      <!-- Word sentences -->
+      <h3>Sentences</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Word sentence</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
 
-  <h3>Sentences</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word sentence</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
+        <tbody id="word_sentence">
 
-    <tbody id="word_sentence">
+        <% @word.sentences.each do |sentence| %>
+            <%= render 'sentences/sentence_row', sentence: sentence %>
+        <% end %>
 
-    <% @word.sentences.each do |sentence| %>
-        <%= render 'sentences/sentence_row', sentence: sentence %>
-    <% end %>
+        </tbody>
 
-    </tbody>
+      </table>
 
-  </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_sentence_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
-  <%= link_to 'New Sentence', new_sentence_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
-  </br>
+  <div class="container">
+      <!-- Word synonyms -->
+      <h3>Synonyms</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Word Synonym</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-  <!-- Word synonyms -->
+        <tbody id="word_synonym">
+        <% @word.synonyms.each do |synonym| %>
+            <%= render 'synonyms/synonym_row', synonym: synonym %>
+        <% end %>
+        </tbody>
 
-  <h3>Synonyms</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Word Synonym</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_synonym_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
-    <tbody id="word_synonym">
-    <% @word.synonyms.each do |synonym| %>
-        <%= render 'synonyms/synonym_row', synonym: synonym %>
-    <% end %>
-    </tbody>
+  <div class="container">
+      <!-- Word definitions -->
+      <h3>Definitions</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Word definition</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
 
-  </table>
-  <%= link_to 'New Synonym', new_synonym_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
-  </br>
+        <tbody id="word_definition">
+        <% @word.definitions.each do |definition| %>
+            <%= render 'definitions/definition_row', definition: definition %>
+        <% end %>
+        </tbody>
 
-  <!-- Word definitions -->
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_definition_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
-  <h3>Definitions</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word definition</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
+  <div class="container">
+      <!-- Word videos -->
+      <h3>Word video</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Word video</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody id="word_video">
+        <% @word.word_videos.each do |word_video| %>
+            <%= render 'word_videos/video_row', word_video: word_video %>
+        <% end %>
+        </tbody>
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_word_video_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
-    <tbody id="word_definition">
-    <% @word.definitions.each do |definition| %>
-        <%= render 'definitions/definition_row', definition: definition %>
-    <% end %>
-    </tbody>
-
-  </table>
-  <%= link_to 'New Definition', new_definition_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
-  </br>
-
-  <!-- Word videos -->
-
-  <h3>Word video</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word video</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody id="word_video">
-    <% @word.word_videos.each do |word_video| %>
-        <%= render 'word_videos/video_row', word_video: word_video %>
-    <% end %>
-    </tbody>
-  </table>
-  <%= link_to 'New Word Video', new_word_video_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
-  </br>
-
-  <!-- Word Roots-->
-
-  <h3>Word roots</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word root</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody id="word_roots">
-    <% @word.word_roots.each do |word_root| %>
-      <%= render 'word_roots/word_root_row', word_root: word_root %>
-    <% end %>
-    </tbody>
-  </table>
-  <%= link_to 'New Word Root', new_word_root_path(word_id: @word.id), remote: true, class:'btn btn-primary col-sm-3 ' %>
+  <div class="container">
+      <!-- Word Roots-->
+      <h3>Word roots</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Word root</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody id="word_roots">
+        <% @word.word_roots.each do |word_root| %>
+          <%= render 'word_roots/word_root_row', word_root: word_root %>
+        <% end %>
+        </tbody>
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_word_root_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
 </div>
 
 <%= render 'layouts/dialog' %>
 
-<%= link_to 'Edit', edit_word_path(@word) %> |
-<%= link_to 'Back', words_path %>
+
