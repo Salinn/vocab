@@ -61,11 +61,16 @@ class WordVideosController < ApplicationController
   # DELETE /word_videos/1
   # DELETE /word_videos/1.json
   def destroy
-    @word_video.destroy
+
     respond_to do |format|
-      format.html { redirect_to word_videos_url, notice: 'Word video was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js
+      if @word_video.destroy
+        format.js
+        format.html { redirect_to word_videos_url, notice: 'Word video was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { render :destroy }
+        format.json { render json: @word_video.errors, status: :unprocessable_entity }
+      end
     end
   end
 
