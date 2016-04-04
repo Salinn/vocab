@@ -18,14 +18,19 @@
         <td><%= lesson_extension.lesson.id %></td>
         <td><%= lesson_extension.user %></td>
         <td><%= lesson_extension.extension_date %></td>
-        <td><%= link_to 'Show', course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id) %></td>
-        <td><%= link_to 'Edit', edit_course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id) %></td>
-        <td><%= link_to 'Destroy', course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:show, lesson_extension) %>
+          <td><%= link_to 'Show', course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id) %></td>
+        <% end %>
+        <% if can?(:manage, lesson_extension) %>
+          <td><%= link_to 'Edit', edit_course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id) %></td>
+          <td><%= link_to 'Destroy', course_lesson_lesson_extension_path(lesson_extension, lesson_id: lesson_extension.lesson.id, course_id: lesson_extension.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Lesson extension', new_course_lesson_lesson_extension_path(lesson_id: @lesson.id, course_id: @course.id ) %>
+<% if can?(:create, LessonExtension) %>
+  <%= link_to 'New Lesson extension', new_course_lesson_lesson_extension_path(lesson_id: @lesson.id, course_id: @course.id ) %>
+<% end %>

@@ -1,3 +1,4 @@
+<h1>Student Stuff</h1>
 <%= will_paginate @lessons, renderer: BootstrapPagination::Rails %>
 <div class="clearfix"></div>
 <% @lessons.each do |lesson| %>
@@ -15,4 +16,48 @@
 <% end %>
 <br>
 
-<%= link_to 'New Lesson', new_course_lesson_path(course_id: @lessons.first.course.id) %>
+<hr>
+<h1>Teacher Stuff</h1>
+
+<h1>Listing Lessons</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Lesson name</th>
+    <th>Lesson modules</th>
+    <th>Lesson points</th>
+    <th>Lesson start time</th>
+    <th>Lesson end date</th>
+    <th>Course</th>
+    <th>Penalty</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= lesson.lesson_name %></td>
+        <td>
+          <%= lesson.lesson_modules.find_each do |lm| %>
+              <%= lm.name %><br>
+          <% end %>
+        </td>
+        <td><%= lesson.lesson_points %></td>
+        <td><%= lesson.lesson_start_time %></td>
+        <td><%= lesson.lesson_end_date %></td>
+        <td><%= lesson.course.class_name %></td>
+        <td><%= lesson.penalty %></td>
+            <td><%= link_to 'Show', course_lesson_path(lesson, course_id: lesson.course.id) %></td>
+        <% if can?(:manage, lesson) %>
+            <td><%= link_to 'Edit', edit_course_lesson_path(lesson, course_id: lesson.course.id) %></td>
+            <td><%= link_to 'Destroy', course_lessons_path(lesson), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<% if can?(:create,  @course) %>
+    <%= link_to 'New Lesson', new_course_lesson_path(course_id: @course.id) %>
+<% end %>

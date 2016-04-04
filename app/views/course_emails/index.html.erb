@@ -18,9 +18,13 @@
         <td><%= course_email.course %></td>
         <td><%= course_email.title %></td>
         <td><%= course_email.content %></td>
-        <td><%= link_to 'Show', course_course_email_path(course_email, course_id: @course) %></td>
-        <td><%= link_to 'Edit', edit_course_course_email_path(course_email, course_id: @course) %></td>
-        <td><%= link_to 'Destroy', course_course_email_path(course_email, course_id: @course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:show, course_email) %>
+          <td><%= link_to 'Show', course_course_email_path(course_email, course_id: @course) %></td>
+        <% end %>
+        <% if can?(:manage, course_email) %>
+          <td><%= link_to 'Edit', edit_course_course_email_path(course_email, course_id: @course) %></td>
+          <td><%= link_to 'Destroy', course_course_email_path(course_email, course_id: @course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,6 @@
 
 <br>
 
+<% if can?(:email_class, @course) %>
 <%= link_to 'New Course email', new_course_course_email_path(course_id: @course) %>
+<% end %>

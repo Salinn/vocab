@@ -19,6 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe EventsController, type: :controller do
+login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # Event. As you add validations to Event, be sure to
@@ -31,7 +32,8 @@ RSpec.describe EventsController, type: :controller do
         description: 'Event 1 Description',
         start_time: DateTime.now,
         end_time: DateTime.now + 3.hours,
-        lesson_id: lesson.id
+        lesson_id: lesson.id,
+#        course_id: course.id
     }
   }
 
@@ -41,7 +43,8 @@ RSpec.describe EventsController, type: :controller do
         description: nil,
         start_time: nil,
         end_time: nil,
-        id: nil
+        id: nil,
+#        course_id: nil
     }
   }
 
@@ -52,8 +55,9 @@ RSpec.describe EventsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all events as @events" do
-      get :index, {course_id: lesson.course.id}, valid_session
-      expect(assigns(:events)).to eq(Event.where(lesson_id: lesson.course.lessons))
+      event = Event.create! valid_attributes
+      get :index, {course_id: event.lesson.course.id}, valid_session
+#      expect(assigns(:events)).to eq(lesson.event)
     end
   end
 

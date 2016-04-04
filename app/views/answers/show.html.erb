@@ -20,5 +20,7 @@
   <%= @answer.correct %>
 </p>
 
-<%= link_to 'Edit', edit_answer_path(@answer) %> |
+<% if can?(:edit, @answer) %>
+  <%= link_to 'Edit', edit_answer_path(@answer) %>
+<% end %>
 <%= link_to 'Back', answers_path %>

@@ -20,18 +20,20 @@
         <td><%= event.description %></td>
         <td><%= event.start_time %></td>
         <td><%= event.end_time %></td>
-        <td><%= link_to 'Show', course_event_path(event, course_id: event.lesson.course.id) %></td>
-        <td><%= link_to 'Edit', edit_course_event_path(event, course_id: event.lesson.course.id) %></td>
-        <td><%= link_to 'Destroy', course_event_path(event, course_id: event.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Show', course_event_path(event, course_id: event.lesson.course.id) %></td>
+        <% if can?(:manage, event) %>
+          <td><%= link_to 'Edit', edit_course_event_path(event, course_id: event.lesson.course.id) %></td>
+          <td><%= link_to 'Destroy', course_event_path(event, course_id: event.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if can?(:manage, @course) %>
 <%= link_to 'New Event', new_course_event_path(course_id: @course.id) %>
-
+<% end %>
 <br>
 
 <div id="calendar">

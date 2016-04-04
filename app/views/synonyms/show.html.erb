@@ -9,6 +9,7 @@
   <strong>Word:</strong>
   <%= @synonym.word.name %>
 </p>
-
-<%= link_to 'Edit', edit_synonym_path(@synonym) , class:'btn btn-primary' %> |
+<% if can?(:edit, @synonym) %>
+  <%= link_to 'Edit', edit_synonym_path(@synonym) , class:'btn btn-primary' %>
+<% end %>
 <%= link_to 'Back', synonyms_path , class:'btn btn-primary' %>
