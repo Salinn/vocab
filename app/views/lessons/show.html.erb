@@ -24,29 +24,31 @@
 <div class="clearfix"></div>
 
 <% if can?(:manage, @lesson) %>
-    <h3>Lesson words</h3>
-    <table id class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th>Word</th>
-        <th>Total Definitions</th>
-        <th>Total Sentences</th>
-        <th>Total Synonyms</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-      </thead>
-      <tbody id="lesson_words">
-      <% @lesson.lesson_words.each do |lesson_word| %>
-          <%= render 'lesson_words/lesson_word', lesson_word: lesson_word %>
-      <% end %>
-      </tbody>
-    </table>
-    <hr><p>Add Word:</p>
-    <div class="well">
-      <%= link_to "Add Lesson Word", new_course_lesson_lesson_word_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
-    </div>
-
+<hr>
+<table id class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>Word</th>
+    <th>Total Definitions</th>
+    <th>Total Sentences</th>
+    <th>Total Synonyms</th>
+    <th>Total Word Forms</th>
+    <th>Total Word Videos</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody id="lesson_words">
+  <% @lesson.lesson_words.each do |lesson_word| %>
+      <%= render 'lesson_words/lesson_word', lesson_word: lesson_word %>
+  <% end %>
+  </tbody>
+</table>
+<hr><p>Add Word:</p>
+<div class="well">
+  <%= link_to "Add Lesson Word", new_course_lesson_lesson_word_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
+</div>
+<%# render 'lessons/add_word' %>
     <hr>
     <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
     <hr>
