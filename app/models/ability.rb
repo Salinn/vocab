@@ -37,7 +37,7 @@ class Ability
       can [:index, :show], WordForm
       can [:index, :show], Synonym
       can [:index, :show], Sentence
-      can [:index, :show], Course
+      can [:index, :show, :syllabus, :description], Course
       can [:index, :show], Lesson
       can [:index, :show], LessonModule
       can [:index, :show], Event

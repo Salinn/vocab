@@ -49,8 +49,8 @@
         <td><%= lesson.lesson_end_date %></td>
         <td><%= lesson.course.class_name %></td>
         <td><%= lesson.penalty %></td>
-        <% if can?(:manage, lesson) %>
             <td><%= link_to 'Show', course_lesson_path(lesson, course_id: lesson.course.id) %></td>
+        <% if can?(:manage, lesson) %>
             <td><%= link_to 'Edit', edit_course_lesson_path(lesson, course_id: lesson.course.id) %></td>
             <td><%= link_to 'Destroy', course_lessons_path(lesson), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>

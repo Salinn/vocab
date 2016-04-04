@@ -27,6 +27,8 @@
   <strong>Penalty:</strong>
   <%= @lesson.penalty %>
 </p>
+
+<% if can?(:manage, @lesson) %>
 <hr>
 <table id class="table table-bordered table-striped">
   <thead>
@@ -54,7 +56,10 @@
 <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
 <hr>
 
+
 <%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
+<% end %>
 <%= link_to 'Back', @lesson.course %>
 
 <%= render 'layouts/dialog' %>
+
