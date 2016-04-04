@@ -1,6 +1,6 @@
 class WordRootsController < ApplicationController
   before_action :set_word_root, only: [:show, :edit, :update, :destroy]
-  before_action :set_relationship, only: [:remove_relation]
+  before_action :set_relationship, only: [:remove_relation, :add_relation]
   load_and_authorize_resource
 
   # GET /word_roots
@@ -18,6 +18,7 @@ class WordRootsController < ApplicationController
   # GET /word_roots/new
   def new
     @word_root = WordRoot.new
+    @word_roots = WordRoot.all
     @word = Word.find(params[:word_id])
   end
 
@@ -72,6 +73,15 @@ class WordRootsController < ApplicationController
   # Removes a word roots assignment to a word
   def remove_relation
     @word.word_roots.delete(@word_root)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # Add the word_root relationship with the word
+  def add_relation
+    #add relation
+
     respond_to do |format|
       format.js
     end

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   resources :word_forms
   resources :word_roots do
       delete 'remove_relation' => 'word_roots#remove_relation' , as: :remove_relation
+      post 'add_relation' => 'word_roots#add_relation' , as: :add_relation
   end
   resources :word_videos
   resources :words
