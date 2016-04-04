@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :grades
   #All routes associated with a course
   resources :courses do
     resources :events
     resources :course_emails
+    resources :grade_modifiers
 
     #All the routes under course/:id/lessons
     resources :lessons do
