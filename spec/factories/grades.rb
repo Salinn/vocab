@@ -1,10 +1,9 @@
 FactoryGirl.define do
   factory :grade do
-    user nil
-grade 1
-course nil
-lesson nil
-lesson_module nil
+    association :user, factory: :user
+    grade 100
+    association :course, factory: :course
+    association :lesson, factory: :lesson
+    association :lesson_module, factory: :lesson_module
   end
-
 end
