@@ -1,12 +1,13 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /events
   # GET /events.json
   def index
     @course = Course.find(params[:course_id])
     if @course.lessons.any?
-      @events = Event.all.includes(lesson: :course).find_by!(lesson_id: @course.lessons)
+      @events = Event.includes(lesson: :course).where(lesson_id: @course.lessons)
     else
       @events = []
     end

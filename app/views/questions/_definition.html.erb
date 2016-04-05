@@ -1,0 +1,10 @@
+<h2><b>Pick the word that matches the definition below</b></h2>
+
+<div id="question_id_<%= @question.id %>">
+  <% if correct || wrong %>
+      <%= render 'questions/answered_question', question: @question, correct: correct, wrong: wrong %>
+  <% else %>
+      <h3 class="<%= question_title(correct, wrong) %>">Definition: <%= @question.question_string %></h3>
+      <%= render 'answers/form', question: @question, correct: correct, wrong: wrong %>
+  <% end %>
+</div>

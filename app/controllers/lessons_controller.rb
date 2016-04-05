@@ -6,15 +6,15 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def index
     @course = Course.find(params[:course_id])
-    @lessons = @course.lessons
-    @lesson_module = LessonModule.all
+    params[:page] = get_current_Weeks_page if params[:page] == nil && @course.lessons.any?
+    @lessons = Lesson.includes(lesson_modules: :questions).where(course_id: @course.id).paginate(:page => params[:page], per_page: 1)
   end
 
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson = Lesson.includes(lesson_words: :word).find(params[:id])
-    @lesson.lesson_words.build
+    @lesson = Lesson.includes(lesson_words: [:word, :definitions, :sentences, :synonyms, :word_forms, :word_videos]).find(params[:id])
+    @course = Course.find(params[:course_id])
   end
 
   # GET /lessons/new
@@ -72,9 +72,18 @@ class LessonsController < ApplicationController
   end
 
   private
+    def get_current_Weeks_page
+      today = DateTime.now
+      @course.lessons.each_with_index do |lesson, index|
+        return (index + 1) if (lesson.lesson_start_time < today) && ( today < lesson.lesson_end_date)
+      end
+      return @course.lessons.first.id
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
       @lesson = Lesson.find(params[:id])
+      @course = Course.find(params[:course_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

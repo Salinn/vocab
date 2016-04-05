@@ -1,0 +1,2 @@
+$('#dialog').modal('toggle');
+$('#lesson_word_'<%= @lesson_word.id %>).replaceWith('<%= j render 'lesson_words/lesson_word', lesson_word: @lesson_word %>')

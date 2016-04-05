@@ -1,0 +1,7 @@
+$('#synonyms').append('<%= j render 'lesson_words/synonym', synonym: @lesson_word_synonym.synonym, lesson_word: @lesson_word_synonym.lesson_word %>')
+
+var optionSelect = $("#lesson_word_synonym_synonym_id")
+optionSelect.find('option[value=<%= @lesson_word_synonym.synonym_id %>]').remove();
+
+//Updates word row
+$('#lesson_word_<%= @lesson_word_synonym.lesson_word.id %>').replaceWith('<%= j render 'lesson_words/lesson_word', lesson_word: @lesson_word_synonym.lesson_word %>')

@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "lesson_extensions/index", type: :view do
   let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:current_user) { user }
+
   before(:each) do
     assign(:lesson_extensions, [
       LessonExtension.create!(
@@ -17,6 +20,7 @@ RSpec.describe "lesson_extensions/index", type: :view do
     ])
     @lesson = lesson
     @course = lesson.course
+    sign_in(user)
   end
 
   it "renders a list of lesson_extensions" do

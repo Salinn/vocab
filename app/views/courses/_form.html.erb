@@ -1,4 +1,4 @@
-<%= form_for(@course, remote: true, html: {role: :form}) do |f| %>
+<%= form_for(@course, html: {role: :form}) do |f| %>
 
     <% if @course.errors.any? %>
         <div id="error_explanation">
@@ -14,15 +14,15 @@
     <div class="col-xs-12">
       <div class="field form-group col-xs-12">
         <%= f.label :class_name %><br>
-        <%= f.text_field :class_name , class:"form-control"%>
-      </div>
-      <div class="field col-xs-6">
-        <%= f.label :end_date %><br>
-        <%= f.text_field :end_date, readonly: true %>
+        <%= f.text_field :class_name, class:"form-control"%>
       </div>
       <div class="field col-xs-6">
         <%= f.label :start_date %><br>
         <%= f.text_field :start_date, readonly: true %>
+      </div>
+      <div class="field col-xs-6">
+        <%= f.label :end_date %><br>
+        <%= f.text_field :end_date, readonly: true %>
       </div>
       <!--#TODO fix the formatting here so end date and submit line up-->
       <div class="field col-xs-12">

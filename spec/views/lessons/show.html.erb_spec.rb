@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "lessons/show", type: :view do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:current_user) { user }
+
   before(:each) do
     @lesson = assign(:lesson, Lesson.create!(
       lesson_name: "Lesson Name",
@@ -10,6 +13,8 @@ RSpec.describe "lessons/show", type: :view do
       lesson_start_time: Date.today,
       lesson_end_date: Date.today + 3.months
     ))
+    @course = @lesson.course
+    sign_in(user)
   end
 
   it "renders attributes in <p>" do

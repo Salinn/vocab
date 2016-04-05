@@ -16,9 +16,13 @@
       <tr>
         <td><%= sentence.word_sentence %></td>
         <td><%= sentence.word.name %></td>
-        <td><%= link_to 'Show', sentence %></td>
-        <td><%= link_to 'Edit', edit_sentence_path(sentence) %></td>
-        <td><%= link_to 'Destroy', sentence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:show, sentence) %>
+          <td><%= link_to 'Show', sentence %></td>
+        <% end %>
+        <% if can?(:manage, sentence) %>
+          <td><%= link_to 'Edit', edit_sentence_path(sentence) %></td>
+          <td><%= link_to 'Destroy', sentence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +30,6 @@
 
 <br>
 
-<%= link_to 'New Sentence', new_sentence_path , class:'btn btn-primary' %>
+<% if can?(:create, Sentence) %>
+  <%= link_to 'New Sentence', new_sentence_path , class:'btn btn-primary' %>
+<% end %>

@@ -1,0 +1,19 @@
+<% if grade_modifier.id.nil? %>
+    <%= form_for(grade_modifier, url: course_grade_modifiers_path(course_id: course.id), remote: true) do |f| %>
+        <div class="field">
+          <%= f.hidden_field :user_id, value: user.id %>
+          <%= f.hidden_field :course_id, value: course.id %>
+          <%= f.number_field :modified_grade_value, value: 0 %>
+          <%= f.submit class: 'btn btn-primary' %>
+        </div>
+    <% end %>
+<% else %>
+    <%= form_for(grade_modifier, url: course_grade_modifier_path(grade_modifier, course_id: course.id), remote: true) do |f| %>
+        <div class="field">
+          <%= f.hidden_field :user_id, value: user.id %>
+          <%= f.hidden_field :course_id, value: course.id %>
+          <%= f.number_field :modified_grade_value %>
+          <%= f.submit class: 'btn btn-primary' %>
+        </div>
+    <% end %>
+<% end %>

@@ -15,6 +15,8 @@
   <%= @course.end_date %>
 </p>
 
+  <% if can?(:manage, @course) %>
+
 <%= form_tag course_duplicate_course_path(@course) do %>
     <div class="form-group">
         <%= submit_tag "Duplicate Class" , class:"btn btn-primary"%>
@@ -27,6 +29,15 @@
         <%= submit_tag "Share Class" , class:"btn btn-primary"%>
       </div>
 <% end %>
+
+      <% end %>
+</div>
+<div class="clearfix"></div>
+<div class="main">
+  <h1>Events</h1>
+  <div id="calendar">
+  </div>
+
 </div>
 
 

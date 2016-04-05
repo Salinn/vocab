@@ -1,25 +1,28 @@
 <% lesson.lesson_modules.each do |lesson_module| %>
-    <p>
-      <strong>Name:</strong>
-      <%= lesson_module.name %>
-    </p>
+    <div class="well well-sm col-xs-2 homepage-courselist-padding">
+      <p>
+        <strong>Name:</strong>
+        <%= lesson_module.name %>
+      </p>
 
-    <p>
-      <strong>Attempts:</strong>
-      <%= lesson_module.attempts %>
-    </p>
+      <p>
+        <strong>Attempts:</strong>
+        <%= lesson_module.attempts %>
+      </p>
 
-    <p>
-      <strong>In use:</strong>
-      <%= lesson_module.in_use %>
-    </p>
+      <p>
+        <strong>In use:</strong>
+        <%= lesson_module.in_use %>
+      </p>
 
-    <p>
-      <strong>Value percentage:</strong>
-      <%= lesson_module.value_percentage %>
-    </p>
+      <p>
+        <strong>Value percentage:</strong>
+        <%= lesson_module.value_percentage %>
+      </p>
 
-    <p>
-      <%= link_to 'Edit Module', edit_course_lesson_lesson_module_path(lesson_module, lesson_id: lesson_module.lesson.id, course_id: lesson_module.lesson.course.id) %>
-    </p>
+      <p>
+        <%= link_to 'Edit Module', edit_course_lesson_lesson_module_path(lesson_module, lesson_id: lesson_module.lesson.id, course_id: lesson_module.lesson.course.id) %>
+      </p>
+    </div>
 <% end %>
+<div class="clearfix"></div>

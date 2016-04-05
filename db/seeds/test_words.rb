@@ -56,6 +56,20 @@ sentances = [
     'The circus fortune teller would PROGNOSTICATE future events for all the customers who came to her booth; unfortunately, her information was often incorrect.'
 ]
 
+word_videos = [
+    'https://www.youtube.com/watch?v=ac3HkriqdGQ',
+    'https://www.youtube.com/watch?v=tPnK39ax_AM',
+    'https://www.youtube.com/watch?v=X9fLbfzCqWw',
+    'https://www.youtube.com/watch?v=7a9wJIhq2J8',
+    'https://www.youtube.com/watch?v=6DRh1EyvPHw',
+    'https://www.youtube.com/watch?v=Qf9S4N3jJNE',
+    'https://www.youtube.com/watch?v=q3JjlkfX5Gk',
+    'https://www.youtube.com/watch?v=PVFtRq81Ku8',
+    'https://www.youtube.com/watch?v=NjKmCxyKmas',
+    'https://www.youtube.com/watch?v=pOHPWUFsc9U',
+    'https://www.youtube.com/watch?v=-z5FWlUN1go'
+]
+
 roots = [
     %w[cogni],
     %w[ac cogni],
@@ -89,4 +103,7 @@ words.each_with_index do |word_string, index|
     puts "word_form is: #{word_form}"
     WordForm.create!(associated_word: word_form, word: word)
   end
+
+  puts "word_video is: #{word_form}"
+  WordVideo.create!(video_link: word_videos[index], video_description: "ASL Video for the word #{word.name}", word: word)
 end

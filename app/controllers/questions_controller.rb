@@ -1,16 +1,19 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question_id, only: [:back, :skip]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @course = Course.find(params[:course_id])
     @lesson_module = LessonModule.find(params[:lesson_module_id])
+    @questions = Question.includes(:lesson_module).where(lesson_module_id: @lesson_module.id)
   end
 
   # GET /questions/1
   # GET /questions/1.json
   def show
+    @wrong_answers = Answer.where(user_id: current_user.id, question_id: @question.id).pluck(:answer_option_id)
   end
 
   # GET /questions/new
@@ -63,14 +66,52 @@ class QuestionsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_question
-      @question = Question.find(params[:id])
+  def skip
+    #TODO improve these queries
+    questions = Question.includes(:answers).where(lesson_module_id: @lesson_module.id)
+    questions.each_with_index do |question, index|
+      if question.id == @question.id
+        if @question.id == questions.last.id
+          @question = questions.first
+        elsif !(index == (questions.length))
+          @question = questions[index+1]
+        end
+        redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'Skipped the last word' and return
+      end
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def question_params
-      params.require(:question).permit(:question_string, :lesson_module_id, :lesson_word_id)
+  def back
+    #TODO improve these queries
+    questions = Question.where(lesson_module_id: @lesson_module.id)
+    questions.each_with_index do |question, index|
+      if question.id == @question.id
+        if @question.id == questions.first.id
+          @question = questions.last
+        elsif !(index == (questions.length))
+          @question = questions[index-1]
+        end
+        redirect_to course_lesson_lesson_module_question_path(@question, course_id: @course.id,lesson_id: params[:lesson_id],lesson_module_id: @lesson_module.id), notice: 'Skipped the last word' and return
+      end
     end
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_question
+    @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:id])
+    @course = Course.find(params[:course_id])
+    @lesson_module = LessonModule.includes(questions: [lesson_word: [:word_videos, :word]]).find(params[:lesson_module_id])
+  end
+
+  def set_question_id
+    @question = Question.includes(answer_options: [lesson_word: :word]).find(params[:question_id])
+    @course = Course.find(params[:course_id])
+    @lesson_module = LessonModule.find(params[:lesson_module_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def question_params
+    params.require(:question).permit(:question_string, :lesson_module_id, :lesson_word_id)
+  end
 end

@@ -8,7 +8,7 @@ class Lesson < ActiveRecord::Base
 
   validates :lesson_name, length: { in: 3..100 }
   validates :lesson_points, inclusion: 0..100
-  validates :penalty, inclusion: 0..100
+  #validates :penalty, inclusion: 0..100 #should be added back when penalties are used
   validates :lesson_start_time, presence: true
   validates :lesson_end_date, presence: true
 
@@ -29,10 +29,10 @@ class Lesson < ActiveRecord::Base
   def create_modules
     graded_modules = ['Definition', 'Sentence', 'Synonym', 'Word Form']
     non_graded_modules = ['Pretest', 'Study the Word']
+    #non_graded_modules = ['Study the Word']
 
-    non_graded_modules.each do |name|
-      LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: 0)
-    end
+    #LessonModule.create!(name: non_graded_modules.first, attempts: 3, in_use: false, number_of_answers: 2, lesson_id: id, value_percentage: 0)
+    LessonModule.create!(name: non_graded_modules.last, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: 0)
 
     graded_modules.each do |name|
       LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: (100/graded_modules.length).round)

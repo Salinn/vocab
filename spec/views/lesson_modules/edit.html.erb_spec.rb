@@ -18,7 +18,7 @@ RSpec.describe "lesson_modules/edit", type: :view do
   it "renders the edit lesson_module form" do
     render
 
-    assert_select "form[action=?][method=?]", course_lesson_lesson_modules_path(course_id: @course.id, lesson_id: @lesson.id), "post" do
+    assert_select "form[action=?][method=?]", course_lesson_lesson_modules_path(@lesson_module, course_id: @course.id, lesson_id: @lesson.id), "post" do
 
       assert_select "input#lesson_module_name[name=?]", "lesson_module[name]"
 
