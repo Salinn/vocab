@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :grades
   #All routes associated with a course
   resources :courses do
     resources :events
     resources :course_emails
+    resources :grade_modifiers
 
     #All the routes under course/:id/lessons
     resources :lessons do
@@ -10,6 +12,8 @@ Rails.application.routes.draw do
         resources :lesson_word_definitions
         resources :lesson_word_sentences
         resources :lesson_word_synonyms
+        resources :lesson_word_forms
+        resources :lesson_word_videos
       end
       resources :lesson_extensions
 

@@ -20,9 +20,13 @@
         <td><%= answer.user %></td>
         <td><%= answer.time_to_complete %></td>
         <td><%= answer.correct %></td>
-        <td><%= link_to 'Show', course_lesson_lesson_module_question_answer_path(answer, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id) %></td>
-        <td><%= link_to 'Edit', edit_course_lesson_lesson_module_question_answer_path(answer, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id) %></td>
-        <td><%= link_to 'Destroy', course_lesson_lesson_module_question_answer_path(answer, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:show, answer) %>
+          <td><%= link_to 'Show', course_lesson_lesson_module_question_answer_path(answer, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id) %></td>
+        <% end %>
+        <% if can?(:manage, answer) %>
+          <td><%= link_to 'Edit', edit_course_lesson_lesson_module_question_answer_path(answer, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id) %></td>
+          <td><%= link_to 'Destroy', course_lesson_lesson_module_question_answer_path(answer, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +34,6 @@
 
 <br>
 
-<%= link_to 'New Answer', new_course_lesson_lesson_module_question_answer_path(question_id: @question.id, lesson_module_id: @question.lesson_module.id, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id) %>
+<% if can?(:create, Answer) %>
+  <%= link_to 'New Answer', new_course_lesson_lesson_module_question_answer_path(question_id: @question.id, lesson_module_id: @question.lesson_module.id, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id) %>
+<% end %>

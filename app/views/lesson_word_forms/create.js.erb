@@ -1,0 +1,7 @@
+$('#word_forms').append('<%= j render 'lesson_words/word_form', word_form: @lesson_word_form.word_form, lesson_word: @lesson_word_form.lesson_word %>')
+
+var optionSelect = $("#lesson_word_form_word_form_id")
+optionSelect.find('option[value=<%= @lesson_word_form.word_form_id %>]').remove();
+
+//Updates word row
+$('#lesson_word_<%= @lesson_word_form.lesson_word.id %>').replaceWith('<%= j render 'lesson_words/lesson_word', lesson_word: @lesson_word_form.lesson_word %>')

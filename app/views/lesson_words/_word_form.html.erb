@@ -1,0 +1,7 @@
+<tr id="word_form_<%= word_form.id %>">
+  <td><%= word_form.associated_word %></td>
+  <td>
+    <!-- ID doesn't matter here -->
+    <%= link_to 'Delete', course_lesson_lesson_word_lesson_word_form_path(word_form_id: word_form.id, lesson_word_id: lesson_word.id, id: '1', course_id: @course.id, lesson_id: @lesson.id), remote: true, method: :delete, class: 'btn btn-sm btn-danger', data: { toggle: "confirmation", placement: "top" } %>
+  </td>
+</tr>

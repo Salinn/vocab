@@ -75,14 +75,14 @@ class CoursesController < ApplicationController
 
   def add_to_course
     user = User.find(params[:user][:user_id])
-    user.new_user_added_to_course(@course)
+    user.existing_user_added_to_course(@course)
     redirect_to :back, notice: 'The student was successfully added to the class.'
   end
 
   def mass_add_to_course
     params[:user][:user_emails].split(',').each do |user_email|
       user = User.find_or_create_by(email: user_email)
-      user.new_user_added_to_course(@course)
+      user.existing_user_added_to_course(@course)
     end
     redirect_to :back, notice: 'The student(s) were successfully add to the class.'
   end

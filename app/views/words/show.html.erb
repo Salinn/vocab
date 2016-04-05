@@ -26,9 +26,11 @@
           <tr>
             <td><%= word_form.associated_word %></td>
             <td><%= word_form.word.name %></td>
-            <td><%= link_to 'Show', word_form %></td>
-            <td><%= link_to 'Edit', edit_word_form_path(word_form) %></td>
-            <td><%= link_to 'Destroy', word_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if can?(:manage, @word) %>
+              <td><%= link_to 'Show', word_form %></td>
+              <td><%= link_to 'Edit', edit_word_form_path(word_form) %></td>
+              <td><%= link_to 'Destroy', word_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
           </tr>
       <% end %>
 
@@ -54,9 +56,11 @@
     <% @word.sentences.each do |sentence| %>
         <tr>
           <td><%=sentence.word_sentence %></td>
+          <% if can?(:manage, @word) %>
           <td><%= link_to 'Show', sentence %></td>
           <td><%= link_to 'Edit', edit_sentence_path(sentence) %></td>
           <td><%= link_to 'Destroy', sentence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%end%>
     <% end %>
     </tbody>
   </table>
@@ -80,9 +84,11 @@
     <% @word.synonyms.each do |synonym| %>
         <tr>
           <td><%=synonym.word_synonym %></td>
+          <% if can?(:manage, @word) %>
           <td><%= link_to 'Show', synonym %></td>
           <td><%= link_to 'Edit', edit_synonym_path(synonym) %></td>
           <td><%= link_to 'Destroy', synonym, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%end%>
     <% end %>
     </tbody>
   </table>
@@ -106,9 +112,11 @@
     <% @word.definitions.each do |definition| %>
         <tr>
           <td><%=definition.word_definition %></td>
+          <% if can?(:manage, @word) %>
           <td><%= link_to 'Show', definition %></td>
           <td><%= link_to 'Edit', edit_definition_path(definition) %></td>
           <td><%= link_to 'Destroy', definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%end%>
         </tr>
     <% end %>
     </tbody>
@@ -134,9 +142,11 @@
         <tr>
           <td><%= word_video.video_description %></td>
           <td><%= word_video.video_link %></td>
+          <% if can?(:manage, @word) %>
           <td><%= link_to 'Show', word_video %></td>
           <td><%= link_to 'Edit', edit_word_video_path(word_video) %></td>
           <td><%= link_to 'Destroy', word_video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%end%>
         </tr>
     <% end %>
     </tbody>
@@ -160,9 +170,11 @@
     <% @word.word_roots.each do |word_root| %>
         <tr>
           <td><%= word_root.root_name %></td>
+          <% if can?(:manage, @word) %>
           <td><%= link_to 'Show', word_root %></td>
           <td><%= link_to 'Edit', edit_word_root_path(word_root) %></td>
           <td><%= link_to 'Destroy', word_root, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%end%>
         </tr>
     <% end %>
     </tbody>
@@ -174,7 +186,8 @@
 
 </div>
 
+<% if can?(:edit, @word) %>
+<%= link_to 'Edit', edit_word_path(@word) %>
+<%end%>
 <%# link_to 'Update', edit_word_path(word), remote:true %>
-
-<%= link_to 'Edit', edit_word_path(@word) %> |
 <%= link_to 'Back', words_path %>

@@ -1,0 +1,67 @@
+var final_grade_string  = $('#final_grade');
+var grade_modifier_form = $('#grade_modifier_form');
+//Gets the users current grade and updates it based on the grade modifers value
+var current_grade = parseInt(final_grade_string.text().match(/\d+/)) + <%= (@grade_modifier.modified_grade_value - @old_grade).to_i %>;
+var user_grade = 0;
+var lesson_total_grade = 0;
+var course_grade = 0;
+
+final_grade_string.text('final grade '+current_grade);
+
+//Teacher is updating a grade modifier for everyone in a lesson
+<% if @grade_modifier.user_id.nil? && @grade_modifier.lesson_id %>
+  final_grade_string.text('final grade '+current_grade);
+  $('#lesson<%= @grade_modifier.lesson_id %>').text(current_grade+'%');
+  <% @user_ids.each do |user_id| %>
+    var user_grade = parseInt($('#<%= "#{user_id}-#{@grade_modifier.lesson_id}" %>').text().match(/\d+/))+<%= (@grade_modifier.modified_grade_value - @old_grade).to_i %>;
+    $('#<%= "#{user_id}-#{@grade_modifier.lesson_id}" %>').text(user_grade+'%');
+  <% end %>
+  grade_modifier_form.html("<%= escape_javascript(render 'grade_modifiers/form_no_user', grade_modifier: @grade_modifier, lesson: @grade_modifier.lesson, course: @grade_modifier.lesson.course) %>");
+
+//Teacher is updating a grade modifier to update every students course grade
+<% elsif @grade_modifier.user_id.nil? && @grade_modifier.course_id %>
+  final_grade_string.text('final grade '+current_grade);
+  $('#course<%= @grade_modifier.course_id %>').text(current_grade+'%');
+  <% @user_ids.each do |user_id| %>
+    var user_grade = parseInt($('#<%= "user#{user_id}" %>').text().match(/\d+/))+<%= (@grade_modifier.modified_grade_value - @old_grade).to_i %>;
+    $('#<%= "user#{user_id}" %>').text(user_grade+'%');
+  <% end %>
+  grade_modifier_form.html("<%= escape_javascript(render 'grade_modifiers/form_course', grade_modifier: @grade_modifier, course: @grade_modifier.course) %>");
+
+//Teacher is updating a grade modifier to update one students course grade
+<% elsif @grade_modifier.user_id && @grade_modifier.course_id %>
+  final_grade_string.text('final grade '+current_grade);
+  user_link.text(current_grade+'%');
+  grade_modifier_form.html("<%= escape_javascript(render 'grade_modifiers/form_user_course', grade_modifier: @grade_modifier, course: @grade_modifier.course, user: @grade_modifier.user) %>");
+
+//Teacher is updating a grade modifier to update one students lesson grade
+<% else %>
+  var lesson_link = $('#<%= "#{@grade_modifier.user_id}-#{@grade_modifier.lesson_id}" %>');
+  final_grade_string.text('final grade '+current_grade);
+  lesson_link.text(current_grade+'%');
+  grade_modifier_form.html("<%= escape_javascript(render 'grade_modifiers/form', grade_modifier: @grade_modifier, lesson: @grade_modifier.lesson, course: @grade_modifier.lesson.course, user: @grade_modifier.user) %>");
+<% end %>
+
+<% if @grade_modifier.user_id.nil? %>
+  <% @user_ids.each do |user_id| %>
+    <% @course.lessons.each do |lesson| %>
+      lesson_total_grade += parseInt($('#<%= "#{user_id}-#{lesson.id}" %>').text().match(/\d+/));
+    <% end %>
+    lesson_total_grade = parseInt(lesson_total_grade / <%= @course.lessons.length %>);
+    $('#<%= "user#{user_id}" %>').text(lesson_total_grade+'%');
+    lesson_total_grade = 0;
+  <% end %>
+<% else %>
+  <% @grade_modifier.lesson.course.lessons.each do |lesson| %>
+    lesson_total_grade += parseInt($('#<%= "#{@grade_modifier.user_id}-#{lesson.id}" %>').text().match(/\d+/));
+  <% end %>
+  lesson_total_grade = parseInt(lesson_total_grade / <%= @grade_modifier.lesson.course.lessons.length %>);
+  $('#<%= "user#{@grade_modifier.user_id}" %>').text(lesson_total_grade+'%');
+  lesson_total_grade = 0;
+<% end %>
+
+<% @user_ids.each do |user_id| %>
+  course_grade += parseInt($('#<%= "user#{user_id}" %>').text().match(/\d+/));
+<% end %>
+course_grade = parseInt(course_grade / <%= @user_ids.length %>);
+$('#<%= "course#{@course.id}" %>').text(course_grade + '%');

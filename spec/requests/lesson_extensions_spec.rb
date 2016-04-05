@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "LessonExtensions", type: :request do
+  before do
+    # Sign in as a user.
+    sign_in_as_a_valid_user
+  end
+
   describe "GET /lesson_extensions" do
     let (:lesson_extension) { FactoryGirl.create(:lesson_extension)}
     it "works! (now write some real specs)" do

@@ -16,9 +16,13 @@
       <tr>
         <td><%= synonym.word_synonym %></td>
         <td><%= synonym.word.name %></td>
-        <td><%= link_to 'Show', synonym %></td>
-        <td><%= link_to 'Edit', edit_synonym_path(synonym) %></td>
-        <td><%= link_to 'Destroy', synonym, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:show, synonym) %>
+          <td><%= link_to 'Show', synonym %></td>
+        <% end %>
+        <% if can?(:manage, synonym) %>
+          <td><%= link_to 'Edit', edit_synonym_path(synonym) %></td>
+          <td><%= link_to 'Destroy', synonym, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +30,6 @@
 
 <br>
 
-<%= link_to 'New Synonym', new_synonym_path , class:'btn btn-primary' %>
+<% if can?(:create, Synonym) %>
+  <%= link_to 'New Synonym', new_synonym_path , class:'btn btn-primary' %>
+<% end %>

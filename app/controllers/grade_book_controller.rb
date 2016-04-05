@@ -6,27 +6,31 @@ class GradeBookController < ApplicationController
   end
 
   def course
-    @course = Course.includes(lessons: [lesson_modules: :questions]).find(params['course_id'])
+    @grade_modifiers = Hash.new(0)
+    @course = Course.includes(:lessons).find(params['course_id'])
     @users = User.with_role(:student, @course)
-    sql = "SELECT * FROM answers
-          LEFT JOIN questions ON answers.question_id=questions.id
-          LEFT JOIN lesson_modules ON questions.lesson_module_id=lesson_modules.id
-          LEFT JOIN lessons ON lesson_modules.lesson_id=lessons.id
-          LEFT JOIN courses ON lessons.course_id=courses.id
-          WHERE courses.id = #{@course.id}"
-    @answers = Gradebook.course_grades(ActiveRecord::Base.connection.select_all(sql), @users, @course)
+    modifiers = GradeModifer.where("user_id IN (?) OR course_id =? OR lesson_id IN (?)", @users.pluck(:id), @course.id, @course.lessons.pluck(:id))
+    modifiers.each do |modifier|
+      if modifier.course_id && modifier.user_id
+        @grade_modifiers["user#{modifier.user_id}"] = modifier.modified_grade_value
+      elsif modifier.course_id
+        @grade_modifiers["course#{modifier.course_id}"] = modifier.modified_grade_value
+      elsif modifier.lesson_id && modifier.user_id
+        @grade_modifiers["#{modifier.user_id}-#{modifier.lesson_id}"] = modifier.modified_grade_value
+      elsif modifier.lesson_id
+        @grade_modifiers["lesson#{modifier.lesson_id}"] = modifier.modified_grade_value
+      else
+        @grade_modifiers["#{modifier.user_id}-#{modifier.lesson_module_id}"] = modifier.modified_grade_value
+      end
+    end
+    @grades = Gradebook.course_grades(@users, @course)
   end
 
   def lesson
     @course = Course.find(params['course_id'])
-    @lesson = Lesson.includes(lesson_modules: :questions).find(params['lesson_id'])
+    @lesson = Lesson.includes(:lesson_modules).find(params['lesson_id'])
     @users = User.with_role(:student, @course)
-    sql = "SELECT * FROM answers
-          LEFT JOIN questions ON answers.question_id=questions.id
-          LEFT JOIN lesson_modules ON questions.lesson_module_id=lesson_modules.id
-          LEFT JOIN lessons ON lesson_modules.lesson_id=lessons.id
-          WHERE lessons.id = #{@lesson.id}"
-    @answers = Gradebook.lesson_grades(ActiveRecord::Base.connection.select_all(sql), @users, @lesson)
+    @grades = Gradebook.lesson_grades(@users, @lesson)
   end
 
   def lesson_module

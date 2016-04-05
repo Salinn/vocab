@@ -30,8 +30,10 @@
     <thead>
       <tr>
         <th><%= sort_link @search, :name,'Word name' %></th>
-        <th>View the Word</th>
-        <th>Delete a Word</th>
+        <% if can?(:manage, @word) %>
+            <th>View the Word</th>
+            <th>Delete a Word</th>
+        <% end %>
       </tr>
     </thead>
 
