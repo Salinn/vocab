@@ -28,3 +28,6 @@ $ ->
            """
     $(html).modal('show')
     $('#confirmationDialog .confirm').on 'click', -> $.rails.confirmed(link)
+
+jQuery ->
+  $('#lesson_word_word_id').chosen();

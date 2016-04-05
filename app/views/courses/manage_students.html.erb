@@ -7,7 +7,7 @@
 
 <div>
 <%= form_tag course_add_to_course_path(@course) do %>
-    <%= collection_select :user, :user_id, (User.all - users), :id, :name_and_email,{include_blank: 'Select Student'} , class: 'chosen-select' %>
+    <%= collection_select :user, :user_id, (User.all - users), :id, :name_and_email, {include_blank: 'Select Student'}, class: 'chosen-select' %>
     <%= submit_tag 'Select User', class: 'btn btn-primary' %>
 <% end %>
 </div>
