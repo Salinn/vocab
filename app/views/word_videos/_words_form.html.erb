@@ -1,4 +1,4 @@
-<%= form_for(@word_video , html:{role: :form}) do |f| %>
+<%= form_for(@word_video , remote:true, html:{role: :form}) do |f| %>
   <% if @word_video.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@word_video.errors.count, "error") %> prohibited this word_video from being saved:</h2>
@@ -18,6 +18,10 @@
   <div class="field form-group">
     <%= f.label :video_description , class:'control-label'%><br>
     <%= f.text_field :video_description , class:'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.hidden_field :word_id, value: word.id%>
   </div>
 
   <div class="actions form-group">

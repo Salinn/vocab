@@ -1,0 +1,58 @@
+<%= form_for(@word_root, remote: true, :html => { :role => "form" , :class => "col-sm-6"}) do |f| %>
+  <% if @word_root.errors.any? %>
+    <div id="error_explanation" class="bg-danger text-danger">
+      <h2><%= pluralize(@word_root.errors.count, "error") %> prohibited this word_root from being saved:</h2>
+
+      <ul>
+      <% @word_root.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :root_name %><br>
+    <%= f.text_field :root_name , class:'form-control'%>
+  </div>
+  <div class="field form-group">
+    <%= f.label :root_definition %><br>
+    <%= f.text_area :root_definition , class:'form-control'%>
+  </div>
+
+  <div class="field form-group">
+    <%= f.hidden_field :word_id, value: word.id%>
+  </div>
+
+  <div class="actions form-group">
+    <%= f.submit @word_root.new_record? ? "Create Word Form" : "Update Word Form" , class:'btn btn-primary' %>
+  </div>
+<% end %>
+
+<!--We need to review this-->
+<%= form_for(@word_root, url: word_root_add_relation_path , remote: true, :html => { :role => "form" , :class => "col-sm-6"}) do |f| %>
+    <% if @word_root.errors.any? %>
+        <div id="error_explanation" class="bg-danger text-danger">
+          <h2><%= pluralize(@word_root.errors.count, "error") %> prohibited this word_root from being saved:</h2>
+
+          <ul>
+            <% @word_root.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field form-group">
+        <%= f.collection_select :root_name, WordRoot.all , :id , :root_name %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.hidden_field :word_id, value: word.id%>
+    </div>
+
+    <div class="actions form-group">
+      <%= f.submit class:'btn btn-primary' %>
+    </div>
+
+<% end %>

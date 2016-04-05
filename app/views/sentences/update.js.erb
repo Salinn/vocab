@@ -1,0 +1,2 @@
+$('#dialog').modal('toggle');
+$('#word_sentence_<%= @sentence.id %>').replaceWith('<%= j render 'sentence_row', sentence: @sentence %>')

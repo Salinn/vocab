@@ -1,16 +1,15 @@
 <div class="word_composition">
 
-  <h3>
-  <strong>Word:</strong>
-  <%= @word.name %>
-  </h3>
+  <div class="container">
+      <h3 class="col-xs-6">
+          <strong>Word:</strong>
+          <%= @word.name %>
+      </h3>
+      <%= link_to 'Back', words_path, class:'btn btn-primary col-xs-offset-3 col-xs-2' %>
+  </div>
 
-  </br>
-
-  <!-- Word Forms -->
-
-  <% if @word.word_forms.length > 0 %>
-
+  <div class="container word-container">
+    <!-- Word Forms -->
     <h3>Word Forms</h3>
     <table class="table">
       <thead>
@@ -20,174 +19,129 @@
       </tr>
       </thead>
 
-      <tbody>
+      <tbody id="word_form">
 
       <% @word.word_forms.each do |word_form| %>
-          <tr>
-            <td><%= word_form.associated_word %></td>
-            <td><%= word_form.word.name %></td>
-            <% if can?(:manage, @word) %>
-              <td><%= link_to 'Show', word_form %></td>
-              <td><%= link_to 'Edit', edit_word_form_path(word_form) %></td>
-              <td><%= link_to 'Destroy', word_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
-          </tr>
+
+          <%= render 'word_forms/word_form_row', word_form: word_form %>
+
       <% end %>
 
       </tbody>
     </table>
-  <% else %>
-    <h3>There are no Word Forms in the dictionary for this word</h3>
-  <% end %>
-  </br>
 
-  <!-- Word sentences -->
+    <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_word_form_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
-  <% if @word.sentences.length > 0 %>
-  <h3>Sentences</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word sentence</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @word.sentences.each do |sentence| %>
+  <div class="container">
+      <!-- Word sentences -->
+      <h3>Sentences</h3>
+      <table class="table">
+        <thead>
         <tr>
-          <td><%=sentence.word_sentence %></td>
-          <% if can?(:manage, @word) %>
-          <td><%= link_to 'Show', sentence %></td>
-          <td><%= link_to 'Edit', edit_sentence_path(sentence) %></td>
-          <td><%= link_to 'Destroy', sentence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <%end%>
-    <% end %>
-    </tbody>
-  </table>
-  <% else %>
-      <h3>There are no Sentences in the dictionary for this word</h3>
-  <% end %>
-  </br>
-
-  <!-- Word synonyms -->
-
-  <% if @word.synonyms.length > 0 %>
-  <h3>Synonyms</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word Synonym</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @word.synonyms.each do |synonym| %>
-        <tr>
-          <td><%=synonym.word_synonym %></td>
-          <% if can?(:manage, @word) %>
-          <td><%= link_to 'Show', synonym %></td>
-          <td><%= link_to 'Edit', edit_synonym_path(synonym) %></td>
-          <td><%= link_to 'Destroy', synonym, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <%end%>
-    <% end %>
-    </tbody>
-  </table>
-  <% else %>
-      <h3>There are no Synonyms in the dictionary for this word</h3>
-  <% end %>
-  </br>
-
-  <!-- Word definitions -->
-
-  <% if @word.definitions.length > 0 %>
-  <h3>Definitions</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word definition</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @word.definitions.each do |definition| %>
-        <tr>
-          <td><%=definition.word_definition %></td>
-          <% if can?(:manage, @word) %>
-          <td><%= link_to 'Show', definition %></td>
-          <td><%= link_to 'Edit', edit_definition_path(definition) %></td>
-          <td><%= link_to 'Destroy', definition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <%end%>
+          <th>Word sentence</th>
+          <th colspan="3"></th>
         </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <% else %>
-    <h3>There are no Definitions in the dictionary for this word</h3>
-  <% end %>
-  </br>
+        </thead>
 
-  <!-- Word videos -->
+        <tbody id="word_sentence">
 
-  <% if @word.word_videos.length > 0 %>
-  <h3>Word video</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word video</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @word.word_videos.each do |word_video| %>
+        <% @word.sentences.each do |sentence| %>
+            <%= render 'sentences/sentence_row', sentence: sentence %>
+        <% end %>
+
+        </tbody>
+
+      </table>
+
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_sentence_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
+
+  <div class="container">
+      <!-- Word synonyms -->
+      <h3>Synonyms</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Word Synonym</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody id="word_synonym">
+        <% @word.synonyms.each do |synonym| %>
+            <%= render 'synonyms/synonym_row', synonym: synonym %>
+        <% end %>
+        </tbody>
+
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_synonym_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
+
+  <div class="container">
+      <h3>Definitions</h3>
+      <table class="table">
+        <thead>
         <tr>
-          <td><%= word_video.video_description %></td>
-          <td><%= word_video.video_link %></td>
-          <% if can?(:manage, @word) %>
-          <td><%= link_to 'Show', word_video %></td>
-          <td><%= link_to 'Edit', edit_word_video_path(word_video) %></td>
-          <td><%= link_to 'Destroy', word_video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <%end%>
+          <th>Word definition</th>
+          <th colspan="3"></th>
         </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <% else %>
-    <h3>There are no Word Videos in the dictionary for this word</h3>
-  <% end %>
-  </br>
+        </thead>
+        <tbody id="word_definition">
+            <% @word.definitions.each do |definition| %>
+                <%= render 'definitions/definition_row', definition: definition %>
+            <% end %>
+        </tbody>
 
-  <!-- Word Roots-->
-  <% if @word.word_roots.length > 0 %>
-  <h3>Word roots</h3>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Word root</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @word.word_roots.each do |word_root| %>
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_definition_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
+
+  <div class="container">
+      <!-- Word videos -->
+      <h3>Word video</h3>
+      <table class="table">
+        <thead>
         <tr>
-          <td><%= word_root.root_name %></td>
-          <% if can?(:manage, @word) %>
-          <td><%= link_to 'Show', word_root %></td>
-          <td><%= link_to 'Edit', edit_word_root_path(word_root) %></td>
-          <td><%= link_to 'Destroy', word_root, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <%end%>
+          <th>Word video</th>
+          <th colspan="3"></th>
         </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <% else %>
-      <h3>There are no Word Roots in the dictionary for this word</h3>
-  <% end %>
+        </thead>
 
+        <tbody id="word_video">
+            <% @word.word_videos.each do |word_video| %>
+                <%= render 'word_videos/video_row', word_video: word_video %>
+            <% end %>
+        </tbody>
+
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_word_video_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
+
+  <div class="container">
+      <!-- Word Roots-->
+      <h3>Word roots</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Word root</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody id="word_roots">
+        <% @word.word_roots.each do |word_root| %>
+          <%= render 'word_roots/words_word_root_row', word_root: word_root %>
+        <% end %>
+        </tbody>
+      </table>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus\"></span>".html_safe, new_word_root_path(word_id: @word.id), remote: true, class:'btn btn-success new-component' %>
+  </div>
 
 </div>
+
+
+<%= render 'layouts/dialog' %>
 
 <% if can?(:edit, @word) %>
 <%= link_to 'Edit', edit_word_path(@word) %>
 <%end%>
-<%# link_to 'Update', edit_word_path(word), remote:true %>
-<%= link_to 'Back', words_path %>
