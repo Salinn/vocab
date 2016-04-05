@@ -18,9 +18,13 @@
         <td><%= word_video.video_link %></td>
         <td><%= word_video.video_description %></td>
         <td><%= word_video.word.name %></td>
-        <td><%= link_to 'Show', word_video %></td>
-        <td><%= link_to 'Edit', edit_word_video_path(word_video) %></td>
-        <td><%= link_to 'Destroy', word_video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:show, word_video) %>
+          <td><%= link_to 'Show', word_video %></td>
+        <% end %>
+        <% if can?(:manage, word_video) %>
+          <td><%= link_to 'Edit', edit_word_video_path(word_video) %></td>
+          <td><%= link_to 'Destroy', word_video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,6 @@
 
 <br>
 
+<% if can?(:create, WordVideo) %>
 <%= link_to 'New Word video', new_word_video_path , class:'btn btn-primary'%>
+<% end %>

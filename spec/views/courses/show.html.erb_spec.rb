@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "courses/show", type: :view do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:current_user) { user }
+
   before(:each) do
     @course = assign(:course, Course.create!(
       class_name: "Class Name",
@@ -8,6 +11,7 @@ RSpec.describe "courses/show", type: :view do
       end_date: Date.today + 3.months
     ))
     @course.users.build
+    sign_in(user)
   end
 
   it "renders attributes in <p>" do

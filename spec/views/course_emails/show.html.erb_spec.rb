@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "course_emails/show", type: :view do
   let(:course) { FactoryGirl.create(:course) }
   let(:user) { FactoryGirl.create(:user) }
+  let(:current_user) { user }
 
   before(:each) do
     user.add_role(:teacher, course)
@@ -11,6 +12,7 @@ RSpec.describe "course_emails/show", type: :view do
       :title => "Title",
       :content => "MyText is long"
     ))
+    sign_in(user)
   end
 
   it "renders attributes in <p>" do

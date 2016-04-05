@@ -1,19 +1,27 @@
 <h1><%= @lesson.lesson_name %> - Due: <%= @lesson.lesson_end_date.strftime('%B %d, %Y') %></h1>
-    <table>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Lesson Module</th>
+    <th>View</th>
+    <th>Edit</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <%= @lesson.lesson_modules.find_each do |lesson_module| %>
+      <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
+      <% percentage_correct = total_percentage_correct(total_correct, lesson_module.questions.length) %>
       <tr>
-        <th>Lesson Module</th>
-        <th>Edit</th>
+        <td><%= "#{lesson_module.name}" %></td>
+        <td><%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_module_id: lesson_module.id) %></td>
+        <td><%= link_to "edit", edit_course_lesson_lesson_module_url(course_id: @course.id, lesson_id: @lesson.id, id: lesson_module.id) %></td>
       </tr>
 
-      <%= @lesson.lesson_modules.find_each do |lesson_module| %>
-          <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
-          <% percentage_correct = total_percentage_correct(total_correct, lesson_module.questions.length) %>
-          <tr>
-            <td><%= link_to "#{percentage_correct}% correct for the #{lesson_module.name} module", course_lesson_lesson_module_questions_path(course_id: @course.id, lesson_id: @lesson.id, lesson_module_id: lesson_module.id) %></td>
-            <td><%= link_to "edit", edit_course_lesson_lesson_module_url(course_id: @course.id, lesson_id: @lesson.id, id: lesson_module.id) %></td>
-          </tr>
+  <% end %>
+  </tbody>
+</table>
 
-      <% end %>
-    </table>
+<%= button_to "Create Lesson Module", new_course_lesson_lesson_module_path(course_id: @course.id, lesson_id: @lesson.id), :method => :get %>
 
-    <%= button_to "Create Lesson Module", new_course_lesson_lesson_module_path(course_id: @course.id, lesson_id: @lesson.id), :method => :get %>
