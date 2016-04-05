@@ -23,7 +23,7 @@ class Lesson < ActiveRecord::Base
       errors.add(:lesson, 'The start date must come before the end date')
       return false
     end
-    return true
+    true
   end
 
   def create_modules

@@ -32,13 +32,13 @@
 <hr>
 </br>
 
-<table class="table">
+<table class="table table-bordered table-striped">
   <thead>
   <tr>
     <th>First name</th>
     <th>Last name</th>
     <th>Email</th>
-    <th>Delete?</th>
+    <th>Delete</th>
   </tr>
   </thead>
 
@@ -48,7 +48,7 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= button_to "Remove user", course_remove_user_from_course_path(@course, user_id: user.id), :method => :delete %></td>
+        <td><%= link_to 'Remove user', course_remove_user_from_course_path(@course, user_id: user.id), method: :delete, class: 'btn btn-danger' %></td>
       </tr>
   <% end %>
   </tbody>

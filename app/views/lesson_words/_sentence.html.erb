@@ -1,7 +1,6 @@
 <tr id="sentence_<%= sentence.id %>">
   <td><%= sentence.word_sentence %></td>
   <td>
-    <!-- ID doesn't matter here -->
     <%= link_to 'Delete', course_lesson_lesson_word_lesson_word_sentence_path(sentence_id: sentence.id, lesson_word_id: lesson_word.id, id: '1', course_id: @course.id, lesson_id: @lesson.id), remote: true, method: :delete, class: 'btn btn-sm btn-danger', data: { toggle: "confirmation", placement: "top" } %>
   </td>
 </tr>
