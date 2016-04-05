@@ -16,12 +16,16 @@ class SentencesController < ApplicationController
   # GET /sentences/new
   def new
     @sentence = Sentence.new
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /sentences/1/edit
   def edit
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /sentences

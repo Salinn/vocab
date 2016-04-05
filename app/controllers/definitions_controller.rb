@@ -17,13 +17,18 @@ class DefinitionsController < ApplicationController
   def new
     @definition = Definition.new
     @words = Word.all
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
+
   end
 
   # GET /definitions/1/edit
   def edit
     @words = Word.all
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /definitions

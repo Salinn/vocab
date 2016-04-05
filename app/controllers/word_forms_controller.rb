@@ -16,13 +16,17 @@ class WordFormsController < ApplicationController
   # GET /word_forms/new
   def new
     @word_form = WordForm.new
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /word_forms/1/edit
   def edit
     @words = Word.all
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /word_forms

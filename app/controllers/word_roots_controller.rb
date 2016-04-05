@@ -19,12 +19,16 @@ class WordRootsController < ApplicationController
   def new
     @word_root = WordRoot.new
     @word_roots = WordRoot.all
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /word_roots/1/edit
   def edit
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /word_roots

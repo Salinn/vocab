@@ -1,4 +1,4 @@
-<%= form_for(@definition , html:{role: :form}) do |f| %>
+<%= form_for(@definition , remote:true, html:{role: :form}) do |f| %>
   <% if @definition.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@definition.errors.count, "error") %> prohibited this definition from being saved:</h2>
@@ -14,6 +14,10 @@
   <div class="field">
     <%= f.label :word_definition %><br>
     <%= f.text_area :word_definition %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.hidden_field :word_id, value: word.id%>
   </div>
 
   <div class="actions">

@@ -1,4 +1,4 @@
-<%= form_for(@word_form , html:{role: :form}) do |f| %>
+<%= form_for(@word_form, remote:true, html:{role: :form}) do |f| %>
   <% if @word_form.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@word_form.errors.count, "error") %> prohibited this word_form from being saved:</h2>
@@ -15,7 +15,9 @@
     <%= f.label :associated_word , class:'control-label' %><br>
     <%= f.text_field :associated_word , class:'form-control'%>
   </div>
-
+  <div class="field form-group">
+    <%= f.hidden_field :word_id, value: word.id%>
+  </div>
   <div class="actions form-group">
     <%= f.submit @word_form.new_record? ? "Create Word Form" : "Update Word Form" , class: 'btn btn-primary' %>
   </div>

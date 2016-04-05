@@ -17,13 +17,17 @@ class SynonymsController < ApplicationController
   def new
     @synonym = Synonym.new
     @words = Word.all
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /synonyms/1/edit
   def edit
     @words = Word.all
-    @word = Word.find(params[:word_id])
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /synonyms
