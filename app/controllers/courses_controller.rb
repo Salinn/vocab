@@ -13,6 +13,11 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    if @course.lessons.any?
+      @events = Event.includes(lesson: :course).where(lesson_id: @course.lessons)
+    else
+      @events = []
+    end
   end
 
   # GET /courses/new
@@ -28,7 +33,6 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(course_params)
-
     respond_to do |format|
       if @course.save
         create_relations

@@ -55,6 +55,12 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     cancancan (1.12.0)
+    chosen-rails (1.4.3)
+      coffee-rails (>= 3.2)
+      compass-rails (>= 2.0.4)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
+    chunky_png (1.3.5)
     ckeditor (4.1.4)
       cocaine
       orm_adapter (~> 0.5.0)
@@ -70,6 +76,22 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    compass (1.0.3)
+      chunky_png (~> 1.2)
+      compass-core (~> 1.0.2)
+      compass-import-once (~> 1.0.5)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      sass (>= 3.3.13, < 3.5)
+    compass-core (1.0.3)
+      multi_json (~> 1.0)
+      sass (>= 3.3.0, < 3.5)
+    compass-import-once (1.0.5)
+      sass (>= 3.2, < 3.5)
+    compass-rails (3.0.1)
+      compass (~> 1.0.0)
+      sass-rails (< 5.1)
+      sprockets (< 4.0)
     daemons (1.2.3)
     debug_inspector (0.0.2)
     delayed_job (4.1.1)
@@ -95,6 +117,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
+    ffi (1.9.10)
     fullcalendar-rails (2.4.0.2)
       jquery-rails (>= 4.0.5, < 5.0.0)
       jquery-ui-rails (>= 5.0.2)
@@ -170,6 +193,9 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
+    rb-fsevent (0.9.7)
+    rb-inotify (0.9.7)
+      ffi (>= 0.5.0)
     rdoc (4.2.0)
     ref (2.0.0)
     responders (2.1.0)
@@ -249,6 +275,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.5)
   bullet
   cancancan (~> 1.10)
+  chosen-rails
   ckeditor
   coffee-rails (~> 4.1.0)
   daemons

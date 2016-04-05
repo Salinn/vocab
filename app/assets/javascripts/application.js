@@ -18,6 +18,7 @@
 //= require turbolinks
 //= require moment
 //= require fullcalendar
+//= require chosen-jquery
 //= require_tree .
 
 $(document).ajaxError(function(event,xhr,options,exc) {
