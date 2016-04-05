@@ -27,7 +27,11 @@ class Ability
       can :manage, LessonExtension
       can :manage, LessonWord
       can :manage, Answer
-
+      can :manage, LessonWordDefinition
+      can :manage, LessonWordSentence
+      can :manage, LessonWordSentence
+      can :manage, LessonWordForm
+      can :manage, LessonWordVideo
     end
 
     if Course.with_role(:student, user).any?

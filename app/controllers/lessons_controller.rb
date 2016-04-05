@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def index
     @course = Course.find(params[:course_id])
-    params[:page] = get_current_Weeks_page if params[:page] == nil
+    params[:page] = get_current_Weeks_page if params[:page] == nil && @course.lessons.any?
     @lessons = Lesson.includes(lesson_modules: :questions).where(course_id: @course.id).paginate(:page => params[:page], per_page: 1)
   end
 

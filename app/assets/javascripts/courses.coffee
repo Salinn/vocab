@@ -35,3 +35,6 @@ $.rails.showConfirmDialog = (link) ->
          """
   $(html).modal('show')
   $('#confirmationDialog .confirm').on 'click', -> $.rails.confirmed
+
+jQuery ->
+  $('#user_user_id').chosen()
