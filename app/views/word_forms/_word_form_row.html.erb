@@ -1,5 +1,5 @@
 <tr id="word_form_<%= word_form.id %>">
   <td><%= word_form.associated_word %></td>
   <td><%= link_to 'Edit', edit_word_form_path(word_form, word_id: word_form.word.id), remote: true %></td>
-  <td><%= link_to 'Destroy', word_form, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to 'Delete', word_form, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

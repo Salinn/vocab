@@ -1,5 +1,5 @@
 <tr id="word_definition_<%= definition.id %>">
   <td><%=definition.word_definition %></td>
   <td><%= link_to 'Edit', edit_definition_path(definition, word_id: definition.word.id), remote: true %></td>
-  <td><%= link_to 'Destroy', definition, remote: true,  method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to 'Delete', definition, remote: true,  method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
