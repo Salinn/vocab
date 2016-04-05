@@ -29,6 +29,7 @@
   </div>
 <% end %>
 
+<!--We need to review this-->
 <%= form_for(@word_root, url: word_root_add_relation_path , remote: true, :html => { :role => "form" , :class => "col-sm-6"}) do |f| %>
     <% if @word_root.errors.any? %>
         <div id="error_explanation" class="bg-danger text-danger">

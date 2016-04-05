@@ -19,9 +19,7 @@ class WordRootsController < ApplicationController
   def new
     @word_root = WordRoot.new
     @word_roots = WordRoot.all
-    if(params[:word_id])
-      @word = Word.find(params[:word_id])
-    end
+    @word = Word.find(params[:word_id])
   end
 
   # GET /word_roots/1/edit
@@ -64,14 +62,13 @@ class WordRootsController < ApplicationController
   # DELETE /word_roots/1
   # DELETE /word_roots/1.json
   def destroy
-    respond_to do |format|
-      if @word_root.destroy
-        format.html { redirect_to @word_root, notice: 'Word root was successfully destroyed.' }
-        format.json { render :show, status: :ok, location: @word_root }
+    if !@word_root.destroy
+      redirect_to action: "index"
+    else
+      respond_to do |format|
+        format.html { redirect_to word_roots_url, notice: 'Word root was successfully destroyed.' }
+        format.json { head :no_content }
         format.js
-      else
-        format.html { render :destroy }
-        format.json { render json: @word_root.errors, status: :unprocessable_entity }
       end
     end
   end
