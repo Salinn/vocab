@@ -29,7 +29,7 @@
   </div>
 <% end %>
 
-<%= form_for(@word_root, remote: true, :html => { :role => "form" , :class => "col-sm-6"}) do |f| %>
+<%= form_for(@word_root, url: word_root_add_relation_path , remote: true, :html => { :role => "form" , :class => "col-sm-6"}) do |f| %>
     <% if @word_root.errors.any? %>
         <div id="error_explanation" class="bg-danger text-danger">
           <h2><%= pluralize(@word_root.errors.count, "error") %> prohibited this word_root from being saved:</h2>
@@ -43,7 +43,11 @@
     <% end %>
 
     <div class="field form-group">
+        <%= f.collection_select :root_name, WordRoot.all , :id , :root_name %>
+    </div>
 
+    <div class="field form-group">
+      <%= f.hidden_field :word_id, value: word.id%>
     </div>
 
     <div class="actions form-group">
