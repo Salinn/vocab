@@ -47,6 +47,7 @@ class Ability
       can [:index, :show], Event
       can [:index, :show], LessonExtension
       can [:index, :show], Answer
+      can :manage, CourseEmail
     end
   end
 end
