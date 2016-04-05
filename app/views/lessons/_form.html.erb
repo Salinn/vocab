@@ -22,11 +22,11 @@
   </div>
   <div class="field col-xs-2 col-xs-offset-3">
     <%= f.label :lesson_start_time %><br>
-    <%= f.text_field :lesson_start_time, class: 'form-control', readonly: true %>
+    <%= f.text_field :lesson_start_time, value: utc_formatter(@lesson.lesson_start_time), class: 'form-control', readonly: true %>
   </div>
   <div class="field col-xs-2 ">
     <%= f.label :lesson_end_date %><br>
-    <%= f.text_field :lesson_end_date, class: 'form-control', readonly: true %>
+    <%= f.text_field :lesson_end_date, value: utc_formatter(@lesson.lesson_end_date), class: 'form-control', readonly: true %>
   </div>
   <div class="actions col-xs-9 col-xs-offset-3">
     <%= f.submit class: 'btn btn-primary' %>
