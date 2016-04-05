@@ -1,21 +1,23 @@
 <li>
   <%= link_to 'Home <i class="sub_icon glyphicon glyphicon-home"></i>'.html_safe, root_path %>
 </li>
-<li>
-  <a data-toggle="collapse" data-parent="#accordion1" href="#dictionary">Dictionary<i class="sub_icon glyphicon glyphicon-list"></i></a>
-  <ul id="dictionary" class="collapse panel-collapse">
-    <li><%= link_to 'Search Words <i class="sub_icon glyphicon glyphicon-search"></i>'.html_safe, words_path, class: 'sub_link' %></li>
-    <li><%= link_to 'Search Root Words <i class="sub_icon glyphicon glyphicon-search"></i>'.html_safe, word_roots_path, class: 'sub_link' %></li>
-    <% if current_user && can?(:create, Word) %>
-      <li><%= link_to 'Add Word <i class="sub_icon glyphicon glyphicon-plus"></i>'.html_safe, new_word_path, class: 'sub_link' %></li>
-      <li><%= link_to 'Add Root Word <i class="sub_icon glyphicon glyphicon-plus"></i>'.html_safe, new_word_root_path, class: 'sub_link' %></li>
-    <% end %>
-  </ul>
-</li>
 <% if current_user %>
     <li>
-      <%= link_to 'Create Course <i class="sub_icon glyphicon glyphicon-pencil"></i>'.html_safe, new_course_path, data: { no_turbolink: true } %>
+      <a data-toggle="collapse" data-parent="#accordion1" href="#dictionary">Dictionary<i class="sub_icon glyphicon glyphicon-list"></i></a>
+      <ul id="dictionary" class="collapse panel-collapse">
+        <li><%= link_to 'Search Words <i class="sub_icon glyphicon glyphicon-search"></i>'.html_safe, words_path, class: 'sub_link' %></li>
+        <li><%= link_to 'Search Root Words <i class="sub_icon glyphicon glyphicon-search"></i>'.html_safe, word_roots_path, class: 'sub_link' %></li>
+        <% if current_user && can?(:create, Word) %>
+            <li><%= link_to 'Add Word <i class="sub_icon glyphicon glyphicon-plus"></i>'.html_safe, new_word_path, class: 'sub_link' %></li>
+            <li><%= link_to 'Add Root Word <i class="sub_icon glyphicon glyphicon-plus"></i>'.html_safe, new_word_root_path, class: 'sub_link' %></li>
+        <% end %>
+      </ul>
     </li>
+    <% if current_user.has_role?(:teacher, :any) %>
+        <li>
+          <%= link_to 'Create Course <i class="sub_icon glyphicon glyphicon-pencil"></i>'.html_safe, new_course_path, data: { no_turbolink: true } %>
+        </li>
+    <% end %>
     <li>
       <%= link_to 'Account <i class="sub_icon glyphicon glyphicon-user"></i>'.html_safe, current_user %>
     </li>

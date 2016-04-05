@@ -18,7 +18,7 @@
 
 <% else %>
     <h1>Course Lessons</h1>
-    <%= link_to 'New Lesson', new_course_lesson_path(course_id: @course.id), class: 'btn btn-primary', style: 'margin-bottom: 10px;' %>
+    <%= link_to 'New Lesson', new_course_lesson_path(course_id: @course.id), data: { no_turbolink: true }, class: 'btn btn-primary', style: 'margin-bottom: 10px;' %>
 
     <table class="table table-bordered table-striped">
       <thead>
