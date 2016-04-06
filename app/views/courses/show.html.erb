@@ -1,19 +1,22 @@
-<div class="main">
+<div class="main" xmlns="http://www.w3.org/1999/html">
 
-<p class="col-sm-12">
-  <strong>Class name:</strong>
+<h3 class="col-sm-12">
+  <strong>Course name:</strong>
   <%= @course.class_name %>
-</p>
+</h3>
+</br>
 
-<p class="col-sm-3">
+<h4 class="col-sm-3">
   <strong>Start date:</strong>
   <%= @course.start_date %>
-</p>
+</h4>
 
-<p class="col-sm-9">
+  </br>
+
+<h4 class="col-sm-9">
   <strong>End date:</strong>
   <%= @course.end_date %>
-</p>
+</h4>
 
   <% if can?(:manage, @course) %>
 
@@ -31,6 +34,10 @@
 <% end %>
 
       <% end %>
+
+  <%= link_to 'Course Schedule', course_events_path(course_id: @course.id), class:"btn btn-primary" %>
+  <%= link_to 'Course Syllabus', nil, class:"btn btn-primary" %>
+  <%= link_to 'Course Description', nil,  class:"btn btn-primary"%>
 </div>
 
 

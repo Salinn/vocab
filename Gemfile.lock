@@ -251,9 +251,11 @@ DEPENDENCIES
   cancancan (~> 1.10)
   ckeditor
   coffee-rails (~> 4.1.0)
+  coffee-script-source
   daemons
   delayed_job_active_record
   devise
+  execjs
   factory_girl_rails
   faker
   fullcalendar-rails

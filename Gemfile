@@ -34,6 +34,8 @@ gem 'daemons'
 # full calendar
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem 'execjs'
+gem 'coffee-script-source'
 
 #Web server
 gem 'puma'

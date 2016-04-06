@@ -6,5 +6,13 @@ $(document).on 'ready page:load', ->
   $("#calendar").fullCalendar(
     editable: true,
     eventLimit: true,
-    events: '/events.json'
+#    googleCalendarApiKey: 'AIzaSyAf-RhcmH_Oz8vaQAE4hG5ZZF0kFvfGq4s'
+    eventSources: [
+      {
+        url: jQuery.ajaxSettings.url
+      },
+      {
+#        googleCalendarId: 'mlabwa1@gmail.com'
+      }
+    ]
   )

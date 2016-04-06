@@ -31,15 +31,11 @@
 </table>
 
 <br>
-<<<<<<< HEAD
 
-<%= link_to 'New Event', new_course_event_path(course_id: @course.id), class:"btn btn-primary" %>
-
-=======
 <% if can?(:manage, @course) %>
 <%= link_to 'New Event', new_course_event_path(course_id: @course.id) %>
 <% end %>
->>>>>>> master
+
 <br>
 
 <div id="calendar">
