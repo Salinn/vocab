@@ -105,14 +105,16 @@ class CoursesController < ApplicationController
 
   def duplicate_course
     course = Course.find(params[:course_id])
-    new_course = course.duplicate_course
+    start_date = params[:course_start_time_tag]
+    new_course = course.duplicate_course(start_date)
     redirect_to new_course, notice: 'Course was successfully Copied, welcome to your new course.'
   end
 
   def share_course
     course = Course.find(params[:course_id])
     teacher = User.find(params[:user][:teacher_id])
-    course.share_course(teacher)
+    start_date = params[:course_start_time_tag]
+    course.share_course(teacher, start_date)
     redirect_to course, notice: 'Course was successfully Shared.'
   end
 

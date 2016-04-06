@@ -40,23 +40,23 @@ class Course < ActiveRecord::Base
     UserMailer.add_to_class_email(course, user, raw_token).deliver_later
   end
 
-  def duplicate_course
-    course = course_duplication
+  def duplicate_course(start_date)
+    course = course_duplication(start_date)
     teacher = User.with_role(:teacher, self).first
     teacher.add_role :teacher, course
     course
   end
 
-  def share_course(teacher)
-    course = course_duplication
+  def share_course(teacher, start_date)
+    course = course_duplication(start_date)
     teacher.add_role :teacher, course
     course
   end
 
-  def course_duplication
+  def course_duplication(start_date)
     course = self.dup
-    course.start_date = Date.today
-    course.end_date = Date.today + (end_date - start_date)
+    course.start_date = start_date.to_date
+    course.end_date = Date.today + (end_date - start_date.to_date)
     course.save
     lessons.each do |lesson|
       dup_lesson = lesson.dup
