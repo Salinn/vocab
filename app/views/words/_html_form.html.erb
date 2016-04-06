@@ -1,0 +1,25 @@
+
+<%= form_for(@word , html: {role: :form}) do |f| %>
+
+  <% if @word.errors.any? %>
+    <div id="error_explanation" class="bg-danger text-danger">
+      <h2><%= pluralize(@word.errors.count, "error") %> prohibited this word from being saved:</h2>
+
+      <ul>
+      <% @word.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :name, class: 'control-label' %><br>
+    <%= f.text_field :name , class:"form-control"%>
+    <span class="help-block"></span>
+  </div>
+
+  <div class="actions form-group">
+    <%= f.submit @word.new_record? ? "Create Word" : "Update Word" , class: 'btn btn-primary' %>
+  </div>
+<% end %>
