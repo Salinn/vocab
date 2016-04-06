@@ -26,7 +26,7 @@
 
 <%= form_tag course_share_course_path(@course) do %>
       <div class="form-group">
-        <%= text_field_tag :course_start_time_tag %>
+        <%= text_field_tag :course_start_time_share_tag %>
         <%= collection_select :user, :teacher_id, User.with_role(:teacher, :any).uniq, :id, :name_and_email, {} , {class:"form-control width-control"} %>
         <%= submit_tag "Share Class" , class:"btn btn-primary"%>
       </div>

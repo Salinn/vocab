@@ -5,6 +5,7 @@ jQuery ->
   $('#course_start_date').datepicker(dateFormat: 'dd-mm-yy');
   $('#course_end_date').datepicker(dateFormat: 'dd-mm-yy');
   $('#course_start_time_tag').datepicker(dateFormat: 'dd-mm-yy');
+  $('#course_start_time_share_tag').datepicker(dateFormat: 'dd-mm-yy');
 
 $ ->
 $.rails.allowAction = (link) ->
