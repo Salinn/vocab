@@ -39,6 +39,9 @@ gem 'momentjs-rails'
 #Web server
 gem 'puma'
 
+#Allows saves without a callback
+gem 'sneaky-save'
+
 #Roles and Auth
 gem 'rolify'
 gem 'cancancan', '~> 1.10'

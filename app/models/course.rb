@@ -67,19 +67,34 @@ class Course < ActiveRecord::Base
       lesson.lesson_words.each do |lesson_word|
         dup_lesson_word = lesson_word.dup
         dup_lesson_word.lesson = dup_lesson
-        dup_lesson_word.save
+        dup_lesson_word.sneaky_save
+        lesson_word.definitions.each do |definition|
+          LessonWordDefinition.create!(lesson_word: dup_lesson_word, definition: definition)
+        end
+        lesson_word.sentences.each do |sentence|
+          LessonWordSentence.create!(lesson_word: dup_lesson_word, sentence: sentence)
+        end
+        lesson_word.synonyms.each do |synonym|
+          LessonWordSynonym.create!(lesson_word: dup_lesson_word, synonym: synonym)
+        end
+        lesson_word.word_forms.each do |word_form|
+          LessonWordForm.create!(lesson_word: dup_lesson_word, word_form: word_form)
+        end
+        lesson_word.word_videos.each do |word_video|
+          LessonWordVideo.create!(lesson_word: dup_lesson_word, word_video: word_video)
+        end
       end
-      #TODO figure out how to not have callbacks
-      # lesson.lesson_modules.each do |lesson_module|
-      #   dup_lesson_module = lesson_module
+      #TODO figure out callback issue
+      # dup_lesson.lesson_modules.each do |lesson_module|
+      #   dup_lesson_module = lesson_module.dup
       #   dup_lesson_module.lesson = dup_lesson
       #   dup_lesson_module.save
       #   lesson_module.questions.each do |question|
-      #     dup_question = question
+      #     dup_question = question.dup
       #     dup_question.lesson_module = dup_lesson_module
       #     dup_question.save
       #     question.answer_options.each do |answer_option|
-      #       dup_answer_option = answer_option
+      #       dup_answer_option = answer_option.dup
       #       dup_answer_option.question = dup_question
       #       dup_answer_option.save
       #     end
