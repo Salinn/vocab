@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/../../config/environment.rb"
+#require "#{File.dirname(__FILE__)}/../../config/environment.rb"
 
 words = Hash.new{ |h, k| h[k] = [] }
 x=0
