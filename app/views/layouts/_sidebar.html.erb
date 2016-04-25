@@ -12,11 +12,7 @@
       <!-- signin and signout -->
       <% if current_user %>
           <li>
-          <li><%= link_to 'Sign Out <i class="sub_icon glyphicon glyphicon-log-out"></i>'.html_safe, destroy_user_session_path %></li>
-          </li>
-      <% else %>
-          <li>
-          <li><%= link_to 'Sign In <i class="sub_icon glyphicon glyphicon-log-in"></i>'.html_safe, new_user_session_path %></li>
+            <%= link_to 'Sign Out <i class="sub_icon glyphicon glyphicon-log-out"></i>'.html_safe, destroy_user_session_path, method: :delete %>
           </li>
       <% end %>
     </ul>

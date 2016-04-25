@@ -29,4 +29,7 @@
   </div>
 
     <%= f.submit @event.new_record? ? "Create Event" : "Update Event", class:"btn btn-primary"%>
+    <% if !@event.new_record? %>
+        <%= link_to 'Delete Event', course_event_path(@event, course_id: @event.lesson.course.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <%end %>
 <% end %>

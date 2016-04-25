@@ -1,32 +1,27 @@
-<p>
-  <strong>Lesson name:</strong>
-  <%= @lesson.lesson_name %>
-</p>
+<div class="col-xs-6">
+  <h3>
+    <strong>Lesson name:</strong>
+    <%= @lesson.lesson_name %>
+  </h3>
 
-<p>
-  <strong>Lesson points:</strong>
-  <%= @lesson.lesson_points %>
-</p>
+  <h3>
+    <strong>Lesson points:</strong>
+    <%= @lesson.lesson_points %>
+  </h3>
+</div>
 
-<p>
-  <strong>Lesson start time:</strong>
-  <%= @lesson.lesson_start_time %>
-</p>
+<div class="col-xs-6">
+  <h3>
+    <strong>Lesson start time:</strong>
+    <%= @lesson.lesson_start_time.strftime('%b %e, %l:%M %p') %>
+  </h3>
 
-<p>
-  <strong>Lesson end date:</strong>
-  <%= @lesson.lesson_end_date %>
-</p>
-
-<p>
-  <strong>Course:</strong>
-  <%= @lesson.course.class_name %>
-</p>
-
-<p>
-  <strong>Penalty:</strong>
-  <%= @lesson.penalty %>
-</p>
+  <h3>
+    <strong>Lesson end date:</strong>
+    <%= @lesson.lesson_end_date.strftime('%b %e, %l:%M %p') %>
+  </h3>
+</div>
+<div class="clearfix"></div>
 
 <% if can?(:manage, @lesson) %>
 <hr>
@@ -54,12 +49,12 @@
   <%= link_to "Add Lesson Word", new_course_lesson_lesson_word_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
 </div>
 <%# render 'lessons/add_word' %>
-<hr>
-<%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
-<hr>
+    <hr>
+    <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
+    <hr>
 
 
-<%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
+    <%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
 <% end %>
 <%= link_to 'Back', @lesson.course %>
 

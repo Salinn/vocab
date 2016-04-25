@@ -17,11 +17,18 @@ class DefinitionsController < ApplicationController
   def new
     @definition = Definition.new
     @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
+
   end
 
   # GET /definitions/1/edit
   def edit
     @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /definitions
@@ -33,6 +40,7 @@ class DefinitionsController < ApplicationController
       if @definition.save
         format.html { redirect_to @definition.word, notice: 'Definition was successfully created.' }
         format.json { render :show, status: :created, location: @definition }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @definition.errors, status: :unprocessable_entity }
@@ -47,6 +55,7 @@ class DefinitionsController < ApplicationController
       if @definition.update(definition_params)
         format.html { redirect_to @definition.word, notice: 'Definition was successfully updated.' }
         format.json { render :show, status: :ok, location: @definition }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @definition.errors, status: :unprocessable_entity }
@@ -61,6 +70,7 @@ class DefinitionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to definitions_url, notice: 'Definition was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

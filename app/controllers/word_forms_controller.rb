@@ -16,12 +16,17 @@ class WordFormsController < ApplicationController
   # GET /word_forms/new
   def new
     @word_form = WordForm.new
-    @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /word_forms/1/edit
   def edit
     @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /word_forms
@@ -33,6 +38,7 @@ class WordFormsController < ApplicationController
       if @word_form.save
         format.html { redirect_to @word_form, notice: 'Word form was successfully created.' }
         format.json { render :show, status: :created, location: @word_form }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @word_form.errors, status: :unprocessable_entity }
@@ -47,6 +53,7 @@ class WordFormsController < ApplicationController
       if @word_form.update(word_form_params)
         format.html { redirect_to @word_form, notice: 'Word form was successfully updated.' }
         format.json { render :show, status: :ok, location: @word_form }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @word_form.errors, status: :unprocessable_entity }
@@ -61,6 +68,7 @@ class WordFormsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to word_forms_url, notice: 'Word form was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

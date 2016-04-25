@@ -1,0 +1,2 @@
+$('#dialog').modal('toggle');
+$('#word_definition_<%= @definition.id %>').replaceWith('<%= j render 'definition_row', definition: @definition %>')

@@ -11,3 +11,17 @@ div.form-controls-padding{
 .remove_fields{
   margin-top: 2px;
 }
+
+.word_composition div{
+  position: relative;
+}
+
+.word_composition td {
+  width: 50px;
+}
+
+.new-component{
+  position:absolute;
+  bottom: -17px;
+  right:50px;
+}

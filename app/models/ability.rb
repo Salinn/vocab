@@ -27,7 +27,11 @@ class Ability
       can :manage, LessonExtension
       can :manage, LessonWord
       can :manage, Answer
-
+      can :manage, LessonWordDefinition
+      can :manage, LessonWordSentence
+      can :manage, LessonWordSynonym
+      can :manage, LessonWordForm
+      can :manage, LessonWordVideo
     end
 
     if Course.with_role(:student, user).any?
@@ -43,6 +47,7 @@ class Ability
       can [:index, :show], Event
       can [:index, :show], LessonExtension
       can [:index, :show], Answer
+      can :manage, CourseEmail
     end
   end
 end

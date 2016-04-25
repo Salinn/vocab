@@ -22,12 +22,14 @@
 
 <%= form_tag course_duplicate_course_path(@course) do %>
     <div class="form-group">
+        <%= text_field_tag :course_start_time_tag %>
         <%= submit_tag "Duplicate Class" , class:"btn btn-primary"%>
     </div>
 <% end %>
 
 <%= form_tag course_share_course_path(@course) do %>
       <div class="form-group">
+        <%= text_field_tag :course_start_time_share_tag %>
         <%= collection_select :user, :teacher_id, User.with_role(:teacher, :any).uniq, :id, :name_and_email, {} , {class:"form-control width-control"} %>
         <%= submit_tag "Share Class" , class:"btn btn-primary"%>
       </div>
@@ -35,9 +37,13 @@
 
       <% end %>
 
-  <%= link_to 'Course Schedule', course_events_path(course_id: @course.id), class:"btn btn-primary" %>
-  <%= link_to 'Course Syllabus', nil, class:"btn btn-primary" %>
-  <%= link_to 'Course Description', nil,  class:"btn btn-primary"%>
+</div>
+<div class="clearfix"></div>
+<div class="main">
+  <h1>Events</h1>
+  <div id="calendar">
+  </div>
+
 </div>
 
 

@@ -6,13 +6,13 @@ $(document).on 'ready page:load', ->
   $("#calendar").fullCalendar(
     editable: true,
     eventLimit: true,
-#    googleCalendarApiKey: 'AIzaSyAf-RhcmH_Oz8vaQAE4hG5ZZF0kFvfGq4s'
-    eventSources: [
+#    googleCalendarApiKey: teamvocab gmail calendar api key, this will be used to get events from RIT academic calendar
+    eventSources:[
       {
         url: jQuery.ajaxSettings.url
       },
       {
-#        googleCalendarId: 'mlabwa1@gmail.com'
+#        googleCalendarId: team vocab calendar id
       }
     ]
   )

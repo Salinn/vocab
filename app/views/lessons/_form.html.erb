@@ -11,38 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field col-xs-6 col-xs-offset-3">
     <%= f.label :lesson_name %><br>
-    <%= f.text_field :lesson_name %>
+    <%= f.text_field :lesson_name, class: 'form-control' %>
   </div>
-  <!-- I DON'T KNOW HOW I'M SUPPOSED TO DISPLAY FOR LESSON MODULES FOR LESSON  -->
-    <% if false %>
-        <div class="field">
-          <%= f.label :lesson_modules %><br>
-          <%= @lesson_module.find_each do |lm| %>
-              <%= lm.name %>
-              <%= f.check_box :lesson_modules %><br>
-          <% end %>
-        </div>
-    <% end %>
 
-  <div class="field">
+  <div class="field col-xs-6 col-xs-offset-3">
     <%= f.label :lesson_points %><br>
-    <%= f.number_field :lesson_points %>
+    <%= f.number_field :lesson_points, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field col-xs-2 col-xs-offset-3">
     <%= f.label :lesson_start_time %><br>
-    <%= f.datetime_select :lesson_start_time %>
+    <%= f.text_field :lesson_start_time, value: utc_formatter(@lesson.lesson_start_time), class: 'form-control', readonly: true %>
   </div>
-  <div class="field">
+  <div class="field col-xs-2 ">
     <%= f.label :lesson_end_date %><br>
-    <%= f.datetime_select :lesson_end_date %>
+    <%= f.text_field :lesson_end_date, value: utc_formatter(@lesson.lesson_end_date), class: 'form-control', readonly: true %>
   </div>
-  <div class="field">
-    <%= f.label :penalty %><br>
-    <%= f.number_field :penalty %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions col-xs-9 col-xs-offset-3">
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
+<div class="clearfix"></div>

@@ -1,4 +1,4 @@
-<%= form_for(@sentence) do |f| %>
+<%= form_for(@sentence , html:{role: :form}) do |f| %>
   <% if @sentence.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sentence.errors.count, "error") %> prohibited this sentence from being saved:</h2>
@@ -15,7 +15,8 @@
     <%= f.label :word_sentence , class:'control-label' %><br>
     <%= f.text_field :word_sentence , class:'form-control' %>
   </div>
+
   <div class="actions form-group">
-    <%= f.submit 'Create Sentence' , class:'btn btn-primary' %>
+    <%= f.submit @sentence.new_record? ? "Create Sentence" : "Update Sentence" , class: 'btn btn-primary' %>
   </div>
 <% end %>

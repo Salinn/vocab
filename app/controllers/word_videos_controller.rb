@@ -17,11 +17,17 @@ class WordVideosController < ApplicationController
   def new
     @word_video = WordVideo.new
     @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /word_videos/1/edit
   def edit
     @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /word_videos
@@ -33,6 +39,7 @@ class WordVideosController < ApplicationController
       if @word_video.save
         format.html { redirect_to @word_video.word, notice: 'Word video was successfully created.' }
         format.json { render :show, status: :created, location: @word_video }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @word_video.errors, status: :unprocessable_entity }
@@ -47,6 +54,7 @@ class WordVideosController < ApplicationController
       if @word_video.update(word_video_params)
         format.html { redirect_to @word_video.word, notice: 'Word video was successfully updated.' }
         format.json { render :show, status: :ok, location: @word_video }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @word_video.errors, status: :unprocessable_entity }
@@ -57,10 +65,16 @@ class WordVideosController < ApplicationController
   # DELETE /word_videos/1
   # DELETE /word_videos/1.json
   def destroy
-    @word_video.destroy
+
     respond_to do |format|
-      format.html { redirect_to word_videos_url, notice: 'Word video was successfully destroyed.' }
-      format.json { head :no_content }
+      if @word_video.destroy
+        format.js
+        format.html { redirect_to word_videos_url, notice: 'Word video was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { render :destroy }
+        format.json { render json: @word_video.errors, status: :unprocessable_entity }
+      end
     end
   end
 

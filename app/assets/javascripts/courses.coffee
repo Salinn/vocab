@@ -4,6 +4,8 @@
 jQuery ->
   $('#course_start_date').datepicker(dateFormat: 'dd-mm-yy');
   $('#course_end_date').datepicker(dateFormat: 'dd-mm-yy');
+  $('#course_start_time_tag').datepicker(dateFormat: 'dd-mm-yy');
+  $('#course_start_time_share_tag').datepicker(dateFormat: 'dd-mm-yy');
 
 $ ->
 $.rails.allowAction = (link) ->
@@ -35,3 +37,6 @@ $.rails.showConfirmDialog = (link) ->
          """
   $(html).modal('show')
   $('#confirmationDialog .confirm').on 'click', -> $.rails.confirmed
+
+jQuery ->
+  $('#user_user_id').chosen()

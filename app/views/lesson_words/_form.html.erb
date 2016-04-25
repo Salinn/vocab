@@ -7,7 +7,7 @@
           </div>
           <div class="field">
             <%= f.label :word %><br>
-            <%= f.collection_select :word_id, Word.all, :id, :name, { prompt: "Please select" }, class: "input-sm"  %>
+            <%= f.collection_select :word_id, (Word.all - @lesson.lesson_words.map { |lw| lw.word }), :id, :name, {include_blank: 'Select Word'}, class: 'chosen-select' %>
           </div>
           <div class="actions">
             <%= f.submit class: 'btn btn-primary' %>

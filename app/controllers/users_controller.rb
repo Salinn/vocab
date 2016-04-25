@@ -11,10 +11,11 @@ class UsersController < ApplicationController
   end
 
   def create
+    course = Course.find(params[:user][:course_id])
     @user =  User.find_by(email: params[:user][:email])
     @user = User.new(user_params) if @user.nil?
-    course = Course.find(params[:user][:course_id])
-    @user.new_user_added_to_course(course)
+
+    @user.id.nil? ? @user.new_user_added_to_course(course) : @user.existing_user_added_to_course(course)
 
     respond_to do |format|
       if @user.save

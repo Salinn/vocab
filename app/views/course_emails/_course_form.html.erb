@@ -14,16 +14,26 @@
       <%= f.hidden_field :course_id, value: course.id %>
       <%= f.hidden_field :email, value: current_user.email %>
     </div>
-    <div class="field">
-      <%= f.label :users %><br>
-      <%= f.collection_check_boxes(:user_id, User.with_role(:student, course), :id, :name_and_email) do |this| %>
-            <div class="collection-check-box">
-              <%= this.check_box %>
-              <%= this.text %>
-            </div>
-      <% end %>
-    </div>
 
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Email</th>
+        <th>Student</th>
+      </tr>
+      </thead>
+      <tbody>
+      <input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/><br/>
+      <%= f.label :users %>
+      <%= f.collection_check_boxes(:user_id, User.with_role(:student, course), :id, :name_and_email) do |this| %>
+          <tr>
+                <td><%= this.check_box %></td>
+                <td><%= this.text %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    
     <div class="field">
       <%= f.label :title %><br>
       <%= f.text_field :title , class:"form-control"%>

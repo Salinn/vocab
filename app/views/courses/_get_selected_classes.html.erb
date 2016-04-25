@@ -1,7 +1,7 @@
 <% current_user.users_classes(role).order(end_date: :desc).each do |course| %>
     <div class="well well-sm col-sm-6 col-md-4 homepage-courselist-padding">
       <div class="row">
-        <h3><%= link_to course.class_name, course %></h3>
+        <h3><%= link_to course.class_name, course, data: { no_turbolink: true } %></h3>
       </div>
       <div class="row">
         <p>
@@ -9,7 +9,7 @@
         </p>
       </div>
       <div class="row">
-        <p> <%= course.description %> </p>
+        <p> <%= raw course.description %> </p>
       </div>
 
     </div>

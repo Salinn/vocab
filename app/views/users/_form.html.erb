@@ -5,7 +5,8 @@
       <%= f.email_field :email, :placeholder => 'Email', class: 'col-md-3' %>
       <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s %>
     </div>
+    <br>
     <div class="actions">
-      <%= f.submit 'Submit Registration' %>
+      <%= f.submit 'Submit Registration' , class:'btn btn-primary'%>
     </div>
 <% end %>

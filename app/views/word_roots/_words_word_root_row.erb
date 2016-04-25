@@ -1,0 +1,5 @@
+<tr id="word_root_<%= word_root.id %>">
+  <td><%= word_root.root_name %></td>
+  <td><%= word_root.root_definition %></td>
+  <td><%= link_to 'Delete', word_root_remove_relation_path(word_root, word_id: @word.id), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

@@ -16,12 +16,16 @@ class SentencesController < ApplicationController
   # GET /sentences/new
   def new
     @sentence = Sentence.new
-    @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /sentences/1/edit
   def edit
-    @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /sentences
@@ -33,6 +37,7 @@ class SentencesController < ApplicationController
       if @sentence.save
         format.html { redirect_to @sentence.word, notice: 'Sentence was successfully created.' }
         format.json { render :show, status: :created, location: @sentence }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @sentence.errors, status: :unprocessable_entity }
@@ -47,6 +52,7 @@ class SentencesController < ApplicationController
       if @sentence.update(sentence_params)
         format.html { redirect_to @sentence.word, notice: 'Sentence was successfully updated.' }
         format.json { render :show, status: :ok, location: @sentence }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @sentence.errors, status: :unprocessable_entity }
@@ -61,6 +67,7 @@ class SentencesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to sentences_url, notice: 'Sentence was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

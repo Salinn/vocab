@@ -1,0 +1,2 @@
+$('#dialog').modal('toggle');
+$('#word_synonym_<%= @synonym.id %>').replaceWith('<%= j render 'synonym_row', synonym: @synonym %>')

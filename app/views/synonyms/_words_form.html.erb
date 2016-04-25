@@ -1,0 +1,26 @@
+<%= form_for(@synonym , remote:true, html:{role: :form}) do |f| %>
+  <% if @synonym.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@synonym.errors.count, "error") %> prohibited this synonym from being saved:</h2>
+
+      <ul>
+      <% @synonym.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :word_synonym , class:'control-label'%><br>
+    <%= f.text_field :word_synonym , class:'form-control'%>
+  </div>
+
+  <div class="field form-group">
+    <%= f.hidden_field :word_id, value: word.id%>
+  </div>
+
+  <div class="actions form-group">
+    <%= f.submit @synonym.new_record? ? "Create Synonym" : "Update Synonym", class:'btn btn-primary' %>
+  </div>
+<% end %>
