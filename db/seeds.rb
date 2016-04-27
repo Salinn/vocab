@@ -24,6 +24,7 @@ if Rails.env == "development"
   puts 'Seeding in development'
 elsif Rails.env == "production"
   load 'db/seeds/users.rb'
+  puts 'finished loading users'
   load 'db/seeds/script.rb'
   puts 'Seeding in production'
 end

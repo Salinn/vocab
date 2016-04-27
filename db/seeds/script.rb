@@ -1,3 +1,5 @@
+puts 'started words'
+
 require File.expand_path('../../../config/environment', __FILE__)
 
 words = Hash.new{ |h, k| h[k] = [] }
@@ -12,6 +14,7 @@ files.each do |file_name|
           x += 1
           next
         end
+        puts line
         word_attributes = words[x]
         words[x] = word_attributes.push line
       end
@@ -22,6 +25,7 @@ current_word = nil
 words.each do |word|
   puts word
   word.last.each_with_index do |word_attribute, index|
+    puts word_attribute.split('"')[1]
     case index
       when 0
         current_word = Word.find_or_create_by!(name: word_attribute.split('"')[1].downcase)
