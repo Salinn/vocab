@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/../../config/environment.rb"
+require File.expand_path('../../../config/environment', __FILE__)
 
 words = Hash.new{ |h, k| h[k] = [] }
 word_roots = Hash.new{ |h, k| h[k] = [] }
