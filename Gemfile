@@ -44,6 +44,9 @@ gem 'ckeditor'
 #helps with searching
 gem 'ransack'
 
+#helps with rails console output
+gem 'awesome_print'
+
 group :development, :test do
   #RSpec is used for unit testing
   gem 'rspec-rails', '~> 3.0'
@@ -78,7 +81,6 @@ group :development do
 
   gem 'pry-rails'
   gem 'quiet_assets'
-  gem 'awesome_print'
 end
 
 group :production do
