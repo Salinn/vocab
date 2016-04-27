@@ -6,6 +6,7 @@ words = Hash.new{ |h, k| h[k] = [] }
 word_roots = Hash.new{ |h, k| h[k] = [] }
 x=0
 files = Dir["../old_words/*"]
+puts "files #{files}"
 files.each do |file_name|
   unless File.directory? file_name
     File.open(file_name, "r") do |f|
