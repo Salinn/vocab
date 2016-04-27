@@ -42,7 +42,7 @@ Word.create!(words)
 
 words = Hash.new{ |h, k| h[k] = [] }
 x=0
-files = Dir["db/old_files/*"]
+files = Dir["db/old_words/*"]
 puts "Files found #{files}"
 files.each do |file_name|
   unless File.directory? file_name
