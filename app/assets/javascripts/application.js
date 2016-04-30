@@ -33,3 +33,30 @@ $(document).ajaxError(function(event,xhr,options,exc) {
     $("#error_explanation").html(er);
 
 });
+
+$('#menu-toggle').on('click', function(){
+    if($('#wrapper').attr('class') == 'active') {
+        $('#wrapper').removeClass('active');
+        $('#main').removeClass('active');
+
+    } else {
+        $('#wrapper').addClass('active');
+        $('#main').addClass('active');
+    }
+    localStorage.setItem('active', $('#wrapper').attr('class'));
+});
+
+//Sets sidebar in or out on load
+$(function() {
+    $('#wrapper').addClass(localStorage.getItem('active'));
+    if($('#wrapper').attr('class') == 'active') {
+        $('#main').removeClass('active');
+
+    } else {
+        $('#main').addClass('active');
+    }
+});
+
+$('.accordian1').click(function(){
+    $(this).find('span').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
+});
