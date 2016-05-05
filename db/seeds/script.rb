@@ -64,7 +64,8 @@ words.each do |word|
     puts word_attribute.split('"')[1]
     case index
       when 0
-        current_word = Word.find_or_create_by!(name: word_attribute.split('"')[1].downcase)
+        word_name = word_attribute.split('"')[1].nil? ? word_attribute.split("'")[1].downcase : word_attribute.split('"')[1].downcase
+        current_word = Word.find_or_create_by!(name: word_name)
       when 1
         Definition.create!(word_id: current_word.id, word_definition: word_attribute.split('"')[1])
       when 2
