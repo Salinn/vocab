@@ -14,7 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require jquery-ui/datepicker
-//= require ckeditor/override
 //= require ckeditor/init
 //= require turbolinks
 //= require moment
