@@ -1,0 +1,5 @@
+<tr id="word_synonym_<%= synonym.id %>">
+  <td><%=synonym.word_synonym %></td>
+  <td><%= link_to 'Edit', edit_synonym_path(synonym, word_id: synonym.word.id), remote: true %></td>
+  <td><%= link_to 'Delete', synonym, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

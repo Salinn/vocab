@@ -1,22 +1,9 @@
-<p>
-  <strong>Name:</strong>
-  <%= @lesson_module.name %>
-</p>
-
-<p>
-  <strong>Attempts:</strong>
-  <%= @lesson_module.attempts %>
-</p>
-
-<p>
-  <strong>In use:</strong>
-  <%= @lesson_module.in_use %>
-</p>
-
-<p>
-  <strong>Value percentage:</strong>
-  <%= @lesson_module.value_percentage %>
-</p>
-
-<%= link_to 'Edit', edit_lesson_module_path(@lesson_module) %> |
-<%= link_to 'Back', lesson_modules_path %>
+<%= render 'questions/bubble_header', questions: @lesson_module.questions, question: nil %>
+<%= link_to "Link back to #{@lesson_module.name} Module", course_lesson_lesson_module_question_path(@lesson_module.questions.first, course_id: @course.id, lesson_id: @lesson_module.lesson.id, lesson_module_id: @lesson_module.id) , class: 'btn btn-primary' %>
+<hr>
+<div class="container">
+  <% @lesson_module.questions.each do |question| %>
+      <% correct, wrong = question.check_user(current_user.id) %>
+      <%= render 'questions/answered_question', question: question, correct: correct, wrong: wrong %>
+  <% end %>
+</div>

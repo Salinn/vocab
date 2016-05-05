@@ -8,8 +8,9 @@ RSpec.describe "LessonModules", type: :request do
   end
 
   describe "GET /lesson_modules" do
+    let (:lesson) { FactoryGirl.create(:lesson)}
     it "works! (now write some real specs)" do
-      get lesson_modules_path
+      get course_lesson_lesson_modules_path(lesson_id: lesson.id, course_id: lesson.course.id)
       expect(response).to have_http_status(200)
     end
   end

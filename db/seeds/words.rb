@@ -1,11 +1,5 @@
 words = [
     {
-        name: 'Anachronism'
-    },
-    {
-        name: 'Chronic'
-    },
-    {
         name: 'Chronicle'
     },
     {

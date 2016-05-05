@@ -17,11 +17,17 @@ class SynonymsController < ApplicationController
   def new
     @synonym = Synonym.new
     @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # GET /synonyms/1/edit
   def edit
     @words = Word.all
+    if(not params[:word_id].nil?)
+      @word = Word.find(params[:word_id])
+    end
   end
 
   # POST /synonyms
@@ -33,6 +39,7 @@ class SynonymsController < ApplicationController
       if @synonym.save
         format.html { redirect_to @synonym.word, notice: 'Synonym was successfully created.' }
         format.json { render :show, status: :created, location: @synonym }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @synonym.errors, status: :unprocessable_entity }
@@ -47,6 +54,7 @@ class SynonymsController < ApplicationController
       if @synonym.update(synonym_params)
         format.html { redirect_to @synonym.word, notice: 'Synonym was successfully updated.' }
         format.json { render :show, status: :ok, location: @synonym }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @synonym.errors, status: :unprocessable_entity }
@@ -61,6 +69,7 @@ class SynonymsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to synonyms_url, notice: 'Synonym was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

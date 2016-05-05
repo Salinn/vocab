@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129213136) do
+ActiveRecord::Schema.define(version: 20160404224003) do
 
   create_table "answer_options", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -63,10 +63,10 @@ ActiveRecord::Schema.define(version: 20160129213136) do
     t.string   "class_name",  limit: 255
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "syllabus",    limit: 255
-    t.string   "description", limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.text     "syllabus",    limit: 65535
+    t.text     "description", limit: 65535
   end
 
   create_table "definitions", force: :cascade do |t|
@@ -77,6 +77,22 @@ ActiveRecord::Schema.define(version: 20160129213136) do
   end
 
   add_index "definitions", ["word_id"], name: "index_definitions_on_word_id", using: :btree
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   limit: 4,     default: 0, null: false
+    t.integer  "attempts",   limit: 4,     default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -105,6 +121,22 @@ ActiveRecord::Schema.define(version: 20160129213136) do
   add_index "grade_modifers", ["lesson_module_id"], name: "index_grade_modifers_on_lesson_module_id", using: :btree
   add_index "grade_modifers", ["user_id"], name: "index_grade_modifers_on_user_id", using: :btree
 
+  create_table "grades", force: :cascade do |t|
+    t.integer  "user_id",          limit: 4
+    t.integer  "grade",            limit: 4
+    t.integer  "course_id",        limit: 4
+    t.integer  "lesson_id",        limit: 4
+    t.integer  "lesson_module_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "time",             limit: 4
+  end
+
+  add_index "grades", ["course_id"], name: "index_grades_on_course_id", using: :btree
+  add_index "grades", ["lesson_id"], name: "index_grades_on_lesson_id", using: :btree
+  add_index "grades", ["lesson_module_id"], name: "index_grades_on_lesson_module_id", using: :btree
+  add_index "grades", ["user_id"], name: "index_grades_on_user_id", using: :btree
+
   create_table "lesson_extensions", force: :cascade do |t|
     t.integer  "lesson_id",      limit: 4
     t.integer  "user_id",        limit: 4
@@ -125,6 +157,8 @@ ActiveRecord::Schema.define(version: 20160129213136) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "number_of_answers", limit: 4
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
 
   add_index "lesson_modules", ["lesson_id"], name: "index_lesson_modules_on_lesson_id", using: :btree
@@ -237,10 +271,10 @@ ActiveRecord::Schema.define(version: 20160129213136) do
   add_index "root_managers", ["word_root_id"], name: "index_root_managers_on_word_root_id", using: :btree
 
   create_table "sentences", force: :cascade do |t|
-    t.string   "word_sentence", limit: 255
+    t.text     "word_sentence", limit: 65535
     t.integer  "word_id",       limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "sentences", ["word_id"], name: "index_sentences_on_word_id", using: :btree
@@ -333,6 +367,10 @@ ActiveRecord::Schema.define(version: 20160129213136) do
   add_foreign_key "grade_modifers", "lesson_modules"
   add_foreign_key "grade_modifers", "lessons"
   add_foreign_key "grade_modifers", "users"
+  add_foreign_key "grades", "courses"
+  add_foreign_key "grades", "lesson_modules"
+  add_foreign_key "grades", "lessons"
+  add_foreign_key "grades", "users"
   add_foreign_key "lesson_extensions", "lessons"
   add_foreign_key "lesson_extensions", "users"
   add_foreign_key "lesson_modules", "lessons"

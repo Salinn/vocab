@@ -5,8 +5,7 @@ lessons = [
         lesson_start_time: DateTime.now,
         lesson_end_date: DateTime.now + 1.week,
         course_id: 1,
-        penalty: 10,
-        lesson_modules: LessonModule.all
+        penalty: 10
     },
     {
         lesson_name: 'Lesson 2',
@@ -14,8 +13,7 @@ lessons = [
         lesson_start_time: DateTime.now + 1.week,
         lesson_end_date: DateTime.now + 2.weeks,
         course_id: 1,
-        penalty: 10,
-        lesson_modules: LessonModule.all
+        penalty: 10
     },
     {
         lesson_name: 'Lesson 3',
@@ -23,8 +21,7 @@ lessons = [
         lesson_start_time: DateTime.now + 2.weeks,
         lesson_end_date: DateTime.now + 3.weeks,
         course_id: 1,
-        penalty: 10,
-        lesson_modules: LessonModule.all
+        penalty: 10
     },
     {
         lesson_name: 'Lesson 4',
@@ -32,8 +29,7 @@ lessons = [
         lesson_start_time: DateTime.now + 3.weeks,
         lesson_end_date: DateTime.now + 4.weeks,
         course_id: 1,
-        penalty: 10,
-        lesson_modules: LessonModule.all
+        penalty: 10
     },
     {
         lesson_name: 'Lesson 5',
@@ -41,8 +37,7 @@ lessons = [
         lesson_start_time: DateTime.now + 4.weeks,
         lesson_end_date: DateTime.now + 5.week,
         course_id: 1,
-        penalty: 10,
-        lesson_modules: LessonModule.all
+        penalty: 10
     }
 ]
 

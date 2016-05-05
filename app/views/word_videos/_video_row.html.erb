@@ -1,0 +1,6 @@
+<tr id="word_video_<%= word_video.id %>">
+  <td><%= word_video.video_description %></td>
+  <td><%= word_video.video_link %></td>
+  <td><%= link_to 'Edit', edit_word_video_path(word_video, word_id: word_video.word.id), remote: true %></td>
+  <td><%= link_to 'Delete', word_video, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

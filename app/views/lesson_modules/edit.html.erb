@@ -1,6 +1,13 @@
 <h1>Editing Lesson Module</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @lesson_module %> |
-<%= link_to 'Back', lesson_modules_path %>
+<div class="col-xs-12">
+<%= link_to 'Show', course_lesson_lesson_module_path(@lesson_module, lesson_id: @lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id) %> |
+<%= link_to 'Back', course_lesson_lesson_modules_path(lesson_id: @lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id) %>
+</div>
+<div class="clearfix"></div>
+<% @lesson_module.questions.each do |question| %>
+    <div class="well well-sm homepage-courselist-padding col-xs-12 col-sm-3">
+      <%= render 'questions/form', question: question %>
+    </div>
+<% end %>

@@ -30,4 +30,3 @@ end
 end_time = Time.new
 
 puts "\nSeeding has completed in #{(end_time-start_time)} seconds\n"
-

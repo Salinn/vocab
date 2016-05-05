@@ -1,0 +1,2 @@
+$('#dialog').modal('toggle');
+$('#word_form_<%= @word_form.id %>').replaceWith('<%= j render 'word_form_row', word_form: @word_form %>')

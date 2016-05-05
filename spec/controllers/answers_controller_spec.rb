@@ -19,10 +19,15 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe AnswersController, type: :controller do
+  login_admin
 
   # This should return the minimal set of attributes required to create a valid
   # Answer. As you add validations to Answer, be sure to
   # adjust the attributes here as well.
+  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
+  let (:course) { FactoryGirl.create(:course) }
+  let (:answer_option) { FactoryGirl.create(:answer_option) }
+  let (:lesson_module){ FactoryGirl.create(:lesson_module) }
   let (:question){ FactoryGirl.create(:question) }
   let (:user){ FactoryGirl.create(:user) }
   let(:valid_attributes) {
@@ -30,15 +35,27 @@ RSpec.describe AnswersController, type: :controller do
         question_id: question.id,
         user_id: user.id,
         time_to_complete: 10,
-        correct: true
+        correct: true#,
+        #answer_option_id: question.answer_option.id
+    }
+  }
+
+  let(:valid_creation_attributes) {
+    {
+        question_id: question.id,
+        user_id: user.id,
+        time_to_complete: 10,
+        correct: true,
+        start_time: DateTime.now#,
+        #answer_option_id: question.answer_option.id
     }
   }
 
   let(:invalid_attributes) {
     {
-        question_id: -1,
-        user_id: -1,
-        time_to_complete: -10,
+        question_id: nil,
+        user_id: nil,
+        time_to_complete: nil,
         correct: nil
     }
   }
@@ -55,7 +72,7 @@ RSpec.describe AnswersController, type: :controller do
   describe "GET #index" do
     it "assigns all answers as @answers" do
       answer = Answer.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
       expect(assigns(:answers)).to eq([answer])
     end
   end
@@ -63,14 +80,14 @@ RSpec.describe AnswersController, type: :controller do
   describe "GET #show" do
     it "assigns the requested answer as @answer" do
       answer = Answer.create! valid_attributes
-      get :show, {:id => answer.to_param}, valid_session
+      get :show, {:id => answer.to_param, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
       expect(assigns(:answer)).to eq(answer)
     end
   end
 
   describe "GET #new" do
     it "assigns a new answer as @answer" do
-      get :new, {}, valid_session
+      get :new, {question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
       expect(assigns(:answer)).to be_a_new(Answer)
     end
   end
@@ -78,7 +95,7 @@ RSpec.describe AnswersController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested answer as @answer" do
       answer = Answer.create! valid_attributes
-      get :edit, {:id => answer.to_param}, valid_session
+      get :edit, {:id => answer.to_param, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
       expect(assigns(:answer)).to eq(answer)
     end
   end
@@ -87,32 +104,23 @@ RSpec.describe AnswersController, type: :controller do
     context "with valid params" do
       it "creates a new Answer" do
         expect {
-          post :create, {:answer => valid_attributes}, valid_session
+          post :create, {answer: valid_creation_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         }.to change(Answer, :count).by(1)
       end
 
       it "assigns a newly created answer as @answer" do
-        post :create, {:answer => valid_attributes}, valid_session
+        post :create, {:answer => valid_creation_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
         expect(assigns(:answer)).to be_a(Answer)
         expect(assigns(:answer)).to be_persisted
       end
 
       it "redirects to the created answer" do
-        post :create, {:answer => valid_attributes}, valid_session
-        expect(response).to redirect_to(Answer.last)
+        post :create, {:answer => valid_creation_attributes, question_id: question.id, lesson_module_id: lesson_module.id, lesson_id: lesson.id, course_id: course.id}, valid_session
+        expect(response).to redirect_to(course_lesson_lesson_module_question_answer_path(Answer.last, question_id: Answer.last.question.id, lesson_module_id: Answer.last.question.lesson_module.id, lesson_id: Answer.last.question.lesson_module.lesson.id, course_id: Answer.last.question.lesson_module.lesson.course.id))
       end
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved answer as @answer" do
-        post :create, {:answer => invalid_attributes}, valid_session
-        expect(assigns(:answer)).to be_a_new(Answer)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:answer => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
     end
   end
 
@@ -124,36 +132,29 @@ RSpec.describe AnswersController, type: :controller do
         }
       }
 
-      it "updates the requested answer" do
-        answer = Answer.create! valid_attributes
-        put :update, {:id => answer.to_param, :answer => new_attributes}, valid_session
-        answer.reload
-        expect(assigns(:answer).attributes.symbolize_keys[:correct]).to eq(new_attributes[:correct])
-      end
-
       it "assigns the requested answer as @answer" do
         answer = Answer.create! valid_attributes
-        put :update, {:id => answer.to_param, :answer => valid_attributes}, valid_session
+        put :update, {:id => answer.to_param, :answer => valid_attributes, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
         expect(assigns(:answer)).to eq(answer)
       end
 
       it "redirects to the answer" do
         answer = Answer.create! valid_attributes
-        put :update, {:id => answer.to_param, :answer => valid_attributes}, valid_session
-        expect(response).to redirect_to(answer)
+        put :update, {:id => answer.to_param, :answer => valid_attributes, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
+        expect(response).to redirect_to(course_lesson_lesson_module_question_answer_path(answer, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns the answer as @answer" do
         answer = Answer.create! valid_attributes
-        put :update, {:id => answer.to_param, :answer => invalid_attributes}, valid_session
+        put :update, {:id => answer.to_param, :answer => invalid_attributes, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
         expect(assigns(:answer)).to eq(answer)
       end
 
       it "re-renders the 'edit' template" do
         answer = Answer.create! valid_attributes
-        put :update, {:id => answer.to_param, :answer => invalid_attributes}, valid_session
+        put :update, {:id => answer.to_param, :answer => invalid_attributes, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -163,14 +164,14 @@ RSpec.describe AnswersController, type: :controller do
     it "destroys the requested answer" do
       answer = Answer.create! valid_attributes
       expect {
-        delete :destroy, {:id => answer.to_param}, valid_session
+        delete :destroy, {:id => answer.to_param, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
       }.to change(Answer, :count).by(-1)
     end
 
     it "redirects to the answers list" do
       answer = Answer.create! valid_attributes
-      delete :destroy, {:id => answer.to_param}, valid_session
-      expect(response).to redirect_to(answers_url)
+      delete :destroy, {:id => answer.to_param, question_id: answer.question.id, lesson_module_id: answer.question.lesson_module.id, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id}, valid_session
+      expect(response).to redirect_to(course_lesson_lesson_module_question_answers_path(question: answer.question, lesson_module_id: answer.question.lesson_module, lesson_id: answer.question.lesson_module.lesson.id, course_id: answer.question.lesson_module.lesson.course.id))
     end
   end
 

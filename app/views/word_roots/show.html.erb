@@ -11,6 +11,8 @@
 </p>
 
 <div class="form-group">
-<%= link_to 'Edit', edit_word_root_path(@word_root) , class:'btn btn-primary' %> |
-<%= link_to 'Back', word_roots_path , class:'btn btn-primary' %>
+  <%if can?(:edit, @word_root) %>
+    <%= link_to 'Edit', edit_word_root_path(@word_root) , class:'btn btn-primary' %>
+  <% end %>
+  <%= link_to 'Back', word_roots_path , class:'btn btn-primary' %>
 </div>

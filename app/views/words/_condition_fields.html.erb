@@ -6,7 +6,7 @@
       </div>
     <% end %>
 
-    <div class="col-md-3 col-xs-6 form-controls-padding">
+    <div class="col-md-3 col-xs-5 form-controls-padding">
         <%= f.predicate_select({only: [:cont, :not_cont]},{class:"form-control "}) %>
     </div>
 
@@ -15,7 +15,7 @@
   </a>
 
   <%= f.value_fields do |v| %>
-      <div class="col-md-3 col-xs-12 form-controls-padding">
+      <div class="col-md-3 col-xs-11 form-controls-padding">
         <%= v.text_field :value , class:"form-control "%>
       </div>
   <% end %>

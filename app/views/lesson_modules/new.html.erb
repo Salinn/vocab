@@ -1,5 +1,43 @@
 <h1>New Lesson Module</h1>
 
-<%= render 'form' %>
+<%= form_for(@lesson_module, url: course_lesson_lesson_modules_path(@lesson_module, course_id: @course.id, lesson_id: @lesson.id), html: { method: :get }) do |f| %>
 
-<%= link_to 'Back', lesson_modules_path %>
+    <% if @lesson_module.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@lesson_module.errors.count, "error") %> prohibited this lesson_module from being saved:</h2>
+
+          <ul>
+            <% @lesson_module.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :attempts %><br>
+      <%= f.number_field :attempts %>
+    </div>
+    <div class="field">
+      <%= f.label :in_use %><br>
+      <%= f.check_box :in_use %>
+    </div>
+    <div class="field">
+      <%= f.label :value_percentage %><br>
+      <%= f.number_field :value_percentage %>
+    </div>
+    <div class="field">
+      <%= f.label :number_of_answers %><br>
+      <%= f.number_field :number_of_answers %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+
+<%= link_to 'Back', course_lesson_lesson_modules_path(lesson_id: @lesson.id, course_id: @course.id) %>

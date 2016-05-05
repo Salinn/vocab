@@ -1,0 +1,31 @@
+<% answer = Answer.new %>
+<% start_time = Time.now %>
+<%= form_for(answer, url: course_lesson_lesson_module_question_answers_path(course_id: @course.id, lesson_id: question.lesson_module.lesson.id, lesson_module_id: question.lesson_module.id, question_id: question.id ), remote: true) do |f| %>
+    <fieldset id="question_fieldset_<%= question.id %>" <%= 'disabled' if (correct || wrong) %>>
+      <%= f.hidden_field :question_id, value: question.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :start_time, value: start_time %>
+      <% question.answer_options.each do |option| %>
+          <div id="answer_id_<%= option.id %>">
+            <% if @wrong_answers.include?(option.id) %>
+                <ul class="wrong-bullet">
+                  <li>
+                    <h4>
+                      <%= option.lesson_word.word.name %>
+                    </h4>
+                  </li>
+                </ul>
+            <% else %>
+                <h4>
+                  <%= f.radio_button :answer_option_id, option.id %>
+                  <%= f.label :answer_option_id, study_the_word_definition(option), value: option.id, style: 'display: inline' %>
+                </h4>
+            <% end %>
+          </div>
+      <% end %>
+      <div class="actions">
+        <%= f.submit "Submit", class: 'btn btn-primary' %>
+      </div>
+    </fieldset>
+<% end %>
+

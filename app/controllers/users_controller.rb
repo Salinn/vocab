@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :html, :json
 
@@ -7,14 +8,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def create
+    course = Course.find(params[:user][:course_id])
     @user =  User.find_by(email: params[:user][:email])
     @user = User.new(user_params) if @user.nil?
-    course = Course.find(params[:user][:course_id])
-    @user.new_user_added_to_course(course)
+
+    @user.id.nil? ? @user.new_user_added_to_course(course) : @user.existing_user_added_to_course(course)
 
     respond_to do |format|
       if @user.save
@@ -45,11 +46,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find params[:id]
     respond_to do |format|
       if @user.update(user_update_params)
         format.html { redirect_to :back, notice: 'User was successfully updated.' }
@@ -62,24 +61,32 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to potentials_path, notice: "User deleted."
   end
 
   def add_role
-    user = User.find(params[:user][:user_id])
-    user.add_role(params[:user][:role])
+    @user.add_role(params[:user][:role])
     redirect_to :back
   end
 
   def remove_role
-    user = User.find(params[:user][:user_id])
-    user.remove_role(params[:user][:role])
+    @user.remove_role(params[:user][:role])
     redirect_to :back
   end
 
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :email)
-  end
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def set_user_id
+      @user = User.find(params[:user][:user_id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :profile_picture, :remote_profile_picture)
+    end
 end

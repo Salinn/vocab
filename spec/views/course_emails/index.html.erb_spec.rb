@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "course_emails/index", type: :view do
   let(:course) { FactoryGirl.create(:course) }
   let(:user) { FactoryGirl.create(:user) }
+  let(:current_user) { user }
 
   before(:each) do
     user.add_role(:teacher, course)
@@ -18,6 +19,8 @@ RSpec.describe "course_emails/index", type: :view do
         :content => "MyText is long"
       )
     ])
+    @course = course
+    sign_in(user)
   end
 
   it "renders a list of course_emails" do

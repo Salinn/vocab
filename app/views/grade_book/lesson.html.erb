@@ -37,11 +37,11 @@
                 <th>Averages</th>
                 <% @lesson.lesson_modules.each do |lesson_module| %>
                     <% next unless lesson_module.in_use %>
-                    <% lesson_module_grade_total, lesson_module_time_total = @answers["Lesson Module #{lesson_module.id}"] %>
+                    <% lesson_module_grade_total, lesson_module_time_total = @grades["lesson_module_average#{lesson_module.id}"]%>
                     <th><%= lesson_module_grade_total %>%</th>
                     <th><%= lesson_module_time_total %> sec</th>
                 <% end %>
-                <% final_students_grade, final_students_time = @answers["Lesson #{@lesson.id}"] %>
+                <% final_students_grade, final_students_time = @grades['lesson_average'] %>
                 <th><%= final_students_grade %>%</th>
                 <th><%= final_students_time %> sec</th>
               </tr>
@@ -53,11 +53,11 @@
                     <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
                     <% @lesson.lesson_modules.each do |lesson_module| %>
                         <% next unless lesson_module.in_use %>
-                        <% grade, time = get_grades_lesson(@answers, lesson_module, user) %>
+                        <% grade, time = @grades["#{user.id}-#{lesson_module.id}"] %>
                         <th><%= grade %>%</th>
                         <th><%= time %> sec</th>
                     <% end %>
-                    <% final_grade, final_time = @answers["#{user.id}"] %>
+                    <% final_grade, final_time = @grades["user_lesson_#{user.id}"] %>
                     <th><%= final_grade %>%</th>
                     <th><%= final_time %></th>
                   </tr>

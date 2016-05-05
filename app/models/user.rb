@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :course_users
   has_many :courses, through: :course_users
+  has_and_belongs_to_many :course_emails
 
   def name
     "#{first_name} #{last_name}"
@@ -30,6 +31,13 @@ class User < ActiveRecord::Base
     self.reset_password_sent_at = Time.now.utc
     self.password = Devise.friendly_token.first(8)
     self.save
+    self.add_role :student, course
+    UserMailer.add_to_class_email(course, self, raw_token).deliver_later
+  end
+
+  def existing_user_added_to_course(course)
+    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+    self.reset_password_sent_at = Time.now.utc
     self.add_role :student, course
     UserMailer.add_to_class_email(course, self, raw_token).deliver_later
   end

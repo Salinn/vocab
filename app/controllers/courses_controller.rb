@@ -13,6 +13,11 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    if @course.lessons.any?
+      @events = Event.includes(lesson: :course).where(lesson_id: @course.lessons)
+    else
+      @events = []
+    end
   end
 
   # GET /courses/new
@@ -28,12 +33,12 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(course_params)
-
     respond_to do |format|
       if @course.save
         create_relations
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -48,6 +53,7 @@ class CoursesController < ApplicationController
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -60,6 +66,7 @@ class CoursesController < ApplicationController
   def destroy
     @course.destroy
     respond_to do |format|
+      format.js
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -72,14 +79,14 @@ class CoursesController < ApplicationController
 
   def add_to_course
     user = User.find(params[:user][:user_id])
-    user.new_user_added_to_course(@course)
+    user.existing_user_added_to_course(@course)
     redirect_to :back, notice: 'The student was successfully added to the class.'
   end
 
   def mass_add_to_course
     params[:user][:user_emails].split(',').each do |user_email|
       user = User.find_or_create_by(email: user_email)
-      user.new_user_added_to_course(@course)
+      user.existing_user_added_to_course(@course)
     end
     redirect_to :back, notice: 'The student(s) were successfully add to the class.'
   end
@@ -98,14 +105,16 @@ class CoursesController < ApplicationController
 
   def duplicate_course
     course = Course.find(params[:course_id])
-    new_course = course.duplicate_course
+    start_date = params[:course_start_time_tag] == "" ? Date.today : params[:course_start_time_tag]
+    new_course = course.duplicate_course(start_date)
     redirect_to new_course, notice: 'Course was successfully Copied, welcome to your new course.'
   end
 
   def share_course
     course = Course.find(params[:course_id])
     teacher = User.find(params[:user][:teacher_id])
-    course.share_course(teacher)
+    start_date = params[:course_start_time_tag] == "" ? Date.today : params[:course_start_time_tag]
+    course.share_course(teacher, start_date)
     redirect_to course, notice: 'Course was successfully Shared.'
   end
 

@@ -1,43 +1,62 @@
-<p>
-  <strong>Lesson name:</strong>
-  <%= @lesson.lesson_name %>
-</p>
+<div class="col-xs-6">
+  <h3>
+    <strong>Lesson name:</strong>
+    <%= @lesson.lesson_name %>
+  </h3>
 
-<p>
-  <strong>Lesson points:</strong>
-  <%= @lesson.lesson_points %>
-</p>
+  <h3>
+    <strong>Lesson points:</strong>
+    <%= @lesson.lesson_points %>
+  </h3>
+</div>
 
-<p>
-  <strong>Lesson start time:</strong>
-  <%= @lesson.lesson_start_time %>
-</p>
+<div class="col-xs-6">
+  <h3>
+    <strong>Lesson start time:</strong>
+    <%= @lesson.lesson_start_time.strftime('%b %e, %l:%M %p') %>
+  </h3>
 
-<p>
-  <strong>Lesson end date:</strong>
-  <%= @lesson.lesson_end_date %>
-</p>
+  <h3>
+    <strong>Lesson end date:</strong>
+    <%= @lesson.lesson_end_date.strftime('%b %e, %l:%M %p') %>
+  </h3>
+</div>
+<div class="clearfix"></div>
 
-<p>
-  <strong>Course:</strong>
-  <%= @lesson.course.class_name %>
-</p>
-
-<p>
-  <strong>Penalty:</strong>
-  <%= @lesson.penalty %>
-</p>
+<% if can?(:manage, @lesson) %>
 <hr>
-<p>Words In Lesson: </p>
-    <% @lesson.lesson_words.each do |lesson_word| %>
-    <%= lesson_words_link(lesson_word) %>
-<% end %>
+<table id class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>Word</th>
+    <th>Total Definitions</th>
+    <th>Total Sentences</th>
+    <th>Total Synonyms</th>
+    <th>Total Word Forms</th>
+    <th>Total Word Videos</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody id="lesson_words">
+  <% @lesson.lesson_words.each do |lesson_word| %>
+      <%= render 'lesson_words/lesson_word', lesson_word: lesson_word %>
+  <% end %>
+  </tbody>
+</table>
 <hr><p>Add Word:</p>
-<%= render 'lessons/add_word' %>
-<hr>
-<%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
-<hr>
+<div class="well">
+  <%= link_to "Add Lesson Word", new_course_lesson_lesson_word_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
+</div>
+<%# render 'lessons/add_word' %>
+    <hr>
+    <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
+    <hr>
 
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
+
+    <%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
+<% end %>
 <%= link_to 'Back', @lesson.course %>
+
+<%= render 'layouts/dialog' %>
 

@@ -1,25 +1,34 @@
 class LessonModulesController < ApplicationController
-  before_action :set_lesson_module, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson_module, only: [:show, :update, :destroy]
+  before_action :set_edit_lesson_module, only: [:edit]
   load_and_authorize_resource
 
   # GET /lesson_modules
   # GET /lesson_modules.json
   def index
-    @lesson_module = LessonModule.all
+    @course = Course.find(params[:course_id])
+    @lesson = Lesson.find(params[:lesson_id])
+    @lesson_modules = LessonModule.includes(:questions).where(lesson_id: @lesson.id, id: params[:lesson_module_id])
   end
 
   # GET /lesson_modules/1
   # GET /lesson_modules/1.json
   def show
+    @lesson_module = LessonModule.includes(questions: [answer_options: [lesson_word: :word]]).find(params[:id])
+    @wrong_answers = Answer.where(user_id: current_user.id, question_id: @lesson_module.questions).pluck(:answer_option_id)
   end
 
   # GET /lesson_modules/new
   def new
+    @course = Course.find(params[:course_id])
+    @lesson = Lesson.find(params[:lesson_id])
     @lesson_module = LessonModule.new
   end
 
   # GET /lesson_modules/1/edit
   def edit
+    @course = Course.find(params[:course_id])
+    @lesson = Lesson.find(params[:lesson_id])
   end
 
   # POST /lesson_modules
@@ -29,7 +38,7 @@ class LessonModulesController < ApplicationController
 
     respond_to do |format|
       if @lesson_module.save
-        format.html { redirect_to @lesson_module, notice: 'Lesson module was successfully created.' }
+        format.html { redirect_to course_lesson_lesson_module_path(@lesson_module, lesson_id: @lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id), notice: 'Lesson module was successfully created.' }
         format.json { render :show, status: :created, location: @lesson_module }
       else
         format.html { render :new }
@@ -43,7 +52,7 @@ class LessonModulesController < ApplicationController
   def update
     respond_to do |format|
       if @lesson_module.update(lesson_module_params)
-        format.html { redirect_to @lesson_module.lesson, notice: 'Lesson module was successfully updated.' }
+        format.html { redirect_to course_lesson_path(@lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id), notice: 'Lesson module was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson_module }
       else
         format.html { render :edit }
@@ -57,7 +66,7 @@ class LessonModulesController < ApplicationController
   def destroy
     @lesson_module.destroy
     respond_to do |format|
-      format.html { redirect_to lesson_modules_url, notice: 'Lesson module was successfully destroyed.' }
+      format.html { redirect_to course_lesson_lesson_modules_path(lesson_id: @lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id), notice: 'Lesson module was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -66,6 +75,14 @@ class LessonModulesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson_module
       @lesson_module = LessonModule.find(params[:id])
+      @course = Course.find(params[:course_id])
+      @lesson = Lesson.find(params[:lesson_id])
+    end
+
+    def set_edit_lesson_module
+      @lesson_module = LessonModule.includes(questions: [lesson_word: :word]).find(params[:id])
+      @course = Course.find(params[:course_id])
+      @lesson = Lesson.find(params[:lesson_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

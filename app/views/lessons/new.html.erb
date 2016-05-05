@@ -1,5 +1,9 @@
-<h1>New Lesson</h1>
+<div class="col-xs-6 col-xs-offset-3">
+  <h1>New Lesson</h1>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', lessons_path %>
+<div class="col-xs-6 col-xs-offset-3">
+  <%= link_to 'Back', course_lessons_path(@lesson.course), class: 'btn btn-primary' %>
+</div>

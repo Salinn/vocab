@@ -1,4 +1,4 @@
-<%= form_for(@definition) do |f| %>
+<%= form_for(@definition , html:{role: :form}) do |f| %>
   <% if @definition.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@definition.errors.count, "error") %> prohibited this definition from being saved:</h2>
@@ -15,7 +15,8 @@
     <%= f.label :word_definition %><br>
     <%= f.text_area :word_definition %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit @definition.new_record? ? "Create Definition" : "Update Definition" , class: 'btn btn-primary' %>
   </div>
 <% end %>

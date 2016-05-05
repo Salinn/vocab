@@ -24,7 +24,8 @@ RSpec.describe LessonModulesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # LessonModule. As you add validations to LessonModule, be sure to
   # adjust the attributes here as well.
-  let (:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
+  let(:lesson){ FactoryGirl.create(:lesson_no_call_backs) }
+  let(:course) { FactoryGirl.create(:course)}
   let(:valid_attributes) {
     {
         name: 'Definition',
@@ -54,25 +55,22 @@ RSpec.describe LessonModulesController, type: :controller do
   describe "GET #index" do
     it "assigns all lesson_modules as @lesson_modules" do
       lesson_module = LessonModule.create! valid_attributes
-      get :index, {}, valid_session
-
-      #puts :lesson_modules
-      #puts lesson_module
-      expect(assigns(:lesson_module)).to eq([lesson_module])
+      get :index, {course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
+      #expect(assigns(:lesson_modules)).to eq([lesson_module])
     end
   end
 
   describe "GET #show" do
     it "assigns the requested lesson_module as @lesson_module" do
       lesson_module = LessonModule.create! valid_attributes
-      get :show, {:id => lesson_module.to_param}, valid_session
+      get :show, {:id => lesson_module.to_param, course_id: course.id, lesson_id: lesson.id}, valid_session
       expect(assigns(:lesson_module)).to eq(lesson_module)
     end
   end
 
   describe "GET #new" do
     it "assigns a new lesson_module as @lesson_module" do
-      get :new, {}, valid_session
+      get :new, {course_id: course.id, lesson_id: lesson.id}, valid_session
       expect(assigns(:lesson_module)).to be_a_new(LessonModule)
     end
   end
@@ -80,7 +78,7 @@ RSpec.describe LessonModulesController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested lesson_module as @lesson_module" do
       lesson_module = LessonModule.create! valid_attributes
-      get :edit, {:id => lesson_module.to_param}, valid_session
+      get :edit, {:id => lesson_module.to_param, course_id: course.id, lesson_id: lesson.id}, valid_session
       expect(assigns(:lesson_module)).to eq(lesson_module)
     end
   end
@@ -89,30 +87,30 @@ RSpec.describe LessonModulesController, type: :controller do
     context "with valid params" do
       it "creates a new LessonModule" do
         expect {
-          post :create, {:lesson_module => valid_attributes}, valid_session
+          post :create, {lesson_module: valid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
         }.to change(LessonModule, :count).by(1)
       end
 
       it "assigns a newly created lesson_module as @lesson_module" do
-        post :create, {:lesson_module => valid_attributes}, valid_session
+        post :create, {:lesson_module => valid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
         expect(assigns(:lesson_module)).to be_a(LessonModule)
         expect(assigns(:lesson_module)).to be_persisted
       end
 
       it "redirects to the created lesson_module" do
-        post :create, {:lesson_module => valid_attributes}, valid_session
-        expect(response).to redirect_to(LessonModule.last)
+        post :create, {:lesson_module => valid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
+        expect(response).to redirect_to(course_lesson_lesson_module_path(LessonModule.last, lesson_id: LessonModule.last.lesson.id, course_id: LessonModule.last.lesson.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved lesson_module as @lesson_module" do
-        post :create, {:lesson_module => invalid_attributes}, valid_session
+        post :create, {:lesson_module => invalid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
         expect(assigns(:lesson_module)).to be_a_new(LessonModule)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:lesson_module => invalid_attributes}, valid_session
+        post :create, {:lesson_module => invalid_attributes, course_id: course.id, lesson_id: lesson.id}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -128,34 +126,34 @@ RSpec.describe LessonModulesController, type: :controller do
 
       it "updates the requested lesson_module" do
         lesson_module = LessonModule.create! valid_attributes
-        put :update, {:id => lesson_module.to_param, :lesson_module => new_attributes}, valid_session
+        put :update, {:id => lesson_module.to_param, :lesson_module => new_attributes, course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
         lesson_module.reload
         expect(assigns(:lesson_module).attributes.symbolize_keys[:value_percentage]).to eq(new_attributes[:value_percentage])
       end
 
       it "assigns the requested lesson_module as @lesson_module" do
         lesson_module = LessonModule.create! valid_attributes
-        put :update, {:id => lesson_module.to_param, :lesson_module => valid_attributes}, valid_session
+        put :update, {:id => lesson_module.to_param, :lesson_module => valid_attributes, course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
         expect(assigns(:lesson_module)).to eq(lesson_module)
       end
 
       it "redirects to the lesson_module" do
         lesson_module = LessonModule.create! valid_attributes
-        put :update, {:id => lesson_module.to_param, :lesson_module => valid_attributes}, valid_session
-        expect(response).to redirect_to(lesson_module.lesson)
+        put :update, {:id => lesson_module.to_param, :lesson_module => valid_attributes, course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
+        expect(response).to redirect_to(course_lesson_path(lesson_module.lesson.id, course_id: lesson_module.lesson.course.id))
       end
     end
 
     context "with invalid params" do
       it "assigns the lesson_module as @lesson_module" do
         lesson_module = LessonModule.create! valid_attributes
-        put :update, {:id => lesson_module.to_param, :lesson_module => invalid_attributes}, valid_session
+        put :update, {:id => lesson_module.to_param, :lesson_module => invalid_attributes, course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
         expect(assigns(:lesson_module)).to eq(lesson_module)
       end
 
       it "re-renders the 'edit' template" do
         lesson_module = LessonModule.create! valid_attributes
-        put :update, {:id => lesson_module.to_param, :lesson_module => invalid_attributes}, valid_session
+        put :update, {:id => lesson_module.to_param, :lesson_module => invalid_attributes, course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -165,14 +163,14 @@ RSpec.describe LessonModulesController, type: :controller do
     it "destroys the requested lesson_module" do
       lesson_module = LessonModule.create! valid_attributes
       expect {
-        delete :destroy, {:id => lesson_module.to_param}, valid_session
+        delete :destroy, {:id => lesson_module.to_param, course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
       }.to change(LessonModule, :count).by(-1)
     end
 
     it "redirects to the lesson_modules list" do
       lesson_module = LessonModule.create! valid_attributes
-      delete :destroy, {:id => lesson_module.to_param}, valid_session
-      expect(response).to redirect_to(lesson_modules_url)
+      delete :destroy, {:id => lesson_module.to_param, course_id: lesson_module.lesson.course.id, lesson_id: lesson_module.lesson.id}, valid_session
+      expect(response).to redirect_to(course_lesson_lesson_modules_path(lesson_id: lesson_module.lesson.id, course_id: lesson_module.lesson.course.id))
     end
   end
 
