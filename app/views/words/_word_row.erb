@@ -1,7 +1,7 @@
 <tr id="word_<%= word.id %>">
   <td><%= word.name %></td>
   <% if can?(:manage, @word) %>
-      <td><%= link_to 'Show', word %></td>
+      <td><%= link_to 'Edit', word %></td>
       <td><%= link_to 'Delete', word, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   <%end%>
 </tr>

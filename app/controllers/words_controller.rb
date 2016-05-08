@@ -7,7 +7,7 @@ class WordsController < ApplicationController
   def index
     @search = Word.ransack(params[:q])
     @search.build_condition if @search.conditions.empty?
-    @words = @search.result.includes(:word_roots, :word_videos, :sentences, :definitions, :synonyms, :word_forms)
+    @words = @search.result.includes(:word_roots, :word_videos, :sentences, :definitions, :synonyms, :word_forms).paginate(:page => params[:page], per_page: 20)
 
     @word = Word.new
   end
