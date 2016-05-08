@@ -7,7 +7,7 @@ class WordRootsController < ApplicationController
   # GET /word_roots.json
   def index
      @search = WordRoot.ransack(params[:q])
-     @word_roots = @search.result
+     @word_roots = @search.result.paginate(:page => params[:page], per_page: 20)
   end
 
   # GET /word_roots/1

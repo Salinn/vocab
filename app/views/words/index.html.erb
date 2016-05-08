@@ -25,14 +25,15 @@
   <% end %>
 
 
+  <%= will_paginate @words, renderer: BootstrapPagination::Rails %>
 
   <table class="table">
     <thead>
       <tr>
         <th><%= sort_link @search, :name,'Word name' %></th>
         <% if can?(:manage, @word) %>
-            <th>View the Word</th>
-            <th>Delete a Word</th>
+            <th>Edit Word</th>
+            <th>Delete Word</th>
         <% end %>
       </tr>
     </thead>
