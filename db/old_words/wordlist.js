@@ -239,7 +239,6 @@ words[19][7] = "mechanistically"
 words[19][8] = "mechanistic"
 words[19][9] = ""
 words[19][10] = "mechanism"
-var words = new Array();
 words[0] = new Array();
 words[0][0] = "SUBJUGATE";
 words[0][1] = "to defeat and make obedient";
@@ -2892,8 +2891,6 @@ words[9][6] = ""
 words[9][7] = "submittable, submitted"
 words[9][8] = ""
 words[9][9] = "SUB, MIT"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'SUBJUGATE';
 words[0][1] = "to defeat and make obedient"
@@ -3282,12 +3279,6 @@ words[36][6] = ""
 words[36][7] = ""
 words[36][8] = ""
 words[36][9] = "TORT"
-
-
-
-
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'AUSPICIOUS';
 words[0][1] = "showing signs of future success"
@@ -3398,8 +3389,6 @@ words[9][6] = ""
 words[9][7] = ""
 words[9][8] = "circumspectly"
 words[9][9] = "CIRCUM, SPECT"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ASSIDUOUS';
 words[0][1] = "continuing at something until it is finished, without giving up even if the job is difficult"
@@ -3510,8 +3499,6 @@ words[9][6] = "obsess"
 words[9][7] = "obsessional"
 words[9][8] = ""
 words[9][9] = "OB, SESS"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ASCRIBE';
 words[0][1] = "to believe something hppens or exists because of someone or something else"
@@ -3633,8 +3620,6 @@ words[10][6] = ""
 words[10][7] = ""
 words[10][8] = ""
 words[10][9] = "TRANS, SCRIPT"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'RETAIN';
 words[0][1] = "to maintain the possession of something,  to keep in mind and to remember"
@@ -3756,8 +3741,6 @@ words[10][6] = ""
 words[10][7] = ""
 words[10][8] = ""
 words[10][9] = "RE, VIS"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'PROCLIVITY';
 words[0][1] = "a strong natural liking towards something bad"
@@ -3868,8 +3851,6 @@ words[9][6] = ""
 words[9][7] = ""
 words[9][8] = ""
 words[9][9] = "PRO, VIS"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'PROCLIVITY';
 words[0][1] = "a strong natural liking towards something bad"
@@ -4215,8 +4196,6 @@ words[33][6] = ""
 words[33][7] = "spectral"
 words[33][8] = ""
 words[33][9] = "SPEC"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'PRECEDENT';
 words[0][1] = "an act that sets an example for later acts, a previous case"
@@ -4371,8 +4350,6 @@ words[13][6] = ""
 words[13][7] = "prevailing"
 words[13][8] = "prevailingly"
 words[13][9] = "PRE, VAL"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'POSTERIOR';
 words[0][1] = "located in back"
@@ -4483,8 +4460,6 @@ words[9][6] = ""
 words[9][7] = ""
 words[9][8] = ""
 words[9][9] = "POST, MORT"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'BIBLIOPHILE';
 words[0][1] = "a person who loves books,  a book collector"
@@ -4650,8 +4625,6 @@ words[14][6] = ""
 words[14][7] = "megaphonic"
 words[14][8] = ""
 words[14][9] = "MEGA, PHON"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'BIBLIOPHILE';
 words[0][1] = "a person who loves books; a book collector"
@@ -5070,8 +5043,6 @@ words[37][6] = ""
 words[37][7] = ""
 words[37][8] = ""
 words[37][9] = "POST, SCRIPT"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANTIPATHY';
 words[0][1] = "a strong feeling of dislike, aversion, or repugnancetoward someone or something"
@@ -5226,8 +5197,6 @@ words[13][6] = ""
 words[13][7] = "psychopathic"
 words[13][8] = "psychopathically"
 words[13][9] = "PSYCH, PATH"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'AMORPHOUS';
 words[0][1] = "without a definite form or shape"
@@ -5360,8 +5329,6 @@ words[11][6] = ""
 words[11][7] = "panoramic"
 words[11][8] = ""
 words[11][9] = "PAN, HORAMA"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANTIPATHY';
 words[0][1] = "a strong feeling of dislike, aversion, or repugnance toward someone or something"
@@ -5723,8 +5690,6 @@ words[32][6] = ""
 words[32][7] = "quadrupedal"
 words[32][8] = ""
 words[32][9] = "QUADR, PED"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'DEMISE';
 words[0][1] = "the end of existence, or activity - the termination of life"
@@ -5879,9 +5844,6 @@ words[13][6] = ""
 words[13][7] = "monotonous"
 words[13][8] = "monotonously"
 words[13][9] = "MONO, TON"
-
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'MALADROIT';
 words[0][1] = "not skillful"
@@ -6113,8 +6075,6 @@ words[20][6] = "maldict"
 words[20][7] = ""
 words[20][8] = ""
 words[20][9] = "MAL, DICT"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ASTROLOGY';
 words[0][1] = "pseudo-science claiming to foretell the future"
@@ -6236,8 +6196,6 @@ words[10][6] = ""
 words[10][7] = "embryologic"
 words[10][8] = "embryologically"
 words[10][9] = "EN, BRUEIN, LOGY"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ASTROLOGY';
 words[0][1] = "pseudo-science claiming to foretell the future"
@@ -6359,8 +6317,6 @@ words[10][6] = ""
 words[10][7] = "embryologic"
 words[10][8] = "embryologically"
 words[10][9] = "EN, BRUEIN, LOGY"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANALOGY';
 words[0][1] = "the process of comparing or seeing relationships between unlike things"
@@ -6493,7 +6449,6 @@ words[11][6] = ""
 words[11][7] = "hyperopic"
 words[11][8] = ""
 words[11][9] = "HYPER, OPTOS"
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ASTROLOGY';
 words[0][1] = "pseudo-science claiming to foretell the future"
@@ -6897,9 +6852,6 @@ words[39][6] = ""
 words[39][7] = "hyperopic"
 words[39][8] = ""
 words[39][9] = "hyper (overmuch); optos (seen, visible)"
-
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'CALLIGRAPHY';
 words[0][1] = "the art of writing beautifully, very fine handwriting"
@@ -7021,8 +6973,6 @@ words[10][6] = ""
 words[10][7] = "seismographical"
 words[10][8] = "seismographically"
 words[10][9] = "SEISMOS, GRAPH"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'CONFIDANT';
 words[0][1] = "a person to whom you would tell your secrets e.g.  confidante - a female confidant"
@@ -7210,8 +7160,6 @@ words[16][6] = ""
 words[16][7] = ""
 words[16][8] = ""
 words[16][9] = "BON, FID"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'EBULLIENT';
 words[0][1] = "overflowing with enthusiasm"
@@ -7366,8 +7314,6 @@ words[13][6] = "exterminate"
 words[13][7] = "exterminated"
 words[13][8] = ""
 words[13][9] = "EX, TERMINUS"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'EBULLIENT';
 words[0][1] = "full of life and happiness"
@@ -8059,8 +8005,6 @@ words[10][6] = "eqivocate"
 words[10][7] = ""
 words[10][8] = "equivocally"
 words[10][9] = "EQU, VOC"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'DISARRAY';
 words[0][1] = "a state of being completely confused or disorganized"
@@ -10750,7 +10694,7 @@ words[45] = new Array();
 words[45][0] = 'RETROCEDE';
 words[45][1] = "to give back, to return"
 words[45][2] = "The New York State Government had to RETROCEDE the land around Sherrill, NY to the Native Indian tribe that lives there."
-words[45][3] = "return,"
+words[45][3] = "return"
 words[45][4] = ""
 words[45][5] = "retrocession"
 words[45][6] = ""
@@ -10801,8 +10745,6 @@ words[49][6] = ""
 words[49][7] = ""
 words[49][8] = "congenitally"
 words[49][9] = "CON, GEN"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANTECEDENT';
 words[0][1] = "a word, phrase, or sentence that is represented by another word. "
@@ -10873,7 +10815,7 @@ words[6] = new Array();
 words[6][0] = 'RETROCEDE';
 words[6][1] = "to give back, to return"
 words[6][2] = "The New York State Government had to retrocede thelandaround Sherrill, NY to the Native Indian tribe that lives there."
-words[6][3] = "return, "
+words[6][3] = "return"
 words[6][4] = ""
 words[6][5] = "retrocession"
 words[6][6] = ""
@@ -10891,8 +10833,6 @@ words[7][6] = ""
 words[7][7] = ""
 words[7][8] = ""
 words[7][9] = "SE, CEDE"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'BENEDICTION';
 words[0][1] = "a Christian type of prayer said as a blessing "
@@ -11068,8 +11008,6 @@ words[15][6] = " "
 words[15][7] = " "
 words[15][8] = " "
 words[15][9] = "BI"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = "ANTICLIMAX";
 words[0][1] = "the opposite of the climax";
@@ -11422,8 +11360,6 @@ words[10][27] = "";
 words[10][28] = "";
 words[10][29] = "";
 words[10][30] = "";
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANTICLIMAX';
 words[0][1] = "the opposite of the climax"
@@ -11774,8 +11710,6 @@ words[31][6] = ""
 words[31][7] = ""
 words[31][8] = ""
 words[31][9] = "BI"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANTERIOR';
 words[0][1] = "located before or in front of something else"
@@ -11919,8 +11853,6 @@ words[12][6] = ""
 words[12][7] = "anthropological"
 words[12][8] = "anthropologically"
 words[12][9] = "ANTHROP, LOGY"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'AMPHIBIOUS';
 words[0][1] = "living or being able to live on land in the water (adj); a military vehicle that can travel over land and through the water."
@@ -12020,8 +11952,6 @@ words[8][6] = ""
 words[8][7] = ""
 words[8][8] = "semiannually"
 words[8][9] = "SEMI,ANN"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'BIANNUAL';
 words[0][1] = "occurring two times a year"
@@ -12132,8 +12062,6 @@ words[9][6] = ""
 words[9][7] = ""
 words[9][8] = "semiannually"
 words[9][9] = "SEMI, ANN"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ATYPICAL';
 words[0][1] = "not typical, not usual"
@@ -12277,8 +12205,6 @@ words[12][6] = ""
 words[12][7] = "ambiguous"
 words[12][8] = "ambiguously"
 words[12][9] = "AMBI"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'AMBIENCE';
 words[0][1] = "the feeling of a place, the surrounding environment"
@@ -12411,8 +12337,6 @@ words[11][6] = ""
 words[11][7] = "amphibious"
 words[11][8] = ""
 words[11][9] = "AMPHI,BIO"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANEMIA';
 words[0][1] = "a lack of red blood corpuscles in the blood"
@@ -12589,8 +12513,6 @@ words[15][6] = ""
 words[15][7] = "antithetical"
 words[15][8] = "antithetically"
 words[15][9] = "ANTI, THES"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = "ATHEIST";
 words[0][1] = "a person who doesn't believe in God";
@@ -12783,9 +12705,6 @@ words[15][7] = "apathetical";
 words[15][8] = "apathetically";
 words[15][9] = "A, PATH";
 words[15][10] = "apathetic";
-
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = "ATHEIST";
 words[0][1] = "a person who doesn't believe in God";
@@ -13234,8 +13153,6 @@ words[13][27] = "";
 words[13][28] = "";
 words[13][29] = "";
 words[13][30] = "";
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = "ATHEIST";
 words[0][1] = "a person who doesn't believe in God";

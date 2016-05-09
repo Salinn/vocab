@@ -11,6 +11,8 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+#Nice drop down
+gem 'compass-rails'
 gem 'chosen-rails'
 
 #Javascript Stuff

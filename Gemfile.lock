@@ -290,6 +290,7 @@ DEPENDENCIES
   chosen-rails
   ckeditor
   coffee-rails (~> 4.1.0)
+  compass-rails
   daemons
   delayed_job_active_record
   devise
