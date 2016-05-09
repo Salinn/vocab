@@ -7937,8 +7937,6 @@ words[53] = new Array();
 words[53][0] = 'HYPERTENSION';
 words[54] = new Array();
 words[54][0] = 'HYPERTROPHY';
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ADEQUATE';
 words[0][1] = "equal to what is required"
@@ -8217,8 +8215,6 @@ words[13][6] = "divert"
 words[13][7] = "diverting"
 words[13][8] = ""
 words[13][9] = "DI, VERS"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'DEMAGOGUE';
 words[0][1] = "a leader who appeals to the emotions and prejudices of people by using emotional language to stir up people"
@@ -8329,8 +8325,6 @@ words[9][6] = ""
 words[9][7] = ""
 words[9][8] = ""
 words[9][9] = "BENE, DICT"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = "ABDICATE";
 words[0][1] = "to formally give up a throne or high office under pressure";
@@ -9387,8 +9381,6 @@ words[32][27] = "";
 words[32][28] = "";
 words[32][29] = "";
 words[32][30] = "";
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'CONCUR';
 words[0][1] = "to have the same opinion"
@@ -9521,8 +9513,6 @@ words[11][6] = ""
 words[11][7] = ""
 words[11][8] = ""
 words[11][9] = "EX, CUR"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'CREDENCE';
 words[0][1] = "belief, the formal acceptance of something as true"
@@ -9644,8 +9634,6 @@ words[10][6] = ""
 words[10][7] = "discreditable"
 words[10][8] = "discreditably"
 words[10][9] = "DIS, CRED"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'COHERENT';
 words[0][1] = "having an orderly relation of parts; clear and easy to understand"
@@ -9779,8 +9767,6 @@ words[11][7] = "condonable"
 words[11][8] = ""
 words[11][9] = "CON, DON"
 words[11][10] = "condone"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = "ACQUAINT";
 words[0][1] = "to know someone or something; to become familiar with someone or something";
@@ -10133,8 +10119,6 @@ words[10][27] = "";
 words[10][28] = "";
 words[10][29] = "";
 words[10][30] = "";
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANACHRONISM';
 words[0][1] = "anything that appears to be in the wrong period of time, out of its historical context"
@@ -10267,8 +10251,6 @@ words[11][6] = ""
 words[11][7] = "chronological"
 words[11][8] = "chronologically"
 words[11][9] = "CHRON, LOGY"
-
-var words = new Array();
 words[0] = new Array();
 words[0][0] = 'ANACHRONISM';
 words[0][1] = "anything that appears to be in the wrong period of time, out of its historical context"
