@@ -1,79 +1,75 @@
-<div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 home-page-card-opacity">
-  <div class="jumbotron">
-    <div class="col-xl-12 col-md-12 col-xs-12">
-      <div>
-        <h1>Course View</h1>
-        <% if @users.empty? && @course.lessons.empty? %>
-            <h3>Please Add Lessons To This Class</h3>
-            <h3>Please Add Students To This Class</h3>
-        <% elsif @users.empty?  %>
-            <h3>Please Add Students To This Class</h3>
-        <% elsif @course.lessons.empty? %>
-            <h3>Please Add Lessons To This Class</h3>
-        <% else %>
-            <table class="table table-bordered">
-              <thead>
-              <tr>
-                <th>Student Name</th>
-                <% @course.lessons.each do |lesson| %>
-                    <th colspan="2"><%= link_to lesson.lesson_name, course_gradebook_lesson_path(lesson_id: lesson) %></th>
-                <% end %>
-                <th colspan="2">Total</th>
-              </tr>
+<div class="col-xl-12 col-md-12 col-xs-12">
+  <div>
+    <h1>Course View</h1>
+    <% if @users.empty? && @course.lessons.empty? %>
+        <h3>Please Add Lessons To This Class</h3>
+        <h3>Please Add Students To This Class</h3>
+    <% elsif @users.empty?  %>
+        <h3>Please Add Students To This Class</h3>
+    <% elsif @course.lessons.empty? %>
+        <h3>Please Add Lessons To This Class</h3>
+    <% else %>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Student Name</th>
+            <% @course.lessons.each do |lesson| %>
+                <th colspan="2"><%= link_to lesson.lesson_name, course_gradebook_lesson_path(lesson_id: lesson) %></th>
+            <% end %>
+            <th colspan="2">Total</th>
+          </tr>
 
-              <tr>
-                <th></th>
-                <% (0...@course.lessons.length).each do %>
-                    <th>Grade </th>
-                    <th>Time</th>
-                <% end %>
-                <th>Grade</th>
+          <tr>
+            <th></th>
+            <% (0...@course.lessons.length).each do %>
+                <th>Grade </th>
                 <th>Time</th>
-              </tr>
-              <tr>
-                <th>Averages</th>
-                <% average_final_grade = 0 %>
-                <% @course.lessons.each do |lesson| %>
-                    <% average_grade, average_time = @grades["lesson_average#{lesson.id}"] %>
-                    <% average_modified_grade = @grade_modifiers["lesson#{lesson.id}"]%>
-                    <% average_final_grade += (average_grade + average_modified_grade).to_i %>
-                    <th style="<%= 'background-color: white' if average_modified_grade != 0%>"><%= link_to "#{(average_grade + average_modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: average_grade, lesson_id: lesson.id), remote: true, id: "lesson#{lesson.id}" %></th>
-                    <th><%= seconds_to_time(average_time) %></th>
-                <% end %>
-                <% average_course_grade, average_course_time = @grades['course_average']%>
-                <% average_course_modified_grade = @grade_modifiers["course#{@course.id}"]%>
-                <% average_final_grade = (average_final_grade.fdiv(@course.lessons.length)).to_i %>
-                <th style="<%= 'background-color: white' if average_course_modified_grade != 0%>"><%= link_to "#{(average_final_grade + average_course_modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: average_course_grade), remote: true, id: "course#{@course.id}"%> </th>
-                <th><%= seconds_to_time(average_course_time) %></th>
-              </tr>
-              </thead>
+            <% end %>
+            <th>Grade</th>
+            <th>Time</th>
+          </tr>
+          <tr>
+            <th>Averages</th>
+            <% average_final_grade = 0 %>
+            <% @course.lessons.each do |lesson| %>
+                <% average_grade, average_time = @grades["lesson_average#{lesson.id}"] %>
+                <% average_modified_grade = @grade_modifiers["lesson#{lesson.id}"]%>
+                <% average_final_grade += (average_grade + average_modified_grade).to_i %>
+                <th style="<%= 'background-color: white' if average_modified_grade != 0%>"><%= link_to "#{(average_grade + average_modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: average_grade, lesson_id: lesson.id), remote: true, id: "lesson#{lesson.id}" %></th>
+                <th><%= seconds_to_time(average_time) %></th>
+            <% end %>
+            <% average_course_grade, average_course_time = @grades['course_average']%>
+            <% average_course_modified_grade = @grade_modifiers["course#{@course.id}"]%>
+            <% average_final_grade = (average_final_grade.fdiv(@course.lessons.length)).to_i %>
+            <th style="<%= 'background-color: white' if average_course_modified_grade != 0%>"><%= link_to "#{(average_final_grade + average_course_modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: average_course_grade), remote: true, id: "course#{@course.id}"%> </th>
+            <th><%= seconds_to_time(average_course_time) %></th>
+          </tr>
+          </thead>
 
-              <tbody>
-              <% @users.each do |user| %>
-                  <% final_grade = 0 %>
-                  <tr>
-                    <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
-                    <% @course.lessons.each do |lesson| %>
-                        <% grade, time = @grades["#{user.id}-#{lesson.id}"] %>
-                        <% modified_grade = @grade_modifiers["#{user.id}-#{lesson.id}"] %>
-                        <% final_grade += (grade + modified_grade) %>
-                        <th style="<%= 'background-color: white' if modified_grade != 0%>"><%= link_to "#{(grade + modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: grade, lesson_id: lesson.id, user_id: user.id), remote: true, id: "#{user.id}-#{lesson.id}" %></th>
-                        <th><%= seconds_to_time(time) %></th>
-                    <% end %>
-                    <% used_for_final_before, final_time = @grades["user_course_#{user.id}"] %>
-                    <% final_grade = (final_grade.fdiv(@course.lessons.length)).to_i %>
-                    <% user_final_modified_grade = @grade_modifiers["user#{user.id}"] %>
-                    <th style="<%= 'background-color: white' if user_final_modified_grade != 0%>"><%= link_to "#{(final_grade + user_final_modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: final_grade, user_id: user.id), remote: true, id: "user#{user.id}"%></th>
-                    <th><%= seconds_to_time(final_time) %></th>
-                  </tr>
-              <% end %>
-              </tbody>
-            </table>
-        <% end %>
-      </div>
-    </div>
-    <div class="clearfix"></div>
+          <tbody>
+          <% @users.each do |user| %>
+              <% final_grade = 0 %>
+              <tr>
+                <td><%= link_to user.name, course_gradebook_student_path(student_id: user.id) %></td>
+                <% @course.lessons.each do |lesson| %>
+                    <% grade, time = @grades["#{user.id}-#{lesson.id}"] %>
+                    <% modified_grade = @grade_modifiers["#{user.id}-#{lesson.id}"] %>
+                    <% final_grade += (grade + modified_grade) %>
+                    <th style="<%= 'background-color: white' if modified_grade != 0%>"><%= link_to "#{(grade + modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: grade, lesson_id: lesson.id, user_id: user.id), remote: true, id: "#{user.id}-#{lesson.id}" %></th>
+                    <th><%= seconds_to_time(time) %></th>
+                <% end %>
+                <% used_for_final_before, final_time = @grades["user_course_#{user.id}"] %>
+                <% final_grade = (final_grade.fdiv(@course.lessons.length)).to_i %>
+                <% user_final_modified_grade = @grade_modifiers["user#{user.id}"] %>
+                <th style="<%= 'background-color: white' if user_final_modified_grade != 0%>"><%= link_to "#{(final_grade + user_final_modified_grade).to_i}%", course_grade_modifiers_path(course_id: @course.id, grade: final_grade, user_id: user.id), remote: true, id: "user#{user.id}"%></th>
+                <th><%= seconds_to_time(final_time) %></th>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+    <% end %>
   </div>
 </div>
+<div class="clearfix"></div>
 
 <%= render 'layouts/dialog' %>
