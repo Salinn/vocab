@@ -22,7 +22,11 @@ class Gradebook
     end
 
     final_grade, final_time = grades['course_average']
-    grades['course_average'] = [((final_grade.fdiv(users_length)).to_i),((final_time.fdiv(users_length)).to_i)]
+    if grades['course_average'].empty?
+      grades['course_average'] = 0
+    else
+      grades['course_average'] = [((final_grade.fdiv(users_length)).to_i),((final_time.fdiv(users_length)).to_i)]
+    end
     grades
   end
 

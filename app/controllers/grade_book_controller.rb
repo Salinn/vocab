@@ -9,7 +9,7 @@ class GradeBookController < ApplicationController
     @grade_modifiers = Hash.new(0)
     @course = Course.includes(:lessons).find(params['course_id'])
     @users = User.with_role(:student, @course)
-    if @users.empty? && @course.lessons.empty?
+    unless @users.empty? && @course.lessons.empty?
       modifiers = GradeModifer.where("user_id IN (?) OR course_id =? OR lesson_id IN (?)", @users.pluck(:id), @course.id, @course.lessons.pluck(:id))
       modifiers.each do |modifier|
         if modifier.course_id && modifier.user_id
