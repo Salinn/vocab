@@ -120,9 +120,8 @@ class Gradebook
         student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = 0
         student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"] = 0
       else
-        grades['course_average'] = [((final_grade.fdiv(users_length)).to_i),((final_time.fdiv(users_length)).to_i)]
-      student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = [(grade + answer['correct']), (time + answer['time_to_complete'])]
-      student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"] = [calculate_question_grade(question_grade + answer['correct']), (question_time + answer['time_to_complete'])]
+        student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = [(grade + answer['correct']), (time + answer['time_to_complete'])]
+        student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"] = [calculate_question_grade(question_grade + answer['correct']), (question_time + answer['time_to_complete'])]
       end
     end
 
