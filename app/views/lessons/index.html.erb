@@ -35,7 +35,7 @@
       <tbody>
       <% @lessons.each do |lesson| %>
           <tr>
-            <td><%= link_to lesson.lesson_name, course_lesson_path(lesson, course_id: lesson.course.id) %></td>
+            <td><%= link_to lesson.lesson_name, course_lesson_path(lesson, course_id: lesson.course.id), data: { no_turbolink: true } %></td>
             <td><%= lesson.lesson_points %></td>
             <td><%= lesson.lesson_start_time.strftime('%b %e, %l:%M %p') %></td>
             <td><%= lesson.lesson_end_date.strftime('%b %e, %l:%M %p') %></td>

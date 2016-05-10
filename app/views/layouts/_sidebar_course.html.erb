@@ -1,4 +1,7 @@
 <li>
+  <%= link_to 'Back To Course <i class="sub_icon glyphicon glyphicon glyphicon glyphicon-flag"></i>'.html_safe, course_path(@course.id), data: { no_turbolink: true } %>
+</li>
+<li>
   <a data-toggle="collapse" data-parent="#accordion1" href="#resource">Resources<i class="sub_icon glyphicon glyphicon-list"></i></a>
   <ul id="resource" class="collapse panel-collapse">
     <li><%= link_to 'Syllabus <i class="sub_icon glyphicon glyphicon-road"></i>'.html_safe, course_syllabus_path(@course), class: 'sub_link' %></li>
@@ -6,8 +9,8 @@
     <li><%= link_to 'Schedule <i class="sub_icon glyphicon glyphicon glyphicon-calendar"></i>'.html_safe, course_events_path(@course), data: { no_turbolink: true }, class: 'sub_link' %></li>
     <% if current_user.has_role?(:student, @course) %>
         <li><%= link_to 'Assignments <i class="sub_icon glyphicon glyphicon glyphicon-th-list"></i>'.html_safe, course_lessons_path(course_id: @course.id), class: 'sub_link' %></li>
-    <% end %>
-    <li><%= link_to 'Grades <i class="sub_icon glyphicon glyphicon glyphicon-th-list"></i>'.html_safe, course_gradebook_student_path(student_id: current_user.id, course_id: @course.id), class: 'sub_link' %></li>
+        <li><%= link_to 'Grades <i class="sub_icon glyphicon glyphicon glyphicon-th-list"></i>'.html_safe, course_gradebook_student_path(student_id: current_user.id, course_id: @course.id), class: 'sub_link' %></li>
+  <% end %>
   </ul>
 </li>
 <% if can?(:email_class, @course) %>
