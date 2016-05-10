@@ -12,6 +12,8 @@ class Ability
       can :manage, Course
       can :manage, WordRoot
       can :manage, Word
+      cannot :destroy, Word
+      cannot :destroy, WordRoot
     end
 
     if Course.with_role(:teacher, user).any?

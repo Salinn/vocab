@@ -1,35 +1,39 @@
-<%= form_for(@lesson, url: course_lessons_path(course_id: @lesson.course.id)) do |f| %>
-  <% if @lesson.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+<%# TODO: Figure our a more elegant solution %>
+<% action_type =  @lesson.nil? ? :create : :update%>
+<%= form_for(@lesson) do |f| %>
+    <% if @lesson.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
 
-      <ul>
-      <% @lesson.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @lesson.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= f.hidden_field :course_id, value: @lesson.course.id %>
+
+    <div class="field col-xs-6 col-xs-offset-3">
+      <%= f.label :lesson_name %><br>
+      <%= f.text_field :lesson_name, class: 'form-control' %>
     </div>
-  <% end %>
 
-  <div class="field col-xs-6 col-xs-offset-3">
-    <%= f.label :lesson_name %><br>
-    <%= f.text_field :lesson_name, class: 'form-control' %>
-  </div>
-
-  <div class="field col-xs-6 col-xs-offset-3">
-    <%= f.label :lesson_points %><br>
-    <%= f.number_field :lesson_points, class: 'form-control' %>
-  </div>
-  <div class="field col-xs-2 col-xs-offset-3">
-    <%= f.label :lesson_start_time %><br>
-    <%= f.text_field :lesson_start_time, value: utc_formatter(@lesson.lesson_start_time), class: 'form-control', readonly: true %>
-  </div>
-  <div class="field col-xs-2 ">
-    <%= f.label :lesson_end_date %><br>
-    <%= f.text_field :lesson_end_date, value: utc_formatter(@lesson.lesson_end_date), class: 'form-control', readonly: true %>
-  </div>
-  <div class="actions col-xs-9 col-xs-offset-3">
-    <%= f.submit class: 'btn btn-primary' %>
-  </div>
+    <div class="field col-xs-6 col-xs-offset-3">
+      <%= f.label :lesson_points %><br>
+      <%= f.number_field :lesson_points, class: 'form-control' %>
+    </div>
+    <div class="field col-xs-2 col-xs-offset-3">
+      <%= f.label :lesson_start_time %><br>
+      <%= f.text_field :lesson_start_time, value: utc_formatter(@lesson.lesson_start_time), class: 'form-control', readonly: true %>
+    </div>
+    <div class="field col-xs-2 ">
+      <%= f.label :lesson_end_date %><br>
+      <%= f.text_field :lesson_end_date, value: utc_formatter(@lesson.lesson_end_date), class: 'form-control', readonly: true %>
+    </div>
+    <div class="actions col-xs-9 col-xs-offset-3">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
 <% end %>
 <div class="clearfix"></div>
