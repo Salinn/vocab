@@ -1,7 +1,7 @@
 class Lesson < ActiveRecord::Base
   belongs_to :course
   has_one :event, dependent: :destroy
-  has_many :words, through: :lesson_words, after_add: :update_answers, after_remove: :update_answers
+  has_many :words, through: :lesson_words, dependent: :destroy#, after_add: :update_answers, after_remove: :update_answers
   has_many :lesson_words, dependent: :destroy
   has_many :lesson_modules, dependent: :destroy
   accepts_nested_attributes_for :lesson_words
