@@ -41,7 +41,7 @@
             <td><%= lesson.lesson_end_date.strftime('%b %e, %l:%M %p') %></td>
             <% if can?(:manage, lesson) %>
                 <td><%= link_to 'Edit', edit_course_lesson_path(lesson, course_id: lesson.course.id), class: 'btn btn-primary' %></td>
-                <td><%= link_to 'Destroy', course_lessons_path(lesson), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+                <td><%= link_to 'Destroy', course_remove_lesson_from_course_path(lesson_id: lesson.id, course_id: @course.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
             <% end %>
           </tr>
       <% end %>
