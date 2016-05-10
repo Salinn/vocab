@@ -27,20 +27,19 @@
 <!-- Menu Toggle Script -->
 <script type="text/javascript">
     $('#menu-toggle').on('click', function(){
-        if($('#wrapper').attr('class') == 'active') {
-            $('#wrapper').removeClass('active');
-            $('#main').removeClass('active');
-
+        if($('#wrapper').attr('class') == 'sidebaractive') {
+            $('#wrapper').removeClass('sidebaractive');
+            $('#main').removeClass('sidebaractive');
         } else {
-            $('#wrapper').addClass('active');
-            $('#main').addClass('active');
+            $('#wrapper').addClass('sidebaractive');
+            $('#main').addClass('sidebaractive');
         }
-        localStorage.setItem('active', $('#wrapper').attr('class'));
+        localStorage.setItem('sidebaractive', $('#wrapper').attr('class'));
     });
     //Sets sidebar in or out on load
     $(function() {
-        $('#wrapper').addClass(localStorage.getItem('active'));
-        $('#main').addClass(localStorage.getItem('active'));
+        $('#wrapper').addClass(localStorage.getItem('sidebaractive'));
+        $('#main').addClass(localStorage.getItem('sidebaractive'));
     });
     $('.accordian1').click(function(){
         $(this).find('span').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
