@@ -1,8 +1,8 @@
 class Question < ActiveRecord::Base
   belongs_to :lesson_module
   belongs_to :lesson_word
-  has_many :answer_options
-  has_many :answers
+  has_many :answer_options, dependent: :destroy
+  has_many :answers, dependent: :destroy
 
   validates :lesson_module_id, presence:true
   validates :lesson_word_id, presence:true

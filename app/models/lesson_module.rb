@@ -1,7 +1,7 @@
 class LessonModule < ActiveRecord::Base
 
   belongs_to :lesson
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   validates :name, length: { minimum: 4 }
   validates :attempts, numericality: { greater_than_or_equal_to: 0 }
