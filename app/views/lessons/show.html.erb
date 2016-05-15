@@ -1,62 +1,82 @@
-<div class="col-xs-6">
-  <h3>
-    <strong>Lesson name:</strong>
-    <%= @lesson.lesson_name %>
-  </h3>
+<div class="col-xs-12">
+  <div class="col-xs-6">
+    <h3>
+      <strong>Lesson name:</strong>
+      <%= @lesson.lesson_name %>
+    </h3>
 
-  <h3>
-    <strong>Lesson points:</strong>
-    <%= @lesson.lesson_points %>
-  </h3>
-</div>
+    <h3>
+      <strong>Lesson points:</strong>
+      <%= @lesson.lesson_points %>
+    </h3>
+  </div>
 
-<div class="col-xs-6">
-  <h3>
-    <strong>Lesson start time:</strong>
-    <%= @lesson.lesson_start_time.strftime('%b %e, %l:%M %p') %>
-  </h3>
+  <div class="col-xs-6">
+    <h3>
+      <strong>Lesson start time:</strong>
+      <%= @lesson.lesson_start_time.strftime('%b %e, %l:%M %p') %>
+    </h3>
 
-  <h3>
-    <strong>Lesson end time:</strong>
-    <%= @lesson.lesson_end_date.strftime('%b %e, %l:%M %p') %>
-  </h3>
-</div>
-<div class="clearfix"></div>
+    <h3>
+      <strong>Lesson end time:</strong>
+      <%= @lesson.lesson_end_date.strftime('%b %e, %l:%M %p') %>
+    </h3>
+  </div>
+  <div class="clearfix"></div>
 
-<% if can?(:manage, @lesson) %>
-<hr>
-<table id class="table table-bordered table-striped">
-  <thead>
-  <tr>
-    <th>Word</th>
-    <th>Total Definitions</th>
-    <th>Total Sentences</th>
-    <th>Total Synonyms</th>
-    <th>Total Word Forms</th>
-    <th>Total Word Videos</th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
-  </thead>
-  <tbody id="lesson_words">
-  <% @lesson.lesson_words.each do |lesson_word| %>
-      <%= render 'lesson_words/lesson_word', lesson_word: lesson_word %>
-  <% end %>
-  </tbody>
-</table>
-<hr><p>Add Word:</p>
-<div class="well">
-  <%= link_to "Add Lesson Word", new_course_lesson_lesson_word_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, class: "btn btn-primary" %>
-</div>
+  <% if can?(:manage, @lesson) %>
+      <hr>
+      <table id class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Word</th>
+          <th>Total Definitions</th>
+          <th>Total Sentences</th>
+          <th>Total Synonyms</th>
+          <th>Total Word Forms</th>
+          <th>Total Word Videos</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="lesson_words">
+        <% @lesson.lesson_words.each do |lesson_word| %>
+            <%= render 'lesson_words/lesson_word', lesson_word: lesson_word %>
+        <% end %>
+        </tbody>
+      </table>
+      <hr><p>Add Word:</p>
+      <div class="well">
+        <% @lesson_word = LessonWord.new %>
+        <%= form_for(@lesson_word, url: course_lesson_lesson_words_path(course_id: @course.id, lesson_id: @lesson.id), remote: true, :html => { :role => "form" }) do |f| %>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="field">
+                    <%= f.hidden_field :lesson_id, value: @lesson.id %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :word %><br>
+                    <%= f.collection_select :word_id, (Word.all - @lesson.lesson_words.map { |lw| lw.word }), :id, :name, {include_blank: 'Select Word'}, class: 'chosen-select' %>
+                  </div>
+                  <div class="actions">
+                    <%= f.submit 'Add New Word', class: 'btn btn-primary' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+        <%# link_to "Add Lesson Word", new_course_lesson_lesson_word_path(course_id: @course.id, lesson_id: @lesson.id), data: { no_turbolink: true }, remote: true, class: "btn btn-primary"%>
+      </div>
 <%# render 'lessons/add_word' %>
-    <hr>
-    <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
-    <hr>
+      <hr>
+      <%= render 'lesson_modules/show_lesson_modules', lesson: @lesson %>
+      <hr>
 
 
-    <%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
-<% end %>
-<%= link_to 'Back', @lesson.course %>
+      <%= link_to 'Edit', edit_course_lesson_path(@lesson, course_id: @lesson.course.id) %> |
+  <% end %>
+  <%= link_to 'Back', course_lessons_path(@lesson.course), data: { no_turbolink: true } %>
 
-<%= render 'layouts/dialog' %>
-
+  <%= render 'layouts/dialog' %>
+</div>

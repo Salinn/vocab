@@ -4,6 +4,6 @@
 
 <%= render 'form' %>
 <div class="col-xs-6 col-xs-offset-3">
-  <%= link_to 'Show', course_lessons_path(@lesson.course), class: 'btn btn-primary' %> |
+  <%= link_to 'Show', course_lesson_path(@lesson, course_id: @lesson.course), data: { no_turbolink: true } , class: 'btn btn-primary' %> |
   <%= link_to 'Back', @lesson.course, class: 'btn btn-primary' %>
 </div>

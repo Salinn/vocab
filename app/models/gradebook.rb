@@ -22,7 +22,11 @@ class Gradebook
     end
 
     final_grade, final_time = grades['course_average']
-    grades['course_average'] = [((final_grade.fdiv(users_length)).to_i),((final_time.fdiv(users_length)).to_i)]
+    if grades['course_average'].empty?
+      grades['course_average'] = 0
+    else
+      grades['course_average'] = [((final_grade.fdiv(users_length)).to_i),((final_time.fdiv(users_length)).to_i)]
+    end
     grades
   end
 
@@ -112,8 +116,13 @@ class Gradebook
 
       grade, time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"]
       question_grade, question_time = student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"]
-      student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = [(grade + answer['correct']), (time + answer['time_to_complete'])]
-      student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"] = [calculate_question_grade(question_grade + answer['correct']), (question_time + answer['time_to_complete'])]
+      if student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"].empty?
+        student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = 0
+        student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"] = 0
+      else
+        student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}"] = [(grade + answer['correct']), (time + answer['time_to_complete'].to_i)]
+        student_grades["#{course.id}.#{answer['lesson_id']}.#{answer['lesson_module_id']}.#{answer['question_id']}"] = [calculate_question_grade(question_grade + answer['correct']), (question_time + answer['time_to_complete'])]
+      end
     end
 
     course.lessons.each do |lesson|

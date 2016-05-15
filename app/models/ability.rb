@@ -8,6 +8,14 @@ class Ability
       can :manage, :all
     end
 
+    if user.has_role?(:teacher, :any)
+      can :manage, Course
+      can :manage, WordRoot
+      can :manage, Word
+      cannot :destroy, Word
+      cannot :destroy, WordRoot
+    end
+
     if Course.with_role(:teacher, user).any?
       can :manage, Definition
       can :manage, Sentence

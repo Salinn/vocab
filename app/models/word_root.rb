@@ -2,8 +2,8 @@ class WordRoot < ActiveRecord::Base
   has_many :root_managers
   has_many :words, through: :root_managers
 
-  validates :root_name, length: { in: 1..10 }
-  validates :root_definition, length: { minimum: 4 }
+  validates :root_name, length: { minimum: 1 }
+  #validates :root_definition, length: { minimum: 4 }
 
   before_destroy :word_relationship_check
 

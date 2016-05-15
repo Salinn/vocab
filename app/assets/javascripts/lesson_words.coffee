@@ -29,5 +29,9 @@ $ ->
     $(html).modal('show')
     $('#confirmationDialog .confirm').on 'click', -> $.rails.confirmed(link)
 
-jQuery ->
-  $('#lesson_word_word_id').chosen();
+$ ->
+# enable chosen js
+  $('#lesson_word_word_id').chosen
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+    width: '200px'

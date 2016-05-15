@@ -100,7 +100,7 @@ class CoursesController < ApplicationController
   def remove_lesson_from_course()
     lesson = Lesson.find(params[:lesson_id])
     @course.lessons.destroy lesson
-    redirect_to @course , notice: 'The lesson was successfully removed from the class.'
+    redirect_to course_lessons_path(@course), notice: 'The lesson was successfully removed from the class.'
   end
 
   def duplicate_course

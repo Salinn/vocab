@@ -2,22 +2,22 @@ class LessonWord < ActiveRecord::Base
   belongs_to :lesson
   belongs_to :word
 
-  has_many :lesson_word_definitions
+  has_many :lesson_word_definitions, dependent: :destroy
   has_many :definitions, through: :lesson_word_definitions
 
-  has_many :lesson_word_videos
+  has_many :lesson_word_videos, dependent: :destroy
   has_many :word_videos, through: :lesson_word_videos
 
-  has_many :lesson_word_sentences
+  has_many :lesson_word_sentences, dependent: :destroy
   has_many :sentences, through: :lesson_word_sentences
 
-  has_many :lesson_word_forms
+  has_many :lesson_word_forms, dependent: :destroy
   has_many :word_forms, through: :lesson_word_forms
 
-  has_many :lesson_word_synonyms
+  has_many :lesson_word_synonyms, dependent: :destroy
   has_many :synonyms, through: :lesson_word_synonyms
 
-  has_many :answer_options
+  has_many :answer_options, dependent: :destroy
 
   accepts_nested_attributes_for :lesson_word_definitions
   accepts_nested_attributes_for :lesson_word_videos

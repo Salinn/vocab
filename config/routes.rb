@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+  resources :events
+  resources :lesson_extensions
+  resources :answers
+  resources :questions
+  resources :course_emails
+  resources :lesson_words
+  resources :sentences
+  resources :word_videos
+  resources :synonyms
+  resources :word_forms
+  resources :lesson_modules
+  resources :word_roots
+  resources :lessons
+  resources :definitions
   resources :grades
+
   #All routes associated with a course
   resources :courses do
     resources :events

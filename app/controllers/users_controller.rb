@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_id, only: [:add_role, :remove_role]
   load_and_authorize_resource
   respond_to :html, :json
 

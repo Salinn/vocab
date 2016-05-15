@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
       params[:page] = get_current_Weeks_page if params[:page] == nil && @course.lessons.any?
       @lessons = Lesson.includes(lesson_modules: :questions).where(course_id: @course.id).paginate(:page => params[:page], per_page: 1)
     else
-      @lessons = Lesson.includes(lesson_modules: :questions).where(course_id: @course.id)
+      @lessons = Lesson.where(course_id: @course.id)
     end
   end
 
@@ -36,7 +36,7 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    course = Course.find(params[:course_id])
+    course = Course.find(params[:lesson][:course_id])
     @lesson = course.lessons.create(lesson_params)
     respond_to do |format|
       if @lesson.save
@@ -52,7 +52,6 @@ class LessonsController < ApplicationController
   # PATCH/PUT /lessons/1
   # PATCH/PUT /lessons/1.json
   def update
-    @lesson_module = LessonModule.all
     respond_to do |format|
       if @lesson.update(lesson_params)
         format.html { redirect_to course_lesson_path(@lesson,  course_id: @lesson.course.id), notice: 'Lesson was successfully updated.' }
@@ -87,7 +86,7 @@ class LessonsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
       @lesson = Lesson.find(params[:id])
-      @course = Course.find(params[:course_id])
+      @course = @lesson.course
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,6 +11,8 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+#Nice drop down
+gem 'compass-rails'
 gem 'chosen-rails'
 
 #Javascript Stuff
@@ -52,6 +54,9 @@ gem 'ckeditor'
 #helps with searching
 gem 'ransack'
 
+#helps with rails console output
+gem 'awesome_print'
+
 #pagination
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
@@ -90,6 +95,9 @@ group :development do
   #This occurs by stopping where the error occurs and giving you a terminial and info on what was going on
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
+
+  gem 'pry-rails'
+  gem 'quiet_assets'
 end
 
 group :production do
