@@ -6,7 +6,6 @@ class Course < ActiveRecord::Base
   has_many :course_users
   has_many :users, through: :course_users
   has_many :lessons, dependent: :destroy
-  has_many :events, dependent: :destroy
   has_many :grade_modifers, dependent: :destroy
   accepts_nested_attributes_for :users
   accepts_nested_attributes_for :course_users

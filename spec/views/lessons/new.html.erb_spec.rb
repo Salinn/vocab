@@ -14,7 +14,7 @@ RSpec.describe "lessons/new", type: :view do
   it "renders new lesson form" do
     render
 
-    assert_select "form[action=?][method=?]", course_lessons_path(course_id: course.id), "post" do
+    assert_select "form[action=?][method=?]", '/lessons', "post" do
 
       assert_select "input#lesson_lesson_name[name=?]", "lesson[lesson_name]"
 

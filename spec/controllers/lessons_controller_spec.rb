@@ -42,7 +42,7 @@ RSpec.describe LessonsController, type: :controller do
         lesson_points: nil,
         lesson_start_time: nil,
         lesson_end_date: nil,
-        course_id: nil,
+        course_id: course.id,
         penalty: nil
     }
   }
@@ -105,12 +105,12 @@ RSpec.describe LessonsController, type: :controller do
 
     context "with invalid params" do
       it "assigns a newly created but unsaved lesson as @lesson" do
-        post :create, {lesson: invalid_attributes, course_id: course.id}, valid_session
+        post :create, {lesson: invalid_attributes}, valid_session
         expect(assigns(:lesson)).to be_a_new(Lesson)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {lesson: invalid_attributes, course_id: course.id}, valid_session
+        post :create, {lesson: invalid_attributes }, valid_session
         expect(response).to render_template("new")
       end
     end

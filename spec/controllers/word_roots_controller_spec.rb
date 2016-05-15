@@ -33,8 +33,8 @@ RSpec.describe WordRootsController, type: :controller do
 
   let(:invalid_attributes) {
     {
-        root_name: 'abcdefghijk', #greater than 10
-        root_definition: 'ab' #less than 4
+        root_name: nil,
+        root_definition: nil
     }
   }
 
