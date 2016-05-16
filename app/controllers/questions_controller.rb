@@ -29,9 +29,10 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
+    @question_updater = QuestionUpdater.new(@question)
 
     respond_to do |format|
-      if @question.save
+      if @question_updater.create
         format.html { redirect_to course_lesson_lesson_module_question_path(@question, lesson_module_id: @question.lesson_module, lesson_id: @question.lesson_module.lesson.id, course_id: @question.lesson_module.lesson.course.id), notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else

@@ -67,7 +67,7 @@ class Course < ActiveRecord::Base
       lesson.lesson_words.each do |lesson_word|
         dup_lesson_word = lesson_word.dup
         dup_lesson_word.lesson = dup_lesson
-        dup_lesson_word.sneaky_save
+        dup_lesson_word.save
         lesson_word.definitions.each do |definition|
           LessonWordDefinition.create!(lesson_word: dup_lesson_word, definition: definition)
         end
@@ -84,22 +84,21 @@ class Course < ActiveRecord::Base
           LessonWordVideo.create!(lesson_word: dup_lesson_word, word_video: word_video)
         end
       end
-      #TODO figure out callback issue
-      # dup_lesson.lesson_modules.each do |lesson_module|
-      #   dup_lesson_module = lesson_module.dup
-      #   dup_lesson_module.lesson = dup_lesson
-      #   dup_lesson_module.save
-      #   lesson_module.questions.each do |question|
-      #     dup_question = question.dup
-      #     dup_question.lesson_module = dup_lesson_module
-      #     dup_question.save
-      #     question.answer_options.each do |answer_option|
-      #       dup_answer_option = answer_option.dup
-      #       dup_answer_option.question = dup_question
-      #       dup_answer_option.save
-      #     end
-      #   end
-      # end
+      lesson.lesson_modules.each do |lesson_module|
+        dup_lesson_module = lesson_module.dup
+        dup_lesson_module.lesson = dup_lesson
+        dup_lesson_module.save
+        lesson_module.questions.each do |question|
+          dup_question = question.dup
+          dup_question.lesson_module = dup_lesson_module
+          dup_question.save
+          question.answer_options.each do |answer_option|
+            dup_answer_option = answer_option.dup
+            dup_answer_option.question = dup_question
+            dup_answer_option.save
+          end
+        end
+      end
     end
     course
   end

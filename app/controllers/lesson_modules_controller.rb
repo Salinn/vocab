@@ -50,8 +50,9 @@ class LessonModulesController < ApplicationController
   # PATCH/PUT /lesson_modules/1
   # PATCH/PUT /lesson_modules/1.json
   def update
+    @lesson_module_updater = LessonModuleUpdater.new(@lesson_module, lesson_module_params)
     respond_to do |format|
-      if @lesson_module.update(lesson_module_params)
+      if @lesson_module_updater.update
         format.html { redirect_to course_lesson_path(@lesson_module.lesson.id, course_id: @lesson_module.lesson.course.id), notice: 'Lesson module was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson_module }
       else

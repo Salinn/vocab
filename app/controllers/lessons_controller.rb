@@ -38,8 +38,10 @@ class LessonsController < ApplicationController
   def create
     course = Course.find(params[:lesson][:course_id])
     @lesson = course.lessons.create(lesson_params)
+    @lesson_updater = LessonUpdater.new(@lesson)
+
     respond_to do |format|
-      if @lesson.save
+      if @lesson_updater.create
         format.html { redirect_to course_lesson_path(@lesson,  course_id: @lesson.course.id), notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else

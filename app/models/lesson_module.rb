@@ -10,34 +10,10 @@ class LessonModule < ActiveRecord::Base
   validate :check_if_answer_exists, on: :update
   validate :check_if_enough_lesson_words, on: :update
 
-  after_update :create_questions
   before_save :check_for_answers, :number_of_answers_changed
-
-  def create_questions
-    if in_use?
-      lesson.lesson_words.each do |lesson_word|
-        unless questions.map(&:lesson_word_id).include? lesson_word.id
-          question = generate_question(lesson_word)
-          next if question == 'skip'
-          if question == 'Study the Word'
-            study_the_word(lesson_word)
-          else
-            Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: question)
-          end
-        end
-      end
-    end
-  end
 
   def pretest(lesson_word)
     Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Pretest')
-  end
-
-  def study_the_word(lesson_word)
-    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - definition') if lesson_word.definitions.any?
-    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - word form') if lesson_word.word_forms.any?
-    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - synonym') if lesson_word.synonyms.any?
-    Question.create!(lesson_word: lesson_word, lesson_module: self, question_string: 'Study the Word - sentence') if lesson_word.sentences.any?
   end
 
   def check_if_answer_exists
@@ -79,20 +55,6 @@ class LessonModule < ActiveRecord::Base
   def lesson_update_answer_options
     questions.each do |question|
       question.update_all_answer_options
-    end
-  end
-
-  def generate_question(lesson_word)
-    if name == 'Word Form'
-      return lesson_word.word_forms.any? ? lesson_word.word_forms.first.associated_word : 'skip'
-    elsif name == 'Definition'
-      return lesson_word.definitions.any? ? lesson_word.definitions.first.word_definition : 'skip'
-    elsif name == 'Synonym'
-      return lesson_word.synonyms.any? ? lesson_word.synonyms.first.word_synonym : 'skip'
-    elsif name == 'Sentence'
-      return lesson_word.sentences.any? ? lesson_word.sentences.first.word_sentence.gsub(/#{lesson_word.word.name}/i, '______') : 'skip'
-    elsif name == 'Study the Word'
-      return lesson_word ? 'Study the Word': 'skip'
     end
   end
 

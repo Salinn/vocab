@@ -15,7 +15,6 @@ class Lesson < ActiveRecord::Base
   before_create :validate_dates
   before_update :validate_dates
 
-  after_create :create_modules, :create_lesson_event
   after_update :update_lesson_event
 
   def validate_dates
@@ -26,28 +25,11 @@ class Lesson < ActiveRecord::Base
     true
   end
 
-  def create_modules
-    graded_modules = ['Definition', 'Sentence', 'Synonym', 'Word Form']
-    non_graded_modules = ['Pretest', 'Study the Word']
-    #non_graded_modules = ['Study the Word']
-
-    #LessonModule.create!(name: non_graded_modules.first, attempts: 3, in_use: false, number_of_answers: 2, lesson_id: id, value_percentage: 0)
-    LessonModule.create!(name: non_graded_modules.last, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: 0)
-
-    graded_modules.each do |name|
-      LessonModule.create!(name: name, attempts: 3, in_use: false, number_of_answers: 4, lesson_id: id, value_percentage: (100/graded_modules.length).round)
-    end
-  end
-
-  def create_lesson_event
-    Event.create!(lesson_id: id, title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time, end_time: lesson_end_date)
-  end
-
   def update_lesson_event
     if event
       event.update_attributes(title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time , end_time: lesson_end_date)
     else
-      create_lesson_event
+      Event.create!(lesson_id: id, title: lesson_name, description: "Due date for lesson", start_time: lesson_start_time, end_time: lesson_end_date)
     end
   end
 

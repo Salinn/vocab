@@ -1,10 +1,11 @@
-<% if cannot?(:create,  @course) %>
+<% if current_user.has_role?(:student, @course) %>
     <%= will_paginate @lessons, renderer: BootstrapPagination::Rails %>
     <div class="clearfix"></div>
     <% @lessons.each do |lesson| %>
         <h1 class="col-sm-5 col-xs-12" style="padding-left: 0;"><%= lesson.lesson_name %></h1><h1 class="col-sm-5 col-xs-12" style="padding-left: 0;">Due: <%= lesson.lesson_end_date.strftime('%B %d, %Y') %></h1>
         <div class="clearfix"></div>
         <%= lesson.lesson_modules.find_each do |lesson_module| %>
+            <% next unless lesson_module.questions.any? && lesson_module.in_use %>
             <% completed, total_correct = lesson_module.all_questions_completed(current_user.id) %>
             <h4>
               <span class="<%= display_completed(completed) %>" style="padding-right: 5px;"></span>
