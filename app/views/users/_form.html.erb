@@ -1,11 +1,29 @@
+
+<h3>Register New User</h3>
 <%= form_for(User.new, controller: :users, action: :admin_create, url: admin_create_user_path) do |f| %>
     <div class="registration_space">
-      <%= f.text_field :first_name, autofocus: true, :placeholder => 'First Name', class: 'col-md-3' %>
-      <%= f.text_field :last_name,:placeholder => 'Last Name',class: 'col-md-3' %>
-      <%= f.email_field :email, :placeholder => 'Email', class: 'col-md-3' %>
-      <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s %>
+
+      <div class="form-group">
+        <label class="control-label">First Name</label>
+        <%= f.text_field :first_name, autofocus: true, :placeholder => 'First Name', :class => 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Last Name</label>
+        <%= f.text_field :last_name,:placeholder => 'Last Name',:class => 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Email</label>
+        <%= f.email_field :email, :placeholder => 'Email', :class => 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">User Role</label>
+        <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s , {} ,:class => 'form-control'%>
+      </div>
     </div>
     <div class="actions">
-      <%= f.submit 'Submit Registration' %>
+      <%= f.submit 'Register User' , class:'btn btn-primary form-control' %>
     </div>
 <% end %>

@@ -1,13 +1,25 @@
-<%= form_tag user_add_role_path(controller: :users, action: :add_role) do %>
-    <%= collection_select :user, :user_id, User.all, :id, :name_and_email %>
-    <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s %>
-    <%= submit_tag "Add Role" %>
-<% end %>
+<div class="row">
+  <h3>Add Role to existing User</h3>
+  <%= form_tag user_add_role_path(controller: :users, action: :add_role) do %>
+      <%= collection_select :user, :user_id, User.all, :id, :name_and_email %>
+      <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s , {} ,:class => 'form-control'%>
+      <%= submit_tag "Add Role" , class:'btn btn-primary' %>
+  <% end %>
+</div>
 
-<%= form_tag user_remove_role_path(controller: :users, action: :remove_role) do %>
-    <%= collection_select :user, :user_id, User.all, :id, :name_and_email %>
-    <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s %>
-    <%= submit_tag "Remove Role" %>
-<% end %>
+<div class="row">
+  <h3>Remove Role from existing User</h3>
+  <%= form_tag user_remove_role_path(controller: :users, action: :remove_role) do %>
+      <div class="form-group">
+        <%= collection_select :user, :user_id, User.all, :id, :name_and_email, {} , :class => 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= collection_select :user, :role, Role::CONSTANTROLES, :to_s, :to_s , {} ,:class => 'form-control'%>
+      </div>
+      <%= submit_tag "Remove Role" , class:'btn btn-primary' %>
+  <% end %>
+</div>
 
-<%= render 'users/form' %>
+<div class="row">
+  <%= render 'users/form' %>
+</div>
