@@ -19,6 +19,11 @@
         </li>
     <% end %>
     <li>
-      <%= link_to 'Account <i class="sub_icon glyphicon glyphicon-user"></i>'.html_safe, current_user %>
+      <%#= link_to 'Account <i class="sub_icon glyphicon glyphicon-user"></i>'.html_safe, current_user %>
     </li>
+    <% if current_user.has_role?(:admin,:any) %>
+    <li>
+      <%= link_to 'System Administration <i class="sub_icon glyphicon glyphicon-user"></i>'.html_safe, admin_path %>
+    </li>
+    <% end %>
 <% end %>
